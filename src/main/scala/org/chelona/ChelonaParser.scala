@@ -21,7 +21,7 @@ import org.parboiled2._
 import scala.annotation.tailrec
 import scala.language.implicitConversions
 
-import scala.util.{Failure, Success}
+import scala.util.{ Failure, Success }
 
 object ChelonaParser {
 
@@ -44,9 +44,9 @@ object ChelonaParser {
     val parser = new ChelonaParser(input)
     val res = parser.turtleDoc.run()
     res match {
-      case scala.util.Success(ast) ⇒ println(ast); val r = eval(ast); println("Result:" + r); r
-      case Failure(e: ParseError) ⇒ Seq(SPOString("Expression is not valid: " + parser.formatError(e)))
-      case Failure(e) ⇒ Seq(SPOString("Unexpected error during parsing run: " + e))
+      case scala.util.Success(ast) ⇒ val r = eval(ast); println("Result:" + r); r
+      case Failure(e: ParseError)  ⇒ Seq(SPOString("Expression is not valid: " + parser.formatError(e)))
+      case Failure(e)              ⇒ Seq(SPOString("Unexpected error during parsing run: " + e))
     }
   }
 
@@ -57,7 +57,7 @@ object ChelonaParser {
       case x +: xs ⇒
         evalLoop(xs, (evalStatement(x): @unchecked) match {
           case SPOTriples(t) ⇒ triples ++: t
-          case SPOString(s) ⇒ triples
+          case SPOString(s)  ⇒ triples
           case SPOComment(c) ⇒ triples
         })
     }
@@ -73,7 +73,7 @@ object ChelonaParser {
         predicateStack.clear
         /* evaluate a turtle statement */
         evalStatement(rule)
-      case ASTComment(rule) ⇒ SPOComment(rule)
+      case ASTComment(rule)   ⇒ SPOComment(rule)
       case ASTDirective(rule) ⇒ evalStatement(rule)
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
@@ -97,7 +97,7 @@ object ChelonaParser {
         SPOString("")
       case ASTTriples(s, p) ⇒
         ((evalStatement(s), evalStatement(p)): @unchecked) match {
-          case (SPOTriples(ts), SPOTriples(ps)) ⇒ SPOTriples(ts ::: ps)
+          case (SPOTriples(ts), SPOTriples(ps))     ⇒ SPOTriples(ts ::: ps)
           case (SPOString(subject), SPOTriples(ps)) ⇒ SPOTriples(ps)
         }
       case ASTBlankNodeTriples(s, p) ⇒
@@ -119,7 +119,7 @@ object ChelonaParser {
         (evalStatement(predicateObject): @unchecked) match {
           case SPOTriples(t) ⇒ predicateObjectlist match {
             case Some(po) ⇒ SPOTriples(t ::: traversePredicateObjectList(po, Nil))
-            case None ⇒ SPOTriples(t)
+            case None     ⇒ SPOTriples(t)
           }
         }
       case ASTPo(verb, obj) ⇒
@@ -128,8 +128,8 @@ object ChelonaParser {
         }
         evalStatement(obj)
       case ASTObjectList(rule) ⇒ SPOTriples(traverseObjectList(rule, Nil))
-      case ASTVerb(rule) ⇒ evalStatement(rule)
-      case ASTIsA(token) ⇒ SPOString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
+      case ASTVerb(rule)       ⇒ evalStatement(rule)
+      case ASTIsA(token)       ⇒ SPOString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
       case ASTSubject(rule) ⇒ (rule: @unchecked) match {
         case ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
@@ -181,7 +181,7 @@ object ChelonaParser {
               SPOTriples(SPOTriple(curSubject, curPredicate, bnode) :: t)
           }
       }
-      case ASTLiteral(rule) ⇒ evalStatement(rule)
+      case ASTLiteral(rule)               ⇒ evalStatement(rule)
       case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case ASTCollection(rule) ⇒
         curSubject = "_:c" + cCount
@@ -193,9 +193,9 @@ object ChelonaParser {
         curPredicate = predicateStack.pop
         res
       case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token) ⇒ SPOString(token)
-      case ASTDecimal(token) ⇒ SPOString(token)
-      case ASTDouble(token) ⇒ SPOString(token)
+      case ASTInteger(token)       ⇒ SPOString(token)
+      case ASTDecimal(token)       ⇒ SPOString(token)
+      case ASTDouble(token)        ⇒ SPOString(token)
       case ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case SPOString(s) ⇒ s
@@ -211,35 +211,35 @@ object ChelonaParser {
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token) ⇒ SPOString(token)
-      case ASTBooleanLiteral(token) ⇒ SPOString(token)
-      case ASTString(rule) ⇒ evalStatement(rule)
-      case ASTStringLiteralQuote(token) ⇒ /* todo: unescape string */ SPOString("\"" + token + "\"")
-      case ASTStringLiteralSingleQuote(token) ⇒ /* todo: unescape string */ SPOString("'" + token + "'")
+      case ASTLangTag(token)                      ⇒ SPOString(token)
+      case ASTBooleanLiteral(token)               ⇒ SPOString(token)
+      case ASTString(rule)                        ⇒ evalStatement(rule)
+      case ASTStringLiteralQuote(token)           ⇒ /* todo: unescape string */ SPOString("\"" + token + "\"")
+      case ASTStringLiteralSingleQuote(token)     ⇒ /* todo: unescape string */ SPOString("'" + token + "'")
       case ASTStringLiteralLongSingleQuote(token) ⇒ /* todo: unescape string */ SPOString("'''" + token + "'''")
-      case ASTStringLiteralLongQuote(token) ⇒ /* todo: unescape string */ SPOString("\"\"\"" + token + "\"\"\"")
+      case ASTStringLiteralLongQuote(token)       ⇒ /* todo: unescape string */ SPOString("\"\"\"" + token + "\"\"\"")
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ SPOString("<" + addBasePrefix(s) + ">")
         }
         case ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      case ASTIriRef(token) ⇒ SPOString(token)
+      case ASTIriRef(token)      ⇒ SPOString(token)
       case ASTPrefixedName(rule) ⇒ evalStatement(rule)
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix);
-          case None ⇒ SPOString("")
+          case None            ⇒ SPOString("")
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
           case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
         }
-      case ASTPNPrefix(token) ⇒ SPOString(token)
-      case ASTPNLocal(token) ⇒ SPOString(token)
-      case ASTBlankNode(rule) ⇒ evalStatement(rule)
+      case ASTPNPrefix(token)       ⇒ SPOString(token)
+      case ASTPNLocal(token)        ⇒ SPOString(token)
+      case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)
-      case ASTAnon(token) ⇒ aCount += 1; SPOString("_:a" + aCount)
+      case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
     }
   }
 
@@ -259,7 +259,7 @@ object ChelonaParser {
     case Nil ⇒ triples
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
       case SPOTriple(s, p, o) ⇒ traverseObjectList(xs, triples :+ SPOTriple(s, p, o))
-      case SPOTriples(t) ⇒ traverseObjectList(xs, triples ::: t)
+      case SPOTriples(t)      ⇒ traverseObjectList(xs, triples ::: t)
     }
   }
 
@@ -294,12 +294,11 @@ object ChelonaParser {
         prefixMap += key -> value
       else
         prefixMap += key -> (prefixMap.getOrElse("@", "http://base/not/found") + value)
-    }
-    else prefixMap += key -> value
+    } else prefixMap += key -> value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap.getOrElse(pname_ns, "http://key/"+pname_ns+"/not/found")
+    val prefix = prefixMap.getOrElse(pname_ns, "http://key/" + pname_ns + "/not/found")
     if (prefix.endsWith("/") || prefix.endsWith("#"))
       prefix + pn_local
     else
@@ -313,8 +312,7 @@ object ChelonaParser {
         prefix + x
       else
         prefix + "/" + x
-    }
-    else x
+    } else x
   }
 
   sealed trait SPOReturnValue
@@ -326,7 +324,6 @@ object ChelonaParser {
   case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
 
   case class SPOComment(value: String) extends SPOReturnValue
-
 
   sealed trait AST
 
@@ -421,7 +418,7 @@ object ChelonaParser {
 class ChelonaParser(val input: ParserInput) extends Parser {
 
   import org.chelona.ChelonaParser._
-  import org.parboiled2.CharPredicate.{Alpha, AlphaNum, Digit, HexDigit}
+  import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   val DOT = CharPredicate('.')
   val SIGN = CharPredicate('+', '-')
@@ -466,7 +463,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc: Rule1[Seq[AST]] = rule {
-    zeroOrMore(statement /*~> ASTTurtleDoc*/) ~ EOI
+    zeroOrMore(statement /*~> ASTTurtleDoc*/ ) ~ EOI
   }
 
   //[2] statement 	::= 	directive | triples '.'
