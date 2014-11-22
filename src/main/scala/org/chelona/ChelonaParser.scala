@@ -50,15 +50,14 @@ object ChelonaParser {
   }
 
   def eval(expr: Seq[AST]): Seq[Object] = {
+    @tailrec
     def evalLoop(e: Seq[AST], triples: Seq[Object]): Seq[Object] = e match {
       case Nil ⇒ triples
       case x +: xs ⇒
-        println("TRIPLES="+triples)
-        evalLoop(xs, evalStatement(x) match {
+        evalLoop(xs, (evalStatement(x): @unchecked) match {
           case SPOTriples(t) ⇒ triples ++: t
           case SPOString(s) ⇒ triples
           case SPOComment(c) ⇒ triples
-          case SPOTriple(sub, pred, obj) ⇒ println("MATCH SPOTriples" + sub + "  pred=" + pred + "  obj=" + obj); triples
         })
     }
     evalLoop(expr, Nil)
@@ -77,32 +76,22 @@ object ChelonaParser {
       case ASTDirective(rule) ⇒ evalStatement(rule)
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒
-            definePrefix(ps, is)
+          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
         }
         SPOString("")
       case ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ prefixMap += "" -> bs
+          case SPOString(bs) ⇒ definePrefix("@", bs)
         }
         SPOString("")
       case ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ prefixMap += "" -> bs
+          case SPOString(bs) ⇒ definePrefix("@", bs)
         }
         SPOString("")
       case ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒
-            if (is.startsWith("//") | is.startsWith("http:"))
-              prefixMap += ps -> is
-            else {
-              if (!prefixMap.contains(ps))
-                prefixMap += ps -> is
-              else {
-                prefixMap += ps -> (prefixMap.getOrElse(ps, "key/not/found") + is)
-              }
-            }
+          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
         }
         SPOString("")
       case ASTTriples(s, p) ⇒
@@ -234,7 +223,6 @@ object ChelonaParser {
         }
         case ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      //evalStatement(rule)
       case ASTIriRef(token) ⇒ SPOString(token)
       case ASTPrefixedName(rule) ⇒ evalStatement(rule)
       case ASTPNameNS(prefix) ⇒
@@ -244,12 +232,12 @@ object ChelonaParser {
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + prefixMap.getOrElse(pname_ns, "key/not/found") + pn_local + ">")
+          case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
         }
       case ASTPNPrefix(token) ⇒ SPOString(token)
       case ASTPNLocal(token) ⇒ SPOString(token)
       case ASTBlankNode(rule) ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ SPOString("_:"+token)
+      case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)
       case ASTAnon(token) ⇒ aCount += 1; SPOString("_:a" + aCount)
     }
   }
@@ -301,18 +289,33 @@ object ChelonaParser {
     if (value.startsWith("//") | value.toLowerCase().startsWith("http://"))
       prefixMap += key -> value
     else if (value.endsWith("/")) {
-      if (!prefixMap.contains(key))
+      if (!prefixMap.contains(key)) {
         prefixMap += key -> value
-      else {
-        prefixMap += key -> (prefixMap.getOrElse(key, "key/not/found") + value)
       }
-    } else prefixMap += key -> value
+      else {
+        prefixMap += key -> (prefixMap.getOrElse("@", "key/not/found") + value)
+      }
+    }
+    else prefixMap += key -> value
+  }
+
+  private def addPrefix(pname_ns: String, pn_local: String): String = {
+    val prefix = prefixMap.getOrElse(pname_ns, "key/not/found")
+    if (prefix.endsWith("/") || prefix.endsWith("#"))
+      prefix + pn_local
+    else
+      prefix + "/" + pn_local
   }
 
   private def addBasePrefix(x: String) = {
     if (!x.startsWith("/") && !x.toLowerCase.startsWith("http://")) {
-      prefixMap.getOrElse("", "") + x
-    } else x
+      val prefix = prefixMap.getOrElse("@", "base/not/found")
+      if (prefix.endsWith("/") || prefix.endsWith("#"))
+        prefix + x
+      else
+        prefix + "/" + x
+    }
+    else x
   }
 
   sealed trait SPOReturnValue
