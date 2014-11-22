@@ -212,10 +212,10 @@ object ChelonaParser {
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIri(v) ⇒ SPOString(literal + "^^<" + ((evalStatement(postfix): @unchecked) match {
+            case ASTIri(v) ⇒ SPOString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case SPOString(s) ⇒ s
-            }) + ">")
-            case ASTLangTag(v) ⇒ SPOString("\"" + literal + "\"@" + ((evalStatement(postfix): @unchecked) match {
+            }))
+            case ASTLangTag(v) ⇒ SPOString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case SPOString(s) ⇒ s
             }))
           }
