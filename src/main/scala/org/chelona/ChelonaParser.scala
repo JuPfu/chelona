@@ -293,13 +293,13 @@ object ChelonaParser {
       if (!prefixMap.contains(key))
         prefixMap += key -> value
       else
-        prefixMap += key -> (prefixMap.getOrElse("@", "key/not/found") + value)
+        prefixMap += key -> (prefixMap.getOrElse("@", "http://base/not/found") + value)
     }
     else prefixMap += key -> value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap.getOrElse(pname_ns, "key/not/found")
+    val prefix = prefixMap.getOrElse(pname_ns, "http://key/"+pname_ns+"/not/found")
     if (prefix.endsWith("/") || prefix.endsWith("#"))
       prefix + pn_local
     else
@@ -308,7 +308,7 @@ object ChelonaParser {
 
   private def addBasePrefix(x: String) = {
     if (!x.startsWith("/") && !x.toLowerCase.startsWith("http://")) {
-      val prefix = prefixMap.getOrElse("@", "base/not/found")
+      val prefix = prefixMap.getOrElse("@", "http://base/not/found")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + x
       else
