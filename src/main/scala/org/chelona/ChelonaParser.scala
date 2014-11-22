@@ -47,17 +47,18 @@ object ChelonaParser {
       case Failure(e: ParseError) ⇒ Seq(SPOString("Expression is not valid: " + parser.formatError(e)))
       case Failure(e) ⇒ Seq(SPOString("Unexpected error during parsing run: " + e))
     }
-  }
+
 
   def eval(expr: Seq[AST]): Seq[Object] = {
     def evalLoop(e: Seq[AST], triples: Seq[Object]): Seq[Object] = e match {
-      case Nil ⇒ triples.reverse
+      case Nil ⇒ triples
       case x +: xs ⇒
+        println("TRIPLES="+triples)
         evalLoop(xs, evalStatement(x) match {
-          case SPOTriples(t) ⇒ t ++: triples
+          case SPOTriples(t) ⇒ triples ++: t
           case SPOString(s) ⇒ triples
           case SPOComment(c) ⇒ triples
-          case SPOTriple(sub, pred, obj) ⇒ println("MATCH Nil" + sub + "  pred=" + pred + "  obj=" + obj); triples
+          case SPOTriple(sub, pred, obj) ⇒ println("MATCH SPOTriples" + sub + "  pred=" + pred + "  obj=" + obj); triples
         })
     }
     evalLoop(expr, Nil)
