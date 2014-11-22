@@ -19,6 +19,7 @@ package org.chelona
 import org.parboiled2._
 
 import scala.annotation.tailrec
+import scala.language.implicitConversions
 
 import scala.util.{Failure, Success}
 
@@ -97,7 +98,7 @@ object ChelonaParser {
       case ASTTriples(s, p) ⇒
         ((evalStatement(s), evalStatement(p)): @unchecked) match {
           case (SPOTriples(ts), SPOTriples(ps)) ⇒ SPOTriples(ts ::: ps)
-          case (SPOString(s), SPOTriples(ps)) ⇒ SPOTriples(ps)
+          case (SPOString(subject), SPOTriples(ps)) ⇒ SPOTriples(ps)
         }
       case ASTBlankNodeTriples(s, p) ⇒
         subjectStack.push(curSubject)
@@ -106,7 +107,7 @@ object ChelonaParser {
         bCount += 1
         val sub = evalStatement(s)
         val retval = p match {
-          case Some(p) ⇒ ((sub, evalStatement(p)): @unchecked) match {
+          case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
             case (SPOTriples(ts), SPOTriples(ps)) ⇒ SPOTriples(ts ::: ps)
           }
           case None ⇒ sub
@@ -246,7 +247,7 @@ object ChelonaParser {
   private def traversePredicateObjectList(l: Seq[Option[AST]], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples
     case x +: xs ⇒ x match {
-      case Some(x) ⇒ (evalStatement(x): @unchecked) match {
+      case Some(po) ⇒ (evalStatement(po): @unchecked) match {
         case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
       }
       case None ⇒ triples
@@ -286,15 +287,13 @@ object ChelonaParser {
   }
 
   private def definePrefix(key: String, value: String) = {
-    if (value.startsWith("//") | value.toLowerCase().startsWith("http://"))
+    if (value.startsWith("//") | value.toLowerCase.startsWith("http://"))
       prefixMap += key -> value
     else if (value.endsWith("/")) {
-      if (!prefixMap.contains(key)) {
+      if (!prefixMap.contains(key))
         prefixMap += key -> value
-      }
-      else {
+      else
         prefixMap += key -> (prefixMap.getOrElse("@", "key/not/found") + value)
-      }
     }
     else prefixMap += key -> value
   }
