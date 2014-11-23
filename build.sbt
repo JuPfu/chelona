@@ -56,8 +56,10 @@ libraryDependencies ++= Seq( parboiled2, scalaTest )
 //)
   
 lazy val root = project.in(file("."))
-  .aggregate(chelona)
-
-lazy val chelona = project
    .settings(formattingSettings: _*)
+   .settings(libraryDependencies ++= Seq(parboiled2,scalaTest))
+//  .aggregate(chelona)
+//
+//lazy val chelona = project
+//   .settings(formattingSettings: _*)
    .settings(libraryDependencies ++= Seq(parboiled2,scalaTest))

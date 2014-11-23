@@ -1,7 +1,4 @@
-**cheló̱na**  |--| A Parboiled2 Based Scala Parser for the W3C RDF 1.1 Turtle Language
-
-.. contents:: Contents of this Document
-
+**cheló̱na**  A Parboiled2 Based Scala Parser for the W3C RDF 1.1 Turtle Language
 
 Introduction
 ============
@@ -18,16 +15,12 @@ First Example
 
 A simple turtle file taken from the W3C recommendation found at http://www.w3.org/TR/turtle/ :
 
-.. code:: Turtle
-
     @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
     _:alice foaf:knows _:bob .
     _:bob foaf:knows _:alice .
 
 *Cheló̱na* dissolves the statements into the canonical form, which is represented by pure subject, predicate and object components:
-
-.. code:: Turtle
 
     _:alice <http://xmlns.com/foaf/0.1/knows> _:bob .
     _:bob <http://xmlns.com/foaf/0.1/knows> _:alice .
@@ -37,16 +30,12 @@ Second Example
 
 The next turtle file is listed as example 15 in the W3C RDF 1.1 Turtle Definition document at http://www.w3.org/TR/turtle :
 
-.. code:: Turtle
-
     @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
     # Someone knows someone else, who has the name "Bob".
     [] foaf:knows [ foaf:name "Bob" ] .
 
 *Cheló̱na* transforms the statements into the simple subject-predicate-object (s-p-o) format:
-
-.. code:: Turtle
 
     _:a1 <http://xmlns.com/foaf/0.1/knows> _:b1 .
     _:b1 <http://xmlns.com/foaf/0.1/name> "Bob" .
@@ -55,8 +44,6 @@ Third Example
 ============
 
 EXAMPLE 23 from the W3C RDF 1.1 Terse RDF Triple Language definition 
-
-.. code:: Turtle
 
 	@prefix : <http://example.org/stuff/1.0/> .
 	(1 2.0 3E1) :p "w" .
@@ -89,8 +76,7 @@ To be done
 License
 =======
 
-*Cheló̱na* is released under the `Apache License 2.0`__
+*Cheló̱na* is released under the `Apache License 2.0`
 
-__ http://en.wikipedia.org/wiki/Apache_license
+http://en.wikipedia.org/wiki/Apache_license
 
-.. |--| unicode:: U+2013
