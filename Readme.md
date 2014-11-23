@@ -16,7 +16,7 @@ With *Cheló̱na* you can
 First Example
 =============
 
-A simple turtle file taken from the W3C :
+A simple turtle file taken from the W3C recommendation found at http://www.w3.org/TR/turtle/ :
 
 .. code:: Turtle
 
@@ -35,7 +35,7 @@ A simple turtle file taken from the W3C :
 Second Example
 ==============
 
-A simple turtle file taken from the W3C :
+The next turtle file is listed as example 15 in the W3C RDF 1.1 Turtle Definition document at http://www.w3.org/TR/turtle :
 
 .. code:: Turtle
 
@@ -44,14 +44,14 @@ A simple turtle file taken from the W3C :
     # Someone knows someone else, who has the name "Bob".
     [] foaf:knows [ foaf:name "Bob" ] .
 
-*Cheló̱na* transforms the statements into the simple s p o form:
+*Cheló̱na* transforms the statements into the simple subject-predicate-object (s-p-o) format:
 
 .. code:: Turtle
 
     _:a1 <http://xmlns.com/foaf/0.1/knows> _:b1 .
     _:b1 <http://xmlns.com/foaf/0.1/name> "Bob" .
 	
-ThirdExample
+Third Example
 ============
 
 EXAMPLE 23 from the W3C RDF 1.1 Terse RDF Triple Language definition 
@@ -72,11 +72,14 @@ EXAMPLE 23 from the W3C RDF 1.1 Terse RDF Triple Language definition
 	_:c0 <http://example.org/stuff/1.0/p> "w" .
 	
 What *Cheló̱na* does in detail:
-- syntax check of ttl file
-- name space mapping
+==============================
+- parses the ttl file
+- reports syntax errors
+- builds an abstract syntax tree
+- resolves prefix declarations
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
-- unescapes numeric and string escape sequences in string-literal productions
-- unescapes numeric escape sequences in Iriref productions
+- unescapes numeric and string escape sequences in string-literal productions (to be done)
+- unescapes numeric escape sequences in Iriref productions (to be done)
 
 Installation
 ============
