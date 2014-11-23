@@ -1,0 +1,23 @@
+    # Kommentar
+	
+@prefix xyz: <http://wrong/base#> .	
+	
+	
+	
+ # Test empty [] operator; not allowed as predicate
+ @prefix # @prefix
+ :       # :
+ 	<http://example.org/base#> 		# test
+   .
+ <c> <a> 			"true" 
+ .
+ @prefix r: <iri> .
+#:c :d [  ] .
+<a> <b> _:c.1..2...3
+.[   
+] <b> a:b:c.1..2...3 .
+ <a> <b> +1.2E-2 .
+@base	<iriref> .
+<a> <b> '''String''' .
+<a> <b> <c> .
+# EOI
