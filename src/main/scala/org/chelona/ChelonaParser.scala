@@ -83,12 +83,12 @@ object ChelonaParser {
     val bo = new BufferedWriter(new java.io.FileWriter(new File("./testfiles/out.ttl")))
 
     def tripleWriter(triple: List[SPOTriple]): Long = {
-      triple.map(t => bo.write(t.s + " " + t.p + " " + t.p + " .\n"))
+      triple.map(t => bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
       triple.length
     }
 
     def tripleRawWriter(triple: List[SPOTriple]): Long = {
-      triple.map(t => bo.write(t.s + " " + t.p + " " + t.p + "\n"))
+      triple.map(t => bo.write(t.s + " " + t.p + " " + t.o + "\n"))
       triple.length
     }
 
