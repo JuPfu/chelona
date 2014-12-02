@@ -3,7 +3,7 @@
 Introduction
 ============
 
-*Cheló̱na* (χελώνα)is the greek word for turtle. As I just returned from a beautiful holiday on the island of Rhodos this seems to be an appropriate name for a turtle parser.
+*Cheló̱na* (χελώνα) is the greek word for turtle. At the time working on this software I spent a beautiful holiday on the island of Rhodos, so this seemed to be an appropriate name for a turtle parser.
 
 With *Cheló̱na* you can
 - validate the syntax and semantic of a W3C RDF 1.1 turtle file
@@ -43,7 +43,7 @@ The next turtle file is listed as example 15 in the W3C RDF 1.1 Turtle Definitio
 Third Example
 ============
 
-EXAMPLE 23 from the W3C RDF 1.1 Terse RDF Triple Language definition 
+This is example 23 from the W3C RDF 1.1 Terse RDF Triple Language definition
 
 	@prefix : <http://example.org/stuff/1.0/> .
 	(1 2.0 3E1) :p "w" .
@@ -57,6 +57,22 @@ EXAMPLE 23 from the W3C RDF 1.1 Terse RDF Triple Language definition
 	_:c2 rdf:first 3E1 .
 	_:c2 rdf:rest rdf:nil .
 	_:c0 <http://example.org/stuff/1.0/p> "w" .
+
+Convert a TTL-File from SBT
+===========================
+
+Start sbt from the local chelona directory and add a path to the sbt run command to convert a ttl-file.
+
+    sbt
+
+    run "./testfiles/example1.ttl"
+
+The output generated should be something like this
+
+    Convert:./testfiles/example1.ttl
+    Number of triples written to file './testfiles/out.ttl': 8
+    [success] Total time: 0 s, completed 02.12.2014 21:48:56
+
 	
 What *Cheló̱na* does in detail:
 ==============================
