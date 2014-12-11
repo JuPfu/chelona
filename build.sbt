@@ -1,11 +1,11 @@
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
-scalaVersion := "2.11.2"
+scalaVersion := "2.11.4"
 
 val commonSettings = Seq(
   version := "0.8.0",
-  scalaVersion := "2.11.2",
+  scalaVersion := "2.11.4",
   name := "Chelona",
   organization := "org.chelona",
   homepage := Some(new URL("http://chelona.org")),
