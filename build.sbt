@@ -37,10 +37,13 @@ val formattingSettings = scalariformSettings ++ Seq(
 	
 /////////////////////// DEPENDENCIES /////////////////////////
 
-val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.0.1"
+val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0-SNAPSHOT"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
 
 /////////////////////// PROJECTS /////////////////////////
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
 scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
