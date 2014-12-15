@@ -487,7 +487,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
-    WHITESPACE.* ~ str(s) ~ WHITESPACE.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?)
+    str(s) ~ WHITESPACE.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?)
   }
 
   def ws = rule {
@@ -631,7 +631,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[133s] BooleanLiteral 	::= 	'true' | 'false'
   def booleanLiteral = rule {
-    capture(atomic("true") | atomic("false")) ~> ASTBooleanLiteral
+    capture(atomic(str("true")) | atomic(str("false"))) ~> ASTBooleanLiteral ~ ws
   }
 
   //[17] String 	::= 	STRING_LITERAL_QUOTE | STRING_LITERAL_SINGLE_QUOTE | STRING_LITERAL_LONG_SINGLE_QUOTE | STRING_LITERAL_LONG_QUOTE
@@ -666,7 +666,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[159s] ECHAR 	::= 	'\' [tbnrf"'\]
   def ECHAR = rule {
-   '\\' ~ ECHAR_CHAR //~ push(((x:Char, y:CharPredicate) => (x,y.toString()+"ECHAR")))
+    '\\' ~ ECHAR_CHAR
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
@@ -707,7 +707,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
   /* A prefix name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(zeroOrMore(DOT ~ PN_CHARS_COLON))", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(DOT.* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 
 	 Example:
@@ -721,7 +721,7 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
   /* A local name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(PLX | zeroOrMore(DOT) ~ PN_CHARS_COLON))", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(PLX | DOT.* ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 
 	 Example:
@@ -755,9 +755,9 @@ class ChelonaParser(val input: ParserInput) extends Parser {
 
   //[141s] BLANK_NODE_LABEL 	::= 	'_:' (PN_CHARS_U | [0-9]) ((PN_CHARS | '.')* PN_CHARS)?
   /* A blank node label is allowed to contain dots ('.'), but it is forbidden as last character of the recognized label name.
-	 The reason for this is, when '.' is used as last character of a blank node label, it interferes with triple termination,
+	 The reason for this is, when '.' is used as last character of a blank node label, it collides with triple termination,
 	 which is signaled by '.', too.
-	 The predicate "&(zeroOrMore(DOT) ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(DOT.* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 
 	 Example:

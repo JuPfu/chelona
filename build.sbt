@@ -54,15 +54,8 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
 libraryDependencies ++= Seq( parboiled2, scalaTest )
-//  "org.parboiled" %% "parboiled" % "2.0.1",
-//  "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
-//)
   
 lazy val root = project.in(file("."))
    .settings(formattingSettings: _*)
    .settings(libraryDependencies ++= Seq(parboiled2,scalaTest))
-//  .aggregate(chelona)
-//
-//lazy val chelona = project
-//   .settings(formattingSettings: _*)
-   .settings(libraryDependencies ++= Seq(parboiled2,scalaTest))
+
