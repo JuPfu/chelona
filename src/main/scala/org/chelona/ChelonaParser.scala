@@ -82,12 +82,11 @@ object ChelonaParser {
 
     res match {
       case scala.util.Success(ast) ⇒
-        //val count = -1 // render(ast, tripleWriter)
-        bo.close
         println("Number of triples written to file " + "'./testfiles/out.ttl': " + res)
       case Failure(e: ParseError) ⇒ println("Expression is not valid: " + parser.formatError(e))
       case Failure(e)             ⇒ println("Unexpected error during parsing run: " + e)
     }
+    bo.close
   }
 
   val bo = new BufferedWriter(new java.io.FileWriter(new File("./testfiles/out.ttl")))
@@ -108,19 +107,6 @@ object ChelonaParser {
       case SPOString(s)  ⇒ 0
       case SPOComment(c) ⇒ 0
     }
-  }
-
-  def render(ast: Seq[AST], writer: List[SPOTriple] ⇒ Long): Long = {
-    @tailrec
-    def evalLoop(e: Seq[AST], statementCount: Long): Long = e match {
-      case Nil ⇒ statementCount
-      case x +: xs ⇒ evalLoop(xs, statementCount + ((evalStatement(x): @unchecked) match {
-        case SPOTriples(t) ⇒ writer(t)
-        case SPOString(s)  ⇒ 0L
-        case SPOComment(c) ⇒ 0L
-      }))
-    }
-    evalLoop(ast, 0L)
   }
 
   def evalStatement(expr: AST): SPOReturnValue = {
