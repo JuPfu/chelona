@@ -81,8 +81,8 @@ What *Cheló̱na* does in detail:
 - builds an abstract syntax tree
 - resolves prefix declarations
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
-- unescapes numeric and string escape sequences in string-literal productions (to be done)
-- unescapes numeric escape sequences in Iriref productions (to be done)
+- unescapes numeric and string escape sequences in string-literal productions
+- unescapes numeric escape sequences in Iriref productions
 
 Installation
 ============
