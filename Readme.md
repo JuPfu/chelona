@@ -72,17 +72,67 @@ The output generated should be something like this
     Convert:./testfiles/example1.ttl
     Number of triples written to file './testfiles/out.ttl': 8
     [success] Total time: 0 s, completed 02.12.2014 21:48:56
+	
+Create a *Cheló̱na* JAR with all dependencies
+============================================
+
+The *sbt-assembly* plugin is used to create a *Cheló̱na* JAR containing all dependencies. Move into the *Cheló̱na* directory.
+From the command line type 
+
+    sbt archive
+	
+This should generate an archive
+
+    target/scala-2.11/chelona-assembly-x.x.x.jar
+
+where x.x.x denotes the version information, e.g. chelona-assembly-0.8.0.jar.
+
+Running *Cheló̱na* from the command line
+=======================================
+
+Conversion of the example1.ttl file from the testfiles directory into the simple S-P-O Turtle format
+
+	<#green-goblin> rel:enemyOf    <#spiderman> 	;
+	    a foaf:Person ;    # in the context of the Marvel universe
+	    foaf:name "Green Goblin" ;
+		foaf:mail "GreenGoblin@marvel.com" .
+
+	<#spiderman>
+	    rel:enemyOf <#green-goblin> ;
+	    a foaf:Person ;
+	    foaf:name "Spiderman", "Человек-паук"@ru .
+
+is done with the command shown here: 
+
+    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser ./testfiles/example1.ttl
+
+The output generated lists the name of the output file and the number of generated triples:
+
+	Convert:./testfiles/example1.ttl
+	Number of triples written to file './testfiles/out.ttl': Success(8)
+	
+Inspecting the output file should give this result:
+
+	<http://example.org/#green-goblin> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#spiderman> .
+	<http://example.org/#green-goblin> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+	<http://example.org/#green-goblin> <http://xmlns.com/foaf/0.1/name> "Green Goblin" .
+	<http://example.org/#green-goblin> <http://xmlns.com/foaf/0.1/mail> "GreenGoblin@marvel.com" .
+	<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .
+	<http://example.org/#spiderman> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
+	<http://example.org/#spiderman> <http://xmlns.com/foaf/0.1/name> "Spiderman" .
+	<http://example.org/#spiderman> <http://xmlns.com/foaf/0.1/name> "Человек-паук"@ru .	
 
 	
 What *Cheló̱na* does in detail:
 ==============================
 - parses the ttl file
 - reports syntax errors
-- builds an abstract syntax tree
+- builds an abstract syntax tree for each valid turtle statement
 - resolves prefix declarations
-- transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
 - unescapes numeric and string escape sequences in string-literal productions
 - unescapes numeric escape sequences in Iriref productions
+- transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
+- skolemisation (Replacing blank nodes with IRIs) (to be done)
 
 Installation
 ============
