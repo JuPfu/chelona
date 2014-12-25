@@ -3,6 +3,8 @@ import scalariform.formatter.preferences._
 
 scalaVersion := "2.11.4"
 
+version := "0.8.0"
+
 val commonSettings = Seq(
   version := "0.8.0",
   scalaVersion := "2.11.4",
@@ -55,7 +57,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 
 libraryDependencies ++= Seq( parboiled2, scalaTest )
   
-lazy val root = project.in(file("."))
+lazy val chelona = project.in(file("."))
    .settings(formattingSettings: _*)
    .settings(libraryDependencies ++= Seq(parboiled2,scalaTest))
 
