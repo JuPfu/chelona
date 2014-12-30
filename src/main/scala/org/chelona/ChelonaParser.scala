@@ -88,7 +88,7 @@ object ChelonaParser {
       case Failure(e: ParseError) ⇒ println("Expression is not valid: " + parser.formatError(e))
       case Failure(e) ⇒ println("Unexpected error during parsing run: " + e)
     }
-    bo.close
+    bo.close()
   }
 
   val bo = new BufferedWriter(new java.io.FileWriter(new File("./testfiles/out.ttl")))
@@ -362,7 +362,7 @@ object ChelonaParser {
     } else x
   }
 
-  private def hexStringToCharString(s: String) = s.grouped(2).map(cc => (Character.digit(cc(0), 16) << 4 | Character.digit(cc(1), 16)).toChar).mkString("")
+  private def hexStringToCharString(s: String) = s.grouped(2).map(cc ⇒ (Character.digit(cc(0), 16) << 4 | Character.digit(cc(1), 16)).toChar).mkString("")
 
   sealed trait SPOReturnValue
 
@@ -635,23 +635,23 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) => appendSB(s)) ~ (noneOf("\'\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) => appendSB(s)) ~ (noneOf("\"\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\"\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
   def UCHAR = rule {
     str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
-      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) => appendSB(hexStringToCharString(s)))
+      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
   }
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
   def ECHAR = rule {
-    str("\\") ~ capture(ECHAR_CHAR) ~> ((echar: String) ⇒ appendSB(echarMap((echar(0)))))
+    str("\\") ~ ECHAR_CHAR ~ appendSB(echarMap((lastChar)))
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
