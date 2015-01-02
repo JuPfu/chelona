@@ -79,7 +79,7 @@ Create a *Cheló̱na* JAR with all dependencies
 The *sbt-assembly* plugin is used to create a *Cheló̱na* JAR containing all dependencies. Move into the *Cheló̱na* directory.
 From the command line type 
 
-    sbt archive
+    sbt assembly
 	
 This should generate an archive
 
