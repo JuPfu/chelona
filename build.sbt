@@ -40,11 +40,14 @@ val formattingSettings = scalariformSettings ++ Seq(
 /////////////////////// DEPENDENCIES /////////////////////////
 
 val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0-SNAPSHOT"
+val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
 
 /////////////////////// PROJECTS /////////////////////////
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+resolvers += Resolver.sonatypeRepo("public")
 
 scalariformSettings
 
@@ -55,7 +58,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
-libraryDependencies ++= Seq( parboiled2, scalaTest )
+libraryDependencies ++= Seq( parboiled2, scopt, scalaTest )
   
 lazy val chelona = project.in(file("."))
    .settings(formattingSettings: _*)

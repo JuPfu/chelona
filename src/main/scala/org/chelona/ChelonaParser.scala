@@ -16,16 +16,19 @@
 
 package org.chelona
 
-import java.io.{ File, BufferedWriter }
+import java.io._
+import java.nio.charset.StandardCharsets
 
 import org.parboiled2._
+
+import scala.io.Source
 
 import scala.annotation.tailrec
 import scala.language.implicitConversions
 
 import scala.util.{ Failure, Success }
 
-object ChelonaParser {
+object ChelonaParser extends App {
 
   import org.parboiled2.CharPredicate.{ Alpha, Digit }
 
@@ -72,26 +75,46 @@ object ChelonaParser {
   var bCount = 0
   var cCount = 0
 
-  def main(args: Array[String]) {
-    lazy val inputfile: ParserInput = io.Source.fromFile(args(0)).mkString
-    println("Convert:" + args(0))
-    ChelonaParser(inputfile)
+  import org.chelona.GetCmdLineArgs._
+
+  val result = argsParser.parse(args, Config())
+
+  if (result == None) {
+    sys.exit(1)
   }
 
+  val validate = result.get.validate
+  val files = result.get.files
+
+  lazy val inputfile: ParserInput = io.Source.fromFile(files(0)).mkString
+
+  System.err.println((if (!validate) "Convert: " else "Validate: ") + files(0))
+  System.err.flush()
+
+  val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+
+  ChelonaParser(inputfile)
+
+  bo.close()
+
   def apply(input: ParserInput) = {
+    val ms: Double = System.currentTimeMillis
+
     val parser = new ChelonaParser(input)
     val res = parser.turtleDoc.run()
 
     res match {
-      case scala.util.Success(ast) ⇒
-        println("Number of triples written to file " + "'./testfiles/out.ttl': " + render(ast, tripleWriter))
-      case Failure(e: ParseError) ⇒ println("Expression is not valid: " + parser.formatError(e))
-      case Failure(e)             ⇒ println("Unexpected error during parsing run: " + e)
+      case scala.util.Success(ast) ⇒ if (!validate) {
+        val tripleCount = render(ast, tripleWriter)
+        val me: Double = System.currentTimeMillis - ms
+        System.err.println(files(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " (triples per second = " + (((tripleCount * 1000) / me + 0.5).toInt) + ")")
+      } else {
+        System.err.println("Input file '" + files(0) + "' successfully validated.")
+      }
+      case Failure(e: ParseError) ⇒ System.err.println("File '" + files(0) + "': " + parser.formatError(e))
+      case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run of file '" + files(0) + "': " + e)
     }
-    bo.close()
   }
-
-  val bo = new BufferedWriter(new java.io.FileWriter(new File("./testfiles/out.ttl")))
 
   def tripleWriter(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
