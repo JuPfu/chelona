@@ -23,18 +23,19 @@ import scopt._
 object GetCmdLineArgs {
 
   case class Config(validate: Boolean = false,
-                    out: File = new File("."),
-                    files: Seq[File] = Seq(),
+                    file: Seq[File] = Seq(),
                     verbose: Boolean = false,
+                    out: String = "N3",
                     version: Boolean = false,
                     debug: Boolean = false)
 
   val argsParser = new OptionParser[Config]("Cheló̱na") {
-    head("Cheló̱na", "0.8")
-    help("help") text ("prints this usage text")
-    opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text ("validate input file")
-    opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text ("give some additional information")
-    opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text ("Cheló̱na version information")
-    arg[File]("<file>...") unbounded () minOccurs (1) action { (x, c) ⇒ c.copy(files = c.files :+ x) } text ("input ttl-file")
+    head("cheló̱na", "0.8")
+    help("help") text "prints this usage text"
+    opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
+    opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
+    opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
+    opt[String]('o', "out") optional () action { (_, c) ⇒ c.copy(out = c.out.toLowerCase) } text "output format"
+    arg[File]("<file>") required () action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
   }
 }

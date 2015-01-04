@@ -77,18 +77,18 @@ object ChelonaParser extends App {
 
   import org.chelona.GetCmdLineArgs._
 
-  val result = argsParser.parse(args, Config())
+  val cmdLineArgs = argsParser.parse(args, Config())
 
-  if (result == None) {
+  if (cmdLineArgs == None) {
     sys.exit(1)
   }
 
-  val validate = result.get.validate
-  val files = result.get.files
+  val validate = cmdLineArgs.get.validate
+  val file = cmdLineArgs.get.file
 
-  lazy val inputfile: ParserInput = io.Source.fromFile(files(0)).mkString
+  lazy val inputfile: ParserInput = io.Source.fromFile(file(0)).mkString
 
-  System.err.println((if (!validate) "Convert: " else "Validate: ") + files(0))
+  System.err.println((if (!validate) "Convert: " else "Validate: ") + file(0))
   System.err.flush()
 
   val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
@@ -104,15 +104,15 @@ object ChelonaParser extends App {
     val res = parser.turtleDoc.run()
 
     res match {
-      case scala.util.Success(ast) ⇒ if (!validate) {
-        val tripleCount = render(ast, tripleWriter)
+      case scala.util.Success(tripleCount) ⇒ if (!validate) {
+        //val tripleCount = render(ast, tripleWriter)
         val me: Double = System.currentTimeMillis - ms
-        System.err.println(files(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " (triples per second = " + (((tripleCount * 1000) / me + 0.5).toInt) + ")")
+        System.err.println(file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
       } else {
-        System.err.println("Input file '" + files(0) + "' successfully validated.")
+        System.err.println("Input file '" + file(0) + "' successfully validated.")
       }
-      case Failure(e: ParseError) ⇒ System.err.println("File '" + files(0) + "': " + parser.formatError(e))
-      case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run of file '" + files(0) + "': " + e)
+      case Failure(e: ParseError) ⇒ System.err.println("File '" + file(0) + "': " + parser.formatError(e))
+      case Failure(e)             ⇒ System.err.println("File '" + file(0) + "': Unexpected error during parsing run: " + e)
     }
   }
 
@@ -127,6 +127,8 @@ object ChelonaParser extends App {
   }
 
   def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
+    import org.chelona.EvalN3._
+
     (evalStatement(ast): @unchecked) match {
       case SPOTriples(t) ⇒ writer(t)
       case SPOString(s)  ⇒ 0
@@ -135,6 +137,8 @@ object ChelonaParser extends App {
   }
 
   def render(ast: Seq[AST], writer: List[SPOTriple] ⇒ Long): Long = {
+    import org.chelona.EvalN3._
+
     @tailrec
     def evalLoop(e: Seq[AST], statementCount: Long): Long = e match {
       case Nil ⇒ statementCount
@@ -145,257 +149,6 @@ object ChelonaParser extends App {
       }))
     }
     evalLoop(ast, 0L)
-  }
-
-  def evalStatement(expr: AST): SPOReturnValue = {
-    expr match {
-      case ASTTurtleDoc(rule) ⇒ evalStatement(rule)
-      case ASTStatement(rule) ⇒
-        /* some clean up at the beginning of a new turtle statement */
-        subjectStack.clear
-        predicateStack.clear
-        /* evaluate a turtle statement */
-        evalStatement(rule)
-      case ASTComment(rule)   ⇒ SPOComment(rule)
-      case ASTDirective(rule) ⇒ evalStatement(rule)
-      case ASTPrefixID(p, i) ⇒
-        ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
-        }
-        SPOString("")
-      case ASTBase(rule) ⇒
-        (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
-        }
-        SPOString("")
-      case ASTSparqlBase(rule) ⇒
-        (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
-        }
-        SPOString("")
-      case ASTSparqlPrefix(p, i) ⇒
-        ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
-        }
-        SPOString("")
-      case ASTTriples(s, p) ⇒
-        ((evalStatement(s), evalStatement(p)): @unchecked) match {
-          case (SPOTriples(ts), SPOTriples(ps))     ⇒ SPOTriples(ts ::: ps)
-          case (SPOString(subject), SPOTriples(ps)) ⇒ SPOTriples(ps)
-        }
-      case ASTBlankNodeTriples(s, p) ⇒
-        subjectStack.push(curSubject)
-        predicateStack.push(curPredicate)
-        curSubject = "_:b" + bCount
-        bCount += 1
-        val sub = evalStatement(s)
-        val retval = p match {
-          case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
-            case (SPOTriples(ts), SPOTriples(ps)) ⇒ SPOTriples(ts ::: ps)
-          }
-          case None ⇒ sub
-        }
-        curSubject = subjectStack.pop
-        curPredicate = predicateStack.pop
-        retval
-      case ASTPredicateObjectList(predicateObject, predicateObjectlist) ⇒
-        (evalStatement(predicateObject): @unchecked) match {
-          case SPOTriples(t) ⇒ predicateObjectlist match {
-            case Some(po) ⇒ SPOTriples(t ::: traversePredicateObjectList(po, Nil))
-            case None     ⇒ SPOTriples(t)
-          }
-        }
-      case ASTPo(verb, obj) ⇒
-        (evalStatement(verb): @unchecked) match {
-          case SPOString(token) ⇒ curPredicate = token
-        }
-        evalStatement(obj)
-      case ASTObjectList(rule) ⇒ SPOTriples(traverseObjectList(rule, Nil))
-      case ASTVerb(rule)       ⇒ evalStatement(rule)
-      case ASTIsA(token)       ⇒ SPOString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
-      case ASTSubject(rule) ⇒ (rule: @unchecked) match {
-        case ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
-        }
-        case ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
-        }
-        case ASTCollection(c) ⇒ evalStatement(rule)
-      }
-      case ASTPredicate(rule) ⇒
-        (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ curPredicate = s
-        }
-        SPOString(curPredicate)
-      case ASTObject(l) ⇒ (l: @unchecked) match {
-        case ASTIri(v) ⇒ (evalStatement(l): @unchecked) match {
-          case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
-        }
-        case ASTBlankNode(v) ⇒ (evalStatement(l): @unchecked) match {
-          case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
-        }
-        case ASTLiteral(l) ⇒
-          (evalStatement(l): @unchecked) match {
-            case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
-          }
-        case ASTCollection(v) ⇒
-          subjectStack.push(curSubject)
-          cCount += 1
-          curSubject = "_:c" + cCount
-          predicateStack.push(curPredicate)
-          curPredicate = "rdf:first"
-          (evalStatement(l): @unchecked) match {
-            case SPOTriples(t) ⇒
-              val oldSubject = curSubject
-              curSubject = subjectStack.pop
-              curPredicate = predicateStack.pop
-              SPOTriples(SPOTriple(curSubject, curPredicate, oldSubject) :: t)
-          }
-        case ASTBlankNodePropertyList(v) ⇒
-          subjectStack.push(curSubject)
-          predicateStack.push(curPredicate)
-          bCount += 1
-          curSubject = "_:b" + bCount
-          val bnode = curSubject
-          (evalStatement(l): @unchecked) match {
-            case SPOTriples(t) ⇒
-              curSubject = subjectStack.pop
-              curPredicate = predicateStack.pop
-              SPOTriples(SPOTriple(curSubject, curPredicate, bnode) :: t)
-          }
-      }
-      case ASTLiteral(rule)               ⇒ evalStatement(rule)
-      case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
-      case ASTCollection(rule) ⇒
-        curSubject = "_:c" + cCount
-        subjectStack.push(curSubject)
-        curPredicate = "rdf:first"
-        predicateStack.push(curPredicate)
-        val res = SPOTriples(traverseCollection(rule, Nil))
-        curSubject = subjectStack.pop
-        curPredicate = predicateStack.pop
-        res
-      case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token)       ⇒ SPOString(token)
-      case ASTDecimal(token)       ⇒ SPOString(token)
-      case ASTDouble(token)        ⇒ SPOString(token)
-      case ASTRdfLiteral(string, optionalPostfix) ⇒
-        val literal = (evalStatement(string): @unchecked) match {
-          case SPOString(s) ⇒ s
-        }
-        (optionalPostfix: @unchecked) match {
-          case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIri(v) ⇒ SPOString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
-            }))
-            case ASTLangTag(v) ⇒ SPOString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
-            }))
-          }
-          case None ⇒ evalStatement(string)
-        }
-      case ASTLangTag(token)                      ⇒ SPOString(token)
-      case ASTBooleanLiteral(token)               ⇒ SPOString(token)
-      case ASTString(rule)                        ⇒ evalStatement(rule)
-      case ASTStringLiteralQuote(token)           ⇒ SPOString("\"" + token + "\"")
-      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("'" + token + "'")
-      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString("'''" + token + "'''")
-      case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"\"\"" + token + "\"\"\"")
-      case ASTIri(rule) ⇒ (rule: @unchecked) match {
-        case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ SPOString("<" + addBasePrefix(s) + ">")
-        }
-        case ASTPrefixedName(n) ⇒ evalStatement(rule)
-      }
-      case ASTIriRef(token)      ⇒ SPOString(token)
-      case ASTPrefixedName(rule) ⇒ evalStatement(rule)
-      case ASTPNameNS(prefix) ⇒
-        prefix match {
-          case Some(pn_prefix) ⇒ evalStatement(pn_prefix);
-          case None            ⇒ SPOString("")
-        }
-      case ASTPNameLN(namespace, local) ⇒
-        ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
-        }
-      case ASTPNPrefix(token)       ⇒ SPOString(token)
-      case ASTPNLocal(token)        ⇒ SPOString(token)
-      case ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)
-      case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
-    }
-  }
-
-  @tailrec
-  private def traversePredicateObjectList(l: Seq[Option[AST]], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples
-    case x +: xs ⇒ x match {
-      case Some(po) ⇒ (evalStatement(po): @unchecked) match {
-        case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
-      }
-      case None ⇒ triples
-    }
-  }
-
-  @tailrec
-  private def traverseObjectList(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples
-    case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case SPOTriple(s, p, o) ⇒ traverseObjectList(xs, triples :+ SPOTriple(s, p, o))
-      case SPOTriples(t)      ⇒ traverseObjectList(xs, triples ::: t)
-    }
-  }
-
-  @tailrec
-  private def traverseCollection(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples ::: SPOTriple(curSubject, "rdf:rest", "rdf:nil") :: Nil
-    case x +: xs ⇒
-      val oldSubject = curSubject
-      if (xs != Nil) {
-        cCount += 1
-        curSubject = "_:c" + cCount
-      }
-      (evalStatement(x): @unchecked) match {
-        case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
-          triples ::: (SPOTriple(oldSubject, "rdf:first", o) :: (SPOTriple(oldSubject, "rdf:rest", curSubject) :: Nil))
-        } else {
-          triples :+ SPOTriple(oldSubject, "rdf:first", o)
-        })
-        case SPOTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
-          triples ::: (t :+ SPOTriple(oldSubject, "rdf:rest", curSubject))
-        } else {
-          triples ::: t
-        })
-      }
-  }
-
-  private def definePrefix(key: String, value: String) = {
-    if (value.startsWith("//") | value.toLowerCase.startsWith("http://"))
-      prefixMap += key -> value
-    else if (value.endsWith("/")) {
-      if (!prefixMap.contains(key))
-        prefixMap += key -> value
-      else
-        prefixMap += key -> (prefixMap.getOrElse("@", "http://base/not/found") + value)
-    } else prefixMap += key -> value
-  }
-
-  private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap.getOrElse(pname_ns, "http://key/" + pname_ns + "/not/found")
-    if (prefix.endsWith("/") || prefix.endsWith("#"))
-      prefix + pn_local
-    else
-      prefix + "/" + pn_local
-  }
-
-  private def addBasePrefix(x: String) = {
-    if (!x.startsWith("/") && !x.toLowerCase.startsWith("http://")) {
-      val prefix = prefixMap.getOrElse("@", "http://base/not/found")
-      if (prefix.endsWith("/") || prefix.endsWith("#"))
-        prefix + x
-      else
-        prefix + "/" + x
-    } else x
   }
 
   private def hexStringToCharString(s: String) = s.grouped(2).map(cc ⇒ (Character.digit(cc(0), 16) << 4 | Character.digit(cc(1), 16)).toChar).mkString("")
@@ -516,7 +269,7 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    statement.* ~ EOI
+    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis && !validate) renderStatement(ast, tripleWriter) else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)((x: Long, y: Int) ⇒ x + y))
   }
 
   //[2] statement 	::= 	directive | triples '.'
