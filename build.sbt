@@ -1,13 +1,13 @@
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
-scalaVersion := "2.11.4"
+scalaVersion := "2.11.5"
 
 version := "0.8.0"
 
 val commonSettings = Seq(
   version := "0.8.0",
-  scalaVersion := "2.11.4",
+  scalaVersion := "2.11.5",
   name := "Chelona",
   organization := "org.chelona",
   homepage := Some(new URL("http://chelona.org")),
@@ -21,14 +21,15 @@ val commonSettings = Seq(
     "-Xlint:unchecked",
     "-Xlint:deprecation"),
   scalacOptions ++= List(
-    "-encoding", "UTF-8",
+    "-encoding",
+    "UTF-8",
     "-feature",
     "-unchecked",
     "-deprecation",
     "-Xlint",
     "-language:_",
-    "-target:jvm-1.6"))  
-	
+    "-target:jvm-1.6"))
+
 val formattingSettings = scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
     .setPreference(RewriteArrowSymbols, true)

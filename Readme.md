@@ -8,7 +8,7 @@ Introduction
 With *Cheló̱na* you can
 - validate the syntax and semantic of a W3C RDF 1.1 turtle file
 - convert a turtle file into its canonical triple form
-- convert a turtle file into another format, e.g. JSON
+- convert a turtle file into another format, e.g. JSON (to be done)
 
 First Example
 =============
@@ -58,23 +58,11 @@ This is example 23 from the W3C RDF 1.1 Terse RDF Triple Language definition
 	_:c2 rdf:rest rdf:nil .
 	_:c0 <http://example.org/stuff/1.0/p> "w" .
 
-Convert a TTL-File from SBT
-===========================
-
-Start sbt from the local chelona directory and add a path to the sbt run command to convert a ttl-file.
-
-    sbt
-
-    run "./testfiles/example1.ttl"
-
-The output generated should be something like this
-
-    Convert:./testfiles/example1.ttl
-    Number of triples written to file './testfiles/out.ttl': 8
-    [success] Total time: 0 s, completed 02.12.2014 21:48:56
+Installation
+============
 	
 Create a *Cheló̱na* JAR with all dependencies
-============================================
+--------------------------------------------
 
 The *sbt-assembly* plugin is used to create a *Cheló̱na* JAR containing all dependencies. Move into the *Cheló̱na* directory.
 From the command line type 
@@ -88,9 +76,9 @@ This should generate an archive
 where x.x.x denotes the version information, e.g. chelona-assembly-0.8.0.jar.
 
 Running *Cheló̱na* from the command line
-=======================================
+----------------------------------------
 
-Conversion of the example1.ttl file from the testfiles directory into the simple S-P-O Turtle format
+Conversion of the example1.ttl file from the testfiles directory into the simple S-P-O Turtle format (N3)
 
 	<#green-goblin> rel:enemyOf    <#spiderman> 	;
 	    a foaf:Person ;    # in the context of the Marvel universe
@@ -104,14 +92,14 @@ Conversion of the example1.ttl file from the testfiles directory into the simple
 
 is done with the command shown here: 
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser ./testfiles/example1.ttl
+    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser ./testfiles/example1.ttl > example1_n3.ttl
 
 The output generated lists the name of the output file and the number of generated triples:
 
-	Convert:./testfiles/example1.ttl
-	Number of triples written to file './testfiles/out.ttl': Success(8)
+	Convert: ./testfiles/example1.ttl
+    ./testfiles/example1.ttl: 0.064sec 8 triples (triples per second = 125)
 	
-Inspecting the output file should give this result:
+Inspecting the output file 'example1_n3.ttl' should give this result:
 
 	<http://example.org/#green-goblin> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#spiderman> .
 	<http://example.org/#green-goblin> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
@@ -120,9 +108,22 @@ Inspecting the output file should give this result:
 	<http://example.org/#spiderman> <http://www.perceive.net/schemas/relationship/enemyOf> <http://example.org/#green-goblin> .
 	<http://example.org/#spiderman> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> .
 	<http://example.org/#spiderman> <http://xmlns.com/foaf/0.1/name> "Spiderman" .
-	<http://example.org/#spiderman> <http://xmlns.com/foaf/0.1/name> "Человек-паук"@ru .	
+	<http://example.org/#spiderman> <http://xmlns.com/foaf/0.1/name> "Человек-паук"@ru .
 
-	
+Validation of a Turtle File
+---------------------------
+
+When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na* will do a syntax check. No output file is
+ generated.
+
+    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser -v ./testfiles/example1.ttl
+
+	Validate: ./testfiles/example1.ttl
+    Input file './testfiles/example1.ttl' successfully validated.
+
+In case of an error the *Cheló̱na* will display an error message and gives a hint where the problem occurred.
+
+
 What *Cheló̱na* does in detail:
 ==============================
 - parses the ttl file
@@ -134,10 +135,6 @@ What *Cheló̱na* does in detail:
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
 - skolemisation (Replacing blank nodes with IRIs) (to be done)
 
-Installation
-============
-
-To be done
 
 License
 =======

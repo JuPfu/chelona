@@ -85,6 +85,12 @@ object ChelonaParser extends App {
 
   val validate = cmdLineArgs.get.validate
   val file = cmdLineArgs.get.file
+  val version = cmdLineArgs.get.version
+
+  if (version) {
+    System.err.println("Cheló̱n version 0.8")
+    sys.exit(2)
+  }
 
   lazy val inputfile: ParserInput = io.Source.fromFile(file(0)).mkString
 
@@ -107,7 +113,7 @@ object ChelonaParser extends App {
       case scala.util.Success(tripleCount) ⇒ if (!validate) {
         //val tripleCount = render(ast, tripleWriter)
         val me: Double = System.currentTimeMillis - ms
-        System.err.println(file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+        System.err.println(file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
       } else {
         System.err.println("Input file '" + file(0) + "' successfully validated.")
       }
@@ -269,12 +275,12 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis && !validate) renderStatement(ast, tripleWriter) else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)((x: Long, y: Int) ⇒ x + y))
+    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis && !validate) renderStatement(ast, tripleWriter) else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
   //[2] statement 	::= 	directive | triples '.'
   def statement: Rule1[AST] = rule {
-    (directive | triples ~ "." | comment) ~> ASTStatement
+    (directive | triples ~!~ "." | comment) ~> ASTStatement
   }
 
   //
