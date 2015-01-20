@@ -64,7 +64,10 @@ object ChelonaParser extends App {
 
   val WS = CharPredicate(" \t")
 
-  val echarMap = Map('t' -> '\t', 'b' -> '\b', 'n' -> '\n', 'r' -> '\r', 'f' -> '\f', '"' -> '"', '\'' -> '\'', '\\' -> '\\')
+  // echarMap shall be used for raw data output, where resolution of escape characters is required
+  // echar shall remain escaped for intermediate use, e.g. when a simplified turtle format is generated
+  val echarEscapeMap = Map('t' -> '\t', 'b' -> '\b', 'n' -> '\n', 'r' -> '\r', 'f' -> '\f', '"' -> '"', '\'' -> '\'', '\\' -> '\\')
+  val echarIdentityMap = Map('t' -> 't', 'b' -> 'b', 'n' -> 'n', 'r' -> 'r', 'f' -> 'f', '"' -> '"', '\'' -> '\'', '\\' -> '\\')
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
@@ -86,6 +89,7 @@ object ChelonaParser extends App {
   val validate = cmdLineArgs.get.validate
   val file = cmdLineArgs.get.file
   val version = cmdLineArgs.get.version
+  val format = cmdLineArgs.get.out
 
   if (version) {
     System.err.println("Cheló̱n version 0.8")
@@ -93,6 +97,9 @@ object ChelonaParser extends App {
   }
 
   lazy val inputfile: ParserInput = io.Source.fromFile(file(0)).mkString
+
+  val echarMask = if (format.toLowerCase() != "raw") true else false
+  val echarMap = if (format.toLowerCase() != "raw") echarIdentityMap else echarEscapeMap
 
   System.err.println((if (!validate) "Convert: " else "Validate: ") + file(0))
   System.err.flush()
@@ -110,13 +117,14 @@ object ChelonaParser extends App {
     val res = parser.turtleDoc.run()
 
     res match {
-      case scala.util.Success(tripleCount) ⇒ if (!validate) {
-        //val tripleCount = render(ast, tripleWriter)
+      case scala.util.Success(tripleCount) ⇒
         val me: Double = System.currentTimeMillis - ms
-        System.err.println(file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-      } else {
-        System.err.println("Input file '" + file(0) + "' successfully validated.")
-      }
+        if (!validate) {
+          //val tripleCount = render(ast, tripleWriter)
+          System.err.println("Input file '" + file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+        } else {
+          System.err.println("Input file '" + file(0) + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+        }
       case Failure(e: ParseError) ⇒ System.err.println("File '" + file(0) + "': " + parser.formatError(e))
       case Failure(e)             ⇒ System.err.println("File '" + file(0) + "': Unexpected error during parsing run: " + e)
     }
@@ -275,7 +283,9 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis && !validate) renderStatement(ast, tripleWriter) else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis) {
+      if (!validate) renderStatement(ast, tripleWriter) else 1
+    } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
   //[2] statement 	::= 	directive | triples '.'
@@ -446,7 +456,7 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
   def ECHAR = rule {
-    str("\\") ~ ECHAR_CHAR ~ appendSB(echarMap(lastChar))
+    str("\\") ~ test(echarMask) ~ appendSB('\\') ~ ECHAR_CHAR ~ appendSB(echarMap(lastChar))
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
