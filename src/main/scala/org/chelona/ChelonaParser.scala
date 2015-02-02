@@ -16,19 +16,16 @@
 
 package org.chelona
 
-import java.io._
+import java.io.{ OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.parboiled2._
 
-import scala.io.Source
-
-import scala.annotation.tailrec
+import scala.annotation.{ tailrec }
 import scala.language.implicitConversions
+import scala.util.Failure
 
-import scala.util.{ Failure, Success }
-
-object ChelonaParser extends App {
+object ChelonaParser {
 
   import org.parboiled2.CharPredicate.{ Alpha, Digit }
 
@@ -78,66 +75,28 @@ object ChelonaParser extends App {
   var bCount = 0
   var cCount = 0
 
-  import org.chelona.GetCmdLineArgs._
-
-  val cmdLineArgs = argsParser.parse(args, Config())
-
-  if (cmdLineArgs == None) {
-    sys.exit(1)
+  def apply(input: ParserInput, output: BufferedWriter, validate: Boolean, echarMask: Boolean) = {
+     new ChelonaParser(input, output, validate, echarMask, if (echarMask) echarIdentityMap else echarEscapeMap)
   }
 
-  val validate = cmdLineArgs.get.validate
-  val file = cmdLineArgs.get.file
-  val version = cmdLineArgs.get.version
-  val format = cmdLineArgs.get.out
-
-  if (version) {
-    System.err.println("Cheló̱n version 0.8")
-    sys.exit(2)
-  }
-
-  lazy val inputfile: ParserInput = io.Source.fromFile(file(0)).mkString
-
-  val echarMask = if (format.toLowerCase() != "raw") true else false
-  val echarMap = if (format.toLowerCase() != "raw") echarIdentityMap else echarEscapeMap
-
-  System.err.println((if (!validate) "Convert: " else "Validate: ") + file(0))
-  System.err.flush()
-
-  val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
-
-  ChelonaParser(inputfile)
-
-  bo.close()
-
-  def apply(input: ParserInput) = {
-    val ms: Double = System.currentTimeMillis
-
-    val parser = new ChelonaParser(input)
-    val res = parser.turtleDoc.run()
-
-    res match {
-      case scala.util.Success(tripleCount) ⇒
-        val me: Double = System.currentTimeMillis - ms
-        if (!validate) {
-          //val tripleCount = render(ast, tripleWriter)
-          System.err.println("Input file '" + file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        } else {
-          System.err.println("Input file '" + file(0) + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        }
-      case Failure(e: ParseError) ⇒ System.err.println("File '" + file(0) + "': " + parser.formatError(e))
-      case Failure(e)             ⇒ System.err.println("File '" + file(0) + "': Unexpected error during parsing run: " + e)
-    }
-  }
-
-  def tripleWriter(triple: List[SPOTriple]): Int = {
+  def tripleWriter(bo: BufferedWriter)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
     triple.length
   }
 
-  def tripleRawWriter(triple: List[SPOTriple]): Int = {
+  def tripleRawWriter(bo: BufferedWriter)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n"))
     triple.length
+  }
+
+  def renderStatementJSON(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
+    import org.chelona.EvalTTL._
+
+    (evalStatement(ast): @unchecked) match {
+      case SPOTriples(t) ⇒ writer(t)
+      case SPOString(s)  ⇒ 0
+      case SPOComment(c) ⇒ 0
+    }
   }
 
   def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
@@ -267,10 +226,12 @@ object ChelonaParser extends App {
 
 }
 
-class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate: Boolean, echarMask: Boolean, echarMap: Map[Char, Char]) extends Parser with StringBuilding {
 
   import org.chelona.ChelonaParser._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
+
+  val tripleOutput = tripleWriter(output)_
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
@@ -284,7 +245,7 @@ class ChelonaParser(val input: ParserInput) extends Parser with StringBuilding {
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
     (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis) {
-      if (!validate) renderStatement(ast, tripleWriter) else 1
+      if (!validate) renderStatement(ast, tripleOutput) else 1
     } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
