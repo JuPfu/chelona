@@ -261,13 +261,13 @@ object EvalN3 {
       prefix + "/" + pn_local
   }
 
-  private def addBasePrefix(x: String) = {
-    if (!x.startsWith("/") && !x.toLowerCase.startsWith("http://")) {
-      val prefix = prefixMap.getOrElse("@", "http://base/not/found")
+  private def addBasePrefix(iri: String) = {
+    if (!iri.startsWith("/") && !iri.toLowerCase.startsWith("http://")) {
+      val prefix = prefixMap.getOrElse("@", "")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
-        prefix + x
+        prefix + iri
       else
-        prefix + "/" + x
-    } else x
+        prefix + "/" + iri
+    } else iri
   }
 }

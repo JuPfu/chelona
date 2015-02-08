@@ -1,3 +1,0 @@
-@prefix somePrefix: <http://www.perceive.net/schemas/relationship/> .
-
-<http://example.org/#green-goblin> somePrefix:enemyOf <http://example.org/#spiderman> .

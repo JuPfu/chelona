@@ -14,26 +14,27 @@ object EvalTTL {
         predicateStack.clear
         /* evaluate a turtle statement */
         evalStatement(rule)
-      case ASTComment(rule)   ⇒ SPOComment(rule)
-      case ASTDirective(rule) ⇒ evalStatement(rule)
+      case ASTComment(rule) ⇒ SPOComment(rule)
+      case ASTDirective(rule) ⇒
+        System.err.println("{"); val directive = evalStatement(rule); System.err.println("}"); directive
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
+          case (SPOString(ps), SPOString(is)) ⇒ System.err.println("PS: " + ps + "  => " + is); definePrefix(ps, is)
         }
         SPOString("")
       case ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
+          case SPOString(bs) ⇒ System.err.println("BASE: " + bs); definePrefix("@", bs)
         }
         SPOString("")
       case ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
+          case SPOString(bs) ⇒ System.err.println("SPARQL BASE " + bs); definePrefix("@", bs)
         }
         SPOString("")
       case ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
+          case (SPOString(ps), SPOString(is)) ⇒ System.err.println("Prefix: " + ps + "  => " + is); definePrefix(ps, is)
         }
         SPOString("")
       case ASTTriples(s, p) ⇒

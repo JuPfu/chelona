@@ -1,7 +1,19 @@
 package org.chelona
-/**
- * Created by jp on 31.01.15.
- */
+/*
+* Copyright (C) 2014 Juergen Pfundt
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 import org.scalatest.Tag
 
 object TurtleAtomic extends Tag("org.chelona.tags.TurtleAtomic")
@@ -12,5 +24,7 @@ object TurtleEvalBad extends Tag("org.chelona.tags.TurtleEvalBad")
 object JeremyCarroll extends Tag("org.chelona.tags.JeremyCarroll")
 object DaveBeckett extends Tag("org.chelona.tags.DaveBeckett")
 object DavidRobillard extends Tag("org.chelona.tags.DavidRobillard")
-object PositiveOutcome extends Tag("org.chelona.tags.PositiveOutcome")
-object NegativeOutcome extends Tag("org.chelona.tags.NegativeOutcome")
+object TurtleNegativeEvaluationTest extends Tag("org.chelona.tags.TurtleNegativeEvaluationTest")
+object TurtleNegativeSyntaxTest extends Tag("org.chelona.tags.TurtleNegativeSyntaxTest")
+object TurtleSyntaxTest extends Tag("org.chelona.tags.TurtleSyntaxTest")
+object TurtleEvaluationTest extends Tag("org.chelona.tags.TurtleEvaluationTest")

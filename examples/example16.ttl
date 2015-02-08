@@ -1,0 +1,14 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+[ foaf:name "Alice" ] foaf:knows [
+    foaf:name "Bob" ;
+    foaf:knows [
+        foaf:name "Eve" ] ;
+    foaf:mbox <bob@example.com> ] .
+
+# _:b1 foaf:name "Alice" .
+# _:b1 foaf:knows _:b2 .
+# _:b2 foaf:name "Bob" .
+# _:b2 foaf:knows _:b3 .
+# _:b3 foaf:name "Eva" .
+# _:b2 foaf:mbox <bob@example.com> .

@@ -16,14 +16,12 @@
 
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
+import java.io.{ BufferedWriter }
 
 import org.parboiled2._
 
 import scala.annotation.{ tailrec }
 import scala.language.implicitConversions
-import scala.util.Failure
 
 object ChelonaParser {
 
@@ -76,7 +74,7 @@ object ChelonaParser {
   var cCount = 0
 
   def apply(input: ParserInput, output: BufferedWriter, validate: Boolean, echarMask: Boolean) = {
-     new ChelonaParser(input, output, validate, echarMask, if (echarMask) echarIdentityMap else echarEscapeMap)
+    new ChelonaParser(input, output, validate, echarMask, if (echarMask) echarIdentityMap else echarEscapeMap)
   }
 
   def tripleWriter(bo: BufferedWriter)(triple: List[SPOTriple]): Int = {
@@ -231,6 +229,9 @@ class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate
   import org.chelona.ChelonaParser._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
+  // clear mutable map
+  prefixMap.clear()
+
   val tripleOutput = tripleWriter(output)_
 
   //[161s]
@@ -266,22 +267,22 @@ class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate
 
   //[4] prefixID 	::= 	'@prefix' PNAME_NS IRIREF '.'
   def prefixID = rule {
-    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ASTPrefixID ~!~ ws ~ "."
+    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTPrefixID ~!~ ws ~ "."
   }
 
   //[5] base 	::= 	'@base' IRIREF '.'
   def base = rule {
-    atomic("@base") ~ IRIREF ~> ASTBase ~!~ ws ~ "."
+    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("@", i)) ~ push(i)) ~> ASTBase ~!~ ws ~ "."
   }
 
   //[5s] sparqlBase 	::= 	"BASE" IRIREF
   def sparqlBase = rule {
-    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ASTSparqlBase ~!~ ws
+    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("@", i)) ~ push(i)) ~> ASTSparqlBase ~!~ ws
   }
 
   //[6s] sparqlPrefix 	::= 	"PREFIX" PNAME_NS IRIREF
   def sparqlPrefix = rule {
-    atomic(ignoreCase("prefix")) ~ ws ~ PNAME_NS ~ ws ~ IRIREF ~> ASTSparqlPrefix ~!~ ws
+    atomic(ignoreCase("prefix")) ~ ws ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTSparqlPrefix ~!~ ws
   }
 
   //[6] triples 	::= 	subject predicateObjectList | blankNodePropertyList predicateObjectList?
@@ -453,7 +454,7 @@ class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate
 
   //[140s] PNAME_LN 	::= 	PNAME_NS PN_LOCAL
   def PNAME_LN = rule {
-    PNAME_NS ~ PN_LOCAL ~> ASTPNameLN
+    PNAME_NS ~ PN_LOCAL ~> ((ns: ASTPNameNS, local: ASTPNLocal) ⇒ test(addPrefix(ns, local)) ~ push(ns) ~ push(local)) ~> ASTPNameLN
   }
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
@@ -523,5 +524,52 @@ class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate
   //[162s] ANON 	::= 	'[' WS* ']'
   def ANON = rule {
     capture("[" ~ "]") ~> ASTAnon
+  }
+
+  private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Boolean = {
+    val pname = (key: @unchecked) match {
+      case ASTPNameNS(rule) ⇒ (rule: @unchecked) match {
+        case Some(ASTPNPrefix(token)) ⇒ token
+        case None                     ⇒ ""
+      }
+    }
+
+    definePrefix(pname, value)
+  }
+
+  private def definePrefix(pname: String, value: ASTIriRef): Boolean = {
+
+    val token = value.token
+
+    if (token.startsWith("//") | token.toLowerCase.startsWith("http://")) {
+      prefixMap += pname -> token
+      true
+    } else if (token.endsWith("/")) {
+      if (!prefixMap.contains(pname)) {
+        prefixMap += pname -> token
+        true
+      } else {
+        if ( prefixMap.contains("@") ) {
+          prefixMap += pname -> (prefixMap.get("@") + token)
+          true
+        }
+        else {
+          false
+        }
+      }
+    } else {
+      prefixMap += pname -> token
+      true
+    }
+  }
+
+  private def addPrefix(pname_ns: ASTPNameNS, pn_local: ASTPNLocal): Boolean = {
+    val ns = (pname_ns: @unchecked) match {
+      case ASTPNameNS(rule) ⇒ (rule: @unchecked) match {
+        case Some(ASTPNPrefix(token)) ⇒ token
+        case None                     ⇒ ""
+      }
+    }
+    prefixMap.contains(ns)
   }
 }

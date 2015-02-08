@@ -1,6 +1,6 @@
 package org.chelona
 
-import org.parboiled2.{ ParseError, ParserInput }
+import org.parboiled2.{ParseError, ParserInput}
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
@@ -16,7 +16,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of statements (not counting directives) validated should have been 0")
+    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of statements validated should have been 0")
   }
 
   "The input file ./TurtleTests/turtle-syntax-file-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -25,7 +25,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-file-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -34,7 +34,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-uri-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -43,7 +43,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-uri-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -52,7 +52,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-uri-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -61,7 +61,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-uri-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -70,7 +70,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-base-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -79,7 +79,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-base-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -88,7 +88,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-base-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -97,7 +97,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-base-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -106,7 +106,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -115,7 +115,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -124,7 +124,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -133,7 +133,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -142,7 +142,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -151,7 +151,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -160,7 +160,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -169,7 +169,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -178,7 +178,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-prefix-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -187,7 +187,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -196,7 +196,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -205,7 +205,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -214,7 +214,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -223,7 +223,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -232,7 +232,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -241,7 +241,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -250,7 +250,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -259,7 +259,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -268,7 +268,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-10.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -277,7 +277,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-string-11.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -286,7 +286,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-str-esc-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -295,7 +295,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-str-esc-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -304,7 +304,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-str-esc-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -313,7 +313,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-pname-esc-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -322,7 +322,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-pname-esc-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -331,7 +331,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-pname-esc-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -340,7 +340,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -349,7 +349,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -358,7 +358,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -367,7 +367,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -376,7 +376,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -385,7 +385,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -394,7 +394,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -403,7 +403,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -412,7 +412,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -421,7 +421,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bnode-10.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -430,7 +430,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -439,7 +439,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -448,7 +448,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -457,7 +457,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -466,7 +466,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -475,7 +475,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -484,7 +484,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -493,7 +493,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -502,7 +502,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -511,7 +511,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-number-10.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -520,7 +520,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
   "The input file ./TurtleTests/turtle-syntax-number-11.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
@@ -528,7 +528,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-datatypes-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -537,7 +537,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-datatypes-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -546,7 +546,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-kw-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -555,7 +555,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-kw-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -564,7 +564,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-syntax-kw-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -573,7 +573,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-struct-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -582,7 +582,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-struct-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -591,7 +591,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-struct-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -600,7 +600,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-struct-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -609,7 +609,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-struct-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -618,7 +618,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-lists-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -627,7 +627,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-lists-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -636,7 +636,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-lists-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -645,7 +645,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-lists-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -654,7 +654,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-lists-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -663,10 +663,10 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-uri-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-uri-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-uri-01.ttl").mkString
 
@@ -686,7 +686,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at line 2, column 1  ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-uri-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-uri-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-uri-02.ttl").mkString
 
@@ -706,7 +706,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at line 2, column 1  ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-uri-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-uri-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-uri-03.ttl").mkString
 
@@ -726,7 +726,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at line 2, column 1  ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-uri-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-uri-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-uri-04.ttl").mkString
 
@@ -746,7 +746,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at line 2, column 1")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-uri-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-uri-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-uri-05.ttl").mkString
 
@@ -766,7 +766,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at line 2, column 1 ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-prefix-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-prefix-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-prefix-01.ttl").mkString
 
@@ -786,7 +786,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-prefix-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-prefix-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-prefix-02.ttl").mkString
 
@@ -806,7 +806,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-prefix-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-prefix-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-prefix-03.ttl").mkString
 
@@ -826,7 +826,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-prefix-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-prefix-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-prefix-04.ttl").mkString
 
@@ -846,7 +846,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-prefix-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-prefix-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-prefix-05.ttl").mkString
 
@@ -866,7 +866,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-base-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-base-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-base-01.ttl").mkString
 
@@ -886,7 +886,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-base-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-base-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-base-02.ttl").mkString
 
@@ -906,7 +906,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-base-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-base-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-base-03.ttl").mkString
 
@@ -926,7 +926,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-01.ttl").mkString
 
@@ -946,7 +946,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-02.ttl").mkString
 
@@ -966,7 +966,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-03.ttl").mkString
 
@@ -986,7 +986,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-04.ttl").mkString
 
@@ -1006,7 +1006,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-05.ttl").mkString
 
@@ -1026,7 +1026,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-06.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-06.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-06.ttl").mkString
 
@@ -1046,7 +1046,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-07.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-07.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-07.ttl").mkString
 
@@ -1066,7 +1066,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-kw-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-kw-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-kw-01.ttl").mkString
 
@@ -1086,7 +1086,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-kw-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-kw-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-kw-02.ttl").mkString
 
@@ -1106,7 +1106,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-kw-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-kw-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-kw-03.ttl").mkString
 
@@ -1126,7 +1126,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-kw-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-kw-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-kw-04.ttl").mkString
 
@@ -1146,7 +1146,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-kw-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-kw-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-kw-05.ttl").mkString
 
@@ -1166,7 +1166,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-01.ttl").mkString
 
@@ -1186,7 +1186,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-02.ttl").mkString
 
@@ -1206,7 +1206,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-03.ttl").mkString
 
@@ -1226,7 +1226,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-04.ttl").mkString
 
@@ -1246,7 +1246,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-05.ttl").mkString
 
@@ -1266,7 +1266,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-06.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-06.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-06.ttl").mkString
 
@@ -1286,7 +1286,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-07.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-07.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-07.ttl").mkString
 
@@ -1306,7 +1306,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-08.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-08.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-08.ttl").mkString
 
@@ -1326,7 +1326,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-09.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-09.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-09.ttl").mkString
 
@@ -1346,7 +1346,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-10.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-10.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-10.ttl").mkString
 
@@ -1366,7 +1366,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-11.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-11.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-11.ttl").mkString
 
@@ -1386,7 +1386,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-12.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-12.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-12.ttl").mkString
 
@@ -1406,7 +1406,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-13.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-13.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-13.ttl").mkString
 
@@ -1426,7 +1426,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-08.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-08.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-08.ttl").mkString
 
@@ -1436,7 +1436,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': Unexpected error during parsing run: " + e)
@@ -1446,7 +1446,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-09.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-09.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-09.ttl").mkString
 
@@ -1466,7 +1466,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-10.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-10.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-10.ttl").mkString
 
@@ -1486,7 +1486,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-11.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-11.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-11.ttl").mkString
 
@@ -1496,7 +1496,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': Unexpected error during parsing run: " + e)
@@ -1506,7 +1506,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-12.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-12.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-12.ttl").mkString
 
@@ -1526,7 +1526,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-13.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-13.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-13.ttl").mkString
 
@@ -1546,7 +1546,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-14.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-14.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-14.ttl").mkString
 
@@ -1566,7 +1566,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-15.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-15.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-15.ttl").mkString
 
@@ -1586,7 +1586,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-16.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-16.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-16.ttl").mkString
 
@@ -1606,7 +1606,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-struct-17.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-17.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-17.ttl").mkString
 
@@ -1626,7 +1626,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-lang-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-lang-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-lang-01.ttl").mkString
 
@@ -1646,7 +1646,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-esc-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-01.ttl").mkString
 
@@ -1666,7 +1666,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-esc-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-02.ttl").mkString
 
@@ -1686,7 +1686,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-esc-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-03.ttl").mkString
 
@@ -1706,7 +1706,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-esc-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-04.ttl").mkString
 
@@ -1726,7 +1726,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-pname-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-01.ttl").mkString
 
@@ -1746,7 +1746,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-pname-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-02.ttl").mkString
 
@@ -1766,7 +1766,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-pname-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-03.ttl").mkString
 
@@ -1786,7 +1786,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-01.ttl").mkString
 
@@ -1806,7 +1806,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-02.ttl").mkString
 
@@ -1826,7 +1826,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-03.ttl").mkString
 
@@ -1836,7 +1836,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': Unexpected error during parsing run: " + e)
@@ -1846,7 +1846,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-04.ttl").mkString
 
@@ -1856,7 +1856,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': Unexpected error during parsing run: " + e)
@@ -1866,7 +1866,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-05.ttl").mkString
 
@@ -1876,7 +1876,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': Unexpected error during parsing run: " + e)
@@ -1886,7 +1886,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-06.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-06.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-06.ttl").mkString
 
@@ -1906,7 +1906,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-string-07.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-string-07.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-07.ttl").mkString
 
@@ -1926,7 +1926,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-01.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-num-01.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-01.ttl").mkString
 
@@ -1946,7 +1946,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-02.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-num-02.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-02.ttl").mkString
 
@@ -1966,7 +1966,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-03.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-num-03.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-03.ttl").mkString
 
@@ -1976,7 +1976,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': Unexpected error during parsing run: " + e)
@@ -1986,7 +1986,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-04.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-num-04.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-04.ttl").mkString
 
@@ -1996,7 +1996,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': Unexpected error during parsing run: " + e)
@@ -2006,7 +2006,7 @@ class ChelonaParserSpec extends FlatSpec {
     assert(res == false, "Validation should have failed at statement ")
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-05.ttl" must "fail" taggedAs (TurtleSyntaxBad) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-num-05.ttl" must "fail" taggedAs (TurtleNegativeEvaluationTest, TurtleSyntaxBad) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-05.ttl").mkString
 
@@ -2016,7 +2016,7 @@ class ChelonaParserSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': " + e /*parser.formatError(e)*/ )
+        System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': " + e /*parser.formatError(e)*/)
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': Unexpected error during parsing run: " + e)
@@ -2032,7 +2032,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-eval-struct-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2041,7 +2041,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/turtle-subm-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2050,7 +2050,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-subm-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2059,7 +2059,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of statements (not counting directives) validated should have been 7")
+    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of statements validated should have been 7")
   }
 
   "The input file ./TurtleTests/turtle-subm-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2068,7 +2068,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2077,7 +2077,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2086,7 +2086,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2095,7 +2095,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2104,7 +2104,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2113,7 +2113,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-subm-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2122,7 +2122,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-subm-10.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2131,7 +2131,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-11.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2140,7 +2140,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of statements (not counting directives) validated should have been 5")
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of statements validated should have been 5")
   }
 
   "The input file ./TurtleTests/turtle-subm-12.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2149,7 +2149,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(9), "Number of statements (not counting directives) validated should have been 9")
+    assert(parser.turtleDoc.run() == scala.util.Success(9), "Number of statements validated should have been 9")
   }
 
   "The input file ./TurtleTests/turtle-subm-13.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2158,7 +2158,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(8), "Number of statements (not counting directives) validated should have been 8")
+    assert(parser.turtleDoc.run() == scala.util.Success(8), "Number of statements validated should have been 8")
   }
 
   "The input file ./TurtleTests/turtle-subm-14.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2167,7 +2167,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-15.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2176,7 +2176,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-16.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2185,7 +2185,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-17.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2194,7 +2194,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-subm-18.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2203,7 +2203,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-19.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2212,7 +2212,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-20.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2221,7 +2221,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-subm-21.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2230,7 +2230,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-22.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2239,7 +2239,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-23.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2248,7 +2248,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(6), "Number of statements (not counting directives) validated should have been 6")
+    assert(parser.turtleDoc.run() == scala.util.Success(6), "Number of statements validated should have been 6")
   }
 
   "The input file ./TurtleTests/turtle-subm-24.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2257,7 +2257,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-25.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2266,7 +2266,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-subm-26.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2275,7 +2275,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of statements (not counting directives) validated should have been 22")
+    assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of statements validated should have been 22")
   }
 
   "The input file ./TurtleTests/turtle-subm-27.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -2284,7 +2284,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(10), "Number of statements (not counting directives) validated should have been 10")
+    assert(parser.turtleDoc.run() == scala.util.Success(10), "Number of statements validated should have been 10")
   }
 
   "The input file ./TurtleTests/turtle-eval-bad-01.ttl" must "fail" taggedAs (TurtleEvalBad) in {
@@ -2373,7 +2373,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/IRI_with_four_digit_numeric_escape.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2382,7 +2382,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/IRI_with_eight_digit_numeric_escape.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2391,7 +2391,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/IRI_with_all_punctuation.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2400,7 +2400,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/bareword_a_predicate.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2409,7 +2409,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/old_style_prefix.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2418,7 +2418,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/SPARQL_style_prefix.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2427,7 +2427,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefixed_IRI_predicate.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2436,7 +2436,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefixed_IRI_object.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2445,7 +2445,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefix_only_IRI.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2454,7 +2454,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefix_with_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2463,7 +2463,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefix_with_non_leading_extras.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2472,7 +2472,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/default_namespace_IRI.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2481,7 +2481,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/prefix_reassigned_and_used.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2490,7 +2490,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/reserved_escaped_localName.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2499,7 +2499,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/percent_escaped_localName.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2508,7 +2508,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/HYPHEN_MINUS_in_localName.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2517,7 +2517,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/underscore_in_localName.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2526,7 +2526,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localname_with_COLON.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2535,7 +2535,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2544,7 +2544,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2553,7 +2553,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2562,7 +2562,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_leading_underscore.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2571,7 +2571,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_leading_digit.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2580,7 +2580,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/localName_with_non_leading_extras.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2589,7 +2589,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/old_style_base.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2598,7 +2598,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/SPARQL_style_base.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2607,7 +2607,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_subject.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2616,7 +2616,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_object.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2625,7 +2625,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2634,7 +2634,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_with_leading_underscore.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2643,7 +2643,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_with_leading_digit.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2652,7 +2652,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/labeled_blank_node_with_non_leading_extras.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2661,7 +2661,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/anonymous_blank_node_subject.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2670,7 +2670,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/anonymous_blank_node_object.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2679,7 +2679,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/sole_blankNodePropertyList.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2688,7 +2688,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/blankNodePropertyList_as_subject.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2697,7 +2697,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/blankNodePropertyList_as_object.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2706,7 +2706,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/blankNodePropertyList_with_multiple_triples.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2715,7 +2715,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/nested_blankNodePropertyLists.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2724,7 +2724,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/blankNodePropertyList_containing_collection.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2733,7 +2733,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/collection_subject.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2742,7 +2742,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/collection_object.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2751,7 +2751,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/empty_collection.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2760,7 +2760,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/nested_collection.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2769,7 +2769,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/first.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2778,7 +2778,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/last.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2787,7 +2787,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL1.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2796,7 +2796,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL1_ascii_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2805,7 +2805,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL1_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2814,7 +2814,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL1_all_controls.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2823,7 +2823,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL1_all_punctuation.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2832,7 +2832,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG1.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2841,7 +2841,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG1_ascii_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2850,7 +2850,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2859,7 +2859,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG1_with_1_squote.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2868,7 +2868,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG1_with_2_squotes.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2877,7 +2877,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL2.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2886,7 +2886,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL2_ascii_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2895,7 +2895,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL2_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2904,7 +2904,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2913,7 +2913,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2_ascii_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2922,7 +2922,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2931,7 +2931,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2_with_1_squote.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2940,7 +2940,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2_with_2_squotes.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2949,7 +2949,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_CHARACTER_TABULATION.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2958,7 +2958,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_BACKSPACE.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2967,7 +2967,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_LINE_FEED.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2976,7 +2976,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_CARRIAGE_RETURN.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2985,7 +2985,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_FORM_FEED.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -2994,7 +2994,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_REVERSE_SOLIDUS.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3003,7 +3003,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_escaped_CHARACTER_TABULATION.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3012,7 +3012,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_escaped_BACKSPACE.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3021,7 +3021,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_escaped_LINE_FEED.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3030,7 +3030,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_escaped_CARRIAGE_RETURN.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3039,7 +3039,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_escaped_FORM_FEED.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3048,7 +3048,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_numeric_escape4.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3057,7 +3057,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_with_numeric_escape8.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3066,7 +3066,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/IRIREF_datatype.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3075,7 +3075,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/prefixed_name_datatype.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3084,7 +3084,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/bareword_integer.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3093,7 +3093,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/bareword_decimal.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3102,7 +3102,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/bareword_double.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3111,7 +3111,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/double_lower_case_e.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3120,7 +3120,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/negative_numeric.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3129,7 +3129,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/positive_numeric.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3138,7 +3138,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/numeric_with_leading_0.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3147,7 +3147,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_true.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3156,7 +3156,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/literal_false.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3165,7 +3165,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/langtagged_non_LONG.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3174,7 +3174,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/langtagged_LONG.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3183,7 +3183,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/lantag_with_subtag.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3192,7 +3192,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/objectList_with_two_objects.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3201,7 +3201,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/predicateObjectList_with_two_objectLists.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3210,7 +3210,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/repeated_semis_at_end.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3219,7 +3219,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/repeated_semis_not_at_end.ttl" must "succeed" taggedAs (TurtleAtomic) in {
@@ -3228,7 +3228,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements (not counting directives) validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
   }
 
   "The input file ./TurtleTests/comment_following_localName.ttl" must "succeed" taggedAs (JeremyCarroll) in {
@@ -3237,7 +3237,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/number_sign_following_localName.ttl" must "succeed" taggedAs (JeremyCarroll) in {
@@ -3246,7 +3246,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/comment_following_PNAME_NS.ttl" must "succeed" taggedAs (JeremyCarroll) in {
@@ -3255,7 +3255,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/number_sign_following_PNAME_NS.ttl" must "succeed" taggedAs (JeremyCarroll) in {
@@ -3264,7 +3264,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/LITERAL_LONG2_with_REVERSE_SOLIDUS.ttl" must "succeed" taggedAs (DaveBeckett) in {
@@ -3273,7 +3273,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl" must "fail" taggedAs (DaveBeckett) in {
@@ -3302,7 +3302,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/langtagged_LONG_with_subtag.ttl" must "succeed" taggedAs (DaveBeckett) in {
@@ -3311,7 +3311,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements (not counting directives) validated should have been 3")
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of statements validated should have been 3")
   }
 
   "The input file ./TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl" must "fail" taggedAs (DavidRobillard) in {
@@ -3500,7 +3500,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 
   "The input file ./TurtleTests/turtle-syntax-ln-colons.ttl" must "succeed" taggedAs (DavidRobillard) in {
@@ -3509,7 +3509,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(6), "Number of statements (not counting directives) validated should have been 6")
+    assert(parser.turtleDoc.run() == scala.util.Success(6), "Number of statements validated should have been 6")
   }
 
   "The input file ./TurtleTests/turtle-syntax-ns-dots.ttl" must "succeed" taggedAs (DavidRobillard) in {
@@ -3518,7 +3518,7 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements (not counting directives) validated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-blank-label.ttl" must "succeed" taggedAs (DavidRobillard) in {
@@ -3527,6 +3527,6 @@ class ChelonaParserSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, true)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements (not counting directives) validated should have been 4")
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of statements validated should have been 4")
   }
 }

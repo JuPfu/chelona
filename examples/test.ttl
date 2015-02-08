@@ -1,0 +1,35 @@
+    # Kommentar
+	
+@base <http://one.example/> .
+@prefix xyz: <http://wrong/base#> .
+<a> <b> <c> .
+_:a <b> "test" .
+	
+ # Test empty [] operator; not allowed as predicate
+ @prefix # @prefix
+ :       # :
+ 	<http://example.org/base#> 		# test
+   .
+ <c> <a> 			true
+     # white space
+           .
+ @prefix r: <iri> .
+#:c :d [  ] .
+@prefix a: <http://wtf/base#> .
+<a> <b> _:c.1..2...3
+.[   
+] <b> a:b:c.1..2...3 .
+ <a> <b> +1.2E-2 .
+@base	<iriref> .
+<a> <b>
+     '''String\t-TAB oder k? \u002A'''
+
+    # test
+       .
+<a> <b> <c> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://example.org/people#joebob> a foaf:Person;
+  foaf:name "Joe Bob";
+  foaf:nick ( "joe" "bob" "jaybee" ) .
+# EOI
