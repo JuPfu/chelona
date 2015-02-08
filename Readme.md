@@ -78,7 +78,7 @@ where x.x.x denotes the version information, e.g. chelona-assembly-0.8.0.jar.
 Running *Cheló̱na* from the command line
 ----------------------------------------
 
-Conversion of the example1.ttl file from the testfiles directory into the simple S-P-O Turtle format (N3)
+Conversion of the example1.ttl file from the examples directory into the simple S-P-O Turtle format (N3)
 
 	<#green-goblin> rel:enemyOf    <#spiderman> 	;
 	    a foaf:Person ;    # in the context of the Marvel universe
@@ -121,7 +121,7 @@ When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na
 	Validate: ./examples/example1.ttl
     Input file './examples/example1.ttl' composed of 7 statements successfully validated in 0.107sec (statements per second = 65)
 
-In case of an error the *Cheló̱na* will display an error message and gives a hint where the problem occurred.
+In case of an error *Cheló̱na* will display an error message and gives a hint where the problem occurred.
 
 
 What *Cheló̱na* does in detail:
