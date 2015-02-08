@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import java.io.{ BufferedWriter }
+import java.io.{ Writer }
 
 import org.parboiled2._
 
@@ -73,16 +73,16 @@ object ChelonaParser {
   var bCount = 0
   var cCount = 0
 
-  def apply(input: ParserInput, output: BufferedWriter, validate: Boolean, echarMask: Boolean) = {
+  def apply(input: ParserInput, output: Writer, validate: Boolean, echarMask: Boolean) = {
     new ChelonaParser(input, output, validate, echarMask, if (echarMask) echarIdentityMap else echarEscapeMap)
   }
 
-  def tripleWriter(bo: BufferedWriter)(triple: List[SPOTriple]): Int = {
+  def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
     triple.length
   }
 
-  def tripleRawWriter(bo: BufferedWriter)(triple: List[SPOTriple]): Int = {
+  def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n"))
     triple.length
   }
@@ -224,7 +224,7 @@ object ChelonaParser {
 
 }
 
-class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate: Boolean, echarMask: Boolean, echarMap: Map[Char, Char]) extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean, echarMask: Boolean, echarMap: Map[Char, Char]) extends Parser with StringBuilding {
 
   import org.chelona.ChelonaParser._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
@@ -549,11 +549,10 @@ class ChelonaParser(val input: ParserInput, val output: BufferedWriter, validate
         prefixMap += pname -> token
         true
       } else {
-        if ( prefixMap.contains("@") ) {
+        if (prefixMap.contains("@")) {
           prefixMap += pname -> (prefixMap.get("@") + token)
           true
-        }
-        else {
+        } else {
           false
         }
       }

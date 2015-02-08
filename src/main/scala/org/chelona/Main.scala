@@ -58,7 +58,7 @@ object Main extends App {
     case scala.util.Success(tripleCount) ⇒
       val me: Double = System.currentTimeMillis - ms
       if (!validate) {
-        System.err.println("Input file '" + file(0) + ": " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+        System.err.println("Input file '" + file(0) + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
       } else {
         System.err.println("Input file '" + file(0) + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
       }

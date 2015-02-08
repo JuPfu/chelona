@@ -19,12 +19,13 @@ import org.scalatest.Tag
 object TurtleAtomic extends Tag("org.chelona.tags.TurtleAtomic")
 object TurtleSyntax extends Tag("org.chelona.tags.TurtleSyntax")
 object TurtleSyntaxBad extends Tag("org.chelona.tags.TurtleSyntaxBad")
-object TurtleEval extends Tag("org.chelona.tags.TurtleEval")
+
 object TurtleEvalBad extends Tag("org.chelona.tags.TurtleEvalBad")
 object JeremyCarroll extends Tag("org.chelona.tags.JeremyCarroll")
 object DaveBeckett extends Tag("org.chelona.tags.DaveBeckett")
 object DavidRobillard extends Tag("org.chelona.tags.DavidRobillard")
-object TurtleNegativeEvaluationTest extends Tag("org.chelona.tags.TurtleNegativeEvaluationTest")
-object TurtleNegativeSyntaxTest extends Tag("org.chelona.tags.TurtleNegativeSyntaxTest")
-object TurtleSyntaxTest extends Tag("org.chelona.tags.TurtleSyntaxTest")
-object TurtleEvaluationTest extends Tag("org.chelona.tags.TurtleEvaluationTest")
+
+object TestTurtleEval extends Tag("org.chelona.tags.TurtleEval")
+object TestTurtleNegativeEval extends Tag("org.chelona.tags.TurtleNegativeEval")
+object TestTurtlePositiveSyntax extends Tag("org.chelona.tags.TestTurtlePositiveSyntax")
+object TestTurtleNegativeSyntax extends Tag("org.chelona.tags.TestTurtleNegativeSyntax")

@@ -28,6 +28,9 @@ object EvalN3 {
         /* some clean up at the beginning of a new turtle statement */
         subjectStack.clear
         predicateStack.clear
+        aCount = 0
+        bCount = 0
+        cCount = 0
         /* evaluate a turtle statement */
         evalStatement(rule)
       case ASTComment(rule)   ⇒ SPOComment(rule)
@@ -266,8 +269,9 @@ object EvalN3 {
       val prefix = prefixMap.getOrElse("@", "")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + iri
-      else
+      else if ( prefix.length > 0 )
         prefix + "/" + iri
+      else iri
     } else iri
   }
 }
