@@ -92,12 +92,12 @@ Conversion of the example1.ttl file from the testfiles directory into the simple
 
 is done with the command shown here: 
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser ./testfiles/example1.ttl > example1_n3.ttl
+    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.Main ./examples/example1.ttl > example1_n3.ttl
 
 The output generated lists the name of the output file and the number of generated triples:
 
-	Convert: ./testfiles/example1.ttl
-    ./testfiles/example1.ttl: 0.064sec 8 triples (triples per second = 125)
+	Convert: ./examples/example1.ttl
+    Input file './examples/example1.ttl' converted in 0.064sec 8 triples (triples per second = 125)
 	
 Inspecting the output file 'example1_n3.ttl' should give this result:
 
@@ -116,10 +116,10 @@ Validation of a Turtle File
 When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na* will do a syntax check. No output file is
  generated.
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.ChelonaParser -v ./testfiles/example1.ttl
+    scala -cp ./target/scala-2.11/chelona-assembly-0.8.0.jar org.chelona.Main -v ./examples/example1.ttl
 
-	Validate: ./testfiles/example1.ttl
-    Input file './testfiles/example1.ttl' successfully validated.
+	Validate: ./examples/example1.ttl
+    Input file './examples/example1.ttl' composed of 7 statements successfully validated in 0.107sec (statements per second = 65)
 
 In case of an error the *Cheló̱na* will display an error message and gives a hint where the problem occurred.
 
@@ -131,7 +131,7 @@ What *Cheló̱na* does in detail:
 - builds an abstract syntax tree for each valid turtle statement
 - resolves prefix declarations
 - unescapes numeric and string escape sequences in string-literal productions
-- unescapes numeric escape sequences in Iriref productions
+- unescapes numeric escape sequences in Iriref productions for output format 'raw'
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
 - skolemisation (Replacing blank nodes with IRIs) (to be done)
 

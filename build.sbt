@@ -55,6 +55,8 @@ resolvers += Resolver.sonatypeRepo("public")
 
 //scalacOptions in Test ++= Seq("-Yrangepos")
 
+test in assembly := {}
+
 scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
