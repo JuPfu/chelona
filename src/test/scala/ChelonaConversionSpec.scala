@@ -28,7 +28,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -45,7 +45,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -62,7 +62,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -79,7 +79,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -96,7 +96,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -113,7 +113,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -130,7 +130,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -147,7 +147,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -164,7 +164,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -181,7 +181,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -198,7 +198,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -215,7 +215,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -232,7 +232,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -249,7 +249,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -266,7 +266,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -283,7 +283,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -300,7 +300,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -317,7 +317,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -334,7 +334,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -351,7 +351,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -368,7 +368,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -385,7 +385,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -402,7 +402,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -419,7 +419,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -436,7 +436,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -453,7 +453,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -470,7 +470,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -487,7 +487,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -504,7 +504,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -521,7 +521,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -538,7 +538,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -555,7 +555,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -572,7 +572,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -589,7 +589,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -606,7 +606,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -623,7 +623,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -640,13 +640,455 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, true)
+    val parser = ChelonaParser(input, output, false)
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_true.nt").mkString
 
     assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_true.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_BACKSPACE.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_BACKSPACE.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_BACKSPACE.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_BACKSPACE.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_CARRIAGE_RETURN.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_CHARACTER_TABULATION.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_CHARACTER_TABULATION.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CHARACTER_TABULATION.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CHARACTER_TABULATION.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_FORM_FEED.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_FORM_FEED.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_LINE_FEED.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_LINE_FEED.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_LINE_FEED.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_LINE_FEED.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_REVERSE_SOLIDUS.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_REVERSE_SOLIDUS.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_REVERSE_SOLIDUS.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_REVERSE_SOLIDUS.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/literal_with_numeric_escape4.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/literal_with_numeric_escape4.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_numeric_escape4.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_numeric_escape4.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_leading_digit.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_leading_digit.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_leading_digit.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_leading_digit.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_leading_underscore.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_leading_underscore.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_leading_underscore.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_leading_underscore.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_nfc_PN_CHARS_BASE_character_boundaries.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localName_with_non_leading_extras.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_non_leading_extras.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/localname_with_COLON.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/localname_with_COLON.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/localname_with_COLON.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localname_with_COLON.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/negative_numeric.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/negative_numeric.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/negative_numeric.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in negative_numeric.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/nested_blankNodePropertyLists.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/nested_blankNodePropertyLists.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/nested_blankNodePropertyLists.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in nested_blankNodePropertyLists.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/nested_collection.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/nested_collection.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+
+    val nt = io.Source.fromFile("./TurtleTests/nested_collection.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in nested_collection.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/number_sign_following_PNAME_NS.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/number_sign_following_PNAME_NS.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/number_sign_following_PNAME_NS.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in number_sign_following_PNAME_NS.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/number_sign_following_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/number_sign_following_localName.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/number_sign_following_localName.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in number_sign_following_localName.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/numeric_with_leading_0.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/numeric_with_leading_0.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/numeric_with_leading_0.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in numeric_with_leading_0.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/objectList_with_two_objects.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/objectList_with_two_objects.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/objectList_with_two_objects.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in objectList_with_two_objects.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/percent_escaped_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/percent_escaped_localName.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/percent_escaped_localName.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in percent_escaped_localName.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/positive_numeric.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/positive_numeric.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/positive_numeric.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in positive_numeric.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/predicateObjectList_with_two_objectLists.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/predicateObjectList_with_two_objectLists.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/predicateObjectList_with_two_objectLists.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in predicateObjectList_with_two_objectLists.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/prefix_reassigned_and_used.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/prefix_reassigned_and_used.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/prefix_reassigned_and_used.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in prefix_reassigned_and_used.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/repeated_semis_not_at_end.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/repeated_semis_not_at_end.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/repeated_semis_not_at_end.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in repeated_semis_not_at_end.nt" )
 
     output.close()
   }

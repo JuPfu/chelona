@@ -59,11 +59,6 @@ object ChelonaParser {
 
   val WS = CharPredicate(" \t")
 
-  // echarMap shall be used for raw data output, where resolution of escape characters is required
-  // echar shall remain escaped for intermediate use, e.g. when a simplified turtle format is generated
-  val echarEscapeMap = Map('t' -> '\t', 'b' -> '\b', 'n' -> '\n', 'r' -> '\r', 'f' -> '\f', '"' -> '"', '\'' -> '\'', '\\' -> '\\')
-  val echarIdentityMap = Map('t' -> 't', 'b' -> 'b', 'n' -> 'n', 'r' -> 'r', 'f' -> 'f', '"' -> '"', '\'' -> '\'', '\\' -> '\\')
-
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
   val predicateStack = scala.collection.mutable.Stack.empty[String]
@@ -73,8 +68,8 @@ object ChelonaParser {
   var bCount = 0
   var cCount = 0
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean, echarMask: Boolean) = {
-    new ChelonaParser(input, output, validate, echarMask, if (echarMask) echarIdentityMap else echarEscapeMap)
+  def apply(input: ParserInput, output: Writer, validate: Boolean) = {
+    new ChelonaParser(input, output, validate)
   }
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
@@ -224,7 +219,7 @@ object ChelonaParser {
 
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean, echarMask: Boolean, echarMap: Map[Char, Char]) extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean) extends Parser with StringBuilding {
 
   import org.chelona.ChelonaParser._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
@@ -397,28 +392,28 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[23] '" ([^#x27#x5C#xA#xD] | ECHAR | UCHAR)* "'" /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_SINGLE_QUOTE = rule {
-    '\'' ~ clearSB ~ (noneOf("'\\\r\n") ~ appendSB | ECHAR | UCHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
+    '\'' ~ clearSB ~ (noneOf("'\\\r\n") ~ appendSB(if(lastChar!='"') lastChar.toString else "\\\"") | ECHAR | UCHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
   }
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\") ~ appendSB(if(lastChar!='"') lastChar.toString else "\\\"") | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\"\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"","\\\""))) ~ (noneOf("\"\\") ~ appendSB | ECHAR | UCHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
   def UCHAR = rule {
-    str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
-      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
+    str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB("\\u"+hexStringToCharString(s))) |
+      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB("\\U"+hexStringToCharString(s)))
   }
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
   def ECHAR = rule {
-    str("\\") ~ test(echarMask) ~ appendSB('\\') ~ ECHAR_CHAR ~ appendSB(echarMap(lastChar))
+     str("\\") ~ appendSB("\\") ~ ECHAR_CHAR ~ appendSB(lastChar)
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName

@@ -48,7 +48,7 @@ object Main extends App {
 
   val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = ChelonaParser(inputfile, bo, validate, cmdLineArgs.get.out.toLowerCase() != "raw")
+  val parser = ChelonaParser(inputfile, bo, validate)
 
   val res = parser.turtleDoc.run()
 

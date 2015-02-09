@@ -175,9 +175,9 @@ object EvalN3 {
       case ASTBooleanLiteral(token)               ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#boolean>")
       case ASTString(rule)                        ⇒ evalStatement(rule)
       case ASTStringLiteralQuote(token)           ⇒ SPOString("\"" + token + "\"")
-      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("'" + token + "'")
-      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString("'''" + token + "'''")
-      case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"\"\"" + token + "\"\"\"")
+      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("\"" + token + "\"")
+      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString("\"" + token + "\"")
+      case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"" + token + "\"")
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ SPOString("<" + addBasePrefix(s) + ">")
