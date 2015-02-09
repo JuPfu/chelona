@@ -153,9 +153,9 @@ object EvalN3 {
         curPredicate = predicateStack.pop
         res
       case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token)       ⇒ SPOString(token)
-      case ASTDecimal(token)       ⇒ SPOString(token)
-      case ASTDouble(token)        ⇒ SPOString(token)
+      case ASTInteger(token)       ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#integer>")
+      case ASTDecimal(token)       ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#decimal>")
+      case ASTDouble(token)        ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#double>")
       case ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case SPOString(s) ⇒ s
