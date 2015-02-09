@@ -28,9 +28,9 @@ object EvalN3 {
         /* some clean up at the beginning of a new turtle statement */
         subjectStack.clear
         predicateStack.clear
-        aCount = 0
-        bCount = 0
-        cCount = 0
+        aCount = 1
+        bCount = 1
+        cCount = 1
         /* evaluate a turtle statement */
         evalStatement(rule)
       case ASTComment(rule)   ⇒ SPOComment(rule)
@@ -120,7 +120,7 @@ object EvalN3 {
           cCount += 1
           curSubject = "_:c" + cCount
           predicateStack.push(curPredicate)
-          curPredicate = "rdf:first"
+          curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
           (evalStatement(l): @unchecked) match {
             case SPOTriples(t) ⇒
               val oldSubject = curSubject
@@ -146,7 +146,7 @@ object EvalN3 {
       case ASTCollection(rule) ⇒
         curSubject = "_:c" + cCount
         subjectStack.push(curSubject)
-        curPredicate = "rdf:first"
+        curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
         predicateStack.push(curPredicate)
         val res = SPOTriples(traverseCollection(rule, Nil))
         curSubject = subjectStack.pop
@@ -172,7 +172,7 @@ object EvalN3 {
           case None ⇒ evalStatement(string)
         }
       case ASTLangTag(token)                      ⇒ SPOString(token)
-      case ASTBooleanLiteral(token)               ⇒ SPOString(token)
+      case ASTBooleanLiteral(token)               ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#boolean>")
       case ASTString(rule)                        ⇒ evalStatement(rule)
       case ASTStringLiteralQuote(token)           ⇒ SPOString("\"" + token + "\"")
       case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("'" + token + "'")
@@ -224,7 +224,7 @@ object EvalN3 {
 
   @tailrec
   private def traverseCollection(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples ::: SPOTriple(curSubject, "rdf:rest", "rdf:nil") :: Nil
+    case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
     case x +: xs ⇒
       val oldSubject = curSubject
       if (xs != Nil) {
@@ -233,12 +233,12 @@ object EvalN3 {
       }
       (evalStatement(x): @unchecked) match {
         case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
-          triples ::: (SPOTriple(oldSubject, "rdf:first", o) :: (SPOTriple(oldSubject, "rdf:rest", curSubject) :: Nil))
+          triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "rdf:rest", curSubject) :: Nil))
         } else {
-          triples :+ SPOTriple(oldSubject, "rdf:first", o)
+          triples :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o)
         })
         case SPOTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
-          triples ::: (t :+ SPOTriple(oldSubject, "rdf:rest", curSubject))
+          triples ::: (t :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject))
         } else {
           triples ::: t
         })
