@@ -56,6 +56,23 @@ class ChelonaConversionSpec extends FlatSpec {
     output.close()
   }
 
+  "The input file ./TurtleTests/IRI_subject.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/IRI_subject.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/IRI_spo.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in IRI_spo.nt" )
+
+    output.close()
+  }
+
   "The input file ./TurtleTests/IRI_with_all_punctuation.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/IRI_with_all_punctuation.ttl").mkString

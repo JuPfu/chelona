@@ -392,12 +392,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[23] '" ([^#x27#x5C#xA#xD] | ECHAR | UCHAR)* "'" /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_SINGLE_QUOTE = rule {
-    '\'' ~ clearSB ~ (noneOf("'\\\r\n") ~ appendSB(if(lastChar!='"') lastChar.toString else "\\\"") | ECHAR | UCHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
+    '\'' ~ clearSB ~ (noneOf("'\"\\\r\n") ~ appendSB | '"' ~ appendSB("\\\"") | ECHAR | UCHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
   }
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\") ~ appendSB(if(lastChar!='"') lastChar.toString else "\\\"") | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"") ~ appendSB | '"' ~ appendSB("\\\"") | ECHAR | UCHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
@@ -407,8 +407,8 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
   def UCHAR = rule {
-    str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB("\\u"+hexStringToCharString(s))) |
-      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB("\\U"+hexStringToCharString(s)))
+    str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
+      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
   }
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
