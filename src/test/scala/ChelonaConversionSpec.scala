@@ -1092,4 +1092,550 @@ class ChelonaConversionSpec extends FlatSpec {
 
     output.close()
   }
+
+  "The input file ./TurtleTests/reserved_escaped_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/reserved_escaped_localName.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/reserved_escaped_localName.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in reserved_escaped_localName.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-eval-struct-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-struct-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-01.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-01.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-eval-struct-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-struct-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-02.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-02.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-01.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-02.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-02.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-03.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-03.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-04.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-04.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-05.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-05.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-06.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-06.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-06.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-07.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-07.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-07.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-07.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-08.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-08.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-08.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-09.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-09.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-09.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-09.nt" )
+
+    output.close()
+  }
+
+
+  "The input file ./TurtleTests/turtle-subm-10.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-10.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-10.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-11.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-11.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-11.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-11.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-12.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-12.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-12.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-12.nt" )
+
+    output.close()
+  }
+
+
+  "The input file ./TurtleTests/turtle-subm-13.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-13.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-13.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-13.nt" )
+
+    output.close()
+  }
+
+
+  "The input file ./TurtleTests/turtle-subm-14.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-14.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-15.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-15.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15.nt" )
+
+    output.close()
+  }
+  "The input file ./TurtleTests/turtle-subm-16.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-16.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-16.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-16.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-17.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-17.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-17.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-17.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-18.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-18.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-18.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-18.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-19.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-19.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-19.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-19.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-20.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-20.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-20.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-20.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-21.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-21.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-21.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-21.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-22.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-22.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-22.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-22.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-23.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-23.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-23.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-23.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-24.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-24.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-24.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-24.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-25.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-25.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-25.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-25.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-26.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-26.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-26.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-26.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-subm-27.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-27.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-27.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-27.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/two_LITERAL_LONG2s.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/two_LITERAL_LONG2s.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/two_LITERAL_LONG2s.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in two_LITERAL_LONG2s.nt" )
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/underscore_in_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/underscore_in_localName.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/underscore_in_localName.nt").mkString
+
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in underscore_in_localName.nt" )
+
+    output.close()
+  }
 }
