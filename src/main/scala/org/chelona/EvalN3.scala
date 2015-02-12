@@ -153,9 +153,9 @@ object EvalN3 {
         curPredicate = predicateStack.pop
         res
       case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token)       ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#integer>")
-      case ASTDecimal(token)       ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#decimal>")
-      case ASTDouble(token)        ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#double>")
+      case ASTInteger(token)       ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>")
+      case ASTDecimal(token)       ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>")
+      case ASTDouble(token)        ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>")
       case ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case SPOString(s) ⇒ s
@@ -172,7 +172,7 @@ object EvalN3 {
           case None ⇒ evalStatement(string)
         }
       case ASTLangTag(token)                      ⇒ SPOString(token)
-      case ASTBooleanLiteral(token)               ⇒ SPOString("\""+token+"\"^^<http://www.w3.org/2001/XMLSchema#boolean>")
+      case ASTBooleanLiteral(token)               ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>")
       case ASTString(rule)                        ⇒ evalStatement(rule)
       case ASTStringLiteralQuote(token)           ⇒ SPOString("\"" + token + "\"")
       case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("\"" + token + "\"")
@@ -269,7 +269,7 @@ object EvalN3 {
       val prefix = prefixMap.getOrElse("@", "")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + iri
-      else if ( prefix.length > 0 )
+      else if (prefix.length > 0)
         prefix + "/" + iri
       else iri
     } else iri
