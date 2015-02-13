@@ -387,22 +387,22 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[22] STRING_LITERAL_QUOTE   ::=     '"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_QUOTE = rule {
-    '"' ~ clearSB ~ (noneOf("\"\\\r\n\b\f") ~ appendSB | '\b' ~ appendSB("\\u0008") | '\f' ~ appendSB("\\f") | UCHAR | ECHAR).* ~ '"' ~ push(sb.toString) ~> ASTStringLiteralQuote
+    '"' ~ clearSB ~ (noneOf("\"\\\r\n") ~ appendSB | UCHAR | ECHAR).* ~ '"' ~ push(sb.toString) ~> ASTStringLiteralQuote
   }
 
   //[23] '" ([^#x27#x5C#xA#xD] | ECHAR | UCHAR)* "'" /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_SINGLE_QUOTE = rule {
-    '\'' ~ clearSB ~ (noneOf("'\"\\\r\n\b\f") ~ appendSB | '"' ~ appendSB("\\\"") | '\b' ~ appendSB("\\u0008") | '\f' ~ appendSB("\\f") | UCHAR | ECHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
+    '\'' ~ clearSB ~ (noneOf("'\"\\\r\n") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR | ECHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
   }
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"\r\b\f") ~ appendSB | '"' ~ appendSB("\\\"") | '\b' ~ appendSB("\\u0008") | '\r' ~ appendSB("\\r") | '\f' ~ appendSB("\\f") | UCHAR | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"\r") ~ appendSB | '"' ~ appendSB("\\\"") | '\r' ~ appendSB("\\r") | UCHAR | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\\r\b\f") ~ appendSB | '\b' ~ appendSB("\\u0008") | '\r' ~ appendSB("\\r") | '\f' ~ appendSB("\\f") | UCHAR | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\\r") ~ appendSB | '\r' ~ appendSB("\\r") | UCHAR | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
@@ -477,7 +477,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    capture((PLX | PN_CHARS_U_COLON_DIGIT) ~ (((PLX | PN_CHARS_DOT_COLON) ~ &(PLX | DOT.* ~ PN_CHARS_COLON)).* ~ (PLX | PN_CHARS_COLON)).?) ~> ASTPNLocal
+    clearSB ~ ((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (((PLX | PN_CHARS_DOT_COLON ~ appendSB) ~ &(PLX | DOT.* ~ PN_CHARS_COLON)).* ~ (PLX | PN_CHARS_COLON)).?) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -487,12 +487,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[170s] PERCENT 	::= 	'%' HEX HEX
   def PERCENT = rule {
-    '%' ~ HexDigit ~ HexDigit
+    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit ~ appendSB
   }
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
   def PN_LOCAL_ESC = rule {
-    '\\' ~ LOCAL_ESC
+    '\\' ~ LOCAL_ESC ~ appendSB
   }
 
   //[137s] BlankNode 	::= 	BLANK_NODE_LABEL | ANON
