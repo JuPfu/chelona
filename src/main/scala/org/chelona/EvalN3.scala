@@ -231,7 +231,7 @@ object EvalN3 {
       }
       (evalStatement(x): @unchecked) match {
         case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
-          triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "rdf:rest", curSubject) :: Nil))
+          triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject) :: Nil))
         } else {
           triples :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o)
         })

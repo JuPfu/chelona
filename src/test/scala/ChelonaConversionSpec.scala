@@ -525,9 +525,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
-    val nt = io.Source.fromFile("./TurtleTests/first.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/first_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in first.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in first_isomorphic.nt" )
 
     output.close()
   }
@@ -627,9 +627,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
-    val nt = io.Source.fromFile("./TurtleTests/last.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/last_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in last.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in last_isomorphic.nt" )
 
     output.close()
   }
@@ -950,9 +950,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
-    val nt = io.Source.fromFile("./TurtleTests/nested_collection.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/nested_collection_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in nested_collection.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in nested_collection_isomorphic.nt" )
 
     output.close()
   }
@@ -1412,9 +1412,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15_isomorphic.nt" )
 
     output.close()
   }
