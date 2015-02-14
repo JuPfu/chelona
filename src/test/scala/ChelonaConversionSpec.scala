@@ -440,9 +440,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
-    val nt = io.Source.fromFile("./TurtleTests/collection_object.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/collection_object_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in collection_object.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in collection_object_isomorphic.nt" )
 
     output.close()
   }
@@ -457,9 +457,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
-    val nt = io.Source.fromFile("./TurtleTests/collection_subject.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/collection_subject_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in collection_subject.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in collection_subject_isomorphic.nt" )
 
     output.close()
   }
