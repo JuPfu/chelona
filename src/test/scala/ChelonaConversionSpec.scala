@@ -294,9 +294,9 @@ class ChelonaConversionSpec extends FlatSpec {
     output.close()
   }
 
-  "The input file ./TurtleTests/LITERAL_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+  "The input file ./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
-    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/LITERAL_with_UTF8_boundaries.ttl").mkString
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/LITERAL_LONG_with_UTF8_boundaries.ttl").mkString
 
     val output = new StringWriter()
 

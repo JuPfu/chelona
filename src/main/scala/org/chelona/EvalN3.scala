@@ -188,14 +188,14 @@ object EvalN3 {
       case ASTPrefixedName(rule) ⇒ evalStatement(rule)
       case ASTPNameNS(prefix) ⇒
         prefix match {
-          case Some(pn_prefix) ⇒ evalStatement(pn_prefix);
+          case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
           case None            ⇒ SPOString("")
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
           case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
         }
-      case ASTPNPrefix(token)       ⇒ SPOString(token)
+      case ASTPNPrefix(token)       ⇒ SPOString("<" + addPrefix(token, "") + ">")
       case ASTPNLocal(token)        ⇒ SPOString(token)
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)

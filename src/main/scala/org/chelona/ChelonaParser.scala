@@ -117,7 +117,7 @@ object ChelonaParser {
     evalLoop(ast, 0L)
   }
 
-  private def hexStringToCharString(s: String) = s.grouped(2).map(cc ⇒ (Character.digit(cc(0), 16) << 4 | Character.digit(cc(1), 16)).toChar).mkString("")
+  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).mkString("")
 
   sealed trait SPOReturnValue
 
@@ -477,7 +477,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ ((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (((PLX | PN_CHARS_DOT_COLON ~ appendSB) ~ &(PLX | DOT.* ~ PN_CHARS_COLON)).* ~ (PLX | PN_CHARS_COLON)).?) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ (((PLX | PN_CHARS_U_COLON_DIGIT) ~ appendSB(lastChar)) ~ (((PLX | PN_CHARS_DOT_COLON) ~ &(PLX | DOT.* ~ PN_CHARS_COLON) ~ appendSB(lastChar)).* ~ ((PLX | PN_CHARS_COLON) ~ appendSB(lastChar))).?) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -492,7 +492,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
   def PN_LOCAL_ESC = rule {
-    '\\' ~ LOCAL_ESC ~ appendSB
+    '\\' ~ LOCAL_ESC
   }
 
   //[137s] BlankNode 	::= 	BLANK_NODE_LABEL | ANON
@@ -565,5 +565,9 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
       }
     }
     prefixMap.contains(ns)
+  }
+
+  private def addPrefix(pname_ns: String, pn_local: String): Boolean = {
+    prefixMap.contains(pname_ns)
   }
 }
