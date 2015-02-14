@@ -487,7 +487,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[170s] PERCENT 	::= 	'%' HEX HEX
   def PERCENT = rule {
-    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit ~ appendSB
+    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit
   }
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')

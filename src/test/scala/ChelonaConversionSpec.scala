@@ -117,9 +117,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL1_all_controls.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL1_all_controls_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_all_controls.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_all_controls_isomorphic.nt" )
 
     output.close()
   }
@@ -151,9 +151,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL1_ascii_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL1_ascii_boundaries_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_ascii_boundaries.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_ascii_boundaries_isomorphic.nt" )
 
     output.close()
   }
@@ -168,9 +168,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL2_ascii_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL2_ascii_boundaries_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2_ascii_boundaries.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2_ascii_boundaries_isomorphic.nt" )
 
     output.close()
   }
@@ -185,9 +185,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_ascii_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_ascii_boundaries_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_ascii_boundaries.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_ascii_boundaries_isomorphic.nt" )
 
     output.close()
   }
@@ -236,9 +236,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_ascii_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_ascii_boundaries_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_ascii_boundaries.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_ascii_boundaries_isomorphic.nt" )
 
     output.close()
   }
@@ -296,7 +296,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
   "The input file ./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
-    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/LITERAL_LONG_with_UTF8_boundaries.ttl").mkString
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries.ttl").mkString
 
     val output = new StringWriter()
 
@@ -304,9 +304,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/LITERAL_with_UTF8_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_with_UTF8_boundaries.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_with_UTF8_boundaries_isomorphic.nt" )
 
     output.close()
   }
@@ -678,9 +678,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_BACKSPACE.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_BACKSPACE_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_BACKSPACE.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_BACKSPACE_isomorphic.nt" )
 
     output.close()
   }
@@ -712,9 +712,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_CHARACTER_TABULATION.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CHARACTER_TABULATION_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CHARACTER_TABULATION.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CHARACTER_TABULATION_isomorphic.nt" )
 
     output.close()
   }
@@ -729,9 +729,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_FORM_FEED.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_FORM_FEED_isomorphic.nt" )
 
     output.close()
   }
@@ -746,9 +746,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_LINE_FEED.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_LINE_FEED_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_LINE_FEED.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in literal_with_LINE_FEED_isomorphic.nt" )
 
     output.close()
   }
@@ -882,9 +882,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_non_leading_extras.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in localName_with_non_leading_extras_isomorphic.nt" )
 
     output.close()
   }
