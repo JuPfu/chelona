@@ -1,0 +1,2 @@
+_:a1 <http://example.org/ron/> _:a2 .
+<http://example.org/ron/> <http://example.org/ron/> <http://example.org/ron/> .

@@ -1395,9 +1395,9 @@ class ChelonaConversionSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14_isomorphic.nt").mkString
 
-    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14.nt" )
+    assert( output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14_isomorphic.nt" )
 
     output.close()
   }

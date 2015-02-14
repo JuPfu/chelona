@@ -22,7 +22,7 @@ object EvalN3 {
   import org.chelona.ChelonaParser._
 
   def evalStatement(expr: AST): SPOReturnValue = {
-    //System.err.println("EVAL="+expr.toString)
+
     expr match {
       case ASTTurtleDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
@@ -187,7 +187,7 @@ object EvalN3 {
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
-          case None            ⇒ SPOString("")
+          case None            ⇒ SPOString("<" + addPrefix("", "") + ">")
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
