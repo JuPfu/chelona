@@ -22,15 +22,13 @@ object EvalN3 {
   import org.chelona.ChelonaParser._
 
   def evalStatement(expr: AST): SPOReturnValue = {
+    //System.err.println("EVAL="+expr.toString)
     expr match {
       case ASTTurtleDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
         /* some clean up at the beginning of a new turtle statement */
         subjectStack.clear
         predicateStack.clear
-        aCount = 1
-        bCount = 1
-        cCount = 1
         /* evaluate a turtle statement */
         evalStatement(rule)
       case ASTComment(rule)   ⇒ SPOComment(rule)
@@ -63,8 +61,8 @@ object EvalN3 {
       case ASTBlankNodeTriples(s, p) ⇒
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
-        curSubject = "_:b" + bCount
         bCount += 1
+        curSubject = "_:b" + bCount
         val sub = evalStatement(s)
         val retval = p match {
           case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {

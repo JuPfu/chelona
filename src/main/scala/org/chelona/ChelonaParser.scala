@@ -227,6 +227,11 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   // clear mutable map
   prefixMap.clear()
 
+  // reset mutable counter
+  aCount = 0
+  bCount = 0
+  cCount = 0
+
   val tripleOutput = tripleWriter(output)_
 
   //[161s]
