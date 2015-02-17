@@ -60,6 +60,7 @@ object ChelonaParser {
   val WS = CharPredicate(" \t")
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
+  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
   val predicateStack = scala.collection.mutable.Stack.empty[String]
   var curSubject: String = "---Not valid subject---"
@@ -226,6 +227,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   // clear mutable map
   prefixMap.clear()
+  prefixMap2.clear()
 
   // reset mutable counter
   aCount = 0
@@ -272,12 +274,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[5] base 	::= 	'@base' IRIREF '.'
   def base = rule {
-    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("@", i)) ~ push(i)) ~> ASTBase ~!~ ws ~ "."
+    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTBase ~!~ ws ~ "."
   }
 
   //[5s] sparqlBase 	::= 	"BASE" IRIREF
   def sparqlBase = rule {
-    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("@", i)) ~ push(i)) ~> ASTSparqlBase ~!~ ws
+    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTSparqlBase ~!~ ws
   }
 
   //[6s] sparqlPrefix 	::= 	"PREFIX" PNAME_NS IRIREF
@@ -549,8 +551,8 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
         prefixMap += pname -> token
         true
       } else {
-        if (prefixMap.contains("@")) {
-          prefixMap += pname -> (prefixMap.get("@") + token)
+        if (prefixMap.contains("")) {
+          prefixMap += pname -> (prefixMap.get("") + token)
           true
         } else {
           false

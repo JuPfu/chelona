@@ -40,12 +40,12 @@ object EvalN3 {
         SPOString("")
       case ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
+          case SPOString(bs) ⇒ addBasePrefix(bs)
         }
         SPOString("")
       case ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ definePrefix("@", bs)
+          case SPOString(bs) ⇒ addBasePrefix(bs)
         }
         SPOString("")
       case ASTSparqlPrefix(p, i) ⇒
@@ -178,22 +178,23 @@ object EvalN3 {
       case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"" + token + "\"")
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ SPOString("<" + addBasePrefix(s) + ">")
+          case SPOString(s) ⇒ SPOString("<" + addPrefix("", s) + ">")
         }
         case ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      case ASTIriRef(token)      ⇒ SPOString(token)
+      case ASTIriRef(token) ⇒
+        SPOString(token)
       case ASTPrefixedName(rule) ⇒ evalStatement(rule)
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
-          case None            ⇒ SPOString("<" + addPrefix("", "") + ">")
+          case None            ⇒ SPOString("")
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
           case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
         }
-      case ASTPNPrefix(token)       ⇒ SPOString("<" + addPrefix(token, "") + ">")
+      case ASTPNPrefix(token)       ⇒ SPOString(token)
       case ASTPNLocal(token)        ⇒ SPOString(token)
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)
@@ -244,32 +245,36 @@ object EvalN3 {
   }
 
   private def definePrefix(key: String, value: String) = {
-    if (value.startsWith("//") | value.toLowerCase.startsWith("http://"))
-      prefixMap += key -> value
+    if (value.startsWith("//") | value.toLowerCase.startsWith("http://") | value.toLowerCase.startsWith("file://"))
+      prefixMap2 += key -> value
     else if (value.endsWith("/")) {
-      if (!prefixMap.contains(key))
-        prefixMap += key -> value
+      if (!prefixMap2.contains(key))
+        prefixMap2 += key -> value
       else
-        prefixMap += key -> (prefixMap.getOrElse("@", "http://base/not/found") + value)
-    } else prefixMap += key -> value
+        prefixMap2 += key -> (prefixMap2.getOrElse(key, "http://chelona.org") + value)
+    } else if (value.endsWith("#")) prefixMap2 += key -> (prefixMap2.getOrElse(key, "http://chelona.org") + value)
+    else prefixMap2 += key -> value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap.getOrElse(pname_ns, "http://key/" + pname_ns + "/not/found")
-    if (prefix.endsWith("/") || prefix.endsWith("#"))
-      prefix + pn_local
-    else
-      prefix + "/" + pn_local
+    val prefix = prefixMap2.getOrElse(pname_ns, "http://chelona.org")
+    if (!pn_local.startsWith("/") && !pn_local.toLowerCase.startsWith("http://") && !pn_local.toLowerCase.startsWith("file://")) {
+      if (prefix.endsWith("/") || prefix.endsWith("#"))
+        prefix + pn_local
+      else
+        prefix + "/" + pn_local
+    } else pn_local
   }
 
   private def addBasePrefix(iri: String) = {
-    if (!iri.startsWith("/") && !iri.toLowerCase.startsWith("http://")) {
-      val prefix = prefixMap.getOrElse("@", "")
+    val p = if (!iri.startsWith("/") && !iri.toLowerCase.startsWith("http://") && !iri.toLowerCase.startsWith("file://")) {
+      val prefix = prefixMap2.getOrElse("", "http://chelona.org")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
-        prefix + iri
+        prefixMap2 += "" -> (prefix + iri)
       else if (prefix.length > 0)
-        prefix + "/" + iri
-      else iri
-    } else iri
+        prefixMap2 += "" -> (prefix + "/" + iri)
+      else prefixMap2 += "" -> iri
+    } else prefixMap2 += "" -> iri
+    p.getOrElse("", "http://chelona.org")
   }
 }
