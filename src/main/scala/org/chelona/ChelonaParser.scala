@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import java.io.{ Writer }
+import java.io.Writer
 
 import org.parboiled2._
 

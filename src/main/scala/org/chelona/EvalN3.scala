@@ -184,7 +184,10 @@ object EvalN3 {
       }
       case ASTIriRef(token) ⇒
         SPOString(token)
-      case ASTPrefixedName(rule) ⇒ evalStatement(rule)
+      case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
+        case ASTPNameNS(p) => (evalStatement(rule): @unchecked) match { case SPOString(s) => SPOString( "<" + addPrefix(s, "") + ">") }
+        case ASTPNameLN(p, l) => evalStatement (rule)
+      }
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
