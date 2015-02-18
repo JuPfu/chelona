@@ -185,8 +185,8 @@ object EvalN3 {
       case ASTIriRef(token) ⇒
         SPOString(token)
       case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
-        case ASTPNameNS(p) => (evalStatement(rule): @unchecked) match { case SPOString(s) => SPOString( "<" + addPrefix(s, "") + ">") }
-        case ASTPNameLN(p, l) => evalStatement (rule)
+        case ASTPNameNS(p)    ⇒ (evalStatement(rule): @unchecked) match { case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">") }
+        case ASTPNameLN(p, l) ⇒ evalStatement(rule)
       }
       case ASTPNameNS(prefix) ⇒
         prefix match {
@@ -200,7 +200,7 @@ object EvalN3 {
       case ASTPNPrefix(token)       ⇒ SPOString(token)
       case ASTPNLocal(token)        ⇒ SPOString(token)
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ SPOString("_:" + token)
+      case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token)) //SPOString("_:" + token)
       case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
     }
   }
@@ -279,5 +279,13 @@ object EvalN3 {
       else prefixMap2 += "" -> iri
     } else prefixMap2 += "" -> iri
     p.getOrElse("", "http://chelona.org")
+  }
+
+  private def setBlankNodeName(key: String) = {
+    if (!blankNodeMap.contains(key)) {
+      bCount += 1
+      blankNodeMap += key -> ("_:b" + bCount)
+    }
+    blankNodeMap.getOrElse(key, "This should never be returned")
   }
 }

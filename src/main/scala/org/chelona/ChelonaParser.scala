@@ -61,6 +61,7 @@ object ChelonaParser {
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
+  val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
   val predicateStack = scala.collection.mutable.Stack.empty[String]
   var curSubject: String = "---Not valid subject---"
