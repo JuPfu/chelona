@@ -44,16 +44,13 @@ val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0-SNAPSHOT
 val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
 //val scalaUri         = "com.netaporter" %% "scala-uri" % "0.4.4"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
-val specs2Core       = "org.specs2" %% "specs2-core" % "2.4.15" % "test"
-val specs2ScalaCheck = "org.specs2"      %% "specs2-scalacheck" % "2.4.13"   % "test"
+
 
 /////////////////////// PROJECTS /////////////////////////
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 resolvers += Resolver.sonatypeRepo("public")
-
-//scalacOptions in Test ++= Seq("-Yrangepos")
 
 test in assembly := {}
 
@@ -70,5 +67,5 @@ libraryDependencies ++= Seq( parboiled2, scopt, scalaTest )
   
 lazy val chelona = project.in(file("."))
    .settings(formattingSettings: _*)
-   .settings(libraryDependencies ++= Seq(parboiled2, specs2Core))
+   .settings(libraryDependencies ++= Seq(parboiled2))
 
