@@ -1,14 +1,3 @@
-package org.chelona
-
-import java.io.{ IOException, FileNotFoundException, OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
-
-import org.chelona.GetCmdLineArgs._
-import org.parboiled2.{ ParseError, ParserInput }
-
-import scala.io.BufferedSource
-import scala.util.{ Try, Success, Failure }
-
 /*
 * Copyright (C) 2014 Juergen Pfundt
 *
@@ -24,6 +13,17 @@ import scala.util.{ Try, Success, Failure }
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+package org.chelona
+
+import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.nio.charset.StandardCharsets
+
+import org.chelona.GetCmdLineArgs._
+import org.parboiled2.{ ParseError, ParserInput }
+
+import scala.io.BufferedSource
+import scala.util.{ Try, Success, Failure }
+
 object Main extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
@@ -54,16 +54,16 @@ object Main extends App {
 
   lazy val input: ParserInput = inputfile.get.mkString
 
-  val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+  val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = ChelonaParser(input, bo, validate)
+  val parser = ChelonaParser(input, output, validate)
 
   val res = parser.turtleDoc.run()
 
-  bo.close()
+  output.close()
 
   res match {
-    case scala.util.Success(tripleCount) ⇒
+    case Success(tripleCount) ⇒
       val me: Double = System.currentTimeMillis - ms
       if (!validate) {
         System.err.println("Input file '" + file(0) + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")

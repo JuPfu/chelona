@@ -3,10 +3,10 @@ import scalariform.formatter.preferences._
 
 scalaVersion := "2.11.5"
 
-version := "0.8.0"
+version := "0.9.0"
 
 val commonSettings = Seq(
-  version := "0.8.0",
+  version := "0.9.0",
   scalaVersion := "2.11.5",
   name := "Chelona",
   organization := "org.chelona",
