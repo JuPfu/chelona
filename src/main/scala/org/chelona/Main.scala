@@ -1,12 +1,13 @@
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.io.{ IOException, FileNotFoundException, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
 import org.parboiled2.{ ParseError, ParserInput }
 
-import scala.util.Failure
+import scala.io.BufferedSource
+import scala.util.{ Try, Success, Failure }
 
 /*
 * Copyright (C) 2014 Juergen Pfundt
@@ -44,11 +45,18 @@ object Main extends App {
 
   val ms: Double = System.currentTimeMillis
 
-  lazy val inputfile: ParserInput = io.Source.fromFile(file(0)).mkString
+  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file(0))(StandardCharsets.UTF_8) }
+
+  if (inputfile.isFailure) {
+    System.err.println("Error: " + inputfile.failed.get)
+    sys.exit(3)
+  }
+
+  lazy val input: ParserInput = inputfile.get.mkString
 
   val bo = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = ChelonaParser(inputfile, bo, validate)
+  val parser = ChelonaParser(input, bo, validate)
 
   val res = parser.turtleDoc.run()
 

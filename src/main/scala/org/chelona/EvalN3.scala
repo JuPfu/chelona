@@ -200,10 +200,11 @@ object EvalN3 {
       case ASTPNPrefix(token)       ⇒ SPOString(token)
       case ASTPNLocal(token)        ⇒ SPOString(token)
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token)) //SPOString("_:" + token)
+      case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
       case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
     }
   }
+
   @tailrec
   private def traversePredicateObjectList(l: Seq[Option[AST]], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples

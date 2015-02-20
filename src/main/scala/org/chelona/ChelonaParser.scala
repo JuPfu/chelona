@@ -25,40 +25,6 @@ import scala.language.implicitConversions
 
 object ChelonaParser {
 
-  import org.parboiled2.CharPredicate.{ Alpha, Digit }
-
-  val DOT = CharPredicate('.')
-  val SIGN = CharPredicate('+', '-')
-  val COLON = CharPredicate(':')
-
-  val IRIREF_CHAR = CharPredicate('\u0021' to '\uFFFF') -- CharPredicate("<>\"{}|^`\\")
-
-  val PN_CHARS_BASE = Alpha ++ CharPredicate('\u00C0' to '\u00D6', '\u00D8' to '\u00F6', '\u00F8' to '\u02FF', '\u0370' to '\u037D', '\u037F' to '\u1FFF',
-    '\u200C' to '\u200D', '\u2070' to '\u218F', '\u2C00' to '\u2FeF', '\u3001' to '\uD7FF', '\uF900' to '\uFDCF',
-    '\uFDF0' to '\uFFFD')
-
-  val PN_CHARS_U = PN_CHARS_BASE ++ CharPredicate('_')
-
-  val PN_CHARS_U_DIGIT = PN_CHARS_U ++ Digit
-
-  val PN_CHARS_U_COLON_DIGIT = PN_CHARS_U_DIGIT ++ COLON
-
-  val PN_CHARS = PN_CHARS_U ++ CharPredicate('-') ++ Digit ++ CharPredicate('\u00B7', '\u0300' to '\u036F', '\u203F' to '\u2040')
-
-  val PN_CHARS_COLON = PN_CHARS ++ COLON
-
-  val PN_CHARS_DOT = PN_CHARS ++ DOT
-
-  val PN_CHARS_DOT_COLON = PN_CHARS_COLON ++ DOT
-
-  val PNAME_LN_CHARS = PN_CHARS_U ++ COLON ++ Digit
-
-  val ECHAR_CHAR = CharPredicate("tbnrf\"'\\")
-
-  val LOCAL_ESC = CharPredicate('_', '~', '.', '-', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', '/', '?', '#', '@', '%')
-
-  val WS = CharPredicate(" \t")
-
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
@@ -223,7 +189,10 @@ object ChelonaParser {
 
 class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean) extends Parser with StringBuilding {
 
+  import org.chelona.CharPredicates._
+
   import org.chelona.ChelonaParser._
+
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   // clear mutable map
@@ -239,11 +208,11 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
-    str(s) ~ WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?)
+    quiet(str(s) ~ WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?))
   }
 
   def ws = rule {
-    WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?)
+    quiet(WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?))
   }
 
   //[1] turtleDoc 	::= 	statement*
@@ -260,7 +229,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //
   def comment = rule {
-    WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~!~ (("\r".? ~ "\n") | EOI)
+    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~!~ (("\r".? ~ "\n") | EOI))
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase
