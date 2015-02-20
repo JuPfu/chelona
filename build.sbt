@@ -40,7 +40,7 @@ val formattingSettings = scalariformSettings ++ Seq(
 	
 /////////////////////// DEPENDENCIES /////////////////////////
 
-val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0-SNAPSHOT"
+val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0"
 val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
 //val scalaUri         = "com.netaporter" %% "scala-uri" % "0.4.4"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
