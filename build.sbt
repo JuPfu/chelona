@@ -27,6 +27,7 @@ val commonSettings = Seq(
     "-unchecked",
     "-deprecation",
     "-Xlint",
+    "-Ybackend:o2",
     "-language:_",
     "-target:jvm-1.6"))
 
