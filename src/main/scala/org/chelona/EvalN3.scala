@@ -16,7 +16,13 @@
 
 package org.chelona
 
+import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.nio.charset.StandardCharsets
+
+import org.parboiled2.{ ParseError, ParserInput }
+
 import scala.annotation.tailrec
+import scala.util.{ Failure, Success }
 
 object EvalN3 {
   import org.chelona.ChelonaParser._
@@ -31,7 +37,18 @@ object EvalN3 {
         predicateStack.clear
         /* evaluate a turtle statement */
         evalStatement(rule)
-      case ASTComment(rule)   ⇒ SPOComment(rule)
+      case ASTIri(rule) ⇒ (rule: @unchecked) match {
+        case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
+          case SPOString(s) ⇒ SPOString("<" + addPrefix("", s) + ">")
+        }
+        case ASTPrefixedName(n) ⇒ evalStatement(rule)
+      }
+      case ASTIriRef(token) ⇒ SPOString(token)
+      case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
+        case ASTPNameNS(p) ⇒
+          (evalStatement(rule): @unchecked) match { case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">") }
+        case ASTPNameLN(p, l) ⇒ evalStatement(rule)
+      }
       case ASTDirective(rule) ⇒ evalStatement(rule)
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
@@ -176,18 +193,6 @@ object EvalN3 {
       case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("\"" + token + "\"")
       case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString("\"" + token + "\"")
       case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"" + token + "\"")
-      case ASTIri(rule) ⇒ (rule: @unchecked) match {
-        case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ SPOString("<" + addPrefix("", s) + ">")
-        }
-        case ASTPrefixedName(n) ⇒ evalStatement(rule)
-      }
-      case ASTIriRef(token) ⇒
-        SPOString(token)
-      case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
-        case ASTPNameNS(p)    ⇒ (evalStatement(rule): @unchecked) match { case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">") }
-        case ASTPNameLN(p, l) ⇒ evalStatement(rule)
-      }
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
@@ -202,6 +207,7 @@ object EvalN3 {
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
       case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
+      case ASTComment(rule)         ⇒ SPOComment(rule)
     }
   }
 
@@ -249,7 +255,7 @@ object EvalN3 {
   }
 
   private def definePrefix(key: String, value: String) = {
-    if (value.startsWith("//") | value.toLowerCase.startsWith("http://") | value.toLowerCase.startsWith("file://"))
+    if (value.startsWith("//") | hasScheme(value))
       prefixMap2 += key -> value
     else if (value.endsWith("/")) {
       if (!prefixMap2.contains(key))
@@ -261,17 +267,20 @@ object EvalN3 {
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap2.getOrElse(pname_ns, "http://chelona.org")
-    if (!pn_local.startsWith("/") && !pn_local.toLowerCase.startsWith("http://") && !pn_local.toLowerCase.startsWith("file://")) {
-      if (prefix.endsWith("/") || prefix.endsWith("#"))
+    if (pname_ns != "" || (!pn_local.startsWith("/") && !hasScheme(pn_local))) {
+      val prefix = prefixMap2.getOrElse(pname_ns, "http://chelona.org")
+      if (prefix.endsWith("/") || prefix.endsWith("#")) {
         prefix + pn_local
-      else
+      } else {
         prefix + "/" + pn_local
-    } else pn_local
+      }
+    } else {
+      pn_local
+    }
   }
 
   private def addBasePrefix(iri: String) = {
-    val p = if (!iri.startsWith("/") && !iri.toLowerCase.startsWith("http://") && !iri.toLowerCase.startsWith("file://")) {
+    val p = if (!iri.startsWith("/") && !hasScheme(iri)) {
       val prefix = prefixMap2.getOrElse("", "http://chelona.org")
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefixMap2 += "" -> (prefix + iri)
@@ -288,5 +297,17 @@ object EvalN3 {
       blankNodeMap += key -> ("_:b" + bCount)
     }
     blankNodeMap.getOrElse(key, "This should never be returned")
+  }
+
+  private def hasScheme(iri: String) = {
+    lazy val input: ParserInput = iri
+
+    val parser = SchemeIdentifier(input)
+
+    parser.scheme.run() match {
+      case Success(s)             ⇒ true
+      case Failure(e: ParseError) ⇒ false
+      case Failure(e)             ⇒ false
+    }
   }
 }
