@@ -53,6 +53,8 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 
 resolvers += Resolver.sonatypeRepo("public")
 
+parallelExecution in Test := false
+
 test in assembly := {}
 
 scalariformSettings
