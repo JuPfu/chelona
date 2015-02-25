@@ -22,7 +22,35 @@ import scala.annotation.tailrec
 import scala.util.{ Failure, Success }
 
 object EvalN3 {
+  def apply() = {
+    new EvalN3()
+  }
+}
+
+class EvalN3 {
   import org.chelona.ChelonaParser._
+
+  val prefixMap = scala.collection.mutable.Map.empty[String, String]
+  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
+  val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
+  val subjectStack = scala.collection.mutable.Stack.empty[String]
+  val predicateStack = scala.collection.mutable.Stack.empty[String]
+
+  var curSubject: String = "---Not valid subject---"
+  var curPredicate: String = "---Not valid predicate---"
+  var aCount = 0
+  var bCount = 0
+  var cCount = 0
+
+  def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
+    import org.chelona.EvalN3._
+
+    (evalStatement(ast): @unchecked) match {
+      case SPOTriples(t) ⇒ writer(t)
+      case SPOString(s)  ⇒ 0
+      case SPOComment(c) ⇒ 0
+    }
+  }
 
   def evalStatement(expr: AST): SPOReturnValue = {
 

@@ -20,21 +20,9 @@ import java.io.Writer
 
 import org.parboiled2._
 
-import scala.annotation.{ tailrec }
 import scala.language.implicitConversions
 
 object ChelonaParser {
-
-  val prefixMap = scala.collection.mutable.Map.empty[String, String]
-  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
-  val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
-  val subjectStack = scala.collection.mutable.Stack.empty[String]
-  val predicateStack = scala.collection.mutable.Stack.empty[String]
-  var curSubject: String = "---Not valid subject---"
-  var curPredicate: String = "---Not valid predicate---"
-  var aCount = 0
-  var bCount = 0
-  var cCount = 0
 
   def apply(input: ParserInput, output: Writer, validate: Boolean) = {
     new ChelonaParser(input, output, validate)
@@ -48,41 +36,6 @@ object ChelonaParser {
   def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n"))
     triple.length
-  }
-
-  def renderStatementJSON(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
-    import org.chelona.EvalTTL._
-
-    (evalStatement(ast): @unchecked) match {
-      case SPOTriples(t) ⇒ writer(t)
-      case SPOString(s)  ⇒ 0
-      case SPOComment(c) ⇒ 0
-    }
-  }
-
-  def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
-    import org.chelona.EvalN3._
-
-    (evalStatement(ast): @unchecked) match {
-      case SPOTriples(t) ⇒ writer(t)
-      case SPOString(s)  ⇒ 0
-      case SPOComment(c) ⇒ 0
-    }
-  }
-
-  def render(ast: Seq[AST], writer: List[SPOTriple] ⇒ Long): Long = {
-    import org.chelona.EvalN3._
-
-    @tailrec
-    def evalLoop(e: Seq[AST], statementCount: Long): Long = e match {
-      case Nil ⇒ statementCount
-      case x +: xs ⇒ evalLoop(xs, statementCount + ((evalStatement(x): @unchecked) match {
-        case SPOTriples(t) ⇒ writer(t)
-        case SPOString(s)  ⇒ 0L
-        case SPOComment(c) ⇒ 0L
-      }))
-    }
-    evalLoop(ast, 0L)
   }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).mkString("")
@@ -195,6 +148,19 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
+  val prefixMap = scala.collection.mutable.Map.empty[String, String]
+  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
+  val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
+  val subjectStack = scala.collection.mutable.Stack.empty[String]
+  val predicateStack = scala.collection.mutable.Stack.empty[String]
+
+  System.err.println("=====NEW CLASS CHELONA PARSER")
+  var curSubject: String = "---Not valid subject---"
+  var curPredicate: String = "---Not valid predicate---"
+  var aCount = 0
+  var bCount = 0
+  var cCount = 0
+
   // clear mutable map
   prefixMap.clear()
   prefixMap2.clear()
@@ -203,6 +169,8 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   aCount = 0
   bCount = 0
   cCount = 0
+
+  val n3 = new EvalN3()
 
   val tripleOutput = tripleWriter(output)_
 
@@ -218,7 +186,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
     (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis) {
-      if (!validate) renderStatement(ast, tripleOutput) else 1
+      if (!validate) n3.renderStatement(ast, tripleOutput) else 1
     } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
