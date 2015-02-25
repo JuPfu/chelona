@@ -30,7 +30,6 @@ object EvalN3 {
 class EvalN3 {
   import org.chelona.ChelonaParser._
 
-  val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]

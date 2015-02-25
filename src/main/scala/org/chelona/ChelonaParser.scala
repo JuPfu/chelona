@@ -149,26 +149,15 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
-  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
   val predicateStack = scala.collection.mutable.Stack.empty[String]
 
-  System.err.println("=====NEW CLASS CHELONA PARSER")
   var curSubject: String = "---Not valid subject---"
   var curPredicate: String = "---Not valid predicate---"
   var aCount = 0
   var bCount = 0
   var cCount = 0
-
-  // clear mutable map
-  prefixMap.clear()
-  prefixMap2.clear()
-
-  // reset mutable counter
-  aCount = 0
-  bCount = 0
-  cCount = 0
 
   val n3 = new EvalN3()
 
