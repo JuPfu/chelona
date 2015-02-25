@@ -33,7 +33,7 @@ object Main extends App {
   }
 
   if (cmdLineArgs.get.version) {
-    System.err.println("Cheló̱n version 0.8")
+    System.err.println("Cheló̱n version 0.9")
     sys.exit(2)
   }
 

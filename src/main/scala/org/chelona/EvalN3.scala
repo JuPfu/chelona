@@ -16,9 +16,6 @@
 
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
-
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.annotation.tailrec
@@ -206,8 +203,9 @@ object EvalN3 {
       case ASTPNLocal(token)        ⇒ SPOString(token)
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
-      case ASTAnon(token)           ⇒ aCount += 1; SPOString("_:a" + aCount)
-      case ASTComment(rule)         ⇒ SPOComment(rule)
+      case ASTAnon(token) ⇒
+        aCount += 1; SPOString("_:a" + aCount)
+      case ASTComment(rule) ⇒ SPOComment(rule)
     }
   }
 
@@ -255,7 +253,7 @@ object EvalN3 {
   }
 
   private def definePrefix(key: String, value: String) = {
-    if (value.startsWith("//") | hasScheme(value))
+    if (value.startsWith("//") || hasScheme(value))
       prefixMap2 += key -> value
     else if (value.endsWith("/")) {
       if (!prefixMap2.contains(key))
