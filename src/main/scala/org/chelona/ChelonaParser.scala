@@ -388,7 +388,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
   /* A prefix name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(DOT.* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(DOT.+ ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 
 	 Example:
@@ -397,7 +397,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    capture(PN_CHARS_BASE ~ ((PN_CHARS_DOT ~ &(DOT.* ~ PN_CHARS)).* ~ PN_CHARS).?) ~> ASTPNPrefix
+    capture(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS).*).?) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -426,7 +426,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
   def PN_LOCAL_ESC = rule {
-    '\\' ~ LOCAL_ESC
+    '\\' ~ LOCAL_ESC ~ appendSB
   }
 
   //[137s] BlankNode 	::= 	BLANK_NODE_LABEL | ANON
@@ -447,7 +447,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def BLANK_NODE_LABEL = rule {
-    str("_:") ~ capture(PN_CHARS_U_DIGIT ~ ((PN_CHARS_DOT ~ &(DOT.* ~ PN_CHARS)).* ~ PN_CHARS).?) ~> ASTBlankNodeLabel ~ ws
+    str("_:") ~ capture(PN_CHARS_U_DIGIT ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS).*).?) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[162s] ANON 	::= 	'[' WS* ']'

@@ -41,8 +41,6 @@ object CharPredicates {
 
   val PN_CHARS_COLON = PN_CHARS ++ COLON
 
-  val PN_CHARS_DOT = PN_CHARS ++ DOT
-
   val PNAME_LN_CHARS = PN_CHARS_U ++ COLON ++ Digit
 
   val ECHAR_CHAR = CharPredicate("tbnrf\"'\\")
