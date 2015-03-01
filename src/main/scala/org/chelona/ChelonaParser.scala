@@ -196,12 +196,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[4] prefixID 	::= 	'@prefix' PNAME_NS IRIREF '.'
   def prefixID = rule {
-    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTPrefixID ~!~ ws ~ "."
+    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTPrefixID ~ ws ~ "."
   }
 
   //[5] base 	::= 	'@base' IRIREF '.'
   def base = rule {
-    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTBase ~!~ ws ~ "."
+    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTBase ~ ws ~ "."
   }
 
   //[5s] sparqlBase 	::= 	"BASE" IRIREF
@@ -402,7 +402,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
   /* A local name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(PLX | DOT.* ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(DOT.+ ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 
 	 Example:
@@ -411,7 +411,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ (((PLX | PN_CHARS_U_COLON_DIGIT) ~ appendSB(lastChar)) ~ (((PLX | PN_CHARS_DOT_COLON) ~ &(PLX | DOT.* ~ PN_CHARS_COLON) ~ appendSB(lastChar)).* ~ ((PLX | PN_CHARS_COLON) ~ appendSB(lastChar))).?) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ (((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ ((PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB).*).?) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -421,7 +421,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[170s] PERCENT 	::= 	'%' HEX HEX
   def PERCENT = rule {
-    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit
+    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit ~ appendSB
   }
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
