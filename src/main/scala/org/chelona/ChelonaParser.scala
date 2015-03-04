@@ -281,17 +281,17 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[19] INTEGER 	::= 	[+-]? [0-9]+
   def INTEGER = rule {
-    capture(SIGN.? ~ Digit.+) ~> ASTInteger ~ ws
+    capture(atomic(SIGN.? ~ Digit.+)) ~> ASTInteger ~ ws
   }
 
   //[20] DECIMAL 	::= 	[+-]? [0-9]* '.' [0-9]+
   def DECIMAL = rule {
-    capture(SIGN.? ~ Digit.* ~ DOT ~ Digit.+) ~> ASTDecimal ~ ws
+    capture(atomic(SIGN.? ~ Digit.* ~ DOT ~ Digit.+)) ~> ASTDecimal ~ ws
   }
 
   //[21] DOUBLE 	::= 	[+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
   def DOUBLE = rule {
-    capture(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* ~ EXPONENT | DOT ~ Digit.+ ~ EXPONENT | Digit.+ ~ EXPONENT)) ~> ASTDouble ~ ws
+    capture(atomic(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* ~ EXPONENT | DOT ~ Digit.+ ~ EXPONENT | Digit.+ ~ EXPONENT))) ~> ASTDouble ~ ws
   }
 
   //[154s] EXPONENT 	::= 	[eE] [+-]? [0-9]+
@@ -306,7 +306,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
   def LANGTAG = rule {
-    '@' ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*) ~> ASTLangTag
+    '@' ~ capture(atomic(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
   }
 
   //[133s] BooleanLiteral 	::= 	'true' | 'false'
@@ -341,13 +341,13 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
   def UCHAR = rule {
-    str("\\u") ~ capture(4.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
-      str("\\U") ~ capture(8.times(HexDigit)) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
+    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
+      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
   }
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
   def ECHAR = rule {
-    str("\\") ~ appendSB("\\") ~ ECHAR_CHAR ~ appendSB(lastChar)
+    atomic(str("\\") ~ appendSB("\\") ~ ECHAR_CHAR ~ appendSB(lastChar))
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
@@ -358,7 +358,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   //[18] IRIREF 	::= 	'<' ([^#x00-#x20<>"{}|^`\] | UCHAR)* '>'
   /* #x00=NULL #01-#x1F=control codes #x20=space */
   def IRIREF = rule {
-    '<' ~ clearSB ~ (IRIREF_CHAR ~ appendSB |
+    atomic('<' ~ clearSB ~ (IRIREF_CHAR ~ appendSB |
       !(((str("\\u000") | str("\\u001") | str("\\U0000000") | str("\\U0000001")) ~ HexDigit) |
         str("\\u0020") | str("\\U00000020") | str("\\u0034") | str("\\U00000034") |
         str("\\u003C") | str("\\u003c") | str("\\U0000003C") | str("\\U0000003c") |
@@ -368,7 +368,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
         str("\\u0060") | str("\\U00000060") |
         str("\\u007B") | str("\\u007b") | str("\\U0000007B") | str("\\U0000007b") |
         str("\\u007C") | str("\\u007c") | str("\\U0000007C") | str("\\U0000007c") |
-        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).* ~ push(sb.toString) ~ '>' ~> ASTIriRef
+        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).*) ~ push(sb.toString) ~ '>' ~> ASTIriRef
   }
 
   //[136s] PrefixedName 	::= 	PNAME_LN | PNAME_NS
@@ -397,7 +397,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    capture(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS).*).?) ~> ASTPNPrefix
+    capture(atomic(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*).?)) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -411,7 +411,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ (((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ ((PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB).*).?) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ atomic((((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ ((PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*).?)) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -421,12 +421,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[170s] PERCENT 	::= 	'%' HEX HEX
   def PERCENT = rule {
-    '%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit ~ appendSB
+    atomic('%' ~ appendSB ~ HexDigit ~ appendSB ~ HexDigit ~ appendSB)
   }
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
   def PN_LOCAL_ESC = rule {
-    '\\' ~ LOCAL_ESC ~ appendSB
+    atomic('\\' ~ LOCAL_ESC) ~ appendSB
   }
 
   //[137s] BlankNode 	::= 	BLANK_NODE_LABEL | ANON
@@ -447,7 +447,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def BLANK_NODE_LABEL = rule {
-    str("_:") ~ capture(PN_CHARS_U_DIGIT ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS).*).?) ~> ASTBlankNodeLabel ~ ws
+    str("_:") ~ capture(atomic(PN_CHARS_U_DIGIT ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*).?)) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[162s] ANON 	::= 	'[' WS* ']'
@@ -503,5 +503,9 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   private def addPrefix(pname_ns: String, pn_local: String): Boolean = {
     prefixMap.contains(pname_ns)
+  }
+
+  private def isSurrogate() = {
+    cursorChar.isSurrogate
   }
 }
