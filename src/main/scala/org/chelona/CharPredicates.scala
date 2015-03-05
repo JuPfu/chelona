@@ -16,9 +16,8 @@
 
 package org.chelona
 
-import org.parboiled2.CharPredicate
-
 object CharPredicates {
+  import org.parboiled2.CharPredicate
   import org.parboiled2.CharPredicate.{ Alpha, Digit }
 
   val DOT = CharPredicate('.')

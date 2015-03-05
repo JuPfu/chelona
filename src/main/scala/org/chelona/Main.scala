@@ -70,7 +70,7 @@ object Main extends App {
       } else {
         System.err.println("Input file '" + file(0) + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
       }
-    case Failure(e: ParseError) ⇒ System.err.println("File '" + file(0) + "': " + parser.formatError(e))
-    case Failure(e)             ⇒ System.err.println("File '" + file(0) + "': Unexpected error during parsing run: " + e)
+    case Failure(e: ParseError) ⇒ System.err.println("File '" + file + "': " + parser.formatError(e))
+    case Failure(e)             ⇒ System.err.println("File '" + file + "': Unexpected error during parsing run: " + e)
   }
 }

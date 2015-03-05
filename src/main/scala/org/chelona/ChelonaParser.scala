@@ -291,12 +291,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[21] DOUBLE 	::= 	[+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
   def DOUBLE = rule {
-    capture(atomic(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* ~ EXPONENT | DOT ~ Digit.+ ~ EXPONENT | Digit.+ ~ EXPONENT))) ~> ASTDouble ~ ws
+    capture(atomic(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* | DOT ~ Digit.+ | Digit.+) ~ EXPONENT)) ~> ASTDouble ~ ws
   }
 
   //[154s] EXPONENT 	::= 	[eE] [+-]? [0-9]+
   def EXPONENT = rule {
-    ignoreCase("e") ~ SIGN.? ~ Digit.+
+    ignoreCase('e') ~ SIGN.? ~ Digit.+
   }
 
   //[128s] RDFLiteral 	::= 	String (LANGTAG | '^^' iri)?
@@ -397,7 +397,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    capture(atomic(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*).?)) ~> ASTPNPrefix
+    capture(atomic(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*).?)) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -426,7 +426,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[172s] PN_LOCAL_ESC 	::= 	'\' ('_' | '~' | '.' | '-' | '!' | '$' | '&' | "'" | '(' | ')' | '*' | '+' | ',' | ';' | '=' | '/' | '?' | '#' | '@' | '%')
   def PN_LOCAL_ESC = rule {
-    atomic('\\' ~ LOCAL_ESC) ~ appendSB
+    atomic('\\' ~ LOCAL_ESC ~ appendSB)
   }
 
   //[137s] BlankNode 	::= 	BLANK_NODE_LABEL | ANON

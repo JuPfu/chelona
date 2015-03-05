@@ -35,7 +35,7 @@ object GetCmdLineArgs {
     opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
     opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
-    opt[String]('o', "out") optional () action { (_, c) ⇒ c.copy(out = c.out.toLowerCase) } text "output format"
-    arg[File]("<file>") required () action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
+    opt[String]('f', "fmt") optional () action { (_, c) ⇒ c.copy(out = c.out.toLowerCase) } text "output format"
+    arg[File]("<file>") minOccurs (1) maxOccurs (1) valueName ("<file>") action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
   }
 }
