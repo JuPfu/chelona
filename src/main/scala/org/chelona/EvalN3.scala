@@ -28,6 +28,7 @@ object EvalN3 {
 }
 
 class EvalN3 {
+
   import org.chelona.ChelonaParser._
 
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
@@ -70,7 +71,9 @@ class EvalN3 {
       case ASTIriRef(token) ⇒ SPOString(token)
       case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
         case ASTPNameNS(p) ⇒
-          (evalStatement(rule): @unchecked) match { case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">") }
+          (evalStatement(rule): @unchecked) match {
+            case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">")
+          }
         case ASTPNameLN(p, l) ⇒ evalStatement(rule)
       }
       case ASTDirective(rule) ⇒ evalStatement(rule)
@@ -331,15 +334,9 @@ class EvalN3 {
     blankNodeMap.getOrElse(key, "This should never be returned")
   }
 
-  private def hasScheme(iri: String) = {
-    lazy val input: ParserInput = iri
-
-    val parser = SchemeIdentifier(input)
-
-    parser.scheme.run() match {
-      case Success(s)             ⇒ true
-      case Failure(e: ParseError) ⇒ false
-      case Failure(e)             ⇒ false
-    }
+  private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
+    case Success(s)             ⇒ true
+    case Failure(e: ParseError) ⇒ false
+    case Failure(e)             ⇒ false
   }
 }

@@ -16,20 +16,21 @@
 package org.chelona
 
 import org.parboiled2._
+import org.parboiled2.CharPredicate.{Alpha, AlphaNum}
 
 object SchemeIdentifier {
-  val Alpha = CharPredicate('\u0041' to '\u005A', '\u0061' to '\u007A')
+
+  val SchemeChar = AlphaNum ++ '+' ++ '-' ++ '.'
+
   def apply(input: ParserInput) = {
     new SchemeIdentifier(input)
   }
 }
 
 class SchemeIdentifier(val input: ParserInput) extends Parser {
+
   import SchemeIdentifier._
 
-  import org.parboiled2.CharPredicate.{ Digit }
-
-  //ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-  def scheme = rule { capture(Alpha ~ (Alpha | Digit | '+' | '-' | '.').*) ~ ':' }
-
+  // scheme ::= ALPHA ( ALPHA / DIGIT / "+" / "-" / "." )*
+  def scheme = rule { capture(Alpha ~ SchemeChar.*) ~ ':' }
 }
