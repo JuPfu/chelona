@@ -186,7 +186,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //
   def comment = rule {
-    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~!~ (("\r".? ~ "\n") | EOI))
+    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~ "\r".? ~ "\n")
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase
@@ -452,7 +452,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[162s] ANON 	::= 	'[' WS* ']'
   def ANON = rule {
-    capture("[" ~ "]") ~> ASTAnon
+    capture(atomic("[" ~ "]")) ~> ASTAnon
   }
 
   private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Boolean = {
