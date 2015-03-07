@@ -155,17 +155,23 @@ class EvalN3 {
             case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
           }
         case ASTCollection(v) ⇒
-          subjectStack.push(curSubject)
-          cCount += 1
-          curSubject = "_:c" + cCount
-          predicateStack.push(curPredicate)
-          curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
-          (evalStatement(l): @unchecked) match {
-            case SPOTriples(t) ⇒
-              val oldSubject = curSubject
-              curSubject = subjectStack.pop
-              curPredicate = predicateStack.pop
-              SPOTriples(SPOTriple(curSubject, curPredicate, oldSubject) :: t)
+          l match {
+            case ASTCollection(Vector()) ⇒
+              // empty collection
+              SPOTriples(SPOTriple(curSubject, curPredicate, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil)
+            case _ ⇒
+              subjectStack.push(curSubject)
+              cCount += 1
+              curSubject = "_:c" + cCount
+              predicateStack.push(curPredicate)
+              curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
+              (evalStatement(l): @unchecked) match {
+                case SPOTriples(t) ⇒
+                  val oldSubject = curSubject
+                  curSubject = subjectStack.pop
+                  curPredicate = predicateStack.pop
+                  SPOTriples(SPOTriple(curSubject, curPredicate, oldSubject) :: t)
+              }
           }
         case ASTBlankNodePropertyList(v) ⇒
           subjectStack.push(curSubject)
@@ -183,6 +189,7 @@ class EvalN3 {
       case ASTLiteral(rule)               ⇒ evalStatement(rule)
       case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case ASTCollection(rule) ⇒
+        cCount += 1
         curSubject = "_:c" + cCount
         subjectStack.push(curSubject)
         curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
