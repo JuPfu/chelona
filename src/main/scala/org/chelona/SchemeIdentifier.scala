@@ -16,7 +16,7 @@
 package org.chelona
 
 import org.parboiled2._
-import org.parboiled2.CharPredicate.{Alpha, AlphaNum}
+import org.parboiled2.CharPredicate.{ Alpha, AlphaNum }
 
 object SchemeIdentifier {
 

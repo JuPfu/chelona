@@ -25,6 +25,8 @@ object GetCmdLineArgs {
   case class Config(validate: Boolean = false,
                     file: Seq[File] = Seq(),
                     verbose: Boolean = false,
+                    uid: Boolean = false,
+                    base: String = "http://chelona.org",
                     out: String = "N3",
                     version: Boolean = false,
                     debug: Boolean = false)
@@ -35,6 +37,8 @@ object GetCmdLineArgs {
     opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
     opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
+    opt[Unit]('u', "uid") action { (_, c) ⇒ c.copy(uid = true) } text "use UID for blank nodes"
+    opt[String]('b', "base") optional () action { (_, c) ⇒ c.copy(base = c.base) } text "base URI"
     opt[String]('f', "fmt") optional () action { (_, c) ⇒ c.copy(out = c.out.toLowerCase) } text "output format"
     arg[File]("<file>") minOccurs (1) maxOccurs (1) valueName ("<file>") action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
   }

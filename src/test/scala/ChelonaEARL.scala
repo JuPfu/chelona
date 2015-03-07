@@ -18,7 +18,7 @@ package org.chelona
 import java.io.StringWriter
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
@@ -52,7 +52,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in IRI_spo.nt")
       earlOut("IRI_subject", true)
     } catch {
-      case _: Exception => earlOut("IRI_subject", false)
+      case _: Exception ⇒ earlOut("IRI_subject", false)
     }
 
     output.close()
@@ -74,7 +74,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in IRI_with_four_digit_numeric_escape.nt")
       earlOut("IRI_with_four_digit_numeric_escape", true)
     } catch {
-      case _: Exception => earlOut("IRI_with_four_digit_numeric_escape", false)
+      case _: Exception ⇒ earlOut("IRI_with_four_digit_numeric_escape", false)
     }
 
     output.close()
@@ -96,7 +96,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in IRI_with_all_punctuation.nt")
       earlOut("IRI_with_all_punctuation", true)
     } catch {
-      case _: Exception => earlOut("IRI_with_all_punctuation", false)
+      case _: Exception ⇒ earlOut("IRI_with_all_punctuation", false)
     }
 
     output.close()
@@ -118,7 +118,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in bareword_a_predicate.nt")
       earlOut("bareword_a_predicate", true)
     } catch {
-      case _: Exception => earlOut("bareword_a_predicate", false)
+      case _: Exception ⇒ earlOut("bareword_a_predicate", false)
     }
 
     output.close()
@@ -140,7 +140,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in old_style_prefix.nt")
       earlOut("old_style_prefix", true)
     } catch {
-      case _: Exception => earlOut("old_style_prefix", false)
+      case _: Exception ⇒ earlOut("old_style_prefix", false)
     }
 
     output.close()
@@ -162,7 +162,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in SPARQL_style_prefix.nt")
       earlOut("SPARQL_style_prefix", true)
     } catch {
-      case _: Exception => earlOut("SPARQL_style_prefix", false)
+      case _: Exception ⇒ earlOut("SPARQL_style_prefix", false)
     }
 
     output.close()
@@ -184,7 +184,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefixed_IRI_object.nt")
       earlOut("prefixed_IRI_object", true)
     } catch {
-      case _: Exception => earlOut("prefixed_IRI_object", false)
+      case _: Exception ⇒ earlOut("prefixed_IRI_object", false)
     }
 
     output.close()
@@ -206,7 +206,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefix_only_IRI.nt")
       earlOut("prefix_only_IRI", true)
     } catch {
-      case _: Exception => earlOut("prefix_only_IRI", false)
+      case _: Exception ⇒ earlOut("prefix_only_IRI", false)
     }
 
     output.close()
@@ -228,7 +228,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefix_with_PN_CHARS_BASE_character_boundaries.nt")
       earlOut("prefix_with_PN_CHARS_BASE_character_boundaries", true)
     } catch {
-      case _: Exception => earlOut("prefix_with_PN_CHARS_BASE_character_boundaries", false)
+      case _: Exception ⇒ earlOut("prefix_with_PN_CHARS_BASE_character_boundaries", false)
     }
 
     output.close()
@@ -250,7 +250,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefix_with_non_leading_extras.nt")
       earlOut("prefix_with_non_leading_extras", true)
     } catch {
-      case _: Exception => earlOut("prefix_with_non_leading_extras", false)
+      case _: Exception ⇒ earlOut("prefix_with_non_leading_extras", false)
     }
 
     output.close()
@@ -272,7 +272,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in default_namespace_IRI.nt")
       earlOut("default_namespace_IRI", true)
     } catch {
-      case _: Exception => earlOut("default_namespace_IRI", false)
+      case _: Exception ⇒ earlOut("default_namespace_IRI", false)
     }
 
     output.close()
@@ -294,7 +294,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefix_reassigned_and_used.nt")
       earlOut("prefix_reassigned_and_used", true)
     } catch {
-      case _: Exception => earlOut("prefix_reassigned_and_used", false)
+      case _: Exception ⇒ earlOut("prefix_reassigned_and_used", false)
     }
 
     output.close()
@@ -315,7 +315,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in reserved_escaped_localName.nt")
       earlOut("reserved_escaped_localName", true)
     } catch {
-      case _: Exception => earlOut("reserved_escaped_localName", false)
+      case _: Exception ⇒ earlOut("reserved_escaped_localName", false)
     }
 
     output.close()
@@ -336,7 +336,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in percent_escaped_localName.nt")
       earlOut("percent_escaped_localName", true)
     } catch {
-      case _: Exception => earlOut("percent_escaped_localName", false)
+      case _: Exception ⇒ earlOut("percent_escaped_localName", false)
     }
 
     output.close()
@@ -358,12 +358,11 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString)
       earlOut("HYPHEN_MINUS_in_localName", true)
     } catch {
-      case _: Exception => earlOut("HYPHEN_MINUS_in_localName", false)
+      case _: Exception ⇒ earlOut("HYPHEN_MINUS_in_localName", false)
     }
 
     output.close()
   }
-
 
   "The input file ./TurtleTests/underscore_in_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
@@ -381,7 +380,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in underscore_in_localName.nt")
       earlOut("underscore_in_localName", true)
     } catch {
-      case _: Exception => earlOut("underscore_in_localName", false)
+      case _: Exception ⇒ earlOut("underscore_in_localName", false)
     }
 
     output.close()
@@ -403,7 +402,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localname_with_COLON.nt")
       earlOut("localname_with_COLON", true)
     } catch {
-      case _: Exception => earlOut("localname_with_COLON", false)
+      case _: Exception ⇒ earlOut("localname_with_COLON", false)
     }
 
     output.close()
@@ -425,7 +424,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries_isomorphic.nt")
       earlOut("localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries", true)
     } catch {
-      case _: Exception => earlOut("localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries", false)
+      case _: Exception ⇒ earlOut("localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries", false)
     }
 
     output.close()
@@ -447,7 +446,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.nt")
       earlOut("localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries", true)
     } catch {
-      case _: Exception => earlOut("localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries", false)
+      case _: Exception ⇒ earlOut("localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries", false)
     }
 
     output.close()
@@ -469,7 +468,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_nfc_PN_CHARS_BASE_character_boundaries.nt")
       earlOut("localName_with_nfc_PN_CHARS_BASE_character_boundaries", true)
     } catch {
-      case _: Exception => earlOut("localName_with_nfc_PN_CHARS_BASE_character_boundaries", false)
+      case _: Exception ⇒ earlOut("localName_with_nfc_PN_CHARS_BASE_character_boundaries", false)
     }
 
     output.close()
@@ -491,7 +490,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_leading_underscore.nt")
       earlOut("localName_with_leading_underscore", true)
     } catch {
-      case _: Exception => earlOut("localName_with_leading_underscore", false)
+      case _: Exception ⇒ earlOut("localName_with_leading_underscore", false)
     }
 
     output.close()
@@ -513,7 +512,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_leading_digit.nt")
       earlOut("localName_with_leading_digit", true)
     } catch {
-      case _: Exception => earlOut("localName_with_leading_digit", false)
+      case _: Exception ⇒ earlOut("localName_with_leading_digit", false)
     }
 
     output.close()
@@ -535,7 +534,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_non_leading_extras_isomorphic.nt")
       earlOut("localName_with_non_leading_extras_isomorphic", true)
     } catch {
-      case _: Exception => earlOut("localName_with_non_leading_extras_isomorphic", false)
+      case _: Exception ⇒ earlOut("localName_with_non_leading_extras_isomorphic", false)
     }
 
     output.close()
@@ -557,7 +556,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in old_style_base.nt")
       earlOut("old_style_base", true)
     } catch {
-      case _: Exception => earlOut("old_style_base", false)
+      case _: Exception ⇒ earlOut("old_style_base", false)
     }
 
     output.close()
@@ -579,7 +578,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in SPARQL_style_base.nt")
       earlOut("SPARQL_style_base", true)
     } catch {
-      case _: Exception => earlOut("SPARQL_style_base", false)
+      case _: Exception ⇒ earlOut("SPARQL_style_base", false)
     }
 
     output.close()
@@ -601,7 +600,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_subject.nt")
       earlOut("labeled_blank_node_subject", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_subject", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_subject", false)
     }
 
     output.close()
@@ -623,7 +622,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_object.nt")
       earlOut("labeled_blank_node_object", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_object", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_object", false)
     }
 
     output.close()
@@ -645,7 +644,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.nt")
       earlOut("labeled_blank_node_with_PN_CHARS_BASE_character_boundaries", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_with_PN_CHARS_BASE_character_boundaries", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_with_PN_CHARS_BASE_character_boundaries", false)
     }
 
     output.close()
@@ -667,7 +666,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_with_leading_underscore.nt")
       earlOut("labeled_blank_node_with_leading_underscore", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_with_leading_underscore", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_with_leading_underscore", false)
     }
 
     output.close()
@@ -689,7 +688,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_with_leading_digit.nt")
       earlOut("labeled_blank_node_with_leading_digit", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_with_leading_digit", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_with_leading_digit", false)
     }
 
     output.close()
@@ -711,7 +710,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in labeled_blank_node_with_non_leading_extras.nt")
       earlOut("labeled_blank_node_with_non_leading_extras", true)
     } catch {
-      case _: Exception => earlOut("labeled_blank_node_with_non_leading_extras", false)
+      case _: Exception ⇒ earlOut("labeled_blank_node_with_non_leading_extras", false)
     }
 
     output.close()
@@ -733,7 +732,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in anonymous_blank_node_subject.nt")
       earlOut("anonymous_blank_node_subject", true)
     } catch {
-      case _: Exception => earlOut("anonymous_blank_node_subject", false)
+      case _: Exception ⇒ earlOut("anonymous_blank_node_subject", false)
     }
 
     output.close()
@@ -755,7 +754,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in anonymous_blank_node_object.nt")
       earlOut("anonymous_blank_node_object ", true)
     } catch {
-      case _: Exception => earlOut("anonymous_blank_node_object", false)
+      case _: Exception ⇒ earlOut("anonymous_blank_node_object", false)
     }
 
     output.close()
@@ -777,7 +776,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in sole_blankNodePropertyList.nt")
       earlOut("sole_blankNodePropertyList", true)
     } catch {
-      case _: Exception => earlOut("sole_blankNodePropertyList", false)
+      case _: Exception ⇒ earlOut("sole_blankNodePropertyList", false)
     }
 
     output.close()
@@ -799,7 +798,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in blankNodePropertyList_as_subject.nt")
       earlOut("blankNodePropertyList_as_subject", true)
     } catch {
-      case _: Exception => earlOut("blankNodePropertyList_as_subject", false)
+      case _: Exception ⇒ earlOut("blankNodePropertyList_as_subject", false)
     }
 
     output.close()
@@ -821,7 +820,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in blankNodePropertyList_as_object.nt")
       earlOut("blankNodePropertyList_as_object", true)
     } catch {
-      case _: Exception => earlOut("blankNodePropertyList_as_object", false)
+      case _: Exception ⇒ earlOut("blankNodePropertyList_as_object", false)
     }
 
     output.close()
@@ -843,7 +842,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in blankNodePropertyList_with_multiple_triples.nt")
       earlOut("blankNodePropertyList_with_multiple_triples", true)
     } catch {
-      case _: Exception => earlOut("blankNodePropertyList_with_multiple_triples", false)
+      case _: Exception ⇒ earlOut("blankNodePropertyList_with_multiple_triples", false)
     }
 
     output.close()
@@ -865,7 +864,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in nested_blankNodePropertyLists.nt")
       earlOut("nested_blankNodePropertyLists", true)
     } catch {
-      case _: Exception => earlOut("nested_blankNodePropertyLists", false)
+      case _: Exception ⇒ earlOut("nested_blankNodePropertyLists", false)
     }
 
     output.close()
@@ -887,7 +886,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in blankNodePropertyList_containing_collection_isomorphic.nt")
       earlOut("blankNodePropertyList_containing_collection", true)
     } catch {
-      case _: Exception => earlOut("blankNodePropertyList_containing_collection", false)
+      case _: Exception ⇒ earlOut("blankNodePropertyList_containing_collection", false)
     }
 
     output.close()
@@ -909,7 +908,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in collection_subject_isomorphic.nt")
       earlOut("collection_subject", true)
     } catch {
-      case _: Exception => earlOut("collection_subject", false)
+      case _: Exception ⇒ earlOut("collection_subject", false)
     }
 
     output.close()
@@ -931,7 +930,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in collection_object_isomorphic.nt")
       earlOut("collection_object", true)
     } catch {
-      case _: Exception => earlOut("collection_object", false)
+      case _: Exception ⇒ earlOut("collection_object", false)
     }
 
     output.close()
@@ -945,7 +944,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/empty_collection.nt").mkString
 
@@ -953,7 +952,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in empty_collection.nt")
       earlOut("empty_collection", true)
     } catch {
-      case _: Exception => earlOut("empty_collection", false)
+      case _: Exception ⇒ earlOut("empty_collection", false)
     }
 
     output.close()
@@ -975,7 +974,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in nested_collection_isomorphic.nt")
       earlOut("nested_collection", true)
     } catch {
-      case _: Exception => earlOut("nested_collection", false)
+      case _: Exception ⇒ earlOut("nested_collection", false)
     }
 
     output.close()
@@ -997,7 +996,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in first_isomorphic.nt")
       earlOut("first", true)
     } catch {
-      case _: Exception => earlOut("first", false)
+      case _: Exception ⇒ earlOut("first", false)
     }
 
     output.close()
@@ -1019,7 +1018,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in last_isomorphic.nt")
       earlOut("last", true)
     } catch {
-      case _: Exception => earlOut("last", false)
+      case _: Exception ⇒ earlOut("last", false)
     }
 
     output.close()
@@ -1041,7 +1040,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1.nt")
       earlOut("LITERAL1", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1", false)
+      case _: Exception ⇒ earlOut("LITERAL1", false)
     }
 
     output.close()
@@ -1063,7 +1062,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_ascii_boundaries_isomorphic.nt")
       earlOut("LITERAL1_ascii_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1_ascii_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL1_ascii_boundaries", false)
     }
 
     output.close()
@@ -1085,7 +1084,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_with_UTF8_boundaries.nt")
       earlOut("LITERAL1_with_UTF8_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1_with_UTF8_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL1_with_UTF8_boundaries", false)
     }
 
     output.close()
@@ -1107,7 +1106,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_all_controls_isomorphic.nt")
       earlOut("LITERAL1_all_controls", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1_all_controls", false)
+      case _: Exception ⇒ earlOut("LITERAL1_all_controls", false)
     }
 
     output.close()
@@ -1129,7 +1128,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL1_all_punctuation.nt")
       earlOut("LITERAL1_all_punctuation", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1_all_punctuation", false)
+      case _: Exception ⇒ earlOut("LITERAL1_all_punctuation", false)
     }
 
     output.close()
@@ -1151,7 +1150,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1.nt")
       earlOut("LITERAL_LONG1", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG1", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG1", false)
     }
 
     output.close()
@@ -1173,7 +1172,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_ascii_boundaries_isomorphic.nt")
       earlOut("LITERAL1_all_punctuation", true)
     } catch {
-      case _: Exception => earlOut("LITERAL1_all_punctuation", false)
+      case _: Exception ⇒ earlOut("LITERAL1_all_punctuation", false)
     }
 
     output.close()
@@ -1195,7 +1194,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_with_UTF8_boundaries_isomorphic.nt")
       earlOut("LITERAL_LONG1_with_UTF8_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG1_with_UTF8_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG1_with_UTF8_boundaries", false)
     }
 
     output.close()
@@ -1217,7 +1216,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_with_1_squote.nt")
       earlOut("LITERAL_LONG1_with_1_squote", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG1_with_1_squote", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG1_with_1_squote", false)
     }
 
     output.close()
@@ -1239,7 +1238,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_with_2_squotes.nt")
       earlOut("LITERAL_LONG1_with_2_squotes", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG1_with_2_squotes", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG1_with_2_squotes", false)
     }
 
     output.close()
@@ -1261,7 +1260,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2.nt")
       earlOut("LITERAL2", true)
     } catch {
-      case _: Exception => earlOut("LITERAL2", false)
+      case _: Exception ⇒ earlOut("LITERAL2", false)
     }
 
     output.close()
@@ -1283,7 +1282,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2_ascii_boundaries_isomorphic.nt")
       earlOut("LITERAL2_ascii_boundaries_isomorphic", true)
     } catch {
-      case _: Exception => earlOut("LITERAL2_ascii_boundaries_isomorphic", false)
+      case _: Exception ⇒ earlOut("LITERAL2_ascii_boundaries_isomorphic", false)
     }
 
     output.close()
@@ -1305,7 +1304,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2_with_UTF8_boundaries.nt")
       earlOut("LITERAL2_with_UTF8_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL2_with_UTF8_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL2_with_UTF8_boundaries", false)
     }
 
     output.close()
@@ -1327,7 +1326,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2.nt")
       earlOut("LITERAL_LONG2", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2", false)
     }
 
     output.close()
@@ -1349,7 +1348,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_ascii_boundaries_isomorphic.nt")
       earlOut("LITERAL_LONG2_ascii_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2_ascii_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2_ascii_boundaries", false)
     }
 
     output.close()
@@ -1371,7 +1370,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_with_UTF8_boundaries.nt")
       earlOut("LITERAL_LONG2_with_UTF8_boundaries", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2_with_UTF8_boundaries", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2_with_UTF8_boundaries", false)
     }
 
     output.close()
@@ -1393,7 +1392,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_with_1_squote.nt")
       earlOut("LITERAL_LONG2_with_1_squote", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2_with_1_squote", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2_with_1_squote", false)
     }
 
     output.close()
@@ -1415,7 +1414,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_with_2_squotes.nt")
       earlOut("LITERAL_LONG2_with_2_squotes", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2_with_2_squotes", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2_with_2_squotes", false)
     }
 
     output.close()
@@ -1437,7 +1436,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CHARACTER_TABULATION_isomorphic.nt")
       earlOut("literal_with_CHARACTER_TABULATION", true)
     } catch {
-      case _: Exception => earlOut("literal_with_CHARACTER_TABULATION", false)
+      case _: Exception ⇒ earlOut("literal_with_CHARACTER_TABULATION", false)
     }
 
     output.close()
@@ -1459,7 +1458,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_BACKSPACE_isomorphic.nt")
       earlOut("literal_with_BACKSPACE", true)
     } catch {
-      case _: Exception => earlOut("literal_with_BACKSPACE", false)
+      case _: Exception ⇒ earlOut("literal_with_BACKSPACE", false)
     }
 
     output.close()
@@ -1481,7 +1480,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_LINE_FEED_isomorphic.nt")
       earlOut("literal_with_LINE_FEED", true)
     } catch {
-      case _: Exception => earlOut("literal_with_LINE_FEED", false)
+      case _: Exception ⇒ earlOut("literal_with_LINE_FEED", false)
     }
 
     output.close()
@@ -1503,7 +1502,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt")
       earlOut("literal_with_CARRIAGE_RETURN", true)
     } catch {
-      case _: Exception => earlOut("literal_with_CARRIAGE_RETURN", false)
+      case _: Exception ⇒ earlOut("literal_with_CARRIAGE_RETURN", false)
     }
 
     output.close()
@@ -1525,7 +1524,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_FORM_FEED_isomorphic.nt")
       earlOut("literal_with_FORM_FEED_isomorphic", true)
     } catch {
-      case _: Exception => earlOut("literal_with_FORM_FEED_isomorphic", false)
+      case _: Exception ⇒ earlOut("literal_with_FORM_FEED_isomorphic", false)
     }
 
     output.close()
@@ -1547,7 +1546,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_REVERSE_SOLIDUS.nt")
       earlOut("literal_with_REVERSE_SOLIDUS", true)
     } catch {
-      case _: Exception => earlOut("literal_with_REVERSE_SOLIDUS", false)
+      case _: Exception ⇒ earlOut("literal_with_REVERSE_SOLIDUS", false)
     }
 
     output.close()
@@ -1569,7 +1568,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_escaped_CHARACTER_TABULATION.nt")
       earlOut("literal_with_escaped_CHARACTER_TABULATION", true)
     } catch {
-      case _: Exception => earlOut("literal_with_escaped_CHARACTER_TABULATION", false)
+      case _: Exception ⇒ earlOut("literal_with_escaped_CHARACTER_TABULATION", false)
     }
 
     output.close()
@@ -1591,7 +1590,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_escaped_BACKSPACE.nt")
       earlOut("literal_with_escaped_BACKSPACE", true)
     } catch {
-      case _: Exception => earlOut("literal_with_escaped_BACKSPACE", false)
+      case _: Exception ⇒ earlOut("literal_with_escaped_BACKSPACE", false)
     }
 
     output.close()
@@ -1613,7 +1612,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_escaped_LINE_FEED.nt")
       earlOut("literal_with_escaped_LINE_FEED", true)
     } catch {
-      case _: Exception => earlOut("literal_with_escaped_LINE_FEED", false)
+      case _: Exception ⇒ earlOut("literal_with_escaped_LINE_FEED", false)
     }
 
     output.close()
@@ -1635,7 +1634,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_escaped_CARRIAGE_RETURN.nt")
       earlOut("literal_with_escaped_CARRIAGE_RETURN", true)
     } catch {
-      case _: Exception => earlOut("literal_with_escaped_CARRIAGE_RETURN", false)
+      case _: Exception ⇒ earlOut("literal_with_escaped_CARRIAGE_RETURN", false)
     }
 
     output.close()
@@ -1657,7 +1656,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_escaped_FORM_FEED.nt")
       earlOut("literal_with_escaped_FORM_FEED", true)
     } catch {
-      case _: Exception => earlOut("literal_with_escaped_FORM_FEED", false)
+      case _: Exception ⇒ earlOut("literal_with_escaped_FORM_FEED", false)
     }
 
     output.close()
@@ -1679,7 +1678,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_numeric_escape4.nt")
       earlOut("literal_with_numeric_escape4", true)
     } catch {
-      case _: Exception => earlOut("literal_with_numeric_escape4", false)
+      case _: Exception ⇒ earlOut("literal_with_numeric_escape4", false)
     }
 
     output.close()
@@ -1701,7 +1700,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_numeric_escape8.nt")
       earlOut("literal_with_numeric_escape8", true)
     } catch {
-      case _: Exception => earlOut("literal_with_numeric_escape8", false)
+      case _: Exception ⇒ earlOut("literal_with_numeric_escape8", false)
     }
 
     output.close()
@@ -1723,7 +1722,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in IRIREF_datatype.nt")
       earlOut("IRIREF_datatype", true)
     } catch {
-      case _: Exception => earlOut("IRIREF_datatype", false)
+      case _: Exception ⇒ earlOut("IRIREF_datatype", false)
     }
 
     output.close()
@@ -1745,7 +1744,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in prefixed_name_datatype.nt")
       earlOut("prefixed_name_datatype", true)
     } catch {
-      case _: Exception => earlOut("prefixed_name_datatype", false)
+      case _: Exception ⇒ earlOut("prefixed_name_datatype", false)
     }
 
     output.close()
@@ -1767,7 +1766,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in bareword_integer.nt")
       earlOut("bareword_integer", true)
     } catch {
-      case _: Exception => earlOut("bareword_integer", false)
+      case _: Exception ⇒ earlOut("bareword_integer", false)
     }
 
     output.close()
@@ -1789,7 +1788,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in bareword_decimal.nt")
       earlOut("bareword_decimal", true)
     } catch {
-      case _: Exception => earlOut("bareword_decimal", false)
+      case _: Exception ⇒ earlOut("bareword_decimal", false)
     }
 
     output.close()
@@ -1811,7 +1810,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in bareword_double.nt")
       earlOut("bareword_double", true)
     } catch {
-      case _: Exception => earlOut("bareword_double", false)
+      case _: Exception ⇒ earlOut("bareword_double", false)
     }
 
     output.close()
@@ -1833,7 +1832,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in double_lower_case_e.nt")
       earlOut("double_lower_case_e", true)
     } catch {
-      case _: Exception => earlOut("double_lower_case_e", false)
+      case _: Exception ⇒ earlOut("double_lower_case_e", false)
     }
 
     output.close()
@@ -1855,7 +1854,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in negative_numeric.nt")
       earlOut("negative_numeric", true)
     } catch {
-      case _: Exception => earlOut("negative_numeric", false)
+      case _: Exception ⇒ earlOut("negative_numeric", false)
     }
 
     output.close()
@@ -1877,7 +1876,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in positive_numeric.nt")
       earlOut("positive_numeric", true)
     } catch {
-      case _: Exception => earlOut("positive_numeric", false)
+      case _: Exception ⇒ earlOut("positive_numeric", false)
     }
 
     output.close()
@@ -1899,7 +1898,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in numeric_with_leading_0.nt")
       earlOut("numeric_with_leading_0", true)
     } catch {
-      case _: Exception => earlOut("numeric_with_leading_0", false)
+      case _: Exception ⇒ earlOut("numeric_with_leading_0", false)
     }
 
     output.close()
@@ -1921,7 +1920,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_true.nt")
       earlOut("literal_true", true)
     } catch {
-      case _: Exception => earlOut("literal_true", false)
+      case _: Exception ⇒ earlOut("literal_true", false)
     }
 
     output.close()
@@ -1943,7 +1942,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_false.nt")
       earlOut("literal_false", true)
     } catch {
-      case _: Exception => earlOut("literal_false", false)
+      case _: Exception ⇒ earlOut("literal_false", false)
     }
 
     output.close()
@@ -1965,7 +1964,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in langtagged_non_LONG.nt")
       earlOut("langtagged_non_LONG", true)
     } catch {
-      case _: Exception => earlOut("langtagged_non_LONG", false)
+      case _: Exception ⇒ earlOut("langtagged_non_LONG", false)
     }
 
     output.close()
@@ -1987,7 +1986,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in langtagged_LONG.nt")
       earlOut("langtagged_LONG", true)
     } catch {
-      case _: Exception => earlOut("langtagged_LONG", false)
+      case _: Exception ⇒ earlOut("langtagged_LONG", false)
     }
 
     output.close()
@@ -2009,7 +2008,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in objectList_with_two_objects.nt")
       earlOut("objectList_with_two_objects", true)
     } catch {
-      case _: Exception => earlOut("objectList_with_two_objects", false)
+      case _: Exception ⇒ earlOut("objectList_with_two_objects", false)
     }
 
     output.close()
@@ -2031,7 +2030,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in predicateObjectList_with_two_objectLists.nt")
       earlOut("objectList_with_two_objects", true)
     } catch {
-      case _: Exception => earlOut("objectList_with_two_objects", false)
+      case _: Exception ⇒ earlOut("objectList_with_two_objects", false)
     }
 
     output.close()
@@ -2045,7 +2044,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/repeated_semis_at_end.nt").mkString
 
@@ -2053,7 +2052,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in repeated_semis_at_end.nt")
       earlOut("repeated_semis_at_end", true)
     } catch {
-      case _: Exception => earlOut("repeated_semis_at_end", false)
+      case _: Exception ⇒ earlOut("repeated_semis_at_end", false)
     }
 
     output.close()
@@ -2075,7 +2074,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in repeated_semis_not_at_end.nt")
       earlOut("repeated_semis_not_at_end", true)
     } catch {
-      case _: Exception => earlOut("repeated_semis_not_at_end", false)
+      case _: Exception ⇒ earlOut("repeated_semis_not_at_end", false)
     }
 
     output.close()
@@ -2097,7 +2096,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in comment_following_localName.nt")
       earlOut("comment_following_localName", true)
     } catch {
-      case _: Exception => earlOut("comment_following_localName", false)
+      case _: Exception ⇒ earlOut("comment_following_localName", false)
     }
 
     output.close()
@@ -2119,7 +2118,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in number_sign_following_localName.nt")
       earlOut("number_sign_following_localName", true)
     } catch {
-      case _: Exception => earlOut("number_sign_following_localName", false)
+      case _: Exception ⇒ earlOut("number_sign_following_localName", false)
     }
 
     output.close()
@@ -2141,7 +2140,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in comment_following_PNAME_NS.nt")
       earlOut("comment_following_PNAME_NS", true)
     } catch {
-      case _: Exception => earlOut("comment_following_PNAME_NS", false)
+      case _: Exception ⇒ earlOut("comment_following_PNAME_NS", false)
     }
 
     output.close()
@@ -2163,7 +2162,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in number_sign_following_PNAME_NS.nt")
       earlOut("number_sign_following_PNAME_NS", true)
     } catch {
-      case _: Exception => earlOut("number_sign_following_PNAME_NS", false)
+      case _: Exception ⇒ earlOut("number_sign_following_PNAME_NS", false)
     }
 
     output.close()
@@ -2185,7 +2184,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG2_with_REVERSE_SOLIDUS.nt")
       earlOut("LITERAL_LONG2_with_REVERSE_SOLIDUS", true)
     } catch {
-      case _: Exception => earlOut("LITERAL_LONG2_with_REVERSE_SOLIDUS", false)
+      case _: Exception ⇒ earlOut("LITERAL_LONG2_with_REVERSE_SOLIDUS", false)
     }
 
     output.close()
@@ -2212,7 +2211,7 @@ class ChelonaEARLSpec extends FlatSpec {
       }
       earlOut("turtle-syntax-bad-num-05", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bad-num-05 Input", true)
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-05 Input", true)
     }
 
     output.close()
@@ -2234,7 +2233,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in two_LITERAL_LONG2s.nt")
       earlOut("two_LITERAL_LONG2s", true)
     } catch {
-      case _: Exception => earlOut("two_LITERAL_LONG2s", false)
+      case _: Exception ⇒ earlOut("two_LITERAL_LONG2s", false)
     }
 
     output.close()
@@ -2256,7 +2255,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in langtagged_LONG_with_subtag.nt")
       earlOut("langtagged_LONG_with_subtag", true)
     } catch {
-      case _: Exception => earlOut("langtagged_LONG_with_subtag", false)
+      case _: Exception ⇒ earlOut("langtagged_LONG_with_subtag", false)
     }
 
     output.close()
@@ -2278,7 +2277,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-file-01.nt")
       earlOut("turtle-syntax-file-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-file-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-file-01", false)
     }
 
     output.close()
@@ -2300,7 +2299,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-file-02.nt")
       earlOut("turtle-syntax-file-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-file-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-file-02", false)
     }
 
     output.close()
@@ -2322,7 +2321,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-file-03.nt")
       earlOut("turtle-syntax-file-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-file-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-file-03", false)
     }
 
     output.close()
@@ -2344,7 +2343,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-uri-01.nt")
       earlOut("turtle-syntax-uri-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-uri-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-uri-01", false)
     }
 
     output.close()
@@ -2366,7 +2365,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-uri-02.nt")
       earlOut("turtle-syntax-uri-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-uri-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-uri-02", false)
     }
 
     output.close()
@@ -2388,7 +2387,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-uri-03.nt")
       earlOut("turtle-syntax-uri-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-uri-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-uri-03", false)
     }
 
     output.close()
@@ -2410,7 +2409,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-uri-04.nt")
       earlOut("turtle-syntax-uri-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-uri-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-uri-04", false)
     }
 
     output.close()
@@ -2432,7 +2431,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-base-01.nt")
       earlOut("turtle-syntax-base-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-base-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-base-01", false)
     }
 
     output.close()
@@ -2454,7 +2453,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-base-02.nt")
       earlOut("turtle-syntax-base-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-base-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-base-02", false)
     }
 
     output.close()
@@ -2476,7 +2475,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-base-03.nt")
       earlOut("turtle-syntax-base-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-base-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-base-03", false)
     }
 
     output.close()
@@ -2498,7 +2497,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-base-04.nt")
       earlOut("turtle-syntax-base-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-base-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-base-04", false)
     }
 
     output.close()
@@ -2520,7 +2519,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-01.nt")
       earlOut("turtle-syntax-prefix-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-01", false)
     }
 
     output.close()
@@ -2542,7 +2541,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-02.nt")
       earlOut("turtle-syntax-prefix-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-02", false)
     }
 
     output.close()
@@ -2564,7 +2563,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-03.nt")
       earlOut("turtle-syntax-prefix-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-03", false)
     }
 
     output.close()
@@ -2586,7 +2585,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-04.nt")
       earlOut("turtle-syntax-prefix-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-04", false)
     }
 
     output.close()
@@ -2608,7 +2607,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-05.nt")
       earlOut("turtle-syntax-prefix-05", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-05", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-05", false)
     }
 
     output.close()
@@ -2630,7 +2629,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-06.nt")
       earlOut("turtle-syntax-prefix-06", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-06", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-06", false)
     }
 
     output.close()
@@ -2652,7 +2651,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-07.nt")
       earlOut("turtle-syntax-prefix-07", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-07", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-07", false)
     }
 
     output.close()
@@ -2674,7 +2673,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-08.nt")
       earlOut("turtle-syntax-prefix-08", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-08", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-08", false)
     }
 
     output.close()
@@ -2696,7 +2695,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-09.nt")
       earlOut("turtle-syntax-prefix-09", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-prefix-09", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-prefix-09", false)
     }
 
     output.close()
@@ -2718,7 +2717,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-01.nt")
       earlOut("turtle-syntax-string-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-01", false)
     }
 
     output.close()
@@ -2740,7 +2739,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-02.nt")
       earlOut("turtle-syntax-string-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-02", false)
     }
 
     output.close()
@@ -2762,7 +2761,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-03.nt")
       earlOut("turtle-syntax-string-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-03", false)
     }
 
     output.close()
@@ -2784,7 +2783,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-04.nt")
       earlOut("turtle-syntax-string-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-04", false)
     }
 
     output.close()
@@ -2806,7 +2805,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-05.nt")
       earlOut("turtle-syntax-string-05", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-05", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-05", false)
     }
 
     output.close()
@@ -2828,7 +2827,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-06.nt")
       earlOut("turtle-syntax-string-06", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-06", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-06", false)
     }
 
     output.close()
@@ -2850,7 +2849,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-07.nt")
       earlOut("turtle-syntax-string-07", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-07", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-07", false)
     }
 
     output.close()
@@ -2872,7 +2871,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-08.nt")
       earlOut("turtle-syntax-string-08", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-08", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-08", false)
     }
 
     output.close()
@@ -2894,7 +2893,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-09.nt")
       earlOut("turtle-syntax-string-09", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-09", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-09", false)
     }
 
     output.close()
@@ -2916,7 +2915,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-10.nt")
       earlOut("turtle-syntax-string-10", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-10", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-10", false)
     }
 
     output.close()
@@ -2938,7 +2937,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-11.nt")
       earlOut("turtle-syntax-string-11", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-string-11", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-string-11", false)
     }
 
     output.close()
@@ -2960,7 +2959,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-str-esc-01.nt")
       earlOut("turtle-syntax-str-esc-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-str-esc-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-str-esc-01", false)
     }
 
     output.close()
@@ -2982,7 +2981,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-str-esc-02.nt")
       earlOut("turtle-syntax-str-esc-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-str-esc-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-str-esc-02", false)
     }
 
     output.close()
@@ -3004,7 +3003,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-str-esc-03.nt")
       earlOut("turtle-syntax-str-esc-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-str-esc-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-str-esc-03", false)
     }
 
     output.close()
@@ -3026,7 +3025,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-pname-esc-01.nt")
       earlOut("turtle-syntax-pname-esc-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-pname-esc-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-pname-esc-01", false)
     }
 
     output.close()
@@ -3048,7 +3047,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-pname-esc-02.nt")
       earlOut("turtle-syntax-pname-esc-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-pname-esc-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-pname-esc-02", false)
     }
 
     output.close()
@@ -3070,7 +3069,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-pname-esc-03.nt")
       earlOut("turtle-syntax-pname-esc-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-pname-esc-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-pname-esc-03", false)
     }
 
     output.close()
@@ -3092,7 +3091,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-01.nt")
       earlOut("turtle-syntax-bnode-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-01", false)
     }
 
     output.close()
@@ -3114,7 +3113,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-02.nt")
       earlOut("turtle-syntax-bnode-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-02", false)
     }
 
     output.close()
@@ -3136,7 +3135,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-03.nt")
       earlOut("turtle-syntax-bnode-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-03", false)
     }
 
     output.close()
@@ -3158,7 +3157,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-04.nt")
       earlOut("turtle-syntax-bnode-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-04", false)
     }
 
     output.close()
@@ -3180,7 +3179,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-05.nt")
       earlOut("turtle-syntax-bnode-05", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-05", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-05", false)
     }
 
     output.close()
@@ -3202,7 +3201,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-06.nt")
       earlOut("turtle-syntax-bnode-06", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-06", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-06", false)
     }
 
     output.close()
@@ -3224,7 +3223,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-07.nt")
       earlOut("turtle-syntax-bnode-07", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-07", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-07", false)
     }
 
     output.close()
@@ -3246,7 +3245,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-08.nt")
       earlOut("turtle-syntax-bnode-08", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-08", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-08", false)
     }
 
     output.close()
@@ -3268,7 +3267,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-09.nt")
       earlOut("turtle-syntax-bnode-09", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-09", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-09", false)
     }
 
     output.close()
@@ -3290,7 +3289,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-10.nt")
       earlOut("turtle-syntax-bnode-10", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-bnode-10", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-bnode-10", false)
     }
 
     output.close()
@@ -3312,7 +3311,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-01.nt")
       earlOut("turtle-syntax-number-01", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-01", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-01", false)
     }
 
     output.close()
@@ -3334,7 +3333,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-02.nt")
       earlOut("turtle-syntax-number-02", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-02", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-02", false)
     }
 
     output.close()
@@ -3356,7 +3355,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-03.nt")
       earlOut("turtle-syntax-number-03", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-03", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-03", false)
     }
 
     output.close()
@@ -3378,7 +3377,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-04.nt")
       earlOut("turtle-syntax-number-04", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-04", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-04", false)
     }
 
     output.close()
@@ -3400,7 +3399,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-05.nt")
       earlOut("turtle-syntax-number-05", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-05", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-05", false)
     }
 
     output.close()
@@ -3422,7 +3421,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-06.nt")
       earlOut("turtle-syntax-number-06", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-06", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-06", false)
     }
 
     output.close()
@@ -3444,7 +3443,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-07.nt")
       earlOut("turtle-syntax-number-07", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-07", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-07", false)
     }
 
     output.close()
@@ -3466,7 +3465,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-08.nt")
       earlOut("turtle-syntax-number-08", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-08", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-08", false)
     }
 
     output.close()
@@ -3488,7 +3487,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-09.nt")
       earlOut("turtle-syntax-number-09", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-09", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-09", false)
     }
 
     output.close()
@@ -3510,7 +3509,7 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-10.nt")
       earlOut("turtle-syntax-number-10", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-10", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-10", false)
     }
 
     output.close()
@@ -3532,18 +3531,231 @@ class ChelonaEARLSpec extends FlatSpec {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-number-11.nt")
       earlOut("turtle-syntax-number-11", true)
     } catch {
-      case _: Exception => earlOut("turtle-syntax-number-11", false)
+      case _: Exception ⇒ earlOut("turtle-syntax-number-11", false)
     }
 
     output.close()
   }
 
+  "The input file ./TurtleTests/turtle-syntax-datatypes-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-01.ttl").mkString
 
+    val output = new StringWriter()
 
+    val parser = ChelonaParser(input, output, false)
 
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-01.nt").mkString
 
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-datatypes-01.nt")
+      earlOut("turtle-syntax-datatypes-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-datatypes-01", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-datatypes-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-02.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-datatypes-02.nt")
+      earlOut("turtle-syntax-datatypes-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-datatypes-02", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-kw-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-01.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-kw-01.nt")
+      earlOut("turtle-syntax-kw-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-kw-01", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-kw-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-02.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-kw-02.nt")
+      earlOut("turtle-syntax-kw-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-kw-02", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-kw-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-03.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-kw-03.nt")
+      earlOut("turtle-syntax-kw-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-kw-03", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-struct-01.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-01.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-01.nt")
+      earlOut("turtle-syntax-struct-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-struct-01", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-struct-02.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-02.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-02.nt")
+      earlOut("turtle-syntax-struct-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-struct-02", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-struct-03.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-03.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-03.nt")
+      earlOut("turtle-syntax-struct-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-struct-03", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-struct-04.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-04.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-04.nt")
+      earlOut("turtle-syntax-struct-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-struct-04", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-struct-05.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-05.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-05.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-05.nt")
+      earlOut("turtle-syntax-struct-05", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-struct-05", false)
+    }
+
+    output.close()
+  }
 
 
 
@@ -3742,7 +3954,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-09.nt").mkString
 
@@ -4057,6 +4269,5 @@ class ChelonaEARLSpec extends FlatSpec {
 
     output.close()
   }
-
 
 }

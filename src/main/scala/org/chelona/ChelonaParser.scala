@@ -221,7 +221,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[7] predicateObjectList 	::= 	verb objectList (';' (verb objectList)?)*
   def predicateObjectList = rule {
-    po ~ (";" ~ (po.?).*(";")).? ~> ASTPredicateObjectList
+    po ~ ((ws ~ ';' ~ ws).+ ~ (po.?).*((ws ~ ';' ~ ws).+)).? ~> ASTPredicateObjectList
   }
 
   def po = rule {
@@ -230,7 +230,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[8] objectList 	::= 	object (',' object)*
   def objectList = rule {
-    `object`.+(",") ~> ASTObjectList
+    `object`.+((ws ~ ',' ~ ws).+) ~> ASTObjectList
   }
 
   //[9] verb 	::= 	predicate | 'a'
