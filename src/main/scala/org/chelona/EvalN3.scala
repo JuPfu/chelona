@@ -120,8 +120,7 @@ class EvalN3 {
       case ASTPredicateObjectList(predicateObject, predicateObjectlist) ⇒
         (evalStatement(predicateObject): @unchecked) match {
           case SPOTriples(t) ⇒ predicateObjectlist match {
-            case Some(po) ⇒ SPOTriples(t ::: traversePredicateObjectList(po, Nil))
-            case None     ⇒ SPOTriples(t)
+            case po ⇒ SPOTriples(t ::: traversePredicateObjectList(po, Nil))
           }
         }
       case ASTPo(verb, obj) ⇒

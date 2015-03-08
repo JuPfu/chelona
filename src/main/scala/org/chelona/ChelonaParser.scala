@@ -72,7 +72,7 @@ object ChelonaParser {
 
   case class ASTBlankNodeTriples(blankNodePropertyList: AST, predicateObjectList: Option[AST]) extends AST
 
-  case class ASTPredicateObjectList(predicateObject: AST, predicateObjectList: Option[Seq[Option[AST]]]) extends AST
+  case class ASTPredicateObjectList(predicateObject: AST, predicateObjectList: Seq[Option[AST]]) extends AST
 
   case class ASTPo(verb: AST, obj: AST) extends AST
 
@@ -221,16 +221,16 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[7] predicateObjectList 	::= 	verb objectList (';' (verb objectList)?)*
   def predicateObjectList = rule {
-    po ~ ((ws ~ ';' ~ ws).+ ~ (po.?).*((ws ~ ';' ~ ws).+)).? ~> ASTPredicateObjectList
+    po ~ ((';' ~ ws).+ ~ po.?).* ~> ASTPredicateObjectList
   }
 
   def po = rule {
-    (verb ~ objectList) ~> ASTPo
+    verb ~ objectList ~> ASTPo
   }
 
   //[8] objectList 	::= 	object (',' object)*
   def objectList = rule {
-    `object`.+((ws ~ ',' ~ ws).+) ~> ASTObjectList
+    `object`.+(",") ~> ASTObjectList
   }
 
   //[9] verb 	::= 	predicate | 'a'
