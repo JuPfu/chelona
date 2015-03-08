@@ -80,6 +80,28 @@ class ChelonaEARLSpec extends FlatSpec {
     output.close()
   }
 
+  "The input file ./TurtleTests/IRI_with_eight_digit_numeric_escape.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/IRI_with_eight_digit_numeric_escape.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/IRI_with_eight_digit_numeric_escape.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in IRI_with_eight_digit_numeric_escape.nt")
+      earlOut("IRI_with_eight_digit_numeric_escape", true)
+    } catch {
+      case _: Exception ⇒ earlOut("IRI_with_eight_digit_numeric_escape", false)
+    }
+
+    output.close()
+  }
+
   "The input file ./TurtleTests/IRI_with_all_punctuation.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/IRI_with_all_punctuation.ttl").mkString
@@ -1992,6 +2014,28 @@ class ChelonaEARLSpec extends FlatSpec {
     output.close()
   }
 
+  "The input file ./TurtleTests/lantag_with_subtag.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/lantag_with_subtag.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/lantag_with_subtag.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in lantag_with_subtag.nt")
+      earlOut("lantag_with_subtag", true)
+    } catch {
+      case _: Exception ⇒ earlOut("lantag_with_subtag", false)
+    }
+
+    output.close()
+  }
+
   "The input file ./TurtleTests/objectList_with_two_objects.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/objectList_with_two_objects.ttl").mkString
@@ -2190,9 +2234,9 @@ class ChelonaEARLSpec extends FlatSpec {
     output.close()
   }
 
-  "The input file ./TurtleTests/turtle-syntax-bad-num-05.ttl" must "fail" taggedAs (TurtleSyntax) in {
+  "The input file ./TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl" must "fail" taggedAs (TurtleSyntax) in {
 
-    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-05.ttl").mkString
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl").mkString
 
     val output = new StringWriter()
 
@@ -2203,15 +2247,15 @@ class ChelonaEARLSpec extends FlatSpec {
         case scala.util.Success(tripleCount) ⇒
           true
         case Failure(e: ParseError) ⇒
-          System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': " + parser.formatError(e))
+          System.err.println("File './TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl': " + parser.formatError(e))
           false
         case Failure(e) ⇒
-          System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': Unexpected error during parsing run: " + e)
+          System.err.println("File './TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-05", true)
+      earlOut("turtle-syntax-bad-LITERAL2_with_langtag_and_datatype", true)
     } catch {
-      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-05 Input", true)
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-LITERAL2_with_langtag_and_datatype", false)
     }
 
     output.close()
@@ -4758,29 +4802,920 @@ class ChelonaEARLSpec extends FlatSpec {
     output.close()
   }
 
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-09.ttl" must "fail" taggedAs (TurtleSyntax) in {
 
-
-
-
-
-
-
-
-
-
-  "The input file ./TurtleTests/lantag_with_subtag.ttl" must "succeed" taggedAs (TurtleSyntax) in {
-
-    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/lantag_with_subtag.ttl").mkString
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-09.ttl").mkString
 
     val output = new StringWriter()
 
     val parser = ChelonaParser(input, output, false)
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-09.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-09.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-n3-extras-09", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-09", true)
+    }
 
-    val nt = io.Source.fromFile("./TurtleTests/lantag_with_subtag.nt").mkString
+    output.close()
+  }
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in lantag_with_subtag.nt")
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-10.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-10.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-10.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-10.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-n3-extras-10", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-10", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-11.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-11.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-11.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-11.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-n3-extras-11", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-11", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-12.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-12.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-12.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-12.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-n3-extras-12", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-12", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-n3-extras-13.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-n3-extras-13.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-13.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-13.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-n3-extras-13", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-13", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-08.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-08.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-08", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-08", true)
+    }
+
+    output.close()
+  }
+  
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-09.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-09.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-09.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-09.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-09", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-09", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-10.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-10.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-10.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-10.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-10", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-10", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-11.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-11.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-11", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-11", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-12.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-12.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-12.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-12.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-12", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-12", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-13.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-13.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-13.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-13.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-13", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-13", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-14.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-14.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-14.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-14.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-14", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-14", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-15.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-15.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-15.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-15.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-15", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-15", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-16.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-16.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-16.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-16.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-16", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-16", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-struct-17.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-17.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-17.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-struct-17.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-struct-17", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-17", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-esc-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-01", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-02.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-02.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-02.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-esc-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-02", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-03.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-03.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-03.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-esc-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-03", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-esc-04.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-esc-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-04.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-esc-04.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-esc-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-04", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-pname-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-01", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-02.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-02.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-02.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-pname-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-02", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-pname-03.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-pname-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-03.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-pname-03.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-pname-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-03", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-01", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-02.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-02.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-02.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-02", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-03.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-03", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-04.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-04", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-05.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-05.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-05", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-05", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-06.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-06.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-06.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-06.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-06", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-06", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-string-07.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-string-07.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-07.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-string-07.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-string-07", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-string-07", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-num-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-num-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-01", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-num-02.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-02.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-02.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-num-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-02", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-num-03.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-num-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-03", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-num-04.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-num-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-04", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-num-05.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-num-05.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-num-05", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-num-05", true)
+    }
 
     output.close()
   }
@@ -4797,7 +5732,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-01.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-01.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-01.nt")
+      earlOut("turtle-eval-struct-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-struct-01", false)
+    }
 
     output.close()
   }
@@ -4814,7 +5754,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-02.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-02.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-eval-struct-02.nt")
+      earlOut("turtle-eval-struct-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-struct-02", false)
+    }
 
     output.close()
   }
@@ -4829,9 +5774,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-01_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-01.nt")
+      earlOut("turtle-subm-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-01", false)
+    }
 
     output.close()
   }
@@ -4848,7 +5798,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-02.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-02.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-02.nt")
+      earlOut("turtle-subm-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-02", false)
+    }
 
     output.close()
   }
@@ -4865,7 +5820,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-03.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-03.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-03.nt")
+      earlOut("turtle-subm-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-03", false)
+    }
 
     output.close()
   }
@@ -4882,7 +5842,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-04.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-04.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-04.nt")
+      earlOut("turtle-subm-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-04", false)
+    }
 
     output.close()
   }
@@ -4897,9 +5862,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-05_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-05.nt")
+      earlOut("turtle-subm-05", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-05", false)
+    }
 
     output.close()
   }
@@ -4914,9 +5884,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-06_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-06.nt")
+      earlOut("turtle-subm-06", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-06", false)
+    }
 
     output.close()
   }
@@ -4933,7 +5908,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-07.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-07.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-07.nt")
+      earlOut("turtle-subm-07", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-07", false)
+    }
 
     output.close()
   }
@@ -4948,9 +5928,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-08_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-08.nt")
+      earlOut("turtle-subm-08", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-08", false)
+    }
 
     output.close()
   }
@@ -4967,7 +5952,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-09.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-09.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-09.nt")
+      earlOut("turtle-subm-09", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-09", false)
+    }
 
     output.close()
   }
@@ -4982,9 +5972,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-10_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-10.nt")
+      earlOut("turtle-subm-10", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-10", false)
+    }
 
     output.close()
   }
@@ -5001,7 +5996,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-11.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-11.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-11.nt")
+      earlOut("turtle-subm-11", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-11", false)
+    }
 
     output.close()
   }
@@ -5018,7 +6018,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-12.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-12.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-12.nt")
+      earlOut("turtle-subm-12", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-12", false)
+    }
 
     output.close()
   }
@@ -5035,7 +6040,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-13.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-13.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-13.nt")
+      earlOut("turtle-subm-13", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-13", false)
+    }
 
     output.close()
   }
@@ -5050,9 +6060,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14.nt")
+      earlOut("turtle-subm-14", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-14", false)
+    }
 
     output.close()
   }
@@ -5067,12 +6082,18 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15.nt")
+      earlOut("turtle-subm-15", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-15", false)
+    }
 
     output.close()
   }
+
   "The input file ./TurtleTests/turtle-subm-16.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-16.ttl").mkString
@@ -5083,9 +6104,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-16_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-16.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-16_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-16.nt")
+      earlOut("turtle-subm-16", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-16", false)
+    }
 
     output.close()
   }
@@ -5102,7 +6128,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-17.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-17.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-17.nt")
+      earlOut("turtle-subm-17", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-17", false)
+    }
 
     output.close()
   }
@@ -5119,7 +6150,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-18.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-18.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-18.nt")
+      earlOut("turtle-subm-18", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-18", false)
+    }
 
     output.close()
   }
@@ -5136,7 +6172,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-19.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-19.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-19.nt")
+      earlOut("turtle-subm-19", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-19", false)
+    }
 
     output.close()
   }
@@ -5153,7 +6194,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-20.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-20.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-20.nt")
+      earlOut("turtle-subm-20", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-20", false)
+    }
 
     output.close()
   }
@@ -5170,7 +6216,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-21.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-21.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-21.nt")
+      earlOut("turtle-subm-21", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-21", false)
+    }
 
     output.close()
   }
@@ -5187,7 +6238,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-22.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-22.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-22.nt")
+      earlOut("turtle-subm-22", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-22", false)
+    }
 
     output.close()
   }
@@ -5204,7 +6260,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-23.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-23.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-23.nt")
+      earlOut("turtle-subm-23", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-23", false)
+    }
 
     output.close()
   }
@@ -5221,7 +6282,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-24.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-24.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-24.nt")
+      earlOut("turtle-subm-24", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-24", false)
+    }
 
     output.close()
   }
@@ -5238,7 +6304,12 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-25.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-25.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-25.nt")
+      earlOut("turtle-subm-25", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-25", false)
+    }
 
     output.close()
   }
@@ -5255,11 +6326,16 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-26.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-26.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-26.nt")
+      earlOut("turtle-subm-26", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-26", false)
+    }
 
     output.close()
   }
-
+  
   "The input file ./TurtleTests/turtle-subm-27.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-27.ttl").mkString
@@ -5270,13 +6346,474 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-27_isomorphic.nt").mkString
-    System.err.println("OUTPUT=>" + output.toString())
-    System.err.println("NT=>" + nt.toString())
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-27.nt").mkString
 
-    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-27_isomorphic.nt")
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-27.nt")
+      earlOut("turtle-subm-27", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-subm-27", false)
+    }
 
     output.close()
   }
 
+  "The input file ./TurtleTests/turtle-eval-bad-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-bad-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-eval-bad-01", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-bad-01", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-eval-bad-02.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-bad-02.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-02.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-02.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-eval-bad-02", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-bad-02", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-eval-bad-03.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-bad-03.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-03.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-03.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-eval-bad-03", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-bad-03", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-eval-bad-04.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-eval-bad-04.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-04.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-eval-bad-04.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-eval-bad-04", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-eval-bad-04", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-blank-label-dot-end", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-blank-label-dot-end", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-ln-dash-start.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-ln-dash-start.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-dash-start.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-dash-start.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-ln-dash-start", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-ln-dash-start", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-ln-escape-start.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-ln-escape-start.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape-start.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape-start.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-ln-escape-start", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-ln-escape-start", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-ln-escape.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-ln-escape.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-ln-escape", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-ln-escape", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-missing-ns-dot-end.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-missing-ns-dot-end.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-end.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-end.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-missing-ns-dot-end", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-missing-ns-dot-end", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-missing-ns-dot-start.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-missing-ns-dot-start.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-start.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-start.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-missing-ns-dot-start", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-missing-ns-dot-start", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-ns-dot-end.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-ns-dot-end.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-end.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-end.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-ns-dot-end", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-ns-dot-end", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-ns-dot-start.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-ns-dot-start.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-start.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-start.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-ns-dot-start", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-ns-dot-start", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-number-dot-in-anon.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-number-dot-in-anon.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-number-dot-in-anon.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-number-dot-in-anon.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-number-dot-in-anon", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-number-dot-in-anon", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-blank-label.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-blank-label.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-blank-label.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-blank-label.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("urtle-syntax-blank-label", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-blank-label", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-ln-colons.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-colons.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-ln-colons", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-ln-colons", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-ln-dots.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-dots.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ln-dots.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-ln-dots", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-ln-dots", false)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-ns-dots.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ns-dots.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false)
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ns-dots.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-ns-dots.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-ns-dots", true)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-ns-dots", false)
+    }
+
+    output.close()
+  }
 }
