@@ -281,17 +281,17 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[19] INTEGER 	::= 	[+-]? [0-9]+
   def INTEGER = rule {
-    capture(atomic(SIGN.? ~ Digit.+)) ~> ASTInteger ~ ws
+    atomic(capture(SIGN.? ~ Digit.+)) ~> ASTInteger ~ ws
   }
 
   //[20] DECIMAL 	::= 	[+-]? [0-9]* '.' [0-9]+
   def DECIMAL = rule {
-    capture(atomic(SIGN.? ~ Digit.* ~ DOT ~ Digit.+)) ~> ASTDecimal ~ ws
+    atomic(capture(SIGN.? ~ Digit.* ~ DOT ~ Digit.+)) ~> ASTDecimal ~ ws
   }
 
   //[21] DOUBLE 	::= 	[+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
   def DOUBLE = rule {
-    capture(atomic(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* | DOT ~ Digit.+ | Digit.+) ~ EXPONENT)) ~> ASTDouble ~ ws
+    atomic(capture(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* | DOT ~ Digit.+ | Digit.+) ~ EXPONENT)) ~> ASTDouble ~ ws
   }
 
   //[154s] EXPONENT 	::= 	[eE] [+-]? [0-9]+
@@ -306,12 +306,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
   def LANGTAG = rule {
-    '@' ~ capture(atomic(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
+    atomic('@' ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
   }
 
   //[133s] BooleanLiteral 	::= 	'true' | 'false'
   def booleanLiteral = rule {
-    capture(atomic(str("true")) | atomic(str("false"))) ~> ASTBooleanLiteral ~ ws
+    atomic(capture(str("true") | str("false"))) ~> ASTBooleanLiteral ~ ws
   }
 
   //[17] String 	::= 	STRING_LITERAL_QUOTE | STRING_LITERAL_SINGLE_QUOTE | STRING_LITERAL_LONG_SINGLE_QUOTE | STRING_LITERAL_LONG_QUOTE
@@ -331,12 +331,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"\r") ~ appendSB | '"' ~ appendSB("\\\"") | '\r' ~ appendSB("\\r") | UCHAR | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\\r") ~ appendSB | '\r' ~ appendSB("\\r") | UCHAR | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\") ~ appendSB | UCHAR | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
@@ -397,7 +397,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    capture(atomic(PN_CHARS_BASE ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*).?)) ~> ASTPNPrefix
+    atomic(capture(PN_CHARS_BASE ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*)) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -411,7 +411,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ atomic((((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ ((PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*).?)) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ atomic((((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*)) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -447,12 +447,16 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def BLANK_NODE_LABEL = rule {
-    str("_:") ~ capture(atomic(PN_CHARS_U_DIGIT ~ ((PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*).?)) ~> ASTBlankNodeLabel ~ ws
+    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*)) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[162s] ANON 	::= 	'[' WS* ']'
   def ANON = rule {
-    capture(atomic("[" ~ "]")) ~> ASTAnon
+    atomic(capture("[" ~ "]")) ~> ASTAnon
+  }
+
+  private def isSurrogate() = {
+    cursorChar.isSurrogate
   }
 
   private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Boolean = {
@@ -503,9 +507,5 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   private def addPrefix(pname_ns: String, pn_local: String): Boolean = {
     prefixMap.contains(pname_ns)
-  }
-
-  private def isSurrogate() = {
-    cursorChar.isSurrogate
   }
 }
