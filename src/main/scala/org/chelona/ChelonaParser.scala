@@ -140,7 +140,7 @@ object ChelonaParser {
 
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean) extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false) extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
 
@@ -347,7 +347,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
   def ECHAR = rule {
-    atomic(str("\\") ~ appendSB("\\") ~ ECHAR_CHAR ~ appendSB(lastChar))
+    atomic(str("\\") ~ appendSB ~ ECHAR_CHAR ~ appendSB)
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName

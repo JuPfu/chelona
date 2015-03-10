@@ -38,8 +38,8 @@ object GetCmdLineArgs {
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
     opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
     opt[Unit]('u', "uid") action { (_, c) ⇒ c.copy(uid = true) } text "use UID for blank nodes"
-    opt[String]('b', "base") optional () action { (_, c) ⇒ c.copy(base = c.base) } text "base URI"
-    opt[String]('f', "fmt") optional () action { (_, c) ⇒ c.copy(out = c.out.toLowerCase) } text "output format"
+    opt[String]('b', "base") optional () action { (x, c) ⇒ c.copy(base = x) } text "base URI"
+    opt[String]('f', "fmt") optional () action { (x, c) ⇒ c.copy(out = x.toLowerCase) } text "output format"
     arg[File]("<file>") minOccurs (1) maxOccurs (1) valueName ("<file>") action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
   }
 }
