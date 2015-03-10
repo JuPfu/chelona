@@ -191,7 +191,6 @@ class EvalN3 {
       case ASTLiteral(rule)               ⇒ evalStatement(rule)
       case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case ASTCollection(rule) ⇒
-        cCount += 1
         curSubject = "_:c" + cCount
         subjectStack.push(curSubject)
         curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
@@ -270,17 +269,17 @@ class EvalN3 {
     case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
     case x +: xs ⇒
       val oldSubject = curSubject
-      if (xs != Nil) {
-        cCount += 1
-        curSubject = "_:c" + cCount
-      }
       (evalStatement(x): @unchecked) match {
         case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
+          cCount += 1
+          curSubject = "_:c" + cCount
           triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject) :: Nil))
         } else {
           triples :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o)
         })
         case SPOTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
+          cCount += 1
+          curSubject = "_:c" + cCount
           triples ::: (t :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject))
         } else {
           triples ::: t
