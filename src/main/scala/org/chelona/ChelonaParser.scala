@@ -165,11 +165,11 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
-    quiet(str(s) ~ WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?))
+    quiet(str(s) ~ WS.* ~ (('#' ~ noneOf("\r\n").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
   }
 
   def ws = rule {
-    quiet(WS.* ~ (('#' ~ noneOf("\r\n").* ~ "\r".? ~ "\n") | ("\r".? ~ "\n").?))
+    quiet(WS.* ~ (('#' ~ noneOf("\r\n").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
   }
 
   //[1] turtleDoc 	::= 	statement*
@@ -181,12 +181,17 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[2] statement 	::= 	directive | triples '.'
   def statement: Rule1[AST] = rule {
-    (directive | triples ~!~ "." | comment) ~> ASTStatement
+    (directive | triples ~!~ "." | blank | comment) ~> ASTStatement
   }
 
   //
   def comment = rule {
-    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~ "\r".? ~ "\n")
+    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~ '\r'.? ~ '\n')
+  }
+
+  //
+  def blank = rule {
+    (WS.* ~ ('\r'.? ~ '\n') | WS.+).+ ~ push("") ~> ASTComment
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase
