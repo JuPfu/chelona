@@ -37,6 +37,7 @@ object GetCmdLineArgs {
     opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
     opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
+    opt[Unit]('d', "debug") action { (_, c) ⇒ c.copy(debug = true) } text "display error trace"
     opt[Unit]('u', "uid") action { (_, c) ⇒ c.copy(uid = true) } text "use UID for blank nodes"
     opt[String]('b', "base") optional () action { (x, c) ⇒ c.copy(base = x) } text "base URI"
     opt[String]('f', "fmt") optional () action { (x, c) ⇒ c.copy(out = x.toLowerCase) } text "output format"

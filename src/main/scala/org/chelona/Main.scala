@@ -19,7 +19,7 @@ import java.io.{ OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.parboiled2.{ ParseError, ParserInput }
+import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
@@ -62,7 +62,7 @@ object Main extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = ChelonaParser(input, output, validate)
+  val parser = ChelonaParser(input, output, validate, base)
 
   val res = parser.turtleDoc.run()
 
@@ -78,7 +78,7 @@ object Main extends App {
           System.err.println("Input file '" + file(0) + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         }
       }
-    case Failure(e: ParseError) ⇒ System.err.println("File '" + file(0) + "': " + parser.formatError(e))
+    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.debug) System.err.println("File '" + file(0) + "': " + parser.formatError(e)) else System.err.println("File '" + file(0) + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
     case Failure(e)             ⇒ System.err.println("File '" + file(0) + "': Unexpected error during parsing run: " + e)
   }
 }

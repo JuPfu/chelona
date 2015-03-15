@@ -22,12 +22,10 @@ import scala.annotation.tailrec
 import scala.util.{ Failure, Success }
 
 object EvalN3 {
-  def apply() = {
-    new EvalN3()
-  }
+  def apply(basePath: String) = new EvalN3(basePath)
 }
 
-class EvalN3 {
+class EvalN3(basePath: String) {
 
   import org.chelona.ChelonaParser._
 
@@ -117,11 +115,9 @@ class EvalN3 {
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         retval
-      case ASTPredicateObjectList(predicateObject, predicateObjectlist) ⇒
-        (evalStatement(predicateObject): @unchecked) match {
-          case SPOTriples(t) ⇒ predicateObjectlist match {
-            case po ⇒ SPOTriples(t ::: traversePredicateObjectList(po, Nil))
-          }
+      case ASTPredicateObjectList(predicateObjectlist) ⇒
+        predicateObjectlist match {
+          case po ⇒ SPOTriples(traversePredicateObjectList(po, Nil))
         }
       case ASTPo(verb, obj) ⇒
         (evalStatement(verb): @unchecked) match {
@@ -245,13 +241,10 @@ class EvalN3 {
   }
 
   @tailrec
-  private def traversePredicateObjectList(l: Seq[Option[AST]], triples: List[SPOTriple]): List[SPOTriple] = l match {
+  private def traversePredicateObjectList(l: Seq[ /*Option[*/ AST /*]*/ ], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples
-    case x +: xs ⇒ x match {
-      case Some(po) ⇒ (evalStatement(po): @unchecked) match {
-        case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
-      }
-      case None ⇒ triples
+    case x +: xs ⇒ (evalStatement(x): @unchecked) match {
+      case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
     }
   }
 
@@ -301,7 +294,7 @@ class EvalN3 {
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
     if (pname_ns != "" || (!pn_local.startsWith("/") && !hasScheme(pn_local))) {
-      val prefix = prefixMap2.getOrElse(pname_ns, "http://chelona.org")
+      val prefix = prefixMap2.getOrElse(pname_ns, basePath)
       if (prefix.endsWith("/") || prefix.endsWith("#")) {
         prefix + pn_local
       } else {
@@ -314,14 +307,14 @@ class EvalN3 {
 
   private def addBasePrefix(iri: String) = {
     val p = if (!iri.startsWith("/") && !hasScheme(iri)) {
-      val prefix = prefixMap2.getOrElse("", "http://chelona.org")
+      val prefix = prefixMap2.getOrElse("", basePath)
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefixMap2 += "" -> (prefix + iri)
       else if (prefix.length > 0)
         prefixMap2 += "" -> (prefix + "/" + iri)
       else prefixMap2 += "" -> iri
     } else prefixMap2 += "" -> iri
-    p.getOrElse("", "http://chelona.org")
+    p.getOrElse("", basePath)
   }
 
   private def setBlankNodeName(key: String) = {

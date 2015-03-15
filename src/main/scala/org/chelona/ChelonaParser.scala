@@ -24,8 +24,8 @@ import scala.language.implicitConversions
 
 object ChelonaParser {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean) = {
-    new ChelonaParser(input, output, validate)
+  def apply(input: ParserInput, output: Writer, validate: Boolean, basePath: String) = {
+    new ChelonaParser(input, output, validate, basePath)
   }
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
@@ -72,7 +72,7 @@ object ChelonaParser {
 
   case class ASTBlankNodeTriples(blankNodePropertyList: AST, predicateObjectList: Option[AST]) extends AST
 
-  case class ASTPredicateObjectList(predicateObject: AST, predicateObjectList: Seq[Option[AST]]) extends AST
+  case class ASTPredicateObjectList(predicateObjectList: Seq[AST]) extends AST
 
   case class ASTPo(verb: AST, obj: AST) extends AST
 
@@ -140,7 +140,7 @@ object ChelonaParser {
 
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false) extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org") extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
 
@@ -159,17 +159,17 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   var bCount = 0
   var cCount = 0
 
-  val n3 = new EvalN3()
+  val n3 = new EvalN3(basePath)
 
   val tripleOutput = tripleWriter(output)_
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
-    quiet(str(s) ~ WS.* ~ (('#' ~ noneOf("\r\n").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
+    str(s) ~ ws
   }
 
   def ws = rule {
-    quiet(WS.* ~ (('#' ~ noneOf("\r\n").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
+    quiet(anyOf(" \n\t\r").* ~ (('#' ~ noneOf("\n\r").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
   }
 
   //[1] turtleDoc 	::= 	statement*
@@ -181,17 +181,17 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[2] statement 	::= 	directive | triples '.'
   def statement: Rule1[AST] = rule {
-    (directive | triples ~!~ "." | blank | comment) ~> ASTStatement
+    (directive | triples ~ "." | blank | comment) ~> ASTStatement
   }
 
   //
   def comment = rule {
-    quiet(WS.* ~ '#' ~ capture(noneOf("\r\n").*) ~> ASTComment ~ '\r'.? ~ '\n')
+    quiet('#' ~ capture(noneOf("\n\r").*) ~> ASTComment ~ '\r'.? ~ '\n')
   }
 
   //
   def blank = rule {
-    (WS.* ~ ('\r'.? ~ '\n') | WS.+).+ ~ push("") ~> ASTComment
+    quiet(anyOf(" \n\t\r").+) ~ push("") ~> ASTComment
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase
@@ -226,7 +226,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[7] predicateObjectList 	::= 	verb objectList (';' (verb objectList)?)*
   def predicateObjectList = rule {
-    po ~ ((';' ~ ws).+ ~ po.?).* ~> ASTPredicateObjectList
+    po.+((';' ~ ws).+) ~ ((';' ~ ws).+ | ws) ~> ASTPredicateObjectList
   }
 
   def po = rule {
@@ -416,7 +416,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ atomic((((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB)) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*)) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal ~ ws
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -460,7 +460,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
     atomic(capture("[" ~ "]")) ~> ASTAnon
   }
 
-  private def isSurrogate() = {
+  private def isSurrogate = {
     cursorChar.isSurrogate
   }
 
