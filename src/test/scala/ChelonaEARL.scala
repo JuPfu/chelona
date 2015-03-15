@@ -33,7 +33,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val datum = Calendar.getInstance.getTime
     val mode = "automatic"
     val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .")"""
-    System.err.println(earl_assertion)
+    System.err.println(earl_assertion); System.err.flush()
   }
 
   "The input file ./TurtleTests/IRI_subject.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -42,7 +42,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -64,7 +64,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -86,11 +86,11 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/IRI_with_eight_digit_numeric_escape.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/IRI_with_four_digit_numeric_escape.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in IRI_with_eight_digit_numeric_escape.nt")
@@ -108,7 +108,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -130,7 +130,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -152,7 +152,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -174,7 +174,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -196,7 +196,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -218,7 +218,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -240,7 +240,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -262,7 +262,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -284,7 +284,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -306,7 +306,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -328,7 +328,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -349,7 +349,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -370,7 +370,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -392,7 +392,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -414,7 +414,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -436,7 +436,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -458,7 +458,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -480,7 +480,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -502,7 +502,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -524,7 +524,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -546,7 +546,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -568,7 +568,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -590,7 +590,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -612,7 +612,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -634,7 +634,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -656,7 +656,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -678,7 +678,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -700,7 +700,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -722,7 +722,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -744,7 +744,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -766,7 +766,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -788,7 +788,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -810,7 +810,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -832,7 +832,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -854,7 +854,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -876,7 +876,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -898,7 +898,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -920,7 +920,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -942,7 +942,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -964,7 +964,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -986,7 +986,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -1008,7 +1008,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -1030,7 +1030,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -1052,7 +1052,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1074,7 +1074,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1096,7 +1096,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1118,7 +1118,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1140,7 +1140,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1162,7 +1162,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1184,7 +1184,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1206,7 +1206,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1228,7 +1228,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1250,7 +1250,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1272,7 +1272,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1294,7 +1294,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1316,7 +1316,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1338,7 +1338,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1360,7 +1360,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1382,7 +1382,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1404,7 +1404,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1426,7 +1426,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1448,7 +1448,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1470,7 +1470,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1492,7 +1492,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1514,7 +1514,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1536,7 +1536,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1558,7 +1558,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1580,7 +1580,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1602,7 +1602,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1624,7 +1624,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1646,7 +1646,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1668,7 +1668,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1690,7 +1690,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1712,7 +1712,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1734,7 +1734,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1756,7 +1756,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1778,7 +1778,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1800,7 +1800,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1822,7 +1822,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1844,7 +1844,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1866,7 +1866,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1888,7 +1888,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1910,7 +1910,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1932,7 +1932,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1954,7 +1954,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1976,7 +1976,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1998,7 +1998,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2020,7 +2020,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2042,7 +2042,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2064,7 +2064,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2086,7 +2086,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2108,7 +2108,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2130,7 +2130,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2152,7 +2152,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2174,7 +2174,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2196,7 +2196,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2218,7 +2218,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2240,7 +2240,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -2267,7 +2267,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2289,7 +2289,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2311,7 +2311,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2333,7 +2333,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2355,7 +2355,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2377,7 +2377,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2399,7 +2399,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2421,7 +2421,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2443,7 +2443,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2465,7 +2465,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2487,7 +2487,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2509,7 +2509,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2531,7 +2531,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2553,7 +2553,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2575,7 +2575,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2597,7 +2597,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2619,7 +2619,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2641,7 +2641,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2663,7 +2663,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2685,7 +2685,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2707,7 +2707,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2729,7 +2729,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2751,7 +2751,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2773,7 +2773,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2795,7 +2795,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2817,7 +2817,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2839,7 +2839,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2861,7 +2861,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2883,7 +2883,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2905,7 +2905,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2927,7 +2927,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2949,7 +2949,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2971,7 +2971,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2993,7 +2993,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3015,7 +3015,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3037,7 +3037,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3059,7 +3059,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3081,7 +3081,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3103,7 +3103,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3125,7 +3125,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3147,7 +3147,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3169,7 +3169,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3191,7 +3191,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -3213,7 +3213,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -3235,7 +3235,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3257,7 +3257,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3279,7 +3279,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3301,7 +3301,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -3323,7 +3323,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3345,7 +3345,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3367,7 +3367,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3389,7 +3389,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3411,7 +3411,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3433,7 +3433,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3455,7 +3455,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3477,7 +3477,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3499,7 +3499,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3521,7 +3521,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3543,7 +3543,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3565,7 +3565,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3587,7 +3587,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3609,7 +3609,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3631,7 +3631,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3653,7 +3653,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3675,7 +3675,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3697,7 +3697,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3719,7 +3719,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3741,7 +3741,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3763,7 +3763,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3785,7 +3785,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3807,7 +3807,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3829,7 +3829,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -3851,7 +3851,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -3873,7 +3873,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -3895,9 +3895,9 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(19), "Number of triples generated should have been 19")
+    assert(parser.turtleDoc.run() == scala.util.Success(38), "Number of triples generated should have been 38")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-05.nt").mkString
 
@@ -3917,7 +3917,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -3930,7 +3930,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-uri-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-uri-01", true)
+      earlOut("turtle-syntax-bad-uri-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-uri-01", true)
     }
@@ -3944,7 +3944,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -3957,7 +3957,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-uri-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-uri-02", true)
+      earlOut("turtle-syntax-bad-uri-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-uri-02", true)
     }
@@ -3971,7 +3971,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -3984,7 +3984,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-uri-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-uri-03", true)
+      earlOut("turtle-syntax-bad-uri-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-uri-03", true)
     }
@@ -3998,7 +3998,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4011,7 +4011,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-uri-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-uri-04", true)
+      earlOut("turtle-syntax-bad-uri-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-uri-04", true)
     }
@@ -4025,7 +4025,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4038,7 +4038,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-uri-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-uri-05", true)
+      earlOut("turtle-syntax-bad-uri-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-uri-05", true)
     }
@@ -4052,7 +4052,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4065,7 +4065,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-prefix-01", true)
+      earlOut("turtle-syntax-bad-prefix-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-prefix-01", true)
     }
@@ -4079,7 +4079,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4092,7 +4092,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-prefix-02", true)
+      earlOut("turtle-syntax-bad-prefix-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-prefix-02", true)
     }
@@ -4106,7 +4106,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4119,7 +4119,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-prefix-03", true)
+      earlOut("turtle-syntax-bad-prefix-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-prefix-03", true)
     }
@@ -4133,7 +4133,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4146,7 +4146,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-prefix-04", true)
+      earlOut("turtle-syntax-bad-prefix-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-prefix-04", true)
     }
@@ -4160,7 +4160,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4173,7 +4173,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-prefix-05", true)
+      earlOut("turtle-syntax-bad-prefix-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-prefix-05", true)
     }
@@ -4187,7 +4187,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4200,7 +4200,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-base-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-base-01", true)
+      earlOut("turtle-syntax-bad-base-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-base-01", true)
     }
@@ -4214,7 +4214,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4227,7 +4227,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-base-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-base-02", true)
+      earlOut("turtle-syntax-bad-base-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-base-02", true)
     }
@@ -4241,7 +4241,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4254,7 +4254,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-base-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-base-03", true)
+      earlOut("turtle-syntax-bad-base-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-base-03", true)
     }
@@ -4268,7 +4268,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4281,7 +4281,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-01", true)
+      earlOut("turtle-syntax-bad-struct-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-01", true)
     }
@@ -4295,7 +4295,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4308,7 +4308,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-02", true)
+      earlOut("turtle-syntax-bad-struct-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-02", true)
     }
@@ -4322,7 +4322,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4335,7 +4335,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-03", true)
+      earlOut("turtle-syntax-bad-struct-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-03", true)
     }
@@ -4349,7 +4349,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4362,7 +4362,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-04", true)
+      earlOut("turtle-syntax-bad-struct-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-04", true)
     }
@@ -4376,7 +4376,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4389,7 +4389,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-05", true)
+      earlOut("turtle-syntax-bad-struct-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-05", true)
     }
@@ -4403,7 +4403,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4416,7 +4416,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-06.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-06", true)
+      earlOut("turtle-syntax-bad-struct-06", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-06", true)
     }
@@ -4430,7 +4430,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4443,7 +4443,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-07.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-07", true)
+      earlOut("turtle-syntax-bad-struct-07", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-07", true)
     }
@@ -4457,7 +4457,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4470,7 +4470,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-kw-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-kw-01", true)
+      earlOut("turtle-syntax-bad-kw-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-kw-01", true)
     }
@@ -4484,7 +4484,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4497,7 +4497,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-kw-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-kw-02", true)
+      earlOut("turtle-syntax-bad-kw-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-kw-02", true)
     }
@@ -4511,7 +4511,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4524,7 +4524,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-kw-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-kw-03", true)
+      earlOut("turtle-syntax-bad-kw-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-kw-03", true)
     }
@@ -4538,7 +4538,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4551,7 +4551,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-kw-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-kw-04", true)
+      earlOut("turtle-syntax-bad-kw-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-kw-04", true)
     }
@@ -4565,7 +4565,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4578,7 +4578,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-kw-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-kw-05", true)
+      earlOut("turtle-syntax-bad-kw-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-kw-05", true)
     }
@@ -4592,7 +4592,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4605,7 +4605,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-01", true)
+      earlOut("turtle-syntax-bad-n3-extras-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-01", true)
     }
@@ -4619,7 +4619,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4632,7 +4632,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-02", true)
+      earlOut("turtle-syntax-bad-n3-extras-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-02", true)
     }
@@ -4646,7 +4646,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4659,7 +4659,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-03", true)
+      earlOut("turtle-syntax-bad-n3-extras-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-03", true)
     }
@@ -4673,7 +4673,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4686,7 +4686,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-04", true)
+      earlOut("turtle-syntax-bad-n3-extras-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-04", true)
     }
@@ -4700,7 +4700,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4713,7 +4713,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-05", true)
+      earlOut("turtle-syntax-bad-n3-extras-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-05", true)
     }
@@ -4727,7 +4727,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4740,7 +4740,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-06.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-06", true)
+      earlOut("turtle-syntax-bad-n3-extras-06", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-06", true)
     }
@@ -4754,7 +4754,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4767,7 +4767,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-07.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-07", true)
+      earlOut("turtle-syntax-bad-n3-extras-07", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-07", true)
     }
@@ -4781,7 +4781,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4794,7 +4794,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-08.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-08", true)
+      earlOut("turtle-syntax-bad-n3-extras-08", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-08", true)
     }
@@ -4808,7 +4808,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4821,7 +4821,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-09.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-09", true)
+      earlOut("turtle-syntax-bad-n3-extras-09", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-09", true)
     }
@@ -4835,7 +4835,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4848,7 +4848,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-10.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-10", true)
+      earlOut("turtle-syntax-bad-n3-extras-10", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-10", true)
     }
@@ -4862,7 +4862,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4875,7 +4875,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-11.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-11", true)
+      earlOut("turtle-syntax-bad-n3-extras-11", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-11", true)
     }
@@ -4889,7 +4889,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4902,7 +4902,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-12.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-12", true)
+      earlOut("turtle-syntax-bad-n3-extras-12", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-12", true)
     }
@@ -4916,7 +4916,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4929,7 +4929,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-13.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-n3-extras-13", true)
+      earlOut("turtle-syntax-bad-n3-extras-13", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-n3-extras-13", true)
     }
@@ -4943,7 +4943,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4956,21 +4956,21 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-08", true)
+      earlOut("turtle-syntax-bad-struct-08", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-08", true)
     }
 
     output.close()
   }
-  
+
   "The input file ./TurtleTests/turtle-syntax-bad-struct-09.ttl" must "fail" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-struct-09.ttl").mkString
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -4983,7 +4983,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-09.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-09", true)
+      earlOut("turtle-syntax-bad-struct-09", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-09", true)
     }
@@ -4997,7 +4997,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5010,7 +5010,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-10.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-10", true)
+      earlOut("turtle-syntax-bad-struct-10", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-10", true)
     }
@@ -5024,7 +5024,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5037,7 +5037,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-11", true)
+      earlOut("turtle-syntax-bad-struct-11", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-11", true)
     }
@@ -5051,7 +5051,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5064,7 +5064,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-12.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-12", true)
+      earlOut("turtle-syntax-bad-struct-12", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-12", true)
     }
@@ -5078,7 +5078,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5091,7 +5091,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-13.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-13", true)
+      earlOut("turtle-syntax-bad-struct-13", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-13", true)
     }
@@ -5105,7 +5105,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5118,7 +5118,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-14.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-14", true)
+      earlOut("turtle-syntax-bad-struct-14", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-14", true)
     }
@@ -5132,7 +5132,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5145,7 +5145,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-15.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-15", true)
+      earlOut("turtle-syntax-bad-struct-15", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-15", true)
     }
@@ -5159,7 +5159,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5172,7 +5172,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-16.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-16", true)
+      earlOut("turtle-syntax-bad-struct-16", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-16", true)
     }
@@ -5186,7 +5186,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5199,7 +5199,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-struct-17.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-struct-17", true)
+      earlOut("turtle-syntax-bad-struct-17", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-17", true)
     }
@@ -5213,7 +5213,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5226,7 +5226,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-esc-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-esc-01", true)
+      earlOut("turtle-syntax-bad-esc-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-01", true)
     }
@@ -5240,7 +5240,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5253,7 +5253,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-esc-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-esc-02", true)
+      earlOut("turtle-syntax-bad-esc-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-02", true)
     }
@@ -5267,7 +5267,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5280,7 +5280,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-esc-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-esc-03", true)
+      earlOut("turtle-syntax-bad-esc-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-03", true)
     }
@@ -5294,7 +5294,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5307,7 +5307,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-esc-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-esc-04", true)
+      earlOut("turtle-syntax-bad-esc-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-esc-04", true)
     }
@@ -5321,7 +5321,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5334,7 +5334,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-pname-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-pname-01", true)
+      earlOut("turtle-syntax-bad-pname-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-01", true)
     }
@@ -5348,7 +5348,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5361,7 +5361,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-pname-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-pname-02", true)
+      earlOut("turtle-syntax-bad-pname-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-02", true)
     }
@@ -5375,7 +5375,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5388,7 +5388,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-pname-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-pname-03", true)
+      earlOut("turtle-syntax-bad-pname-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-pname-03", true)
     }
@@ -5402,7 +5402,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5415,7 +5415,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-01", true)
+      earlOut("turtle-syntax-bad-string-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-01", true)
     }
@@ -5429,7 +5429,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5442,7 +5442,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-02", true)
+      earlOut("turtle-syntax-bad-string-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-02", true)
     }
@@ -5456,7 +5456,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5469,7 +5469,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-03", true)
+      earlOut("turtle-syntax-bad-string-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-03", true)
     }
@@ -5483,7 +5483,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5496,7 +5496,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-04", true)
+      earlOut("turtle-syntax-bad-string-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-04", true)
     }
@@ -5510,7 +5510,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5523,7 +5523,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-05", true)
+      earlOut("turtle-syntax-bad-string-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-05", true)
     }
@@ -5537,7 +5537,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5550,7 +5550,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-06.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-06", true)
+      earlOut("turtle-syntax-bad-string-06", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-06", true)
     }
@@ -5564,7 +5564,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5577,7 +5577,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-string-07.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-string-07", true)
+      earlOut("turtle-syntax-bad-string-07", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-string-07", true)
     }
@@ -5591,7 +5591,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5604,7 +5604,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-num-01.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-01", true)
+      earlOut("turtle-syntax-bad-num-01", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-num-01", true)
     }
@@ -5618,7 +5618,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5631,7 +5631,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-num-02.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-02", true)
+      earlOut("turtle-syntax-bad-num-02", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-num-02", true)
     }
@@ -5645,7 +5645,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5658,7 +5658,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-03", true)
+      earlOut("turtle-syntax-bad-num-03", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-num-03", true)
     }
@@ -5672,7 +5672,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5685,7 +5685,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-04", true)
+      earlOut("turtle-syntax-bad-num-04", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-num-04", true)
     }
@@ -5699,7 +5699,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -5712,7 +5712,7 @@ class ChelonaEARLSpec extends FlatSpec {
           System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': Unexpected error during parsing run: " + e)
           false
       }
-      earlOut("turtle-syntax-bad-num-05", true)
+      earlOut("turtle-syntax-bad-num-05", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-num-05", true)
     }
@@ -5726,7 +5726,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5748,7 +5748,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5770,7 +5770,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5792,7 +5792,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -5814,7 +5814,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -5836,7 +5836,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -5858,7 +5858,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5880,7 +5880,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -5902,7 +5902,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5924,7 +5924,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -5946,7 +5946,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5968,7 +5968,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -5990,7 +5990,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -6012,7 +6012,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -6034,7 +6034,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -6056,7 +6056,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6078,7 +6078,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6100,7 +6100,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6122,7 +6122,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6144,7 +6144,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6166,7 +6166,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -6188,7 +6188,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -6210,7 +6210,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6232,7 +6232,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6254,7 +6254,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -6276,7 +6276,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6298,7 +6298,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6320,7 +6320,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
 
@@ -6335,14 +6335,14 @@ class ChelonaEARLSpec extends FlatSpec {
 
     output.close()
   }
-  
+
   "The input file ./TurtleTests/turtle-subm-27.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-subm-27.ttl").mkString
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -6364,7 +6364,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6391,7 +6391,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6418,7 +6418,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6445,7 +6445,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6472,7 +6472,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6499,7 +6499,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6526,7 +6526,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6553,7 +6553,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6580,7 +6580,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6607,7 +6607,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6634,7 +6634,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6661,7 +6661,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6688,7 +6688,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6715,7 +6715,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6742,7 +6742,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6769,7 +6769,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {
@@ -6796,7 +6796,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false)
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests")
 
     try {
       val res = parser.turtleDoc.run() match {

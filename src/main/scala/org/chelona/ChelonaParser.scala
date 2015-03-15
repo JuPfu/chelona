@@ -21,6 +21,7 @@ import java.io.Writer
 import org.parboiled2._
 
 import scala.language.implicitConversions
+import scala.util.{ Failure, Success }
 
 object ChelonaParser {
 
@@ -388,7 +389,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[140s] PNAME_LN 	::= 	PNAME_NS PN_LOCAL
   def PNAME_LN = rule {
-    PNAME_NS ~ PN_LOCAL ~> ((ns: ASTPNameNS, local: ASTPNLocal) ⇒ test(addPrefix(ns, local)) ~ push(ns) ~ push(local)) ~> ASTPNameLN
+    PNAME_NS ~ PN_LOCAL ~> ((ns: ASTPNameNS, local: ASTPNLocal) ⇒ (test(addPrefix(ns, local)) | fail("name space - PNAME_NS=\"" + ns + "\" might be undefined")) ~ push(ns) ~ push(local)) ~> ASTPNameLN
   }
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
@@ -416,7 +417,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal ~ ws
+    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -479,7 +480,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
     val token = value.token
 
-    if (token.startsWith("//") | token.toLowerCase.startsWith("http://")) {
+    if (token.startsWith("//") || hasScheme(token)) {
       prefixMap += pname -> token
       true
     } else if (token.endsWith("/")) {
@@ -512,5 +513,11 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   private def addPrefix(pname_ns: String, pn_local: String): Boolean = {
     prefixMap.contains(pname_ns)
+  }
+
+  private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
+    case Success(s)             ⇒ true
+    case Failure(e: ParseError) ⇒ false
+    case Failure(e)             ⇒ false
   }
 }
