@@ -241,7 +241,7 @@ class EvalN3(basePath: String) {
   }
 
   @tailrec
-  private def traversePredicateObjectList(l: Seq[ /*Option[*/ AST /*]*/ ], triples: List[SPOTriple]): List[SPOTriple] = l match {
+  private def traversePredicateObjectList(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
       case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
@@ -287,8 +287,8 @@ class EvalN3(basePath: String) {
       if (!prefixMap2.contains(key))
         prefixMap2 += key -> value
       else
-        prefixMap2 += key -> (prefixMap2.getOrElse(key, "http://chelona.org") + value)
-    } else if (value.endsWith("#")) prefixMap2 += key -> (prefixMap2.getOrElse(key, "http://chelona.org") + value)
+        prefixMap2 += key -> (prefixMap2.getOrElse(key, basePath) + value)
+    } else if (value.endsWith("#")) prefixMap2 += key -> (prefixMap2.getOrElse(key, basePath) + value)
     else prefixMap2 += key -> value
   }
 
