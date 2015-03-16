@@ -134,7 +134,7 @@ class EvalN3(basePath: String) {
         case ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
         }
-        case ASTCollection(c) ⇒ evalStatement(rule)
+        case ASTCollection(c) ⇒ cCount +=1; evalStatement(rule)
       }
       case ASTPredicate(rule) ⇒
         (evalStatement(rule): @unchecked) match {
