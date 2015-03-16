@@ -55,14 +55,13 @@ object Main extends App {
     sys.exit(3)
   }
 
-  val uid = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
   val base = cmdLineArgs.get.base
-
+  val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
   lazy val input: ParserInput = inputfile.get.mkString
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = ChelonaParser(input, output, validate, base)
+  val parser = ChelonaParser(input, output, validate, base, label)
 
   val res = parser.turtleDoc.run()
 

@@ -22,10 +22,10 @@ import scala.annotation.tailrec
 import scala.util.{ Failure, Success }
 
 object EvalN3 {
-  def apply(basePath: String) = new EvalN3(basePath)
+  def apply(basePath: String, label: String) = new EvalN3(basePath, label)
 }
 
-class EvalN3(basePath: String) {
+class EvalN3(basePath: String, label: String) {
 
   import org.chelona.ChelonaParser._
 
@@ -134,7 +134,7 @@ class EvalN3(basePath: String) {
         case ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
         }
-        case ASTCollection(c) ⇒ cCount +=1; evalStatement(rule)
+        case ASTCollection(c) ⇒ cCount += 1; evalStatement(rule)
       }
       case ASTPredicate(rule) ⇒
         (evalStatement(rule): @unchecked) match {
@@ -160,7 +160,7 @@ class EvalN3(basePath: String) {
             case _ ⇒
               subjectStack.push(curSubject)
               cCount += 1
-              curSubject = "_:c" + cCount
+              curSubject = getCollectionName
               predicateStack.push(curPredicate)
               curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
               (evalStatement(l): @unchecked) match {
@@ -187,7 +187,7 @@ class EvalN3(basePath: String) {
       case ASTLiteral(rule)               ⇒ evalStatement(rule)
       case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case ASTCollection(rule) ⇒
-        curSubject = "_:c" + cCount
+        curSubject = getCollectionName
         subjectStack.push(curSubject)
         curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
         predicateStack.push(curPredicate)
@@ -235,7 +235,7 @@ class EvalN3(basePath: String) {
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
       case ASTAnon(token) ⇒
-        aCount += 1; SPOString("_:a" + aCount)
+        aCount += 1; SPOString("_:a" + label + aCount)
       case ASTComment(rule) ⇒ SPOComment(rule)
     }
   }
@@ -265,14 +265,14 @@ class EvalN3(basePath: String) {
       (evalStatement(x): @unchecked) match {
         case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = "_:c" + cCount
+          curSubject = getCollectionName
           triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject) :: Nil))
         } else {
           triples :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o)
         })
         case SPOTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = "_:c" + cCount
+          curSubject = getCollectionName
           triples ::: (t :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject))
         } else {
           triples ::: t
@@ -320,10 +320,12 @@ class EvalN3(basePath: String) {
   private def setBlankNodeName(key: String) = {
     if (!blankNodeMap.contains(key)) {
       bCount += 1
-      blankNodeMap += key -> ("_:b" + bCount)
+      blankNodeMap += key -> ("_:b" + label + bCount)
     }
     blankNodeMap.getOrElse(key, "This should never be returned")
   }
+
+  private def getCollectionName = "_:c" + label + cCount
 
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
     case Success(s)             ⇒ true

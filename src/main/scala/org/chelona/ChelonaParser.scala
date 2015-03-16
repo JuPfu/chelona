@@ -25,8 +25,8 @@ import scala.util.{ Failure, Success }
 
 object ChelonaParser {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean, basePath: String) = {
-    new ChelonaParser(input, output, validate, basePath)
+  def apply(input: ParserInput, output: Writer, validate: Boolean, basePath: String, label: String) = {
+    new ChelonaParser(input, output, validate, basePath, label)
   }
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
@@ -141,7 +141,7 @@ object ChelonaParser {
 
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org") extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
 
@@ -160,7 +160,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   var bCount = 0
   var cCount = 0
 
-  val n3 = new EvalN3(basePath)
+  val n3 = new EvalN3(basePath, label)
 
   val tripleOutput = tripleWriter(output)_
 
