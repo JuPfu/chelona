@@ -46,7 +46,7 @@ class ChelonaValidationSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, null, true, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of statements validated should have been 1")
+    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of statements validated should have been 2")
   }
 
   "The input file ./TurtleTests/turtle-syntax-uri-01.ttl" must "succeed" taggedAs (TestTurtlePositiveSyntax, TurtleSyntax) in {
