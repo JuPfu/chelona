@@ -1,0 +1,4 @@
+<http://www.w3.org/2013/TurtleTests/s1> <http://www.w3.org/2013/TurtleTests/p> <http://www.w3.org/2013/TurtleTests/o> .
+_:b1 <http://www.w3.org/2013/TurtleTests/p1> <http://www.w3.org/2013/TurtleTests/o1> .
+_:b1 <http://www.w3.org/2013/TurtleTests/p2> <http://www.w3.org/2013/TurtleTests/o2> .
+<http://www.w3.org/2013/TurtleTests/s2> <http://www.w3.org/2013/TurtleTests/p> <http://www.w3.org/2013/TurtleTests/o> .

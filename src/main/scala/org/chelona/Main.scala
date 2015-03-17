@@ -57,6 +57,7 @@ object Main extends App {
 
   val base = cmdLineArgs.get.base
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
+
   lazy val input: ParserInput = inputfile.get.mkString
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))

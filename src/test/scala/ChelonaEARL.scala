@@ -3897,7 +3897,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(38), "Number of triples generated should have been 38")
+    assert(parser.turtleDoc.run() == scala.util.Success(19), "Number of triples generated should have been 19")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-05.nt").mkString
 
