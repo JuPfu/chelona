@@ -484,7 +484,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_nfc_PN_CHARS_BASE_character_boundaries.nt")
@@ -1518,7 +1518,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt")
@@ -5774,7 +5774,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-01.nt")
@@ -5862,7 +5862,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-05.nt")
@@ -5884,7 +5884,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-06.nt")
@@ -5928,7 +5928,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-08.nt")
@@ -5972,7 +5972,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-10.nt")
@@ -6060,7 +6060,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-14.nt")
@@ -6082,7 +6082,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15_isomorphic.nt").mkString
 
     try {
       assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-subm-15.nt")
