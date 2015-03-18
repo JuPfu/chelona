@@ -190,6 +190,28 @@ class ChelonaEARLSpec extends FlatSpec {
     output.close()
   }
 
+  "The input file ./TurtleTests/prefixed_IRI_predicate.ttl" must "succeed" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/prefixed_IRI_predicate.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/prefixed_IRI_predicate.nt").mkString
+
+    try {
+      assert(output.toString == nt.toString, "Triples generated should be exactly as in prefixed_IRI_object.nt")
+      earlOut("prefixed_IRI_predicate", true)
+    } catch {
+      case _: Exception ⇒ earlOut("prefixed_IRI_predicate", false)
+    }
+
+    output.close()
+  }
+
   "The input file ./TurtleTests/prefixed_IRI_object.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/prefixed_IRI_object.ttl").mkString
@@ -5202,6 +5224,33 @@ class ChelonaEARLSpec extends FlatSpec {
       earlOut("turtle-syntax-bad-struct-17", res)
     } catch {
       case _: Exception ⇒ earlOut("turtle-syntax-bad-struct-17", true)
+    }
+
+    output.close()
+  }
+
+  "The input file ./TurtleTests/turtle-syntax-bad-lang-01.ttl" must "fail" taggedAs (TurtleSyntax) in {
+
+    lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-bad-lang-01.ttl").mkString
+
+    val output = new StringWriter()
+
+    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    try {
+      val res = parser.turtleDoc.run() match {
+        case scala.util.Success(tripleCount) ⇒
+          true
+        case Failure(e: ParseError) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-lang-01.ttl': " + parser.formatError(e))
+          false
+        case Failure(e) ⇒
+          System.err.println("File './TurtleTests/turtle-syntax-bad-lang-01.ttl': Unexpected error during parsing run: " + e)
+          false
+      }
+      earlOut("turtle-syntax-bad-lang-01", res)
+    } catch {
+      case _: Exception ⇒ earlOut("turtle-syntax-bad-lang-01", true)
     }
 
     output.close()
