@@ -476,29 +476,19 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
     definePrefix(pname, value)
   }
 
-  private def definePrefix(pname: String, value: ASTIriRef): Boolean = {
+  private def definePrefix(key: String, iriRef: ASTIriRef): Boolean = {
+    val value = iriRef.token
+    if (value.startsWith("//") || hasScheme(value))
+      prefixMap += key -> value
+    else if (value.endsWith("/")) {
+      if (!prefixMap.contains(key))
+        prefixMap += key -> value
+      else
+        prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
+    } else if (value.endsWith("#")) prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
+    else prefixMap += key -> value
 
-    val token = value.token
-
-    if (token.startsWith("//") || hasScheme(token)) {
-      prefixMap += pname -> token
-      true
-    } else if (token.endsWith("/")) {
-      if (!prefixMap.contains(pname)) {
-        prefixMap += pname -> token
-        true
-      } else {
-        if (prefixMap.contains("")) {
-          prefixMap += pname -> (prefixMap.get("") + token)
-          true
-        } else {
-          false
-        }
-      }
-    } else {
-      prefixMap += pname -> token
-      true
-    }
+    true
   }
 
   private def addPrefix(pname_ns: ASTPNameNS, pn_local: ASTPNLocal): Boolean = {
