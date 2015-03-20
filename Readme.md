@@ -121,7 +121,7 @@ When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na
 	Validate: examples/example1.ttl
     Input file 'examples/example1.ttl' composed of 7 statements successfully validated in 0.099sec (statements per second = 71)
 
-Unique blank node names
+Unique Blank Node Names
 -----------------------
 
 For sake of convenience the next examples assume that an alias chelona has been created.
@@ -140,7 +140,7 @@ The '--uid' command line argument instructs *Cheló̱na* to use a unique identif
     _:c83cecd897cf243a9a6203bad3f5f0b413 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> .
     _:c83cecd897cf243a9a6203bad3f5f0b411 <http://example.org/stuff/1.0/p> "w" .
 
-Base definition
+Base Definition
 ---------------
 
 Relative IRIs like <#green-goblin> are resolved relative to the current base IRI. When no base is defined, the value passed by the
@@ -161,7 +161,7 @@ With $PWD resolving to "/Users/jp/chelona" the '--base' parameter produces a pre
 
     <file:///Users/jp/chelona/#green-goblin> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <file:///Users/jp/chelona/#comic-hero> .
 
-Error handling
+Error Handling
 --------------
 
 In case of an error *Cheló̱na* will display an error message and give a hint where the problem occurred.
@@ -188,7 +188,7 @@ Some internal parsing information will be emitted in case of an error when "--tr
       ...po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:<CharPredicate>
       .../statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ':'
 
-What *Cheló̱na* does in detail:
+What *Cheló̱na* Does in Detail:
 ==============================
 - parses the ttl file
 - reports syntax errors
