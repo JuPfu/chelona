@@ -166,7 +166,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
-    str(s) ~ ws
+    quiet(str(s)) ~ ws
   }
 
   def ws = rule {
@@ -241,7 +241,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[9] verb 	::= 	predicate | 'a'
   def verb = rule {
-    (predicate | isA) ~> ASTVerb ~ ws
+    (predicate | isA.named("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")) ~> ASTVerb ~ ws
   }
 
   def isA = rule {
