@@ -64,7 +64,8 @@ Installation
 Create a *Cheló̱na* JAR with all dependencies
 --------------------------------------------
 
-The *sbt-assembly* plugin is used to create a *Cheló̱na* JAR containing all dependencies. Move into the *Cheló̱na* directory.
+The *sbt-assembly* plugin located at https://github.com/sbt/sbt-assembly is used to create a *Cheló̱na* JAR containing all dependencies.
+Move into the *Cheló̱na* directory.
 From the command line type 
 
     sbt assembly
@@ -148,7 +149,7 @@ File 'base.ttl' consist of the single triple statement with two relative IRIs.
 
     <#green-goblin> a <#comic-hero> .
 
-The relative IRIs are prepended with the "http://marvel/universe" string.
+The relative IRIs are prepended to the "http://marvel/universe" string.
 
     chelona --base "http://marvel/universe" base.ttl
 
@@ -165,7 +166,7 @@ Error handling
 
 In case of an error *Cheló̱na* will display an error message and give a hint where the problem occurred.
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.9.0.jar org.chelona.Main --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
+    chelona --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
 
     Validate: TurtleTests/turtle-syntax-bad-struct-02.ttl
     File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected predicate or http://www.w3.org/1999/02/22-rdf-syntax-ns#type (line 2, column 40):
@@ -173,7 +174,7 @@ In case of an error *Cheló̱na* will display an error message and give a hint w
 
 Some internal parsing information will be emitted in case of an error when "--trace" is used as command line argument.
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.9.0.jar org.chelona.Main --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
+    chelona --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
 
     Validate: TurtleTests/turtle-syntax-bad-struct-02.ttl
     File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected IRIREF or prefixedName (line 2, column 40):
