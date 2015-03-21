@@ -1,1 +1,1 @@
-<http://chelona.org/s> <http://chelona.org/p> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://www.w3.org/2013/TurtleTests/s> <http://www.w3.org/2013/TurtleTests/p> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .

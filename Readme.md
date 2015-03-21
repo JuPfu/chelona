@@ -149,7 +149,7 @@ File 'base.ttl' consist of the single triple statement with two relative IRIs.
 
     <#green-goblin> a <#comic-hero> .
 
-The relative IRIs are prepended to the "http://marvel/universe" string.
+The relative IRIs are appended to the "http://marvel/universe" string.
 
     chelona --base "http://marvel/universe" base.ttl
 
@@ -174,7 +174,7 @@ In case of an error *Cheló̱na* will display an error message and give a hint w
 
 Some internal parsing information will be emitted in case of an error when "--trace" is used as command line argument.
 
-    chelona --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
+    chelona --validate --verbose --trace TurtleTests/turtle-syntax-bad-struct-02.ttl
 
     Validate: TurtleTests/turtle-syntax-bad-struct-02.ttl
     File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected IRIREF or prefixedName (line 2, column 40):
@@ -187,6 +187,43 @@ Some internal parsing information will be emitted in case of an error when "--tr
       ... |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_LN/ /PNAME_NS/ ':'
       ...po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:<CharPredicate>
       .../statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ':'
+
+Programmatical Interface
+========================
+
+The example program shows how to convert some Turtle data into the N3 Triple format.
+
+      import org.parboiled2.{ ParseError, ParserInput }
+      import scala.util.{ Try, Success, Failure }
+
+      object Main extends App {
+
+         val input = "@base <http://example.org/> .
+                      @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+                      @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+                      @prefix rel: <http://www.perceive.net/schemas/relationship/> .
+
+                      <#green-goblin> rel:enemyOf    <#spiderman> 	;
+                          a foaf:Person ;    # in the context of the Marvel universe
+                          foaf:name 'Green Goblin' ;
+                   	   foaf:mail 'GreenGoblin@marvel.com' .
+
+                      <#spiderman>
+                          rel:enemyOf <#green-goblin> ;
+                          a foaf:Person ;
+                          foaf:name 'Spiderman', 'Человек-паук'@ru ."
+
+         val output = new StringWriter()
+
+         val parser = ChelonaParser(input, output)
+
+         parser.turtleDoc.run() match {
+             case Success(tripleCount)   ⇒ System.err.println("Input converted to "+tripleCount+ " triples."); System.println(output)
+             case Failure(e: ParseError) ⇒ System.err.println("Unexpected error during parsing run: " + parser.formatError(e))
+             case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
+           }
+      }
 
 What *Cheló̱na* Does in Detail:
 ==============================

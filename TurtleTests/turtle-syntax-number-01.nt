@@ -1,1 +1,1 @@
-<http://chelona.org/s> <http://chelona.org/p> "123"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://www.w3.org/2013/TurtleTests/s> <http://www.w3.org/2013/TurtleTests/p> "123"^^<http://www.w3.org/2001/XMLSchema#integer> .
