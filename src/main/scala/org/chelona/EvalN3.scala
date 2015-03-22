@@ -298,7 +298,10 @@ class EvalN3(basePath: String, label: String) {
       if (prefix.endsWith("/") || prefix.endsWith("#")) {
         prefix + pn_local
       } else {
-        prefix + "/" + pn_local
+        if (pn_local != "")
+          prefix + "/" + pn_local
+        else
+          prefix
       }
     } else {
       pn_local

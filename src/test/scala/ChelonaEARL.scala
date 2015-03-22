@@ -15,7 +15,8 @@
 */
 package org.chelona
 
-import java.io.StringWriter
+import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
 import org.parboiled2.{ParseError, ParserInput}
@@ -23,20 +24,20 @@ import org.scalatest.FlatSpec
 
 import scala.util.Failure
 
-
 class ChelonaEARLSpec extends FlatSpec {
 
-  var earlList: List[String] = Nil
+  val earl = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("/Users/jp/Downloads/chelona/earl.ttl"), StandardCharsets.UTF_8))
 
   def earlOut(testcase: String, passed: Boolean) = {
+    System.err.flush()
     val assertedBy = "<https://github.com/JuPfu#me>"
     val subject = "<https://github.com/JuPfu/chelona>"
     val test = testcase // "IRI_subject"
     val outcome = if (passed) "passed" else "failed"
     val datum = Calendar.getInstance.getTime
     val mode = "automatic"
-    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .")"""
-    System.out.println(earl_assertion)
+    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
+    earl.write(earl_assertion); earl.flush()
   }
 
   "The input file ./TurtleTests/IRI_subject.ttl" must "succeed" taggedAs (TurtleSyntax) in {
@@ -664,7 +665,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/anonymous_blank_node_object.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in anonymous_blank_node_object.nt")
-    earlOut("anonymous_blank_node_object ", true)
+    earlOut("anonymous_blank_node_object", true)
 
     output.close()
   }
@@ -1875,7 +1876,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-LITERAL2_with_langtag_and_datatype.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-LITERAL2_with_langtag_and_datatype", true)
+    earlOut("turtle-syntax-bad-LITERAL2_with_langtag_and_datatype", !res)
 
     output.close()
   }
@@ -2630,7 +2631,6 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-03.nt").mkString
 
-
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-bnode-03.nt")
     earlOut("turtle-syntax-bnode-03", true)
 
@@ -3099,7 +3099,6 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-03.nt").mkString
 
-
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-struct-03.nt")
     earlOut("turtle-syntax-struct-03", true)
 
@@ -3250,7 +3249,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-uri-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-uri-01", res)
+    earlOut("turtle-syntax-bad-uri-01", !res)
 
     output.close()
   }
@@ -3273,7 +3272,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-uri-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-uri-02", res)
+    earlOut("turtle-syntax-bad-uri-02", !res)
 
     output.close()
   }
@@ -3296,7 +3295,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-uri-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-uri-03", res)
+    earlOut("turtle-syntax-bad-uri-03", !res)
 
     output.close()
   }
@@ -3319,7 +3318,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-uri-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-uri-04", res)
+    earlOut("turtle-syntax-bad-uri-04", !res)
 
     output.close()
   }
@@ -3342,7 +3341,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-uri-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-uri-05", res)
+    earlOut("turtle-syntax-bad-uri-05", !res)
 
     output.close()
   }
@@ -3365,7 +3364,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-prefix-01", res)
+    earlOut("turtle-syntax-bad-prefix-01", !res)
 
     output.close()
   }
@@ -3388,7 +3387,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-prefix-02", res)
+    earlOut("turtle-syntax-bad-prefix-02", !res)
 
     output.close()
   }
@@ -3411,7 +3410,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-prefix-03", res)
+    earlOut("turtle-syntax-bad-prefix-03", !res)
 
     output.close()
   }
@@ -3434,7 +3433,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-prefix-04", res)
+    earlOut("turtle-syntax-bad-prefix-04", !res)
 
     output.close()
   }
@@ -3457,7 +3456,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-prefix-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-prefix-05", res)
+    earlOut("turtle-syntax-bad-prefix-05", !res)
 
     output.close()
   }
@@ -3480,7 +3479,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-base-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-base-01", res)
+    earlOut("turtle-syntax-bad-base-01", !res)
 
     output.close()
   }
@@ -3503,7 +3502,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-base-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-base-02", res)
+    earlOut("turtle-syntax-bad-base-02", !res)
 
     output.close()
   }
@@ -3526,7 +3525,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-base-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-base-03", res)
+    earlOut("turtle-syntax-bad-base-03", !res)
 
     output.close()
   }
@@ -3549,7 +3548,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-01", res)
+    earlOut("turtle-syntax-bad-struct-01", !res)
 
     output.close()
   }
@@ -3572,7 +3571,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-02", res)
+    earlOut("turtle-syntax-bad-struct-02", !res)
 
     output.close()
   }
@@ -3595,7 +3594,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-03", res)
+    earlOut("turtle-syntax-bad-struct-03", !res)
 
     output.close()
   }
@@ -3618,7 +3617,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-04", res)
+    earlOut("turtle-syntax-bad-struct-04", !res)
 
     output.close()
   }
@@ -3641,7 +3640,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-05", res)
+    earlOut("turtle-syntax-bad-struct-05", !res)
 
     output.close()
   }
@@ -3664,7 +3663,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-06.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-06", res)
+    earlOut("turtle-syntax-bad-struct-06", !res)
 
     output.close()
   }
@@ -3687,7 +3686,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-07.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-07", res)
+    earlOut("turtle-syntax-bad-struct-07", !res)
 
     output.close()
   }
@@ -3710,7 +3709,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-kw-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-kw-01", res)
+    earlOut("turtle-syntax-bad-kw-01", !res)
 
     output.close()
   }
@@ -3733,7 +3732,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-kw-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-kw-02", res)
+    earlOut("turtle-syntax-bad-kw-02", !res)
 
     output.close()
   }
@@ -3756,7 +3755,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-kw-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-kw-03", res)
+    earlOut("turtle-syntax-bad-kw-03", !res)
 
     output.close()
   }
@@ -3779,7 +3778,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-kw-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-kw-04", res)
+    earlOut("turtle-syntax-bad-kw-04", !res)
 
     output.close()
   }
@@ -3802,7 +3801,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-kw-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-kw-05", res)
+    earlOut("turtle-syntax-bad-kw-05", !res)
 
     output.close()
   }
@@ -3825,7 +3824,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-01", res)
+    earlOut("turtle-syntax-bad-n3-extras-01", !res)
 
     output.close()
   }
@@ -3848,7 +3847,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-02", res)
+    earlOut("turtle-syntax-bad-n3-extras-02", !res)
 
     output.close()
   }
@@ -3871,7 +3870,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-03", res)
+    earlOut("turtle-syntax-bad-n3-extras-03", !res)
 
     output.close()
   }
@@ -3894,7 +3893,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-04", res)
+    earlOut("turtle-syntax-bad-n3-extras-04", !res)
 
     output.close()
   }
@@ -3917,7 +3916,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-05", res)
+    earlOut("turtle-syntax-bad-n3-extras-05", !res)
 
     output.close()
   }
@@ -3940,7 +3939,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-06.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-06", res)
+    earlOut("turtle-syntax-bad-n3-extras-06", !res)
 
     output.close()
   }
@@ -3963,7 +3962,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-07.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-07", res)
+    earlOut("turtle-syntax-bad-n3-extras-07", !res)
 
     output.close()
   }
@@ -3986,7 +3985,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-08.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-08", res)
+    earlOut("turtle-syntax-bad-n3-extras-08", !res)
 
     output.close()
   }
@@ -4009,7 +4008,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-09.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-09", res)
+    earlOut("turtle-syntax-bad-n3-extras-09", !res)
 
     output.close()
   }
@@ -4032,7 +4031,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-10.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-10", res)
+    earlOut("turtle-syntax-bad-n3-extras-10", !res)
 
     output.close()
   }
@@ -4055,7 +4054,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-11.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-11", res)
+    earlOut("turtle-syntax-bad-n3-extras-11", !res)
 
     output.close()
   }
@@ -4078,7 +4077,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-12.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-12", res)
+    earlOut("turtle-syntax-bad-n3-extras-12", !res)
 
     output.close()
   }
@@ -4101,7 +4100,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-n3-extras-13.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-n3-extras-13", res)
+    earlOut("turtle-syntax-bad-n3-extras-13", !res)
 
     output.close()
   }
@@ -4118,13 +4117,13 @@ class ChelonaEARLSpec extends FlatSpec {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': " + parser.formatError(e))
+        System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': " + e /*parser.formatError(e)*/ )
         false
       case Failure(e) ⇒
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-08.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-08", res)
+    earlOut("turtle-syntax-bad-struct-08", !res)
 
     output.close()
   }
@@ -4147,7 +4146,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-09.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-09", res)
+    earlOut("turtle-syntax-bad-struct-09", !res)
 
     output.close()
   }
@@ -4170,7 +4169,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-10.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-10", res)
+    earlOut("turtle-syntax-bad-struct-10", !res)
 
     output.close()
   }
@@ -4193,7 +4192,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-11.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-11", res)
+    earlOut("turtle-syntax-bad-struct-11", !res)
 
     output.close()
   }
@@ -4216,7 +4215,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-12.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-12", res)
+    earlOut("turtle-syntax-bad-struct-12", !res)
 
     output.close()
   }
@@ -4239,7 +4238,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-13.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-13", res)
+    earlOut("turtle-syntax-bad-struct-13", !res)
 
     output.close()
   }
@@ -4262,7 +4261,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-14.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-14", res)
+    earlOut("turtle-syntax-bad-struct-14", !res)
 
     output.close()
   }
@@ -4285,7 +4284,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-15.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-15", res)
+    earlOut("turtle-syntax-bad-struct-15", !res)
 
     output.close()
   }
@@ -4308,7 +4307,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-16.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-16", res)
+    earlOut("turtle-syntax-bad-struct-16", !res)
 
     output.close()
   }
@@ -4331,7 +4330,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-struct-17.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-struct-17", res)
+    earlOut("turtle-syntax-bad-struct-17", !res)
 
     output.close()
   }
@@ -4354,7 +4353,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-lang-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-lang-01", res)
+    earlOut("turtle-syntax-bad-lang-01", !res)
 
     output.close()
   }
@@ -4377,7 +4376,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-esc-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-esc-01", res)
+    earlOut("turtle-syntax-bad-esc-01", !res)
 
     output.close()
   }
@@ -4400,7 +4399,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-esc-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-esc-02", res)
+    earlOut("turtle-syntax-bad-esc-02", !res)
 
     output.close()
   }
@@ -4423,7 +4422,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-esc-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-esc-03", res)
+    earlOut("turtle-syntax-bad-esc-03", !res)
 
     output.close()
   }
@@ -4446,7 +4445,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-esc-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-esc-04", res)
+    earlOut("turtle-syntax-bad-esc-04", !res)
 
     output.close()
   }
@@ -4469,7 +4468,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-pname-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-pname-01", res)
+    earlOut("turtle-syntax-bad-pname-01", !res)
 
     output.close()
   }
@@ -4492,7 +4491,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-pname-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-pname-02", res)
+    earlOut("turtle-syntax-bad-pname-02", !res)
 
     output.close()
   }
@@ -4515,7 +4514,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-pname-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-pname-03", res)
+    earlOut("turtle-syntax-bad-pname-03", !res)
 
     output.close()
   }
@@ -4538,7 +4537,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-01", res)
+    earlOut("turtle-syntax-bad-string-01", !res)
 
     output.close()
   }
@@ -4561,7 +4560,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-02", res)
+    earlOut("turtle-syntax-bad-string-02", !res)
 
     output.close()
   }
@@ -4584,7 +4583,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-03", res)
+    earlOut("turtle-syntax-bad-string-03", !res)
 
     output.close()
   }
@@ -4607,7 +4606,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-04", res)
+    earlOut("turtle-syntax-bad-string-04", !res)
 
     output.close()
   }
@@ -4630,7 +4629,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-05", res)
+    earlOut("turtle-syntax-bad-string-05", !res)
 
     output.close()
   }
@@ -4653,7 +4652,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-06.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-06", res)
+    earlOut("turtle-syntax-bad-string-06", !res)
 
     output.close()
   }
@@ -4676,7 +4675,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-string-07.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-string-07", res)
+    earlOut("turtle-syntax-bad-string-07", !res)
 
     output.close()
   }
@@ -4699,7 +4698,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-num-01", res)
+    earlOut("turtle-syntax-bad-num-01", !res)
 
     output.close()
   }
@@ -4722,7 +4721,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-num-02", res)
+    earlOut("turtle-syntax-bad-num-02", !res)
 
     output.close()
   }
@@ -4745,7 +4744,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-num-03", res)
+    earlOut("turtle-syntax-bad-num-03", !res)
 
     output.close()
   }
@@ -4768,7 +4767,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-num-04", res)
+    earlOut("turtle-syntax-bad-num-04", !res)
 
     output.close()
   }
@@ -4791,7 +4790,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-num-05.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-num-05", res)
+    earlOut("turtle-syntax-bad-num-05", !res)
 
     output.close()
   }
@@ -5336,7 +5335,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-eval-bad-01.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-eval-bad-01", true)
+    earlOut("turtle-eval-bad-01", !res)
 
     output.close()
   }
@@ -5359,7 +5358,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-eval-bad-02.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-eval-bad-02", true)
+    earlOut("turtle-eval-bad-02", !res)
 
     output.close()
   }
@@ -5382,7 +5381,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-eval-bad-03.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-eval-bad-03", true)
+    earlOut("turtle-eval-bad-03", !res)
 
     output.close()
   }
@@ -5405,7 +5404,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-eval-bad-04.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-eval-bad-04", true)
+    earlOut("turtle-eval-bad-04", !res)
 
     output.close()
   }
@@ -5428,7 +5427,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-blank-label-dot-end.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-blank-label-dot-end", true)
+    earlOut("turtle-syntax-bad-blank-label-dot-end", !res)
 
     output.close()
   }
@@ -5451,7 +5450,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-ln-dash-start.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-ln-dash-start", true)
+    earlOut("turtle-syntax-bad-ln-dash-start", !res)
 
     output.close()
   }
@@ -5474,7 +5473,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape-start.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-ln-escape-start", true)
+    earlOut("turtle-syntax-bad-ln-escape-start", !res)
 
     output.close()
   }
@@ -5497,7 +5496,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-ln-escape.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-ln-escape", true)
+    earlOut("turtle-syntax-bad-ln-escape", !res)
 
     output.close()
   }
@@ -5520,7 +5519,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-end.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-missing-ns-dot-end", true)
+    earlOut("turtle-syntax-bad-missing-ns-dot-end", !res)
 
     output.close()
   }
@@ -5543,7 +5542,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-missing-ns-dot-start.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-missing-ns-dot-start", true)
+    earlOut("turtle-syntax-bad-missing-ns-dot-start", !res)
 
     output.close()
   }
@@ -5566,7 +5565,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-end.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-ns-dot-end", true)
+    earlOut("turtle-syntax-bad-ns-dot-end", !res)
 
     output.close()
   }
@@ -5589,7 +5588,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-ns-dot-start.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-ns-dot-start", true)
+    earlOut("turtle-syntax-bad-ns-dot-start", !res)
 
     output.close()
   }
@@ -5612,7 +5611,7 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-bad-number-dot-in-anon.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("turtle-syntax-bad-number-dot-in-anon", true)
+    earlOut("turtle-syntax-bad-number-dot-in-anon", !res)
 
     output.close()
   }
@@ -5635,12 +5634,12 @@ class ChelonaEARLSpec extends FlatSpec {
         System.err.println("File './TurtleTests/turtle-syntax-blank-label.ttl': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("urtle-syntax-blank-label", true)
+    earlOut("turtle-syntax-blank-label", true)
 
     output.close()
   }
 
-  "The input file ./TurtleTests/turtle-syntax-ln-colons.ttl" must "fail" taggedAs (TurtleSyntax) in {
+  "The input file ./TurtleTests/turtle-syntax-ln-colons.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-colons.ttl").mkString
 
@@ -5648,22 +5647,17 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
-      case scala.util.Success(tripleCount) ⇒
-        true
-      case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': " + parser.formatError(e))
-        false
-      case Failure(e) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': Unexpected error during parsing run: " + e)
-        false
-    }
+    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-colons.nt").mkString
+
+    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-ln-colons")
     earlOut("turtle-syntax-ln-colons", true)
 
     output.close()
   }
 
-  "The input file ./TurtleTests/turtle-syntax-ln-dots.ttl" must "fail" taggedAs (TurtleSyntax) in {
+  "The input file ./TurtleTests/turtle-syntax-ln-dots.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-dots.ttl").mkString
 
@@ -5671,22 +5665,17 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
-      case scala.util.Success(tripleCount) ⇒
-        true
-      case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ln-dots.ttl': " + parser.formatError(e))
-        false
-      case Failure(e) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ln-colons.ttl': Unexpected error during parsing run: " + e)
-        false
-    }
+    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-dots.nt").mkString
+
+    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-ln-dots")
     earlOut("turtle-syntax-ln-dots", true)
 
     output.close()
   }
 
-  "The input file ./TurtleTests/turtle-syntax-ns-dots.ttl" must "fail" taggedAs (TurtleSyntax) in {
+  "The input file ./TurtleTests/turtle-syntax-ns-dots.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
     lazy val input: ParserInput = io.Source.fromFile("./TurtleTests/turtle-syntax-ns-dots.ttl").mkString
 
@@ -5694,16 +5683,11 @@ class ChelonaEARLSpec extends FlatSpec {
 
     val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
-      case scala.util.Success(tripleCount) ⇒
-        true
-      case Failure(e: ParseError) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ns-dots.ttl': " + parser.formatError(e))
-        false
-      case Failure(e) ⇒
-        System.err.println("File './TurtleTests/turtle-syntax-ns-dots.ttl': Unexpected error during parsing run: " + e)
-        false
-    }
+    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ns-dots.nt").mkString
+
+    assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-ns-dots")
     earlOut("turtle-syntax-ns-dots", true)
 
     output.close()

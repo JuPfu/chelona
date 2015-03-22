@@ -30,13 +30,11 @@ object ChelonaParser {
   }
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
-    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
-    triple.length
+    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
   }
 
   def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
-    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n"))
-    triple.length
+    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n")).length
   }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\0').mkString("")
