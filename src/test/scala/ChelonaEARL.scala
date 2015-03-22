@@ -26,7 +26,7 @@ import scala.util.Failure
 
 class ChelonaEARLSpec extends FlatSpec {
 
-  val earl = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("/Users/jp/Downloads/chelona/earl.ttl"), StandardCharsets.UTF_8))
+  val earl = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("./earl.ttl"), StandardCharsets.UTF_8))
 
   def earlOut(testcase: String, passed: Boolean) = {
     System.err.flush()
