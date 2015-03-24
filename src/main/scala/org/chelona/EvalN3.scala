@@ -332,7 +332,6 @@ class EvalN3(basePath: String, label: String) {
 
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
     case Success(s)             ⇒ true
-    case Failure(e: ParseError) ⇒ false
-    case Failure(e)             ⇒ false
+    case _ ⇒ false
   }
 }
