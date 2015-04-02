@@ -401,7 +401,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    atomic(capture(PN_CHARS_BASE ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*)) ~> ASTPNPrefix
+    atomic(capture(PN_CHARS_BASE ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -415,7 +415,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | test(isSurrogate) ~ ANY ~ appendSB ~ ANY ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | isHighSurrogate ~ appendSB ~ isLowSurrogate ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -451,16 +451,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 	 with the last '.' being recognized as triple terminator.
 	 */
   def BLANK_NODE_LABEL = rule {
-    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | test(isSurrogate) ~ ANY ~ ANY).*)) ~> ASTBlankNodeLabel ~ ws
+    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[162s] ANON 	::= 	'[' WS* ']'
   def ANON = rule {
     atomic(capture("[" ~ "]")) ~> ASTAnon
-  }
-
-  private def isSurrogate = {
-    cursorChar.isSurrogate
   }
 
   private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Boolean = {
@@ -504,7 +500,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
-    case Success(s)             ⇒ true
-    case _ ⇒ false
+    case Success(s) ⇒ true
+    case _          ⇒ false
   }
 }

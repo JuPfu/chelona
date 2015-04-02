@@ -331,7 +331,7 @@ class EvalN3(basePath: String, label: String) {
   private def getCollectionName = "_:c" + label + cCount
 
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
-    case Success(s)             ⇒ true
-    case _ ⇒ false
+    case Success(s) ⇒ true
+    case _          ⇒ false
   }
 }

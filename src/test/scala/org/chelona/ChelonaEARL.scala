@@ -15,18 +15,18 @@
 */
 package org.chelona
 
-import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
 
 class ChelonaEARLSpec extends FlatSpec {
 
-  val earl = new BufferedWriter(new OutputStreamWriter( new FileOutputStream("./earl.ttl"), StandardCharsets.UTF_8))
+  val earl = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./earl.ttl"), StandardCharsets.UTF_8))
 
   def earlOut(testcase: String, passed: Boolean) = {
     System.err.flush()

@@ -45,4 +45,10 @@ object CharPredicates {
   val LOCAL_ESC = CharPredicate('_', '~', '.', '-', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', '/', '?', '#', '@', '%')
 
   val WS = CharPredicate(" \t")
+
+  /* 11th March 2015 lent from https://gitter.im/sirthias/parboiled2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge */
+
+  val isHighSurrogate = CharPredicate.from(Character.isHighSurrogate)
+
+  val isLowSurrogate = CharPredicate.from(Character.isLowSurrogate)
 }
