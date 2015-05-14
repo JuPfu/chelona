@@ -168,7 +168,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet(anyOf(" \n\t\r").* ~ (('#' ~ noneOf("\n\r").* ~ '\r'.? ~ "\n") | ('\r'.? ~ "\n").?))
+    quiet(anyOf(" \t").* ~ ('#' ~ clearSB ~ (noneOf("\n\r") ~ appendSB).* ~ push(sb.toString) ~> ASTComment ~> ((c: ASTComment) ⇒ ())).? ~ anyOf(" \n\r\t").*)
   }
 
   //[1] turtleDoc 	::= 	statement*

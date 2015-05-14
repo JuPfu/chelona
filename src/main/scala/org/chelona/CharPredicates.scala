@@ -46,7 +46,8 @@ object CharPredicates {
 
   val WS = CharPredicate(" \t")
 
-  /* 11th March 2015 lent from https://gitter.im/sirthias/parboiled2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge */
+  /* 11th March 2015 surrogate treatment lent from discussion at
+     https://gitter.im/sirthias/parboiled2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge */
 
   val isHighSurrogate = CharPredicate.from(Character.isHighSurrogate)
 
