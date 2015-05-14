@@ -57,6 +57,8 @@ object ChelonaParser {
 
   case class ASTComment(token: String) extends AST
 
+  case class ASTBlank(token: String) extends AST
+
   case class ASTDirective(rule: AST) extends AST
 
   case class ASTPrefixID(namespace: AST, iri: AST) extends AST
@@ -168,13 +170,18 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet(anyOf(" \t").* ~ ('#' ~ clearSB ~ (noneOf("\n\r") ~ appendSB).* ~ push(sb.toString) ~> ASTComment ~> ((c: ASTComment) ⇒ ())).? ~ anyOf(" \n\r\t").*)
+    quiet(anyOf(" \t").* ~ ('#' ~ (noneOf("\n\r")).*).? ~ anyOf(" \n\r\t").*)
   }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
     (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis) {
-      if (!validate) n3.renderStatement(ast, tripleOutput) else 1
+      if (!validate) n3.renderStatement(ast, tripleOutput) else
+        ast match {
+          case ASTStatement(ASTComment(s)) ⇒ 0
+          case ASTStatement(ASTBlank(s))   ⇒ 0
+          case _                           ⇒ 1
+        }
     } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
@@ -190,7 +197,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //
   def blank = rule {
-    quiet(anyOf(" \n\t\r").+) ~ push("") ~> ASTComment
+    quiet(anyOf(" \n\r\t").+) ~ push("") ~> ASTBlank
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase

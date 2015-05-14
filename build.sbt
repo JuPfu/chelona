@@ -52,7 +52,7 @@ resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repos
 
 resolvers += Resolver.sonatypeRepo("public")
 
-parallelExecution in Test := false
+parallelExecution in Test := true
 
 test in assembly := {}
 

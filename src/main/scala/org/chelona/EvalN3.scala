@@ -41,8 +41,6 @@ class EvalN3(basePath: String, label: String) {
   var cCount = 0
 
   def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
-    import org.chelona.EvalN3._
-
     (evalStatement(ast): @unchecked) match {
       case SPOTriples(t) ⇒ writer(t)
       case SPOString(s)  ⇒ 0
@@ -236,7 +234,8 @@ class EvalN3(basePath: String, label: String) {
       case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
       case ASTAnon(token) ⇒
         aCount += 1; SPOString("_:a" + label + aCount)
-      case ASTComment(rule) ⇒ SPOComment(rule)
+      case ASTComment(token) ⇒ SPOComment(token)
+      case ASTBlank(token)   ⇒ SPOString(token)
     }
   }
 
