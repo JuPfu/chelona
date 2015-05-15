@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 Juergen Pfundt
+* Copyright (C) 2014-2015 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -31,13 +31,15 @@ object ChelonaParser {
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
+    //triple.foreach(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
+    //triple.length
   }
 
   def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n")).length
   }
 
-  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\0').mkString("")
+  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
   sealed trait SPOReturnValue
 
@@ -170,19 +172,20 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet(anyOf(" \t").* ~ ('#' ~ (noneOf("\n\r")).*).? ~ anyOf(" \n\r\t").*)
+    quiet(anyOf(" \t").* ~ ('#' ~ noneOf("\n\r").*).? ~ anyOf(" \n\r\t").*)
   }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    (statement ~> ((ast: AST) ⇒ if (!__inErrorAnalysis) {
-      if (!validate) n3.renderStatement(ast, tripleOutput) else
-        ast match {
-          case ASTStatement(ASTComment(s)) ⇒ 0
-          case ASTStatement(ASTBlank(s))   ⇒ 0
-          case _                           ⇒ 1
-        }
-    } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+    (statement ~> ((ast: AST) ⇒
+      if (!__inErrorAnalysis) {
+        if (!validate) n3.renderStatement(ast, tripleOutput) else
+          ast match {
+            case ASTStatement(ASTComment(s)) ⇒ 0
+            case ASTStatement(ASTBlank(s))   ⇒ 0
+            case _                           ⇒ 1
+          }
+      } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
   //[2] statement 	::= 	directive | triples '.'

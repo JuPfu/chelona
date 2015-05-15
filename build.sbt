@@ -1,10 +1,6 @@
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
-scalaVersion := "2.11.6"
-
-version := "0.9.0"
-
 val commonSettings = Seq(
   version := "0.9.0",
   scalaVersion := "2.11.6",
@@ -27,7 +23,7 @@ val commonSettings = Seq(
     "-unchecked",
     "-deprecation",
     "-Xlint",
-    "-Ybackend:o2",
+    "-Yopt:_",
     "-language:_",
     "-target:jvm-1.6"))
 
@@ -43,6 +39,7 @@ val formattingSettings = scalariformSettings ++ Seq(
 
 val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0"
 val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
+val arktos           = "org.github.JuPfu.arktos" %% "arktos" % "0.1"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
 
 
@@ -68,6 +65,7 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
 libraryDependencies ++= Seq( parboiled2, scopt, scalaTest )
   
 lazy val chelona = project.in(file("."))
-   .settings(formattingSettings: _*)
-   .settings(libraryDependencies ++= Seq(parboiled2))
+  .settings(commonSettings: _*)
+  .settings(formattingSettings: _*)
+  .settings(libraryDependencies ++= Seq(parboiled2))
 

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 Juergen Pfundt
+* Copyright (C) 2014-2015 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ class EvalN3(basePath: String, label: String) {
         case ASTBlankNode(v) ⇒ (evalStatement(l): @unchecked) match {
           case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
         }
-        case ASTLiteral(l) ⇒
+        case ASTLiteral(literal) ⇒
           (evalStatement(l): @unchecked) match {
             case SPOString(o) ⇒ SPOTriple(curSubject, curPredicate, o);
           }
