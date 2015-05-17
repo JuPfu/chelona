@@ -32,7 +32,7 @@ object GetCmdLineArgs {
                     trace: Boolean = false)
 
   val argsParser = new OptionParser[Config]("Cheló̱na") {
-    head("cheló̱na", "version 0.9")
+    head("cheló̱na", "version 1.0")
     help("help") text "prints this usage text"
     opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"

@@ -74,7 +74,7 @@ This should generate an archive
 
     target/scala-2.11/chelona-assembly-x.x.x.jar
 
-where x.x.x denotes the version information, e.g. chelona-assembly-0.9.0.jar.
+where x.x.x denotes the version information, e.g. chelona-assembly-1.0.0.jar.
 
 Running *Cheló̱na* from the command line
 ----------------------------------------
@@ -93,7 +93,7 @@ Conversion of the example1.ttl file from the examples directory into the simple 
 
 is done with the command shown here: 
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.9.0.jar org.chelona.Main --verbose ./examples/example1.ttl > example1_n3.ttl
+    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main --verbose ./examples/example1.ttl > example1_n3.ttl
 
 The output generated lists the name of the output file and the number of generated triples:
 
@@ -116,7 +116,7 @@ Validation of a Turtle File
 
 When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na* will do a syntax check. No output file is generated.
 
-    scala -cp ./target/scala-2.11/chelona-assembly-0.9.0.jar org.chelona.Main --validate --verbose examples/example1.ttl
+    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main --validate --verbose examples/example1.ttl
 
 	Validate: examples/example1.ttl
     Input file 'examples/example1.ttl' composed of 7 statements successfully validated in 0.099sec (statements per second = 71)
@@ -126,7 +126,7 @@ Unique Blank Node Names
 
 For sake of convenience the next examples assume that an alias chelona has been created.
 
-    alias chelona="scala -cp ./target/scala-2.11/chelona-assembly-0.9.0.jar org.chelona.Main"
+    alias chelona="scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main"
 
 The '--uid' command line argument instructs *Cheló̱na* to use a unique identifier for blank nodes.
 
@@ -193,37 +193,43 @@ Programmatical Interface
 
 The example program shows how to convert some Turtle data into the N3 Triple format.
 
-      import org.parboiled2.{ ParseError, ParserInput }
-      import scala.util.{ Try, Success, Failure }
+    import java.io.StringWriter
+    
+    import org.chelona.ChelonaParser
+    import org.parboiled2.ParseError
+    
+    import scala.util.{Failure, Success}
+    
+    object Main extends App {
 
-      object Main extends App {
+      val input =
+        """@base <http://example.org/> .
+           @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+           @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+           @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+           @prefix rel: <http://www.perceive.net/schemas/relationship/> .
+    
+           <#green-goblin> rel:enemyOf    <#spiderman> 	;
+              a foaf:Person ;    # in the context of the Marvel universe
+              foaf:name 'Green Goblin' ;
+              foaf:mail 'GreenGoblin@marvel.com' .
 
-         val input = "@base <http://example.org/> .
-                      @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-                      @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-                      @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-                      @prefix rel: <http://www.perceive.net/schemas/relationship/> .
+           <#spiderman>
+              rel:enemyOf <#green-goblin> ;
+              a foaf:Person ;
+              foaf:name 'Spiderman', 'Человек-паук'@ru ."""
 
-                      <#green-goblin> rel:enemyOf    <#spiderman> 	;
-                          a foaf:Person ;    # in the context of the Marvel universe
-                          foaf:name 'Green Goblin' ;
-                   	   foaf:mail 'GreenGoblin@marvel.com' .
+      val output = new StringWriter()
 
-                      <#spiderman>
-                          rel:enemyOf <#green-goblin> ;
-                          a foaf:Person ;
-                          foaf:name 'Spiderman', 'Человек-паук'@ru ."
+      val parser = ChelonaParser(input, output)
 
-         val output = new StringWriter()
-
-         val parser = ChelonaParser(input, output)
-
-         parser.turtleDoc.run() match {
-             case Success(tripleCount)   ⇒ System.err.println("Input converted to "+tripleCount+ " triples."); System.println(output)
-             case Failure(e: ParseError) ⇒ System.err.println("Unexpected error during parsing run: " + parser.formatError(e))
-             case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
-           }
+      parser.turtleDoc.run() match {
+        case Success(tripleCount)   ⇒ System.err.println("Input converted to "+tripleCount+ " triples.")
+                                      println(output)
+        case Failure(e: ParseError) ⇒ System.err.println("Unexpected error during parsing run: " + parser.formatError(e))
+        case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
       }
+    }
 
 What *Cheló̱na* Does in Detail:
 ==============================

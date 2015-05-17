@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
-  version := "0.9.0",
+  version := "1.0.0",
   scalaVersion := "2.11.6",
   name := "Chelona",
   organization := "org.chelona",
@@ -39,7 +39,6 @@ val formattingSettings = scalariformSettings ++ Seq(
 
 val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0"
 val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
-val arktos           = "org.github.JuPfu.arktos" %% "arktos" % "0.1"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
 
 

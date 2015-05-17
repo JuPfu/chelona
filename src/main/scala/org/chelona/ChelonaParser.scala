@@ -25,7 +25,7 @@ import scala.util.{ Failure, Success }
 
 object ChelonaParser {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean, basePath: String, label: String) = {
+  def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
   }
 
