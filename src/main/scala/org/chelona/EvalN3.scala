@@ -60,7 +60,7 @@ class EvalN3(basePath: String, label: String) {
         evalStatement(rule)
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ SPOString("<" + addPrefix("", s) + ">")
+          case SPOString(s) ⇒ SPOString("<" + addIriPrefix(s) + ">")
         }
         case ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
@@ -282,41 +282,75 @@ class EvalN3(basePath: String, label: String) {
   private def definePrefix(key: String, value: String) = {
     if (value.startsWith("//") || hasScheme(value))
       prefixMap2 += key -> value
-    else if (value.endsWith("/")) {
+    else if (value.endsWith("/") || value.endsWith("#")) {
       if (!prefixMap2.contains(key))
         prefixMap2 += key -> value
       else
         prefixMap2 += key -> (prefixMap2.getOrElse(key, basePath) + value)
-    } else if (value.endsWith("#")) prefixMap2 += key -> (prefixMap2.getOrElse(key, basePath) + value)
-    else prefixMap2 += key -> value
+    } else prefixMap2 += key -> value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    if (pname_ns != "" || (!pn_local.startsWith("/") && !hasScheme(pn_local))) {
-      val prefix = prefixMap2.getOrElse(pname_ns, basePath)
-      if (prefix.endsWith("/") || prefix.endsWith("#")) {
+    val prefix = prefixMap2.getOrElse(pname_ns, "" /*basePath*/ )
+    if (prefix.startsWith("//") || hasScheme(prefix)) {
+      if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + pn_local
-      } else {
+      else {
         if (pn_local != "")
           prefix + "/" + pn_local
         else
           prefix
       }
     } else {
+      if (prefix.endsWith("/") || prefix.endsWith("#")) {
+        basePath + prefixMap2.getOrElse("", basePath) + pn_local
+      } else {
+        if (pn_local != "")
+          prefixMap2.getOrElse("", basePath) + "/" + pn_local
+        else
+          prefixMap2.getOrElse("", basePath)
+      }
+    }
+  }
+
+  private def addIriPrefix(pn_local: String): String = {
+    if (pn_local.startsWith("//") || hasScheme(pn_local))
       pn_local
+    else {
+      val prefix = prefixMap2.getOrElse("", basePath)
+      if (prefix.startsWith("//") || hasScheme(prefix)) {
+        if (prefix.endsWith("/") || prefix.endsWith("#"))
+          prefix + pn_local
+        else {
+          if (pn_local != "")
+            prefix + "/" + pn_local
+          else
+            prefix
+        }
+      } else {
+        if (prefix.endsWith("/") || prefix.endsWith("#")) {
+          basePath + prefixMap2.getOrElse("", basePath) + pn_local
+        } else {
+          if (pn_local != "")
+            prefixMap2.getOrElse("", basePath) + "/" + pn_local
+          else
+            prefixMap2.getOrElse("", basePath)
+        }
+      }
     }
   }
 
   private def addBasePrefix(iri: String) = {
-    val p = if (!iri.startsWith("/") && !hasScheme(iri)) {
+    if (iri.startsWith("//") || hasScheme(iri))
+      prefixMap2 += "" -> iri
+    else {
       val prefix = prefixMap2.getOrElse("", basePath)
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefixMap2 += "" -> (prefix + iri)
       else if (prefix.length > 0)
         prefixMap2 += "" -> (prefix + "/" + iri)
       else prefixMap2 += "" -> iri
-    } else prefixMap2 += "" -> iri
-    p.getOrElse("", basePath)
+    }
   }
 
   private def setBlankNodeName(key: String) = {

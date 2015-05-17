@@ -31,8 +31,6 @@ object ChelonaParser {
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
-    //triple.foreach(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n"))
-    //triple.length
   }
 
   def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
@@ -489,8 +487,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
         prefixMap += key -> value
       else
         prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
-    } else if (value.endsWith("#")) prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
-    else prefixMap += key -> value
+    } else prefixMap += key -> value
 
     true
   }

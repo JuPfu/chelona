@@ -2215,7 +2215,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-06.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-06_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-prefix-06.nt")
     earlOut("turtle-syntax-prefix-06", true)
@@ -2575,7 +2575,7 @@ class ChelonaEARLSpec extends FlatSpec {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-03.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-03_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-pname-esc-03.nt")
     earlOut("turtle-syntax-pname-esc-03", true)
