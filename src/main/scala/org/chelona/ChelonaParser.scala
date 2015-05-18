@@ -170,7 +170,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet(anyOf(" \t").* ~ ('#' ~ noneOf("\n\r").*).? ~ anyOf(" \n\r\t").*)
+    quiet(anyOf(" \n\r\t").* ~ ('#' ~ noneOf("\n\r").*).? ~ anyOf(" \n\r\t").*)
   }
 
   //[1] turtleDoc 	::= 	statement*
@@ -313,7 +313,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[128s] RDFLiteral 	::= 	String (LANGTAG | '^^' iri)?
   def rdfLiteral = rule {
-    string ~ (LANGTAG | str("^^") ~ iri).? ~ ws ~> ASTRdfLiteral
+    string ~ (ws ~ LANGTAG | str("^^") ~ ws ~ iri).? ~ ws ~> ASTRdfLiteral
   }
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
