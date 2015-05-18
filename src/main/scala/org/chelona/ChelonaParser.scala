@@ -313,7 +313,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[128s] RDFLiteral 	::= 	String (LANGTAG | '^^' iri)?
   def rdfLiteral = rule {
-    string ~ (ws ~ LANGTAG | str("^^") ~ ws ~ iri).? ~ ws ~> ASTRdfLiteral
+    string ~ (ws ~ LANGTAG | ws ~ str("^^") ~ ws ~ iri).? ~ ws ~> ASTRdfLiteral
   }
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
