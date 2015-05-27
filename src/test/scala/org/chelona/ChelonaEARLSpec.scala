@@ -485,7 +485,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in localName_with_non_leading_extras_isomorphic.nt")
-    earlOut("localName_with_non_leading_extras_isomorphic", true)
+    earlOut("localName_with_non_leading_extras", true)
 
     output.close()
   }
@@ -1007,7 +1007,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_ascii_boundaries_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL_LONG1_ascii_boundaries_isomorphic.nt")
-    earlOut("LITERAL1_all_punctuation", true)
+    earlOut("LITERAL_LONG1_ascii_boundaries", true)
 
     output.close()
   }
@@ -1097,7 +1097,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/LITERAL2_ascii_boundaries_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in LITERAL2_ascii_boundaries_isomorphic.nt")
-    earlOut("LITERAL2_ascii_boundaries_isomorphic", true)
+    earlOut("LITERAL2_ascii_boundaries", true)
 
     output.close()
   }
@@ -1295,7 +1295,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_FORM_FEED_isomorphic.nt")
-    earlOut("literal_with_FORM_FEED_isomorphic", true)
+    earlOut("literal_with_FORM_FEED", true)
 
     output.close()
   }
@@ -1727,7 +1727,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/predicateObjectList_with_two_objectLists.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in predicateObjectList_with_two_objectLists.nt")
-    earlOut("objectList_with_two_objects", true)
+    earlOut("predicateObjectList_with_two_objectLists", true)
 
     output.close()
   }
@@ -2560,7 +2560,7 @@ class ChelonaEARLSpec extends FlatSpec {
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-02.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-pname-esc-02.nt")
-    earlOut("turtle-syntax-pname-esc-01", true)
+    earlOut("turtle-syntax-pname-esc-02", true)
 
     output.close()
   }
