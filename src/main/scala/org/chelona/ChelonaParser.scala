@@ -138,7 +138,6 @@ object ChelonaParser {
   case class ASTBlankNodeLabel(token: String) extends AST
 
   case class ASTAnon(token: String) extends AST
-
 }
 
 class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
@@ -208,22 +207,22 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[4] prefixID 	::= 	'@prefix' PNAME_NS IRIREF '.'
   def prefixID = rule {
-    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTPrefixID ~ ws ~ "."
+    atomic("@prefix") ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ run(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTPrefixID ~ ws ~ "."
   }
 
   //[5] base 	::= 	'@base' IRIREF '.'
   def base = rule {
-    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTBase ~ ws ~ "."
+    atomic("@base") ~ IRIREF ~> ((i: ASTIriRef) ⇒ run(definePrefix("", i)) ~ push(i)) ~> ASTBase ~ ws ~ "."
   }
 
   //[5s] sparqlBase 	::= 	"BASE" IRIREF
   def sparqlBase = rule {
-    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ((i: ASTIriRef) ⇒ test(definePrefix("", i)) ~ push(i)) ~> ASTSparqlBase ~!~ ws
+    atomic(ignoreCase("base")) ~ ws ~ IRIREF ~> ((i: ASTIriRef) ⇒ run(definePrefix("", i)) ~ push(i)) ~> ASTSparqlBase ~!~ ws
   }
 
   //[6s] sparqlPrefix 	::= 	"PREFIX" PNAME_NS IRIREF
   def sparqlPrefix = rule {
-    atomic(ignoreCase("prefix")) ~ ws ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ test(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTSparqlPrefix ~!~ ws
+    atomic(ignoreCase("prefix")) ~ ws ~ PNAME_NS ~ ws ~ IRIREF ~> ((p: ASTPNameNS, i: ASTIriRef) ⇒ run(definePrefix(p, i)) ~ push(p) ~ push(i)) ~> ASTSparqlPrefix ~!~ ws
   }
 
   //[6] triples 	::= 	subject predicateObjectList | blankNodePropertyList predicateObjectList?
@@ -467,7 +466,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
     atomic(capture("[" ~ "]")) ~> ASTAnon
   }
 
-  private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Boolean = {
+  private def definePrefix(key: ASTPNameNS, value: ASTIriRef): Unit = {
     val pname = (key: @unchecked) match {
       case ASTPNameNS(rule) ⇒ (rule: @unchecked) match {
         case Some(ASTPNPrefix(token)) ⇒ token
@@ -478,7 +477,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
     definePrefix(pname, value)
   }
 
-  private def definePrefix(key: String, iriRef: ASTIriRef): Boolean = {
+  private def definePrefix(key: String, iriRef: ASTIriRef): Unit = {
     val value = iriRef.token
     if (value.startsWith("//") || hasScheme(value))
       prefixMap += key -> value
@@ -488,8 +487,6 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
       else
         prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
     } else prefixMap += key -> value
-
-    true
   }
 
   private def addPrefix(pname_ns: ASTPNameNS, pn_local: ASTPNLocal): Boolean = {

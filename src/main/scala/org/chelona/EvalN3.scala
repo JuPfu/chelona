@@ -16,10 +16,8 @@
 
 package org.chelona
 
-import org.parboiled2.{ ParseError, ParserInput }
-
 import scala.annotation.tailrec
-import scala.util.{ Failure, Success }
+import scala.util.Success
 
 object EvalN3 {
   def apply(basePath: String, label: String) = new EvalN3(basePath, label)
