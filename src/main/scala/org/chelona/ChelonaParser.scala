@@ -23,7 +23,7 @@ import org.parboiled2._
 import scala.language.implicitConversions
 import scala.util.{ Failure, Success }
 
-object ChelonaParser {
+object ChelonaParser extends TurtleAST {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
@@ -48,96 +48,6 @@ object ChelonaParser {
   case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
 
   case class SPOComment(value: String) extends SPOReturnValue
-
-  sealed trait AST
-
-  case class ASTTurtleDoc(rule: AST) extends AST
-
-  case class ASTStatement(rule: AST) extends AST
-
-  case class ASTComment(token: String) extends AST
-
-  case class ASTBlank(token: String) extends AST
-
-  case class ASTDirective(rule: AST) extends AST
-
-  case class ASTPrefixID(namespace: AST, iri: AST) extends AST
-
-  case class ASTBase(iri: AST) extends AST
-
-  case class ASTSparqlBase(iri: AST) extends AST
-
-  case class ASTSparqlPrefix(namespace: AST, iri: AST) extends AST
-
-  case class ASTTriples(subject: AST, predicateObjectList: AST) extends AST
-
-  case class ASTBlankNodeTriples(blankNodePropertyList: AST, predicateObjectList: Option[AST]) extends AST
-
-  case class ASTPredicateObjectList(predicateObjectList: Seq[AST]) extends AST
-
-  case class ASTPo(verb: AST, obj: AST) extends AST
-
-  case class ASTObjectList(rule: Seq[AST]) extends AST
-
-  case class ASTVerb(rule: AST) extends AST
-
-  case class ASTIsA(token: String) extends AST
-
-  case class ASTSubject(rule: AST) extends AST
-
-  case class ASTPredicate(rule: AST) extends AST
-
-  case class ASTObject(rule: AST) extends AST
-
-  case class ASTLiteral(rule: AST) extends AST
-
-  case class ASTBlankNodePropertyList(rule: AST) extends AST
-
-  case class ASTCollection(rule: Seq[AST]) extends AST
-
-  case class ASTNumericLiteral(rule: AST) extends AST
-
-  case class ASTInteger(token: String) extends AST
-
-  case class ASTDecimal(token: String) extends AST
-
-  case class ASTDouble(token: String) extends AST
-
-  case class ASTRdfLiteral(string: AST, postfix: Option[AST]) extends AST
-
-  case class ASTLangTag(token: String) extends AST
-
-  case class ASTBooleanLiteral(token: String) extends AST
-
-  case class ASTString(rule: AST) extends AST
-
-  case class ASTStringLiteralQuote(token: String) extends AST
-
-  case class ASTStringLiteralSingleQuote(token: String) extends AST
-
-  case class ASTStringLiteralLongSingleQuote(token: String) extends AST
-
-  case class ASTStringLiteralLongQuote(token: String) extends AST
-
-  case class ASTIri(rule: AST) extends AST
-
-  case class ASTIriRef(token: String) extends AST
-
-  case class ASTPrefixedName(rule: AST) extends AST
-
-  case class ASTPNameNS(rule: Option[AST]) extends AST
-
-  case class ASTPNameLN(namespace: AST, local: AST) extends AST
-
-  case class ASTPNPrefix(token: String) extends AST
-
-  case class ASTPNLocal(token: String) extends AST
-
-  case class ASTBlankNode(rule: AST) extends AST
-
-  case class ASTBlankNodeLabel(token: String) extends AST
-
-  case class ASTAnon(token: String) extends AST
 }
 
 class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
@@ -169,12 +79,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet(anyOf(" \n\r\t").* ~ ('#' ~ noneOf("\n\r").*).? ~ anyOf(" \n\r\t").*)
+    quiet((anyOf(" \n\r\t").* ~ ('#' ~ noneOf("\n\r").*) | anyOf(" \n\r\t").+).+ | anyOf(" \n\r\t").*)
   }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    (statement ~> ((ast: AST) ⇒
+    (statement ~> ((ast: TurtleAST) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) n3.renderStatement(ast, tripleOutput) else
           ast match {
@@ -186,7 +96,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   //[2] statement 	::= 	directive | triples '.'
-  def statement: Rule1[AST] = rule {
+  def statement: Rule1[TurtleAST] = rule {
     (directive | triples ~ "." | blank | comment) ~> ASTStatement
   }
 
@@ -226,7 +136,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   //[6] triples 	::= 	subject predicateObjectList | blankNodePropertyList predicateObjectList?
-  def triples = rule {
+  def triples: Rule1[TurtleAST] = rule {
     subject ~ predicateObjectList ~> ASTTriples | blankNodePropertyList ~ predicateObjectList.? ~> ASTBlankNodeTriples
   }
 
@@ -264,7 +174,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   //[12] object 	::= 	iri | BlankNode | collection | blankNodePropertyList | literal
-  def `object`: Rule1[AST] = rule {
+  def `object`: Rule1[TurtleAST] = rule {
     (iri | blankNode | collection | blankNodePropertyList | literal) ~> ASTObject
   }
 
@@ -362,7 +272,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
-  def iri: Rule1[AST] = rule {
+  def iri: Rule1[TurtleAST] = rule {
     (IRIREF | prefixedName) ~> ASTIri ~ ws
   }
 

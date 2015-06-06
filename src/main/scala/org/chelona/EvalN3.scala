@@ -38,7 +38,7 @@ class EvalN3(basePath: String, label: String) {
   var bCount = 0
   var cCount = 0
 
-  def renderStatement(ast: AST, writer: List[SPOTriple] ⇒ Int): Int = {
+  def renderStatement(ast: TurtleAST, writer: List[SPOTriple] ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
       case SPOTriples(t) ⇒ writer(t)
       case SPOString(s)  ⇒ 0
@@ -46,12 +46,12 @@ class EvalN3(basePath: String, label: String) {
     }
   }
 
-  def evalStatement(expr: AST): SPOReturnValue = {
+  def evalStatement(expr: TurtleAST): SPOReturnValue = {
 
     expr match {
       case ASTTurtleDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
-        /* some clean up at the beginning of a new turtle statement */
+        /* some clean up at the beginning of a new trig statement */
         subjectStack.clear
         predicateStack.clear
         /* evaluate a turtle statement */
@@ -238,7 +238,7 @@ class EvalN3(basePath: String, label: String) {
   }
 
   @tailrec
-  private def traversePredicateObjectList(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
+  private def traversePredicateObjectList(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
       case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
@@ -246,7 +246,7 @@ class EvalN3(basePath: String, label: String) {
   }
 
   @tailrec
-  private def traverseObjectList(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
+  private def traverseObjectList(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
       case SPOTriple(s, p, o) ⇒ traverseObjectList(xs, triples :+ SPOTriple(s, p, o))
@@ -255,7 +255,7 @@ class EvalN3(basePath: String, label: String) {
   }
 
   @tailrec
-  private def traverseCollection(l: Seq[AST], triples: List[SPOTriple]): List[SPOTriple] = l match {
+  private def traverseCollection(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
     case x +: xs ⇒
       val oldSubject = curSubject

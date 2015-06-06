@@ -30,3 +30,8 @@ object TestTurtleEval extends Tag("org.chelona.tags.TurtleEval")
 object TestTurtleNegativeEval extends Tag("org.chelona.tags.TurtleNegativeEval")
 object TestTurtlePositiveSyntax extends Tag("org.chelona.tags.TestTurtlePositiveSyntax")
 object TestTurtleNegativeSyntax extends Tag("org.chelona.tags.TestTurtleNegativeSyntax")
+
+object TestTrigPositiveSyntax extends Tag("org.chelona.tags.TestTrigPositiveSyntax")
+object TestTrigNegativeSyntax extends Tag("org.chelona.tags.TestTrigNegativeSyntax")
+object TestTrigEval extends Tag("org.chelona.tags.TestTrigEval")
+object TestTrigNegativeEval extends Tag("org.chelona.tags.TestTrigNegativeEval")

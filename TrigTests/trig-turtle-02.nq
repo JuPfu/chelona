@@ -1,0 +1,4 @@
+<http://example/s> <http://example/p> <http://example/o> .
+<http://example/s> <http://example/q> "123"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example/s> <http://example/q> "456"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://example/ns#s> <http://example/ns#p> <http://example/ns#o> .

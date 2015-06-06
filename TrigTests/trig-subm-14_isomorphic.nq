@@ -1,0 +1,4 @@
+_:a1 <http://example.org/ron> _:a2 .
+<http://example.org/ron> <http://example.org/ron> <http://example.org/ron> .
+_:a3 <http://example.org/ron> _:a4 <http://example/graph> .
+<http://example.org/ron> <http://example.org/ron> <http://example.org/ron> <http://example/graph> .

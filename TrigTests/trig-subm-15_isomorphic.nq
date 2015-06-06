@@ -1,0 +1,8 @@
+<http://example.org/ex#a> <http://example.org/ex#b> "a long
+	literal
+with
+newlines" .
+<http://example.org/ex#a> <http://example.org/ex#b> "a long
+	literal
+with
+newlines" <http://example/graph> .

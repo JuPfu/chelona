@@ -1,0 +1,12 @@
+<http://example.org/foo#a> <http://example.org/foo#b> "\nthis \ris a ⑑long\t
+literalꯍ
+" .
+<http://example.org/foo#d> <http://example.org/foo#e> "\tThis ꯍis\r ⑑another\n
+one
+" .
+<http://example.org/foo#a> <http://example.org/foo#b> "\nthis \ris a ⑑long\t
+literalꯍ
+" <http://example/graph> .
+<http://example.org/foo#d> <http://example.org/foo#e> "\tThis ꯍis\r ⑑another\n
+one
+" <http://example/graph> .

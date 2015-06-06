@@ -1,0 +1,4 @@
+_:a1 <http://example.org/base#a> <http://example.org/base#b> .
+<http://example.org/base#c> <http://example.org/base#d> _:a2 .
+_:a3 <http://example.org/base#a> <http://example.org/base#b> <http://example/graph> .
+<http://example.org/base#c> <http://example.org/base#d> _:a4 <http://example/graph> .

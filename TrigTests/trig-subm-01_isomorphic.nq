@@ -1,0 +1,2 @@
+_:a1 <http://www.w3.org/2013/TriGTests/trig-subm-01.trig#x> <http://www.w3.org/2013/TriGTests/trig-subm-01.trig#y> .
+_:a2 <http://www.w3.org/2013/TriGTests/trig-subm-01.trig#x> <http://www.w3.org/2013/TriGTests/trig-subm-01.trig#y> <http://example/graph> .
