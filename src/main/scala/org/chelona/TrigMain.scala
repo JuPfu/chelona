@@ -73,7 +73,7 @@ object TrigMain extends App {
       val me: Double = System.currentTimeMillis - ms
       if (verbose) {
         if (!validate) {
-          System.err.println("Input file '" + file.head + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+          System.err.println("Input file '" + file.head + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " quads (quads per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         } else {
           System.err.println("Input file '" + file.head + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         }

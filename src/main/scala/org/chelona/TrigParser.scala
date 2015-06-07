@@ -18,12 +18,10 @@ package org.chelona
 
 import java.io.Writer
 
+import org.chelona.TrigParser.QuadAST
 import org.parboiled2._
 
 import scala.language.implicitConversions
-import scala.util.{ Failure, Success }
-
-import org.chelona.TrigParser.QuadAST
 
 object TrigParser extends TrigAST[TurtleAST] {
 
@@ -57,7 +55,7 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
 
   val trigOutput = trigWriter(output)_
 
-  //[1] turtleDoc 	::= 	statement*
+  //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {
     (statement ~> ((ast: TurtleAST) ⇒
       if (!__inErrorAnalysis) {
@@ -88,8 +86,8 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
 
   //[4g]	triples2	::=	blankNodePropertyList predicateObjectList? '.' | collection predicateObjectList '.'
   def triples2 = rule {
-    (blankNodePropertyList ~ predicateObjectList.? ~> ASTBlankNodeTriples2 |
-      collection ~ predicateObjectList ~> ASTCollectionTriples2) ~ "."
+    (blankNodePropertyList ~ predicateObjectList.? ~> ASTTriple2BlankNodePropertyList |
+      collection ~ predicateObjectList ~> ASTTriple2Collection) ~ "."
   }
 
   //[5g]	wrappedGraph	::=	'{' triplesBlock? '}'

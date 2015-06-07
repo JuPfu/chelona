@@ -26,9 +26,9 @@ trait TrigAST[TrigAST <: TurtleAST] extends TurtleAST {
 
   case class ASTTriplesOrGraph(labelOrSubject: TrigAST, rule: TrigAST) extends TurtleAST
 
-  case class ASTBlankNodeTriples2(blankNodePropertyList: TrigAST, predicateObjectList: Option[TrigAST]) extends TurtleAST
+  case class ASTTriple2BlankNodePropertyList(blankNodePropertyList: TrigAST, predicateObjectList: Option[TrigAST]) extends TurtleAST
 
-  case class ASTCollectionTriples2(collection: TrigAST, predicateObjectList: TrigAST) extends TurtleAST
+  case class ASTTriple2Collection(collection: TrigAST, predicateObjectList: TrigAST) extends TurtleAST
 
   case class ASTWrappedGraph(triplesBlock: Option[TrigAST]) extends TurtleAST
 

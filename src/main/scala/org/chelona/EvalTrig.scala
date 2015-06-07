@@ -70,7 +70,7 @@ class EvalTrig(basePath: String, label: String) {
         evalStatement(l); evalStatement(s)
       case ASTTriplesOrGraph(l, rule) ⇒
         evalStatement(l); rule match { case ASTPredicateObjectList(po) ⇒ curGraph = ""; case _ ⇒ }; evalStatement(rule)
-      case ASTBlankNodeTriples2(b, p) ⇒
+      case ASTTriple2BlankNodePropertyList(b, p) ⇒
         curGraph = ""
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
@@ -86,7 +86,7 @@ class EvalTrig(basePath: String, label: String) {
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         retval
-      case ASTCollectionTriples2(c, p) ⇒
+      case ASTTriple2Collection(c, p) ⇒
         curGraph = ""
         ((evalStatement(c), evalStatement(p)): @unchecked) match {
           case (TrigTuples(cs), TrigTuples(ps)) ⇒ TrigTuples(cs ::: ps)
