@@ -1,6 +1,6 @@
 **cheló̱na**  A Parboiled2 Based Scala Parser for the W3C RDF 1.1 Turtle Language
 
-<a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.98" alt="RDF Resource Description Framework Icon"/></a>
+<a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"/></a>
 
 Introduction
 ============
