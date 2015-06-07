@@ -1,5 +1,5 @@
 <a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"/></a>
-&nbsp;&nbsp;&nbsp;**Cheló̱na**  A Parboiled2 Based Scala Parser for the W3C RDF 1.1 Turtle Language
+&nbsp;&nbsp;&nbsp;**Cheló̱na**  A Parboiled2 Based Scala Parser for the W3C RDF 1.1 Turtle and Trig Languages
 
 Introduction
 ============
@@ -7,9 +7,16 @@ Introduction
 *Cheló̱na* (χελώνα) is the greek word for turtle. At the time working on this software I spent a beautiful holiday on the island of Rhodos, so this seemed to be an appropriate name for a turtle parser.
 
 With *Cheló̱na* you can
+- validate the syntax and semantic of a W3C RDF 1.1 *Trig* file
+- convert a *Trig* file into its canonical quad form
+- convert a *Trig* file into another format, e.g. JSON (to be done)
+
 - validate the syntax and semantic of a W3C RDF 1.1 Turtle file
-- convert a turtle file into its canonical triple form
-- convert a turtle file into another format, e.g. JSON (to be done)
+- convert a Turtle file into its canonical triple form
+- convert a Turtle file into another format, e.g. JSON (to be done)
+
+Turtle Section
+==============
 
 First Example
 =============
@@ -243,7 +250,34 @@ What *Cheló̱na* Does in Detail:
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
 - skolemisation (Replacing blank nodes with IRIs) (to be done)
 
+Trig-Section
+============
 
+First Example
+=============
+
+Here is a simple Trig file which can be found as Example1 at https://www.w3.org/TR/trig/:
+
+    # This document encodes one graph.
+    @prefix ex: <http://www.example.org/vocabulary#> .
+    @prefix : <http://www.example.org/exampleDocument#> .
+    
+    :G1 { :Monica a ex:Person ;
+                  ex:name "Monica Murphy" ;
+                  ex:homepage <http://www.monicamurphy.org> ;
+                  ex:email <mailto:monica@monicamurphy.org> ;
+                  ex:hasSkill ex:Management ,
+                              ex:Programming . }
+
+*Cheló̱na* dissolves the statements into the canonical quad form, which is represented by pure subject, predicate, object and graph components:
+
+    <http://www.example.org/exampleDocument#Monica> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.example.org/vocabulary#Person> <http://www.example.org/exampleDocument#G1> .
+    <http://www.example.org/exampleDocument#Monica> <http://www.example.org/vocabulary#name> "Monica Murphy" <http://www.example.org/exampleDocument#G1> .
+    <http://www.example.org/exampleDocument#Monica> <http://www.example.org/vocabulary#homepage> <http://www.monicamurphy.org> <http://www.example.org/exampleDocument#G1> .
+    <http://www.example.org/exampleDocument#Monica> <http://www.example.org/vocabulary#email> <mailto:monica@monicamurphy.org> <http://www.example.org/exampleDocument#G1> .
+    <http://www.example.org/exampleDocument#Monica> <http://www.example.org/vocabulary#hasSkill> <http://www.example.org/vocabulary#Management> <http://www.example.org/exampleDocument#G1> .
+    <http://www.example.org/exampleDocument#Monica> <http://www.example.org/vocabulary#hasSkill> <http://www.example.org/vocabulary#Programming> <http://www.example.org/exampleDocument#G1> .
+	
 License
 =======
 
