@@ -50,7 +50,6 @@ class EvalTrig(basePath: String, label: String) {
   }
 
   def evalStatement(expr: TurtleAST): TrigReturnValue = {
-    println("EVAL expr="+expr)
     expr match {
       case ASTTrigDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
