@@ -55,7 +55,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-str-esc-03.nq")
-    earlOut("trig-syntax-str-esc-03", true)
+    earlOut("trig-syntax-str-esc-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -96,7 +96,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-file-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-file-02.nq")
-    earlOut("trig-syntax-file-02", true)
+    earlOut("trig-syntax-file-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -114,7 +114,8 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-02.nq")
-    earlOut("trig-syntax-string-02", true)
+
+    earlOut("trig-syntax-string-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -132,7 +133,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefix_only_IRI.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefix_only_IRI.nq")
-    earlOut("prefix_only_IRI", true)
+    earlOut("prefix_only_IRI", output.toString == nq.toString)
 
     output.close()
   }
@@ -150,7 +151,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/sole_blankNodePropertyList.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in sole_blankNodePropertyList.nq")
-    earlOut("sole_blankNodePropertyList", true)
+    earlOut("sole_blankNodePropertyList", output.toString == nq.toString)
 
     output.close()
   }
@@ -192,7 +193,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-03.nq")
-    earlOut("trig-syntax-prefix-03", true)
+    earlOut("trig-syntax-prefix-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -210,7 +211,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL2_with_UTF8_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL2_with_UTF8_boundaries.nq")
-    earlOut("LITERAL2_with_UTF8_boundaries", true)
+    earlOut("LITERAL2_with_UTF8_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -228,7 +229,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-06.nq")
-    earlOut("trig-syntax-bnode-06", true)
+    earlOut("trig-syntax-bnode-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -246,7 +247,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-09.nq")
-    earlOut("trig-subm-09", true)
+    earlOut("trig-subm-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -269,7 +270,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-syntax-bad-kw-04.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-eval-bad-01", true)
+    earlOut("trig-eval-bad-01", !res)
 
     output.close()
   }
@@ -287,7 +288,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-06.nq")
-    earlOut("trig-syntax-struct-06", true)
+    earlOut("trig-syntax-struct-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -305,7 +306,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-12.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-12.nq")
-    earlOut("trig-subm-12", true)
+    earlOut("trig-subm-12", output.toString == nq.toString)
 
     output.close()
   }
@@ -348,7 +349,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-minimal-whitespace-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-minimal-whitespace-01.nq")
-    earlOut("trig-syntax-minimal-whitespace-01", true)
+    earlOut("trig-syntax-minimal-whitespace-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -389,7 +390,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-09.nq")
-    earlOut("trig-syntax-number-09", true)
+    earlOut("trig-syntax-number-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -407,7 +408,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-01.nq")
-    earlOut("trig-syntax-bnode-01", true)
+    earlOut("trig-syntax-bnode-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -425,7 +426,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-05.nq")
-    earlOut("trig-syntax-prefix-05", true)
+    earlOut("trig-syntax-prefix-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -448,7 +449,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-syntax-bad-kw-04.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-eval-bad-04", true)
+    earlOut("trig-eval-bad-04", !res)
 
     output.close()
   }
@@ -489,7 +490,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/collection_subject_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in collection_subject.nq")
-    earlOut("collection_subject", true)
+    earlOut("collection_subject", output.toString == nq.toString)
 
     output.close()
   }
@@ -553,7 +554,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/blankNodePropertyList_as_object_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in blankNodePropertyList_as_object.nq")
-    earlOut("blankNodePropertyList_as_object", true)
+    earlOut("blankNodePropertyList_as_object", output.toString == nq.toString)
 
     output.close()
   }
@@ -571,7 +572,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-05.nq")
-    earlOut("trig-turtle-05", true)
+    earlOut("trig-turtle-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -589,7 +590,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL1_with_UTF8_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL1_with_UTF8_boundaries.nq")
-    earlOut("LITERAL1_with_UTF8_boundaries", true)
+    earlOut("LITERAL1_with_UTF8_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -676,7 +677,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-04.nq")
-    earlOut("trig-kw-graph-04", true)
+    earlOut("trig-kw-graph-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -694,7 +695,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-01_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-01.nq")
-    earlOut("trig-subm-01", true)
+    earlOut("trig-subm-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -712,7 +713,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-lists-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-lists-02.nq")
-    earlOut("trig-syntax-lists-02", true)
+    earlOut("trig-syntax-lists-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -730,7 +731,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-22.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-22.nq")
-    earlOut("trig-subm-22", true)
+    earlOut("trig-subm-22", output.toString == nq.toString)
 
     output.close()
   }
@@ -771,7 +772,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/first_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in first.nq")
-    earlOut("first", true)
+    earlOut("first", output.toString == nq.toString)
 
     output.close()
   }
@@ -789,7 +790,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-10.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-10.nq")
-    earlOut("trig-syntax-string-10", true)
+    earlOut("trig-syntax-string-10", output.toString == nq.toString)
 
     output.close()
   }
@@ -807,7 +808,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL2.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL2.nq")
-    earlOut("LITERAL2", true)
+    earlOut("LITERAL2", output.toString == nq.toString)
 
     output.close()
   }
@@ -825,7 +826,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-datatypes-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-datatypes-02.nq")
-    earlOut("trig-syntax-datatypes-02", true)
+    earlOut("trig-syntax-datatypes-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -843,7 +844,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_escaped_LINE_FEED.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_escaped_LINE_FEED.nq")
-    earlOut("literal_with_escaped_LINE_FEED", true)
+    earlOut("literal_with_escaped_LINE_FEED", output.toString == nq.toString)
 
     output.close()
   }
@@ -907,7 +908,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-14_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-14.nq")
-    earlOut("trig-subm-14", true)
+    earlOut("trig-subm-14", output.toString == nq.toString)
 
     output.close()
   }
@@ -925,7 +926,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-ln-colons.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-ln-colons.nq")
-    earlOut("trig-syntax-ln-colons", true)
+    earlOut("trig-syntax-ln-colons", output.toString == nq.toString)
 
     output.close()
   }
@@ -943,7 +944,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-str-esc-02.nq")
-    earlOut("trig-syntax-str-esc-02", true)
+    earlOut("trig-syntax-str-esc-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -961,7 +962,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-base-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-base-04.nq")
-    earlOut("trig-syntax-base-04", true)
+    earlOut("trig-syntax-base-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -979,7 +980,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-09.nq")
-    earlOut("trig-kw-graph-09", true)
+    earlOut("trig-kw-graph-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -997,7 +998,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/negative_numeric.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in negative_numeric.nq")
-    earlOut("negative_numeric", true)
+    earlOut("negative_numeric", output.toString == nq.toString)
 
     output.close()
   }
@@ -1015,7 +1016,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-07.nq")
-    earlOut("trig-syntax-string-07", true)
+    earlOut("trig-syntax-string-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -1033,7 +1034,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-pname-esc-02.nq")
-    earlOut("trig-syntax-pname-esc-02", true)
+    earlOut("trig-syntax-pname-esc-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -1051,7 +1052,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-eval-struct-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-eval-struct-01.nq")
-    earlOut("trig-eval-struct-01", true)
+    earlOut("trig-eval-struct-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -1069,7 +1070,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-02.nq")
-    earlOut("trig-syntax-number-02", true)
+    earlOut("trig-syntax-number-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -1087,7 +1088,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/last_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in last.nq")
-    earlOut("last", true)
+    earlOut("last", output.toString == nq.toString)
 
     output.close()
   }
@@ -1128,7 +1129,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_UTF8_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2_with_UTF8_boundaries.nq")
-    earlOut("LITERAL_LONG2_with_UTF8_boundaries", true)
+    earlOut("LITERAL_LONG2_with_UTF8_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -1169,7 +1170,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/IRI_with_four_digit_numeric_escape.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in IRI_with_four_digit_numeric_escape.nq")
-    earlOut("IRI_with_four_digit_numeric_escape", true)
+    earlOut("IRI_with_four_digit_numeric_escape", output.toString == nq.toString)
 
     output.close()
   }
@@ -1210,7 +1211,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/IRIREF_datatype.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in IRIREF_datatype.nq")
-    earlOut("IRIREF_datatype", true)
+    earlOut("IRIREF_datatype", output.toString == nq.toString)
 
     output.close()
   }
@@ -1228,7 +1229,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_CARRIAGE_RETURN_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_CARRIAGE_RETURN.nq")
-    earlOut("literal_with_CARRIAGE_RETURN", true)
+    earlOut("literal_with_CARRIAGE_RETURN", output.toString == nq.toString)
 
     output.close()
   }
@@ -1246,7 +1247,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/number_sign_following_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in number_sign_following_localName.nq")
-    earlOut("number_sign_following_localName", true)
+    earlOut("number_sign_following_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -1287,7 +1288,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/collection_object_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in collection_object.nq")
-    earlOut("collection_object", true)
+    earlOut("collection_object", output.toString == nq.toString)
 
     output.close()
   }
@@ -1328,7 +1329,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-base-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-base-01.nq")
-    earlOut("trig-syntax-base-01", true)
+    earlOut("trig-syntax-base-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -1346,7 +1347,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.nq")
-    earlOut("localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries", true)
+    earlOut("localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -1387,7 +1388,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_CHARACTER_TABULATION_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_CHARACTER_TABULATION.nq")
-    earlOut("literal_with_CHARACTER_TABULATION", true)
+    earlOut("literal_with_CHARACTER_TABULATION", output.toString == nq.toString)
 
     output.close()
   }
@@ -1428,7 +1429,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefix_with_PN_CHARS_BASE_character_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefix_with_PN_CHARS_BASE_character_boundaries.nq")
-    earlOut("prefix_with_PN_CHARS_BASE_character_boundaries", true)
+    earlOut("prefix_with_PN_CHARS_BASE_character_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -1469,7 +1470,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-pname-esc-01.nq")
-    earlOut("trig-syntax-pname-esc-01", true)
+    earlOut("trig-syntax-pname-esc-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -1487,7 +1488,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-lists-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-lists-05.nq")
-    earlOut("trig-syntax-lists-05", true)
+    earlOut("trig-syntax-lists-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -1505,7 +1506,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-19.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-19.nq")
-    earlOut("trig-subm-19", true)
+    earlOut("trig-subm-19", output.toString == nq.toString)
 
     output.close()
   }
@@ -1569,7 +1570,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/langtagged_LONG.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in langtagged_LONG.nq")
-    earlOut("langtagged_LONG", true)
+    earlOut("langtagged_LONG", output.toString == nq.toString)
 
     output.close()
   }
@@ -1656,7 +1657,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-uri-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-uri-03.nq")
-    earlOut("trig-syntax-uri-03", true)
+    earlOut("trig-syntax-uri-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -1697,7 +1698,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_2_squotes.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2_with_2_squotes.nq")
-    earlOut("LITERAL_LONG2_with_2_squotes", true)
+    earlOut("LITERAL_LONG2_with_2_squotes", output.toString == nq.toString)
 
     output.close()
   }
@@ -1715,7 +1716,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/comment_following_PNAME_NS.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in comment_following_PNAME_NS.nq")
-    earlOut("comment_following_PNAME_NS", true)
+    earlOut("comment_following_PNAME_NS", output.toString == nq.toString)
 
     output.close()
   }
@@ -1756,7 +1757,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/percent_escaped_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in percent_escaped_localName.nq")
-    earlOut("percent_escaped_localName", true)
+    earlOut("percent_escaped_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -1774,7 +1775,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-09.nq")
-    earlOut("trig-syntax-string-09", true)
+    earlOut("trig-syntax-string-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -1792,7 +1793,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-26.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-26.nq")
-    earlOut("trig-subm-26", true)
+    earlOut("trig-subm-26", output.toString == nq.toString)
 
     output.close()
   }
@@ -1810,7 +1811,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localname_with_COLON.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localname_with_COLON.nq")
-    earlOut("localname_with_COLON", true)
+    earlOut("localname_with_COLON", output.toString == nq.toString)
 
     output.close()
   }
@@ -1828,7 +1829,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-06.nq")
-    earlOut("trig-syntax-number-06", true)
+    earlOut("trig-syntax-number-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -1869,7 +1870,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG1.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG1.nq")
-    earlOut("LITERAL_LONG1", true)
+    earlOut("LITERAL_LONG1", output.toString == nq.toString)
 
     output.close()
   }
@@ -1956,13 +1957,13 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-11.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-11.nq")
-    earlOut("trig-subm-11", true)
+    earlOut("trig-subm-11", output.toString == nq.toString)
 
     output.close()
   }
 
   "The input file ./TrigTests/trig-syntax-kw-01.trig" must "succeed" taggedAs (TestTrigPositiveSyntax) in {
-    // boolean literal (true)
+    // boolean literal (output.toString == nq.toString
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-kw-01.trig").mkString
 
     val output = new StringWriter()
@@ -1974,7 +1975,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-kw-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-kw-01.nq")
-    earlOut("trig-syntax-kw-01", true)
+    earlOut("trig-syntax-kw-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -1992,7 +1993,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/bareword_double.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in bareword_double.nq")
-    earlOut("bareword_double", true)
+    earlOut("bareword_double", output.toString == nq.toString)
 
     output.close()
   }
@@ -2010,7 +2011,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-17.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-17.nq")
-    earlOut("trig-subm-17", true)
+    earlOut("trig-subm-17", output.toString == nq.toString)
 
     output.close()
   }
@@ -2028,7 +2029,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-08.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-08.nq")
-    earlOut("trig-syntax-number-08", true)
+    earlOut("trig-syntax-number-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -2046,7 +2047,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-07.nq")
-    earlOut("trig-syntax-struct-07", true)
+    earlOut("trig-syntax-struct-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -2133,7 +2134,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-01.nq")
-    earlOut("trig-syntax-number-01", true)
+    earlOut("trig-syntax-number-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -2174,7 +2175,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/old_style_prefix.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in old_style_prefix.nq")
-    earlOut("old_style_prefix", true)
+    earlOut("old_style_prefix", output.toString == nq.toString)
 
     output.close()
   }
@@ -2238,7 +2239,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-25.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-25.nq")
-    earlOut("trig-subm-25", true)
+    earlOut("trig-subm-25", output.toString == nq.toString)
 
     output.close()
   }
@@ -2256,7 +2257,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/positive_numeric.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in positive_numeric.nq")
-    earlOut("positive_numeric", true)
+    earlOut("positive_numeric", output.toString == nq.toString)
 
     output.close()
   }
@@ -2343,7 +2344,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2_ascii_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2_ascii_boundaries.nq")
-    earlOut("LITERAL_LONG2_ascii_boundaries", true)
+    earlOut("LITERAL_LONG2_ascii_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -2361,7 +2362,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_non_leading_extras.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_non_leading_extras.nq")
-    earlOut("localName_with_non_leading_extras", true)
+    earlOut("localName_with_non_leading_extras", output.toString == nq.toString)
 
     output.close()
   }
@@ -2379,7 +2380,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/nested_collection_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in nested_collection.nq")
-    earlOut("nested_collection", true)
+    earlOut("nested_collection", output.toString == nq.toString)
 
     output.close()
   }
@@ -2397,7 +2398,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-06.nq")
-    earlOut("trig-kw-graph-06", true)
+    earlOut("trig-kw-graph-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -2415,7 +2416,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-05.nq")
-    earlOut("trig-kw-graph-05", true)
+    earlOut("trig-kw-graph-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -2433,7 +2434,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL1_all_controls_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL1_all_controls.nq")
-    earlOut("LITERAL1_all_controls", true)
+    earlOut("LITERAL1_all_controls", output.toString == nq.toString)
 
     output.close()
   }
@@ -2451,7 +2452,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_1_squote.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG1_with_1_squote.nq")
-    earlOut("LITERAL_LONG1_with_1_squote", true)
+    earlOut("LITERAL_LONG1_with_1_squote", output.toString == nq.toString)
 
     output.close()
   }
@@ -2515,7 +2516,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-base-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-base-02.nq")
-    earlOut("trig-syntax-base-02", true)
+    earlOut("trig-syntax-base-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -2533,7 +2534,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-uri-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-uri-04.nq")
-    earlOut("trig-syntax-uri-04", true)
+    earlOut("trig-syntax-uri-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -2574,7 +2575,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/langtagged_non_LONG.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in langtagged_non_LONG.nq")
-    earlOut("langtagged_non_LONG", true)
+    earlOut("langtagged_non_LONG", output.toString == nq.toString)
 
     output.close()
   }
@@ -2592,7 +2593,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-02.nq")
-    earlOut("trig-syntax-prefix-02", true)
+    earlOut("trig-syntax-prefix-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -2633,7 +2634,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/bareword_a_predicate.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in bareword_a_predicate.nq")
-    earlOut("bareword_a_predicate", true)
+    earlOut("bareword_a_predicate", output.toString == nq.toString)
 
     output.close()
   }
@@ -2651,7 +2652,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-09.nq")
-    earlOut("trig-syntax-bnode-09", true)
+    earlOut("trig-syntax-bnode-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -2669,7 +2670,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_UTF8_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG1_with_UTF8_boundaries.nq")
-    earlOut("LITERAL_LONG1_with_UTF8_boundaries", true)
+    earlOut("LITERAL_LONG1_with_UTF8_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -2687,7 +2688,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_graph.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_graph.nq")
-    earlOut("labeled_blank_node_graph", true)
+    earlOut("labeled_blank_node_graph", output.toString == nq.toString)
 
     output.close()
   }
@@ -2705,7 +2706,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-08.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-08.nq")
-    earlOut("trig-kw-graph-08", true)
+    earlOut("trig-kw-graph-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -2723,7 +2724,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-10.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-10.nq")
-    earlOut("trig-kw-graph-10", true)
+    earlOut("trig-kw-graph-10", output.toString == nq.toString)
 
     output.close()
   }
@@ -2764,7 +2765,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-11.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-11.nq")
-    earlOut("trig-syntax-number-11", true)
+    earlOut("trig-syntax-number-11", output.toString == nq.toString)
 
     output.close()
   }
@@ -2805,7 +2806,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_nfc_PN_CHARS_BASE_character_boundaries.nq")
-    earlOut("localName_with_nfc_PN_CHARS_BASE_character_boundaries", true)
+    earlOut("localName_with_nfc_PN_CHARS_BASE_character_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -2823,7 +2824,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_2_squotes.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG1_with_2_squotes.nq")
-    earlOut("LITERAL_LONG1_with_2_squotes", true)
+    earlOut("LITERAL_LONG1_with_2_squotes", output.toString == nq.toString)
 
     output.close()
   }
@@ -2864,7 +2865,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/alternating_iri_graphs.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in alternating_iri_graphs.nq")
-    earlOut("alternating_iri_graphs", true)
+    earlOut("alternating_iri_graphs", output.toString == nq.toString)
 
     output.close()
   }
@@ -2882,7 +2883,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-08.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-08.nq")
-    earlOut("trig-syntax-string-08", true)
+    earlOut("trig-syntax-string-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -2923,7 +2924,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-04.nq")
-    earlOut("trig-turtle-04", true)
+    earlOut("trig-turtle-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -2941,7 +2942,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-kw-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-kw-02.nq")
-    earlOut("trig-syntax-kw-02", true)
+    earlOut("trig-syntax-kw-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -2959,7 +2960,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-file-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-file-01.nq")
-    earlOut("trig-syntax-file-01", true)
+    earlOut("trig-syntax-file-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -2977,7 +2978,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_true.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_true.nq")
-    earlOut("literal_true", true)
+    earlOut("literal_true", output.toString == nq.toString)
 
     output.close()
   }
@@ -3018,7 +3019,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-04.nq")
-    earlOut("trig-syntax-prefix-04", true)
+    earlOut("trig-syntax-prefix-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -3059,7 +3060,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/comment_following_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in comment_following_localName.nq")
-    earlOut("comment_following_localName", true)
+    earlOut("comment_following_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -3100,7 +3101,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-04.nq")
-    earlOut("trig-syntax-string-04", true)
+    earlOut("trig-syntax-string-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -3141,7 +3142,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-15_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-15.nq")
-    earlOut("trig-subm-15", true)
+    earlOut("trig-subm-15", output.toString == nq.toString)
 
     output.close()
   }
@@ -3159,7 +3160,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_escaped_CARRIAGE_RETURN.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_escaped_CARRIAGE_RETURN.nq")
-    earlOut("literal_with_escaped_CARRIAGE_RETURN", true)
+    earlOut("literal_with_escaped_CARRIAGE_RETURN", output.toString == nq.toString)
 
     output.close()
   }
@@ -3177,7 +3178,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-07.nq")
-    earlOut("trig-syntax-bnode-07", true)
+    earlOut("trig-syntax-bnode-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -3195,7 +3196,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-10.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-10.nq")
-    earlOut("trig-syntax-bnode-10", true)
+    earlOut("trig-syntax-bnode-10", output.toString == nq.toString)
 
     output.close()
   }
@@ -3213,7 +3214,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-07.nq")
-    earlOut("trig-kw-graph-07", true)
+    earlOut("trig-kw-graph-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -3236,7 +3237,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-syntax-bad-kw-04.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-eval-bad-03", true)
+    earlOut("trig-eval-bad-03", !res)
 
     output.close()
   }
@@ -3254,7 +3255,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-03.nq")
-    earlOut("trig-subm-03", true)
+    earlOut("trig-subm-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -3318,7 +3319,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_with_leading_digit.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_with_leading_digit.nq")
-    earlOut("labeled_blank_node_with_leading_digit", true)
+    earlOut("labeled_blank_node_with_leading_digit", output.toString == nq.toString)
 
     output.close()
   }
@@ -3336,7 +3337,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-08.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-08.nq")
-    earlOut("trig-syntax-bnode-08", true)
+    earlOut("trig-syntax-bnode-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -3354,7 +3355,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-uri-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-uri-01.nq")
-    earlOut("trig-syntax-uri-01", true)
+    earlOut("trig-syntax-uri-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -3372,7 +3373,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-01.nq")
-    earlOut("trig-turtle-01", true)
+    earlOut("trig-turtle-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -3390,7 +3391,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefix_reassigned_and_used.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefix_reassigned_and_used.nq")
-    earlOut("prefix_reassigned_and_used", true)
+    earlOut("prefix_reassigned_and_used", output.toString == nq.toString)
 
     output.close()
   }
@@ -3408,7 +3409,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefix_with_non_leading_extras.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefix_with_non_leading_extras.nq")
-    earlOut("prefix_with_non_leading_extras", true)
+    earlOut("prefix_with_non_leading_extras", output.toString == nq.toString)
 
     output.close()
   }
@@ -3426,7 +3427,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-02.nq")
-    earlOut("trig-turtle-02", true)
+    earlOut("trig-turtle-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -3444,7 +3445,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-base-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-base-03.nq")
-    earlOut("trig-syntax-base-03", true)
+    earlOut("trig-syntax-base-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -3485,7 +3486,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/IRI_with_eight_digit_numeric_escape.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in IRI_with_eight_digit_numeric_escape.nq")
-    earlOut("IRI_with_eight_digit_numeric_escape", true)
+    earlOut("IRI_with_eight_digit_numeric_escape", output.toString == nq.toString)
 
     output.close()
   }
@@ -3503,7 +3504,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-27_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-27.nq")
-    earlOut("trig-subm-27", true)
+    earlOut("trig-subm-27", output.toString == nq.toString)
 
     output.close()
   }
@@ -3521,7 +3522,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/double_lower_case_e.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in double_lower_case_e.nq")
-    earlOut("double_lower_case_e", true)
+    earlOut("double_lower_case_e", output.toString == nq.toString)
 
     output.close()
   }
@@ -3539,7 +3540,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_subject.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_subject.nq")
-    earlOut("labeled_blank_node_subject", true)
+    earlOut("labeled_blank_node_subject", output.toString == nq.toString)
 
     output.close()
   }
@@ -3557,7 +3558,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/objectList_with_two_objects.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in objectList_with_two_objects.nq")
-    earlOut("objectList_with_two_objects", true)
+    earlOut("objectList_with_two_objects", output.toString == nq.toString)
 
     output.close()
   }
@@ -3598,7 +3599,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-pname-esc-03.nq")
-    earlOut("trig-syntax-pname-esc-03", true)
+    earlOut("trig-syntax-pname-esc-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -3616,7 +3617,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_false.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_false.nq")
-    earlOut("literal_false", true)
+    earlOut("literal_false", output.toString == nq.toString)
 
     output.close()
   }
@@ -3634,7 +3635,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-07.nq")
-    earlOut("trig-syntax-number-07", true)
+    earlOut("trig-syntax-number-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -3652,7 +3653,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/predicateObjectList_with_two_objectLists.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in predicateObjectList_with_two_objectLists.nq")
-    earlOut("predicateObjectList_with_two_objectLists", true)
+    earlOut("predicateObjectList_with_two_objectLists", output.toString == nq.toString)
 
     output.close()
   }
@@ -3693,7 +3694,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_leading_underscore.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_leading_underscore.nq")
-    earlOut("localName_with_leading_underscore", true)
+    earlOut("localName_with_leading_underscore", output.toString == nq.toString)
 
     output.close()
   }
@@ -3711,7 +3712,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/nested_blankNodePropertyLists.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in nested_blankNodePropertyLists.nq")
-    earlOut("nested_blankNodePropertyLists", true)
+    earlOut("nested_blankNodePropertyLists", output.toString == nq.toString)
 
     output.close()
   }
@@ -3775,7 +3776,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_REVERSE_SOLIDUS.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_REVERSE_SOLIDUS.nq")
-    earlOut("literal_with_REVERSE_SOLIDUS", true)
+    earlOut("literal_with_REVERSE_SOLIDUS", output.toString == nq.toString)
 
     output.close()
   }
@@ -3793,7 +3794,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_object.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_object.nq")
-    earlOut("labeled_blank_node_object", true)
+    earlOut("labeled_blank_node_object", output.toString == nq.toString)
 
     output.close()
   }
@@ -3811,7 +3812,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/default_namespace_IRI.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in default_namespace_IRI.nq")
-    earlOut("default_namespace_IRI", true)
+    earlOut("default_namespace_IRI", output.toString == nq.toString)
 
     output.close()
   }
@@ -3829,7 +3830,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-08.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-08.nq")
-    earlOut("trig-syntax-prefix-08", true)
+    earlOut("trig-syntax-prefix-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -3847,7 +3848,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-05.nq")
-    earlOut("trig-syntax-number-05", true)
+    earlOut("trig-syntax-number-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -3865,7 +3866,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_with_leading_underscore.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_with_leading_underscore.nq")
-    earlOut("labeled_blank_node_with_leading_underscore", true)
+    earlOut("labeled_blank_node_with_leading_underscore", output.toString == nq.toString)
 
     output.close()
   }
@@ -3883,7 +3884,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-07.nq")
-    earlOut("trig-syntax-prefix-07", true)
+    earlOut("trig-syntax-prefix-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -3901,7 +3902,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-04.nq")
-    earlOut("trig-syntax-number-04", true)
+    earlOut("trig-syntax-number-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -3942,7 +3943,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/repeated_semis_at_end.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in repeated_semis_at_end.nq")
-    earlOut("repeated_semis_at_end", true)
+    earlOut("repeated_semis_at_end", output.toString == nq.toString)
 
     output.close()
   }
@@ -3960,7 +3961,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/HYPHEN_MINUS_in_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in HYPHEN_MINUS_in_localName.nq")
-    earlOut("HYPHEN_MINUS_in_localName", true)
+    earlOut("HYPHEN_MINUS_in_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -3978,7 +3979,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-05.nq")
-    earlOut("trig-syntax-bnode-05", true)
+    earlOut("trig-syntax-bnode-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -4042,7 +4043,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/old_style_base.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in old_style_base.nq")
-    earlOut("old_style_base", true)
+    earlOut("old_style_base", output.toString == nq.toString)
 
     output.close()
   }
@@ -4060,7 +4061,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-18.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-18.nq")
-    earlOut("trig-subm-18", true)
+    earlOut("trig-subm-18", output.toString == nq.toString)
 
     output.close()
   }
@@ -4101,7 +4102,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/bareword_integer.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in bareword_integer.nq")
-    earlOut("bareword_integer", true)
+    earlOut("bareword_integer", output.toString == nq.toString)
 
     output.close()
   }
@@ -4119,7 +4120,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL2_ascii_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL2_ascii_boundaries.nq")
-    earlOut("LITERAL2_ascii_boundaries", true)
+    earlOut("LITERAL2_ascii_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -4137,7 +4138,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.nq")
-    earlOut("labeled_blank_node_with_PN_CHARS_BASE_character_boundaries", true)
+    earlOut("labeled_blank_node_with_PN_CHARS_BASE_character_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -4155,7 +4156,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/anonymous_blank_node_graph.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in anonymous_blank_node_graph.nq")
-    earlOut("anonymous_blank_node_graph", true)
+    earlOut("anonymous_blank_node_graph", output.toString == nq.toString)
 
     output.close()
   }
@@ -4178,7 +4179,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-syntax-bad-kw-04.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-eval-bad-02", true)
+    earlOut("trig-eval-bad-02", !res)
 
     output.close()
   }
@@ -4196,7 +4197,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-05.nq")
-    earlOut("trig-syntax-string-05", true)
+    earlOut("trig-syntax-string-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -4214,7 +4215,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-02.nq")
-    earlOut("trig-subm-02", true)
+    earlOut("trig-subm-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -4232,7 +4233,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-03.nq")
-    earlOut("trig-syntax-struct-03", true)
+    earlOut("trig-syntax-struct-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -4273,7 +4274,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_escaped_CHARACTER_TABULATION.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_escaped_CHARACTER_TABULATION.nq")
-    earlOut("literal_with_escaped_CHARACTER_TABULATION", true)
+    earlOut("literal_with_escaped_CHARACTER_TABULATION", output.toString == nq.toString)
 
     output.close()
   }
@@ -4314,7 +4315,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL1_all_punctuation_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL1_all_punctuation.nq")
-    earlOut("LITERAL1_all_punctuation", true)
+    earlOut("LITERAL1_all_punctuation", output.toString == nq.toString)
 
     output.close()
   }
@@ -4332,7 +4333,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/lantag_with_subtag.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in lantag_with_subtag.nq")
-    earlOut("lantag_with_subtag", true)
+    earlOut("lantag_with_subtag", output.toString == nq.toString)
 
     output.close()
   }
@@ -4350,7 +4351,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-uri-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-uri-02.nq")
-    earlOut("trig-syntax-uri-02", true)
+    earlOut("trig-syntax-uri-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -4368,7 +4369,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefixed_IRI_predicate.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefixed_IRI_predicate.nq")
-    earlOut("prefixed_IRI_predicate", true)
+    earlOut("prefixed_IRI_predicate", output.toString == nq.toString)
 
     output.close()
   }
@@ -4386,7 +4387,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-ln-dots.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-ln-dots.nq")
-    earlOut("trig-syntax-ln-dots", true)
+    earlOut("trig-syntax-ln-dots", output.toString == nq.toString)
 
     output.close()
   }
@@ -4404,7 +4405,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-lists-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-lists-04.nq")
-    earlOut("trig-syntax-lists-04", true)
+    earlOut("trig-syntax-lists-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -4445,7 +4446,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-lists-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-lists-03.nq")
-    earlOut("trig-syntax-lists-03", true)
+    earlOut("trig-syntax-lists-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -4463,7 +4464,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/number_sign_following_PNAME_NS.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in number_sign_following_PNAME_NS.nq")
-    earlOut("number_sign_following_PNAME_NS", true)
+    earlOut("number_sign_following_PNAME_NS", output.toString == nq.toString)
 
     output.close()
   }
@@ -4481,7 +4482,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-21.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-21.nq")
-    earlOut("trig-subm-21", true)
+    earlOut("trig-subm-21", output.toString == nq.toString)
 
     output.close()
   }
@@ -4499,7 +4500,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-01.nq")
-    earlOut("trig-syntax-string-01", true)
+    earlOut("trig-syntax-string-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -4517,7 +4518,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/blankNodePropertyList_as_subject.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in blankNodePropertyList_as_subject.nq")
-    earlOut("blankNodePropertyList_as_subject", true)
+    earlOut("blankNodePropertyList_as_subject", output.toString == nq.toString)
 
     output.close()
   }
@@ -4535,7 +4536,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-04.nq")
-    earlOut("trig-syntax-bnode-04", true)
+    earlOut("trig-syntax-bnode-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -4553,7 +4554,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefixed_IRI_object.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefixed_IRI_object.nq")
-    earlOut("prefixed_IRI_object", true)
+    earlOut("prefixed_IRI_object", output.toString == nq.toString)
 
     output.close()
   }
@@ -4594,7 +4595,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-06_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-06.nq")
-    earlOut("trig-subm-06", true)
+    earlOut("trig-subm-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -4612,7 +4613,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-05.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-05.nq")
-    earlOut("trig-syntax-struct-05", true)
+    earlOut("trig-syntax-struct-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -4630,7 +4631,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-05_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-05.nq")
-    earlOut("trig-subm-05", true)
+    earlOut("trig-subm-05", output.toString == nq.toString)
 
     output.close()
   }
@@ -4648,7 +4649,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-eval-struct-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-eval-struct-02.nq")
-    earlOut("trig-eval-struct-02", true)
+    earlOut("trig-eval-struct-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -4689,7 +4690,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-ns-dots.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-ns-dots.nq")
-    earlOut("trig-syntax-ns-dots", true)
+    earlOut("trig-syntax-ns-dots", output.toString == nq.toString)
 
     output.close()
   }
@@ -4707,7 +4708,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/anonymous_blank_node_object_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in anonymous_blank_node_object.nq")
-    earlOut("anonymous_blank_node_object", true)
+    earlOut("anonymous_blank_node_object", output.toString == nq.toString)
 
     output.close()
   }
@@ -4748,7 +4749,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/IRI_subject.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in IRI_subject.nq")
-    earlOut("IRI_subject", true)
+    earlOut("IRI_subject", output.toString == nq.toString)
 
     output.close()
   }
@@ -4789,7 +4790,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_FORM_FEED_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_FORM_FEED.nq")
-    earlOut("literal_with_FORM_FEED", true)
+    earlOut("literal_with_FORM_FEED", output.toString == nq.toString)
 
     output.close()
   }
@@ -4830,7 +4831,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/underscore_in_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in underscore_in_localName.nq")
-    earlOut("underscore_in_localName", true)
+    earlOut("underscore_in_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -4871,7 +4872,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2.nq")
-    earlOut("LITERAL_LONG2", true)
+    earlOut("LITERAL_LONG2", output.toString == nq.toString)
 
     output.close()
   }
@@ -4889,7 +4890,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-03.nq")
-    earlOut("trig-turtle-03", true)
+    earlOut("trig-turtle-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -4907,7 +4908,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-03.nq")
-    earlOut("trig-syntax-string-03", true)
+    earlOut("trig-syntax-string-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -4925,7 +4926,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-08_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-08.nq")
-    earlOut("trig-subm-08", true)
+    earlOut("trig-subm-08", output.toString == nq.toString)
 
     output.close()
   }
@@ -4966,7 +4967,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/SPARQL_style_base.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in SPARQL_style_base.nq")
-    earlOut("SPARQL_style_base", true)
+    earlOut("SPARQL_style_base", output.toString == nq.toString)
 
     output.close()
   }
@@ -4984,7 +4985,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-03.nq")
-    earlOut("trig-kw-graph-03", true)
+    earlOut("trig-kw-graph-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -5025,7 +5026,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-kw-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-kw-03.nq")
-    earlOut("trig-syntax-kw-03", true)
+    earlOut("trig-syntax-kw-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -5066,7 +5067,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_BACKSPACE_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_BACKSPACE.nq")
-    earlOut("literal_with_BACKSPACE", true)
+    earlOut("literal_with_BACKSPACE", output.toString == nq.toString)
 
     output.close()
   }
@@ -5107,7 +5108,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-16_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-16.nq")
-    earlOut("trig-subm-16", true)
+    earlOut("trig-subm-16", output.toString == nq.toString)
 
     output.close()
   }
@@ -5148,7 +5149,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-06.nq")
-    earlOut("trig-syntax-prefix-06", true)
+    earlOut("trig-syntax-prefix-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -5166,7 +5167,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-02.nq")
-    earlOut("trig-syntax-bnode-02", true)
+    earlOut("trig-syntax-bnode-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -5207,7 +5208,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL1_ascii_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL1_ascii_boundaries.nq")
-    earlOut("LITERAL1_ascii_boundaries", true)
+    earlOut("LITERAL1_ascii_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -5225,7 +5226,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/SPARQL_style_prefix.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in SPARQL_style_prefix.nq")
-    earlOut("SPARQL_style_prefix", true)
+    earlOut("SPARQL_style_prefix", output.toString == nq.toString)
 
     output.close()
   }
@@ -5266,7 +5267,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-turtle-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-turtle-06.nq")
-    earlOut("trig-turtle-06", true)
+    earlOut("trig-turtle-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -5284,7 +5285,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/two_LITERAL_LONG2s.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in two_LITERAL_LONG2s.nq")
-    earlOut("two_LITERAL_LONG2s", true)
+    earlOut("two_LITERAL_LONG2s", output.toString == nq.toString)
 
     output.close()
   }
@@ -5348,7 +5349,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/IRI_with_all_punctuation.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in IRI_with_all_punctuation.nq")
-    earlOut("IRI_with_all_punctuation", true)
+    earlOut("IRI_with_all_punctuation", output.toString == nq.toString)
 
     output.close()
   }
@@ -5366,7 +5367,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-02.nq")
-    earlOut("trig-syntax-struct-02", true)
+    earlOut("trig-syntax-struct-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -5384,7 +5385,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/labeled_blank_node_with_non_leading_extras.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in labeled_blank_node_with_non_leading_extras.nq")
-    earlOut("labeled_blank_node_with_non_leading_extras", true)
+    earlOut("labeled_blank_node_with_non_leading_extras", output.toString == nq.toString)
 
     output.close()
   }
@@ -5402,7 +5403,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG1_ascii_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG1_ascii_boundaries.nq")
-    earlOut("LITERAL_LONG1_ascii_boundaries", true)
+    earlOut("LITERAL_LONG1_ascii_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -5443,7 +5444,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-23.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-23.nq")
-    earlOut("trig-subm-23", true)
+    earlOut("trig-subm-23", output.toString == nq.toString)
 
     output.close()
   }
@@ -5484,7 +5485,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-str-esc-01.nq")
-    earlOut("trig-syntax-str-esc-01", true)
+    earlOut("trig-syntax-str-esc-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -5502,7 +5503,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-07.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-07.nq")
-    earlOut("trig-subm-07", true)
+    earlOut("trig-subm-07", output.toString == nq.toString)
 
     output.close()
   }
@@ -5520,7 +5521,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-bnode-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-bnode-03.nq")
-    earlOut("trig-syntax-bnode-03", true)
+    earlOut("trig-syntax-bnode-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -5538,7 +5539,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_numeric_escape8.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_numeric_escape8.nq")
-    earlOut("literal_with_numeric_escape8", true)
+    earlOut("literal_with_numeric_escape8", output.toString == nq.toString)
 
     output.close()
   }
@@ -5579,7 +5580,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_leading_digit.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_leading_digit.nq")
-    earlOut("localName_with_leading_digit", true)
+    earlOut("localName_with_leading_digit", output.toString == nq.toString)
 
     output.close()
   }
@@ -5597,7 +5598,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-10.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-10.nq")
-    earlOut("trig-syntax-number-10", true)
+    earlOut("trig-syntax-number-10", output.toString == nq.toString)
 
     output.close()
   }
@@ -5661,7 +5662,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_1_squote.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2_with_1_squote.nq")
-    earlOut("LITERAL_LONG2_with_1_squote", true)
+    earlOut("LITERAL_LONG2_with_1_squote", output.toString == nq.toString)
 
     output.close()
   }
@@ -5702,7 +5703,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-datatypes-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-datatypes-01.nq")
-    earlOut("trig-syntax-datatypes-01", true)
+    earlOut("trig-syntax-datatypes-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -5720,7 +5721,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/langtagged_LONG_with_subtag.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in langtagged_LONG_with_subtag.nq")
-    earlOut("langtagged_LONG_with_subtag", true)
+    earlOut("langtagged_LONG_with_subtag", output.toString == nq.toString)
 
     output.close()
   }
@@ -5738,7 +5739,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/blankNodePropertyList_containing_collection_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in blankNodePropertyList_containing_collection.nq")
-    earlOut("blankNodePropertyList_containing_collection", true)
+    earlOut("blankNodePropertyList_containing_collection", output.toString == nq.toString)
 
     output.close()
   }
@@ -5756,7 +5757,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-04.nq")
-    earlOut("trig-subm-04", true)
+    earlOut("trig-subm-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -5774,7 +5775,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/blankNodePropertyList_with_multiple_triples.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in blankNodePropertyList_with_multiple_triples.nq")
-    earlOut("blankNodePropertyList_with_multiple_triples", true)
+    earlOut("blankNodePropertyList_with_multiple_triples", output.toString == nq.toString)
 
     output.close()
   }
@@ -5815,7 +5816,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-06.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-06.nq")
-    earlOut("trig-syntax-string-06", true)
+    earlOut("trig-syntax-string-06", output.toString == nq.toString)
 
     output.close()
   }
@@ -5879,7 +5880,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-number-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-number-03.nq")
-    earlOut("trig-syntax-number-03", true)
+    earlOut("trig-syntax-number-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -5897,7 +5898,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-blank-label.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-blank-label.nq")
-    earlOut("trig-syntax-blank-label", true)
+    earlOut("trig-syntax-blank-label", output.toString == nq.toString)
 
     output.close()
   }
@@ -5915,7 +5916,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_LINE_FEED_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_LINE_FEED.nq")
-    earlOut("literal_with_LINE_FEED", true)
+    earlOut("literal_with_LINE_FEED", output.toString == nq.toString)
 
     output.close()
   }
@@ -5933,7 +5934,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-10_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-10.nq")
-    earlOut("trig-subm-10", true)
+    earlOut("trig-subm-10", output.toString == nq.toString)
 
     output.close()
   }
@@ -5951,7 +5952,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/empty_collection.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in empty_collection.nq")
-    earlOut("empty_collection", true)
+    earlOut("empty_collection", output.toString == nq.toString)
 
     output.close()
   }
@@ -5969,7 +5970,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-01.nq")
-    earlOut("trig-syntax-struct-01", true)
+    earlOut("trig-syntax-struct-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -5987,7 +5988,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-11.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-11.nq")
-    earlOut("trig-syntax-string-11", true)
+    earlOut("trig-syntax-string-11", output.toString == nq.toString)
 
     output.close()
   }
@@ -6005,7 +6006,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-02.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-02.nq")
-    earlOut("trig-kw-graph-02", true)
+    earlOut("trig-kw-graph-02", output.toString == nq.toString)
 
     output.close()
   }
@@ -6023,7 +6024,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-file-03.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-file-03.nq")
-    earlOut("trig-syntax-file-03", true)
+    earlOut("trig-syntax-file-03", output.toString == nq.toString)
 
     output.close()
   }
@@ -6064,7 +6065,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-lists-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-lists-01.nq")
-    earlOut("trig-syntax-lists-01", true)
+    earlOut("trig-syntax-lists-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -6082,7 +6083,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/alternating_bnode_graphs_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in alternating_bnode_graphs.nq")
-    earlOut("alternating_bnode_graphs", true)
+    earlOut("alternating_bnode_graphs", output.toString == nq.toString)
 
     output.close()
   }
@@ -6100,7 +6101,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-09.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-09.nq")
-    earlOut("trig-syntax-prefix-09", true)
+    earlOut("trig-syntax-prefix-09", output.toString == nq.toString)
 
     output.close()
   }
@@ -6141,7 +6142,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_escaped_BACKSPACE.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_escaped_BACKSPACE.nq")
-    earlOut("literal_with_escaped_BACKSPACE", true)
+    earlOut("literal_with_escaped_BACKSPACE", output.toString == nq.toString)
 
     output.close()
   }
@@ -6159,7 +6160,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/bareword_decimal.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in bareword_decimal.nq")
-    earlOut("bareword_decimal", true)
+    earlOut("bareword_decimal", output.toString == nq.toString)
 
     output.close()
   }
@@ -6177,7 +6178,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/prefixed_name_datatype.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in prefixed_name_datatype.nq")
-    earlOut("prefixed_name_datatype", true)
+    earlOut("prefixed_name_datatype", output.toString == nq.toString)
 
     output.close()
   }
@@ -6195,7 +6196,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/anonymous_blank_node_subject_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in anonymous_blank_node_subject.nq")
-    earlOut("anonymous_blank_node_subject", true)
+    earlOut("anonymous_blank_node_subject", output.toString == nq.toString)
 
     output.close()
   }
@@ -6213,7 +6214,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_escaped_FORM_FEED.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_escaped_FORM_FEED.nq")
-    earlOut("literal_with_escaped_FORM_FEED", true)
+    earlOut("literal_with_escaped_FORM_FEED", output.toString == nq.toString)
 
     output.close()
   }
@@ -6231,7 +6232,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/reserved_escaped_localName.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in reserved_escaped_localName.nq")
-    earlOut("reserved_escaped_localName", true)
+    earlOut("reserved_escaped_localName", output.toString == nq.toString)
 
     output.close()
   }
@@ -6249,7 +6250,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.nq")
-    earlOut("localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries", true)
+    earlOut("localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries", output.toString == nq.toString)
 
     output.close()
   }
@@ -6267,7 +6268,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL1.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL1.nq")
-    earlOut("LITERAL1", true)
+    earlOut("LITERAL1", output.toString == nq.toString)
 
     output.close()
   }
@@ -6308,7 +6309,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-24.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-24.nq")
-    earlOut("trig-subm-24", true)
+    earlOut("trig-subm-24", output.toString == nq.toString)
 
     output.close()
   }
@@ -6326,7 +6327,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/numeric_with_leading_0.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in numeric_with_leading_0.nq")
-    earlOut("numeric_with_leading_0", true)
+    earlOut("numeric_with_leading_0", output.toString == nq.toString)
 
     output.close()
   }
@@ -6344,7 +6345,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-kw-graph-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-kw-graph-01.nq")
-    earlOut("trig-kw-graph-01", true)
+    earlOut("trig-kw-graph-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -6385,7 +6386,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-20.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-20.nq")
-    earlOut("trig-subm-20", true)
+    earlOut("trig-subm-20", output.toString == nq.toString)
 
     output.close()
   }
@@ -6403,7 +6404,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-prefix-01.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-prefix-01.nq")
-    earlOut("trig-syntax-prefix-01", true)
+    earlOut("trig-syntax-prefix-01", output.toString == nq.toString)
 
     output.close()
   }
@@ -6444,7 +6445,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/repeated_semis_not_at_end.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in repeated_semis_not_at_end.nq")
-    earlOut("repeated_semis_not_at_end", true)
+    earlOut("repeated_semis_not_at_end", output.toString == nq.toString)
 
     output.close()
   }
@@ -6485,7 +6486,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-subm-13.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-13.nq")
-    earlOut("trig-subm-13", true)
+    earlOut("trig-subm-13", output.toString == nq.toString)
 
     output.close()
   }
@@ -6526,7 +6527,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/literal_with_numeric_escape4.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_numeric_escape4.nq")
-    earlOut("literal_with_numeric_escape4", true)
+    earlOut("literal_with_numeric_escape4", output.toString == nq.toString)
 
     output.close()
   }
@@ -6544,7 +6545,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/trig-syntax-struct-04.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-struct-04.nq")
-    earlOut("trig-syntax-struct-04", true)
+    earlOut("trig-syntax-struct-04", output.toString == nq.toString)
 
     output.close()
   }
@@ -6562,7 +6563,7 @@ class TrigEARLSpec extends FlatSpec {
     val nq = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_REVERSE_SOLIDUS.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in LITERAL_LONG2_with_REVERSE_SOLIDUS.nq")
-    earlOut("LITERAL_LONG2_with_REVERSE_SOLIDUS", true)
+    earlOut("LITERAL_LONG2_with_REVERSE_SOLIDUS", output.toString == nq.toString)
 
     output.close()
   }
