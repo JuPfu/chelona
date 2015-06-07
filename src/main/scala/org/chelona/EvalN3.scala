@@ -120,7 +120,7 @@ class EvalN3(basePath: String, label: String) {
           case SPOString(token) ⇒ curPredicate = token
         }
         evalStatement(obj)
-      case ASTObjectList(rule) ⇒ SPOTriples(traverseObjectList(rule, Nil))
+      case ASTObjectList(rule) ⇒ SPOTriples(traverseTriples(rule, Nil))
       case ASTVerb(rule)       ⇒ evalStatement(rule)
       case ASTIsA(token)       ⇒ SPOString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
       case ASTSubject(rule) ⇒ (rule: @unchecked) match {
@@ -239,24 +239,23 @@ class EvalN3(basePath: String, label: String) {
 
   @tailrec
   private def traversePredicateObjectList(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
       case SPOTriples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
     }
+    case Nil ⇒ triples
   }
 
   @tailrec
-  private def traverseObjectList(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples
+  private def traverseTriples(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case SPOTriple(s, p, o) ⇒ traverseObjectList(xs, triples :+ SPOTriple(s, p, o))
-      case SPOTriples(t)      ⇒ traverseObjectList(xs, triples ::: t)
+      case SPOTriple(s, p, o) ⇒ traverseTriples(xs, triples :+ SPOTriple(s, p, o))
+      case SPOTriples(t)      ⇒ traverseTriples(xs, triples ::: t)
     }
+    case Nil ⇒ triples
   }
 
   @tailrec
   private def traverseCollection(l: Seq[TurtleAST], triples: List[SPOTriple]): List[SPOTriple] = l match {
-    case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
     case x +: xs ⇒
       val oldSubject = curSubject
       (evalStatement(x): @unchecked) match {
@@ -275,6 +274,7 @@ class EvalN3(basePath: String, label: String) {
           triples ::: t
         })
       }
+    case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
   }
 
   private def definePrefix(key: String, value: String) = {

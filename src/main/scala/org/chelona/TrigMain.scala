@@ -28,7 +28,7 @@ object TrigMain extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
-  if (cmdLineArgs == None) {
+  if (cmdLineArgs.isEmpty) {
     sys.exit(1)
   }
 

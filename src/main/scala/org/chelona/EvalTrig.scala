@@ -50,6 +50,7 @@ class EvalTrig(basePath: String, label: String) {
   }
 
   def evalStatement(expr: TurtleAST): TrigReturnValue = {
+    println("EVAL expr="+expr)
     expr match {
       case ASTTrigDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
@@ -95,7 +96,7 @@ class EvalTrig(basePath: String, label: String) {
       }
       case ASTTriplesBlock(t) ⇒ TrigTuples(traverseTriples(t, Nil))
       case ASTLabelOrSubject(ls) ⇒
-        val l = evalStatement(ls);
+        val l = evalStatement(ls)
         (l: @unchecked) match { case TrigString(label) ⇒ curGraph = label; curSubject = label; l }
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {

@@ -97,7 +97,7 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
 
   //[6g]	triplesBlock	::=	triples ('.' triplesBlock?)?
   def triplesBlock = rule {
-    triples.+(('.' ~ ws).+) ~ ('.' ~ ws).* ~> ASTTriplesBlock
+    triples.+(('.' ~ ws)) ~ ('.' ~ ws).? ~> ASTTriplesBlock
   }
 
   //[7g]	labelOrSubject	::=	iri | BlankNode
