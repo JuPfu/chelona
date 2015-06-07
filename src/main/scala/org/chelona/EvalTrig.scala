@@ -27,7 +27,6 @@ object EvalTrig {
 
 class EvalTrig(basePath: String, label: String) {
 
-  //import org.chelona.TrigParser._
   import org.chelona.ChelonaParser._
 
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
@@ -51,14 +50,13 @@ class EvalTrig(basePath: String, label: String) {
   }
 
   def evalStatement(expr: TurtleAST): TrigReturnValue = {
-    //println("TRIG EVAL expr=" + expr)
     expr match {
       case ASTTrigDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
-        /* some clean up at the beginning of a new turtle statement */
+        /* some clean up at the beginning of a new trig statement */
         subjectStack.clear
         predicateStack.clear
-        /* evaluate a turtle statement */
+        /* evaluate a trig statement */
         evalStatement(rule)
       case ASTBlock(rule) ⇒
         rule match {
@@ -98,8 +96,7 @@ class EvalTrig(basePath: String, label: String) {
       case ASTTriplesBlock(t) ⇒ TrigTuples(traverseTriples(t, Nil))
       case ASTLabelOrSubject(ls) ⇒
         val l = evalStatement(ls);
-        (l: @unchecked) match { case TrigString(label) ⇒ curGraph = label; curSubject = label }
-        l
+        (l: @unchecked) match { case TrigString(label) ⇒ curGraph = label; curSubject = label; l }
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
           case TrigString(s) ⇒ TrigString("<" + addIriPrefix(s) + ">")
@@ -164,7 +161,7 @@ class EvalTrig(basePath: String, label: String) {
           case TrigString(token) ⇒ curPredicate = token
         }
         evalStatement(obj)
-      case ASTObjectList(rule) ⇒ TrigTuples(traverseObjectList(rule, Nil))
+      case ASTObjectList(rule) ⇒ TrigTuples(traverseTriples(rule, Nil))
       case ASTVerb(rule)       ⇒ evalStatement(rule)
       case ASTIsA(token)       ⇒ TrigString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
       case ASTSubject(rule) ⇒ (rule: @unchecked) match {
@@ -291,10 +288,10 @@ class EvalTrig(basePath: String, label: String) {
   }
 
   @tailrec
-  private def traverseObjectList(l: Seq[TurtleAST], triples: List[TrigTuple]): List[TrigTuple] = l match {
+  private def traverseTriples(l: Seq[TurtleAST], triples: List[TrigTuple]): List[TrigTuple] = l match {
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case TrigTuple(s, p, o, g) ⇒ traverseObjectList(xs, triples :+ TrigTuple(s, p, o, g))
-      case TrigTuples(t)         ⇒ traverseObjectList(xs, triples ::: t)
+      case TrigTuple(s, p, o, g) ⇒ traverseTriples(xs, triples :+ TrigTuple(s, p, o, g))
+      case TrigTuples(t)         ⇒ traverseTriples(xs, triples ::: t)
     }
     case Nil ⇒ triples
   }
@@ -320,15 +317,6 @@ class EvalTrig(basePath: String, label: String) {
         })
       }
     case Nil ⇒ triples ::: TrigTuple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", curGraph) :: Nil
-  }
-
-  @tailrec
-  private def traverseTriples(l: Seq[TurtleAST], triples: List[TrigTuple]): List[TrigTuple] = l match {
-    case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case TrigTuple(s, p, o, g) ⇒ traverseTriples(xs, triples :+ TrigTuple(s, p, o, g))
-      case TrigTuples(t)         ⇒ traverseTriples(xs, triples ::: t)
-    }
-    case Nil ⇒ triples
   }
 
   private def definePrefix(key: String, value: String) = {
