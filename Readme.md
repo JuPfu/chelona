@@ -13,7 +13,6 @@ With *Cheló̱na* you can
 - validate the syntax and semantic of a W3C RDF 1.1 *Trig* file
 - convert a *Trig* file into its canonical quad form
 - convert a *Trig* file into another format, e.g. JSON (to be done)
-      
 - validate the syntax and semantic of a W3C RDF 1.1 Turtle file
 - convert a Turtle file into its canonical triple form
 - convert a Turtle file into another format, e.g. JSON (to be done)
@@ -256,6 +255,8 @@ What *Cheló̱na* Does in Detail:
 Trig-Section
 ============
 
+The Trig language definition can be found here http://www.w3.org/TR/trig/ .
+
 First Example
 =============
 
@@ -283,7 +284,7 @@ Here is a simple Trig file which can be found as Example1 at https://www.w3.org/
 	
 Conversion is done with
 
-    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TrigMain --verbose ./examples/example1.trig > example1_n3.nq
+    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TrigMain --verbose ./examples/example1.trig > example1.nq
     
 License
 =======
