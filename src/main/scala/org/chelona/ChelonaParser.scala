@@ -18,10 +18,12 @@ package org.chelona
 
 import java.io.Writer
 
+import org.chelona.ChelonaParser.N3AST
+
 import org.parboiled2._
 
 import scala.language.implicitConversions
-import scala.util.{ Failure, Success }
+import scala.util.{ Success }
 
 object ChelonaParser extends TurtleAST {
 
@@ -37,8 +39,6 @@ object ChelonaParser extends TurtleAST {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n")).length
   }
 
-  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
-
   sealed trait SPOReturnValue
 
   case class SPOString(s: String) extends SPOReturnValue
@@ -48,15 +48,19 @@ object ChelonaParser extends TurtleAST {
   case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
 
   case class SPOComment(value: String) extends SPOReturnValue
+
+  sealed trait N3AST extends TurtleAST
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
 
   import org.chelona.CharPredicates._
 
-  import org.chelona.ChelonaParser._
+  import org.chelona.ChelonaParser.{ tripleWriter }
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
+
+  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]

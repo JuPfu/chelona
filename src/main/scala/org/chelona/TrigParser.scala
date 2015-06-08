@@ -19,6 +19,7 @@ package org.chelona
 import java.io.Writer
 
 import org.chelona.TrigParser.QuadAST
+
 import org.parboiled2._
 
 import scala.language.implicitConversions
