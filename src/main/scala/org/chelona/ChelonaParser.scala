@@ -19,6 +19,7 @@ package org.chelona
 import java.io.Writer
 
 import org.chelona.ChelonaParser.N3AST
+import org.chelona.EvalN3.SPOTriple
 
 import org.parboiled2._
 
@@ -38,16 +39,6 @@ object ChelonaParser extends TurtleAST {
   def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n")).length
   }
-
-  sealed trait SPOReturnValue
-
-  case class SPOString(s: String) extends SPOReturnValue
-
-  case class SPOTriple(s: String, p: String, o: String) extends SPOReturnValue
-
-  case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
-
-  case class SPOComment(value: String) extends SPOReturnValue
 
   sealed trait N3AST extends TurtleAST
 }

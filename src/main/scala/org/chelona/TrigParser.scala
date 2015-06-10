@@ -18,6 +18,7 @@ package org.chelona
 
 import java.io.Writer
 
+import org.chelona.EvalTrig.TrigTuple
 import org.chelona.TrigParser.QuadAST
 
 import org.parboiled2._
@@ -33,16 +34,6 @@ object TrigParser extends TrigAST[TurtleAST] {
   def trigWriter(bo: Writer)(triple: List[TrigTuple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
   }
-
-  sealed trait TrigReturnValue
-
-  case class TrigString(s: String) extends TrigReturnValue
-
-  case class TrigTuple(s: String, p: String, o: String, g: String) extends TrigReturnValue
-
-  case class TrigTuples(values: List[TrigTuple]) extends TrigReturnValue
-
-  case class TrigComment(value: String) extends TrigReturnValue
 
   sealed trait QuadAST extends TrigAST[TurtleAST]
 

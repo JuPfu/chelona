@@ -16,11 +16,23 @@
 
 package org.chelona
 
+import org.chelona.EvalN3._
+
 import scala.annotation.tailrec
 import scala.util.Success
 
 object EvalN3 {
   def apply(basePath: String, label: String) = new EvalN3(basePath, label)
+
+  sealed trait SPOReturnValue
+
+  case class SPOString(s: String) extends SPOReturnValue
+
+  case class SPOTriple(s: String, p: String, o: String) extends SPOReturnValue
+
+  case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
+
+  case class SPOComment(value: String) extends SPOReturnValue
 }
 
 class EvalN3(basePath: String, label: String) {

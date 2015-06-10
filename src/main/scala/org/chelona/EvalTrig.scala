@@ -16,6 +16,7 @@
 
 package org.chelona
 
+import org.chelona.EvalTrig._
 import org.chelona.TrigParser._
 
 import scala.annotation.tailrec
@@ -23,6 +24,16 @@ import scala.util.Success
 
 object EvalTrig {
   def apply(basePath: String, label: String) = new EvalTrig(basePath, label)
+
+  sealed trait TrigReturnValue
+
+  case class TrigString(s: String) extends TrigReturnValue
+
+  case class TrigTuple(s: String, p: String, o: String, g: String) extends TrigReturnValue
+
+  case class TrigTuples(values: List[TrigTuple]) extends TrigReturnValue
+
+  case class TrigComment(value: String) extends TrigReturnValue
 }
 
 class EvalTrig(basePath: String, label: String) {
