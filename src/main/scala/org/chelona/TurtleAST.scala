@@ -24,8 +24,6 @@ trait TurtleAST {
 
   case class ASTComment(token: String) extends TurtleAST
 
-  case class ASTBlank(token: String) extends TurtleAST
-
   case class ASTDirective(rule: TurtleAST) extends TurtleAST
 
   case class ASTPrefixID(namespace: TurtleAST, iri: TurtleAST) extends TurtleAST

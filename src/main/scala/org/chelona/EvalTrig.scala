@@ -285,7 +285,6 @@ class EvalTrig(basePath: String, label: String) {
       case ASTAnon(token) ⇒
         aCount += 1; TrigString("_:a" + label + aCount)
       case ASTComment(token) ⇒ TrigComment(token)
-      case ASTBlank(token)   ⇒ TrigString(token)
     }
 
   }

@@ -54,7 +54,6 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
         if (!validate) trig.renderStatement(ast, trigOutput) else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0
-            case ASTStatement(ASTBlank(s))   ⇒ 0
             case _                           ⇒ 1
           }
       } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
@@ -62,7 +61,7 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
 
   //[2] trigDoc 	::= 	directive | block
   override def statement = rule {
-    (directive | block | blank | comment) ~> ASTStatement
+    (directive | block | comment) ~> ASTStatement
   }
 
   //[2g] block	::=	triplesOrGraph | wrappedGraph | triples2 | "GRAPH" labelOrSubject wrappedGraph

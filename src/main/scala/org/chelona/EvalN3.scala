@@ -245,7 +245,6 @@ class EvalN3(basePath: String, label: String) {
       case ASTAnon(token) ⇒
         aCount += 1; SPOString("_:a" + label + aCount)
       case ASTComment(token) ⇒ SPOComment(token)
-      case ASTBlank(token)   ⇒ SPOString(token)
     }
   }
 

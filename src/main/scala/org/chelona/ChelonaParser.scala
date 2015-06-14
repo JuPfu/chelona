@@ -31,13 +31,14 @@ object ChelonaParser extends TurtleAST {
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
   }
+  /*
+  def tripleWriter(bo: Writer)(triple: List[JSONTriple]): Int = {
+    triple.map(t ⇒ bo.write("{ \""+ t.s + "\" : { \"" + t.p + "\" : [ " + t.o + " ] } }\n")).length
+  }
+  */
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
-  }
-
-  def tripleRawWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
-    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + "\n")).length
   }
 
   sealed trait N3AST extends TurtleAST
@@ -74,17 +75,16 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   }
 
   def ws = rule {
-    quiet((anyOf(" \n\r\t").* ~ ('#' ~ noneOf("\n\r").*) | anyOf(" \n\r\t").+).+ | anyOf(" \n\r\t").*)
+    quiet(((anyOf(" \n\r\t") | '#' ~ (noneOf("\n\r")).*).*))
   }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    (statement ~> ((ast: TurtleAST) ⇒
+    anyOf(" \n\r\t").* ~ (statement ~> ((ast: TurtleAST) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) n3.renderStatement(ast, tripleOutput) else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0
-            case ASTStatement(ASTBlank(s))   ⇒ 0
             case _                           ⇒ 1
           }
       } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
@@ -92,17 +92,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[2] statement 	::= 	directive | triples '.'
   def statement: Rule1[TurtleAST] = rule {
-    (directive | triples ~ "." | blank | comment) ~> ASTStatement
+    (directive | triples ~ "." | comment) ~> ASTStatement
   }
 
   //
   def comment = rule {
-    quiet('#' ~ capture(noneOf("\n\r").*) ~> ASTComment ~ '\r'.? ~ '\n')
-  }
-
-  //
-  def blank = rule {
-    quiet(anyOf(" \n\r\t").+) ~ push("") ~> ASTBlank
+    quiet('#' ~ capture(noneOf("\n").*) ~> ASTComment ~ '\n' ~ anyOf(" \n\r\t").*)
   }
 
   //[3] directive 	::= 	prefixID | base | sparqlPrefix | sparqlBase
