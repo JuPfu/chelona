@@ -109,7 +109,7 @@ class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boole
 
   //[144s]	LANGTAG	::=	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
   def LANGTAG = rule {
-    atomic('@' ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~ ws ~> ASTLangTag
+    atomic("@" ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~ ws ~> ASTLangTag
   }
 
   //[7]	EOL	::=	[#xD#xA]+
