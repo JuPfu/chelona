@@ -6,6 +6,8 @@ import org.chelona.EvalNT._
 import org.chelona.NTriplesParser._
 import org.parboiled2._
 
+import scala.util.Success
+
 object NTriplesParser {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
@@ -133,7 +135,7 @@ class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boole
         str("\\u0060") | str("\\U00000060") |
         str("\\u007B") | str("\\u007b") | str("\\U0000007B") | str("\\U0000007b") |
         str("\\u007C") | str("\\u007c") | str("\\U0000007C") | str("\\U0000007c") |
-        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).*) ~ push(sb.toString) ~ '>' ~> ASTIriRef ~ ws
+        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).*) ~ push(sb.toString) ~ '>' ~> ((iri: String) ⇒ (test(isAbsoluteIRIRef(iri)) | fail("relative IRI not allowed: " + iri)) ~ push(iri)) ~> ASTIriRef ~ ws
   }
 
   //[9]	STRING_LITERAL_QUOTE	::=	'"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"'
@@ -155,5 +157,14 @@ class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boole
   //[153s]	ECHAR	::=	'\' [tbnrf"'\]
   def ECHAR = rule {
     atomic(str("\\") ~ appendSB ~ ECHAR_CHAR ~ appendSB)
+  }
+
+  private def isAbsoluteIRIRef(iriRef: String): Boolean = {
+    iriRef.startsWith("//") || hasScheme(iriRef)
+  }
+
+  private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
+    case Success(s) ⇒ true
+    case _          ⇒ false
   }
 }
