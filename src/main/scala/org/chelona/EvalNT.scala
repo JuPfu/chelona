@@ -56,11 +56,12 @@ class EvalNT(basePath: String, label: String) {
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ SPOString(token)
-      case ASTIriRef(token)             ⇒ SPOString("<" + token + ">")
-      case ASTStringLiteralQuote(token) ⇒ SPOString("\"" + token + "\"")
-      case ASTBlankNodeLabel(token)     ⇒ SPOString(setBlankNodeName("_:" + token))
-      case ASTComment(token)            ⇒ SPOComment(token)
+      case ASTLangTag(token)                  ⇒ SPOString(token)
+      case ASTIriRef(token)                   ⇒ SPOString("<" + token + ">")
+      case ASTStringLiteralQuote(token)       ⇒ SPOString("\"" + token + "\"")
+      case ASTBlankNodeLabel(token)           ⇒ SPOString(setBlankNodeName("_:" + token))
+      case ASTComment(token)                  ⇒ SPOComment(token)
+      case NTriplesParser.ASTBlankLine(token) ⇒ SPOComment(token)
     }
   }
 

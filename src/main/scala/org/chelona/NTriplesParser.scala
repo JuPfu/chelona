@@ -18,6 +18,8 @@ object NTriplesParser {
 
   sealed trait NTripleAST
 
+  case class ASTBlankLine(token: String) extends NTripleAST
+
   case class ASTComment(token: String) extends NTripleAST
 
   case class ASTTriple(subject: NTripleAST, predicate: NTripleAST, `object`: NTripleAST, comment: Option[ASTComment]) extends NTripleAST
@@ -84,8 +86,10 @@ class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boole
 
   //[2] triple	::=	subject predicate object '.'
   def triple: Rule1[NTripleAST] = rule {
-    ws ~ (subject ~ predicate ~ obj ~ "." ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment)
+    ws ~ (subject ~ predicate ~ obj ~ "." ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | blank_line ~> ASTBlankLine
   }
+
+  def blank_line = rule { quiet(capture(anyOf(" \t").+)) }
 
   //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
   def subject = rule {
