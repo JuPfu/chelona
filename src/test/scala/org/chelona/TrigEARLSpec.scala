@@ -35,8 +35,9 @@ class TrigEARLSpec extends FlatSpec {
     val test = testcase // "IRI_subject"
     val outcome = if (passed) "passed" else "failed"
     val datum = Calendar.getInstance.getTime
+    val datum_format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
     val mode = "automatic"
-    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.trig#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
+    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TrigTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum_format.format(datum)}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
     earl.write(earl_assertion);
     earl.flush()
   }
@@ -1370,7 +1371,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-collection-graph-bad-01.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-collection-graph-bad-01", !res)
+    earlOut("trig-collection-graph-01", !res)
 
     output.close()
   }
@@ -2221,7 +2222,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-collection-graph-bad-02.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-collection-graph-bad-02", !res)
+    earlOut("trig-collection-graph-02", !res)
 
     output.close()
   }
@@ -5355,7 +5356,7 @@ class TrigEARLSpec extends FlatSpec {
         System.err.println("File './TrigTests/trig-bnodeplist-graph-bad-01.trig': Unexpected error during parsing run: " + e)
         false
     }
-    earlOut("trig-bnodeplist-graph-bad-01", !res)
+    earlOut("trig-bnodeplist-graph-01", !res)
 
     output.close()
   }
