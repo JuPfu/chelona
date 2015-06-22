@@ -31,12 +31,11 @@ object ChelonaParser extends TurtleAST {
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
   }
-  /*
+/*
   def tripleWriter(bo: Writer)(triple: List[JSONTriple]): Int = {
-    triple.map(t ⇒ bo.write("{ \""+ t.s + "\" : { \"" + t.p + "\" : [ " + t.o + " ] } }\n")).length
+    triple.map(t ⇒ bo.write("{ \"" + t.s + "\" : { \"" + t.p + "\" : [ { " + t.o + " } ] } }\n")).length
   }
-  */
-
+*/
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
   }
@@ -212,12 +211,12 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   //[128s] RDFLiteral 	::= 	String (LANGTAG | '^^' iri)?
   def rdfLiteral = rule {
-    string ~ (ws ~ LANGTAG | ws ~ str("^^") ~ ws ~ iri).? ~ ws ~> ASTRdfLiteral
+    string ~ (ws ~ LANGTAG | "^^" ~ iri).? ~ ws ~> ASTRdfLiteral
   }
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
   def LANGTAG = rule {
-    atomic('@' ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
+    atomic("@" ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
   }
 
   //[133s] BooleanLiteral 	::= 	'true' | 'false'
