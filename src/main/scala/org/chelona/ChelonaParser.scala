@@ -19,7 +19,6 @@ package org.chelona
 import java.io.Writer
 
 import org.chelona.ChelonaParser.N3AST
-import org.chelona.EvalN3.SPOTriple
 
 import org.parboiled2._
 
@@ -31,11 +30,13 @@ object ChelonaParser extends TurtleAST {
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
   }
-/*
+  /*
   def tripleWriter(bo: Writer)(triple: List[JSONTriple]): Int = {
     triple.map(t ⇒ bo.write("{ \"" + t.s + "\" : { \"" + t.p + "\" : [ { " + t.o + " } ] } }\n")).length
   }
 */
+  import org.chelona.EvalN3.SPOTriple
+
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
   }
@@ -47,7 +48,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
 
   import org.chelona.CharPredicates._
 
-  import org.chelona.ChelonaParser.{ tripleWriter }
+  import org.chelona.ChelonaParser.tripleWriter
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 

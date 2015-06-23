@@ -2,13 +2,13 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.EvalNT._
-import org.chelona.NTriplesParser._
+import org.chelona.NTriplesParser.NTAST
+
 import org.parboiled2._
 
 import scala.util.Success
 
-object NTriplesParser {
+object NTriplesParser extends NTripleAST {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NTriplesParser(input, output, validate, basePath, label)
@@ -18,8 +18,8 @@ object NTriplesParser {
     bo.write(s + " " + p + " " + o + " .\n"); 1
   }
 
-  sealed trait NTripleAST
-
+  sealed trait NTAST extends NTripleAST
+  /*
   case class ASTBlankLine(token: String) extends NTripleAST
 
   case class ASTComment(token: String) extends NTripleAST
@@ -43,12 +43,16 @@ object NTriplesParser {
   case class ASTStringLiteralQuote(token: String) extends NTripleAST
 
   case class ASTBlankNodeLabel(token: String) extends NTripleAST
+
+  //case class ASTGraphLabel(rule: NTripleAST) extends NTripleAST
+  */
 }
 
-class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
+class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
 
   import org.chelona.CharPredicates._
-  import org.chelona.NTriplesParser._
+
+  import org.chelona.NTriplesParser.NTWriter
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
