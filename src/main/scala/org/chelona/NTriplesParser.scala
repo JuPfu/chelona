@@ -19,33 +19,6 @@ object NTriplesParser extends NTripleAST {
   }
 
   sealed trait NTAST extends NTripleAST
-  /*
-  case class ASTBlankLine(token: String) extends NTripleAST
-
-  case class ASTComment(token: String) extends NTripleAST
-
-  case class ASTTriple(subject: NTripleAST, predicate: NTripleAST, `object`: NTripleAST, comment: Option[ASTComment]) extends NTripleAST
-
-  case class ASTTripleComment(rule: NTripleAST) extends NTripleAST
-
-  case class ASTSubject(rule: NTripleAST) extends NTripleAST
-
-  case class ASTPredicate(rule: NTripleAST) extends NTripleAST
-
-  case class ASTObject(rule: NTripleAST) extends NTripleAST
-
-  case class ASTLangTag(token: String) extends NTripleAST
-
-  case class ASTIriRef(token: String) extends NTripleAST
-
-  case class ASTLiteral(token: NTripleAST, postfix: Option[NTripleAST]) extends NTripleAST
-
-  case class ASTStringLiteralQuote(token: String) extends NTripleAST
-
-  case class ASTBlankNodeLabel(token: String) extends NTripleAST
-
-  //case class ASTGraphLabel(rule: NTripleAST) extends NTripleAST
-  */
 }
 
 class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
