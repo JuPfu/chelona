@@ -35,7 +35,7 @@ object ChelonaParser extends TurtleAST {
     triple.map(t ⇒ bo.write("{ \"" + t.s + "\" : { \"" + t.p + "\" : [ { " + t.o + " } ] } }\n")).length
   }
 */
-  import org.chelona.EvalN3.SPOTriple
+  import org.chelona.EvalTurtle.SPOTriple
 
   def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
@@ -65,7 +65,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   var bCount = 0
   var cCount = 0
 
-  val n3 = new EvalN3(basePath, label)
+  val n3 = new EvalTurtle(basePath, label)
 
   val tripleOutput = tripleWriter(output)_
 

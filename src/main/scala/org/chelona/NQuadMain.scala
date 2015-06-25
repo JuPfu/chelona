@@ -63,7 +63,7 @@ object NQuadMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = QuadParser(input, output, validate, base, label)
+  val parser = NQuadParser(input, output, validate, base, label)
 
   val res = parser.nquadsDoc.run()
 

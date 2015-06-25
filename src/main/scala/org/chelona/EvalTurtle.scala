@@ -16,13 +16,13 @@
 
 package org.chelona
 
-import org.chelona.EvalN3._
+import org.chelona.EvalTurtle._
 
 import scala.annotation.tailrec
 import scala.util.Success
 
-object EvalN3 {
-  def apply(basePath: String, label: String) = new EvalN3(basePath, label)
+object EvalTurtle {
+  def apply(basePath: String, label: String) = new EvalTurtle(basePath, label)
 
   sealed trait SPOReturnValue
 
@@ -35,7 +35,7 @@ object EvalN3 {
   case class SPOComment(value: String) extends SPOReturnValue
 }
 
-class EvalN3(basePath: String, label: String) {
+class EvalTurtle(basePath: String, label: String) {
 
   import org.chelona.ChelonaParser._
 

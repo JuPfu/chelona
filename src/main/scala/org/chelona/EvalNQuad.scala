@@ -16,10 +16,10 @@
 
 package org.chelona
 
-import org.chelona.EvalQuad._
+import org.chelona.EvalNQuad._
 
-object EvalQuad {
-  def apply(basePath: String, label: String) = new EvalQuad(basePath, label)
+object EvalNQuad {
+  def apply(basePath: String, label: String) = new EvalNQuad(basePath, label)
 
   sealed trait SPOReturnValue
 
@@ -30,9 +30,9 @@ object EvalQuad {
   case class SPOComment(value: String) extends SPOReturnValue
 }
 
-class EvalQuad(basePath: String, label: String) {
+class EvalNQuad(basePath: String, label: String) {
 
-  import org.chelona.QuadParser._
+  import org.chelona.NQuadParser._
 
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
 

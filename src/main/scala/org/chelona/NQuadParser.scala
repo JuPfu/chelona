@@ -18,14 +18,14 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.QuadParser.NQAST
+import org.chelona.NQuadParser.NQAST
 
 import org.parboiled2._
 
-object QuadParser extends NQuadAST[NTripleAST] {
+object NQuadParser extends NQuadAST[NTripleAST] {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new QuadParser(input, output, validate, basePath, label)
+    new NQuadParser(input, output, validate, basePath, label)
   }
 
   def quadWriter(bo: Writer)(s: String, p: String, o: String, g: String): Int = {
@@ -35,11 +35,11 @@ object QuadParser extends NQuadAST[NTripleAST] {
   sealed trait NQAST extends NQuadAST[NTripleAST]
 }
 
-class QuadParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output, validate, basePath, label) with NQAST {
+class NQuadParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output, validate, basePath, label) with NQAST {
 
-  import org.chelona.QuadParser.quadWriter
+  import org.chelona.NQuadParser.quadWriter
 
-  val quad = new EvalQuad(basePath, label)
+  val quad = new EvalNQuad(basePath, label)
 
   val quadOutput = quadWriter(output)_
 
