@@ -41,7 +41,6 @@ val parboiled2       = "org.parboiled"   %% "parboiled"        % "2.1.0"
 val scopt            = "com.github.scopt" %% "scopt" % "3.3.0"
 val scalaTest        = "org.scalatest"   % "scalatest_2.11"    % "2.2.1" % "test"
 
-
 /////////////////////// PROJECTS /////////////////////////
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -53,6 +52,13 @@ parallelExecution in Test := true
 test in assembly := {}
 
 scalariformSettings
+
+ScalariformKeys.preferences := ScalariformKeys.preferences.value
+  .setPreference(RewriteArrowSymbols, true)
+  .setPreference(AlignParameters, true)
+  .setPreference(AlignSingleLineCaseStatements, true)
+  .setPreference(DoubleIndentClassDeclaration, true)
+  .setPreference(PreserveDanglingCloseParenthesis, true)
 
 libraryDependencies ++= Seq( parboiled2, scopt, scalaTest )
   
