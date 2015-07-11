@@ -3,7 +3,7 @@ import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
   version := "1.0.0",
-  scalaVersion := "2.11.6",
+  scalaVersion := "2.11.7",
   name := "Chelona",
   organization := "org.chelona",
   homepage := Some(new URL("http://chelona.org")),
@@ -53,13 +53,6 @@ parallelExecution in Test := true
 test in assembly := {}
 
 scalariformSettings
-
-ScalariformKeys.preferences := ScalariformKeys.preferences.value
-  .setPreference(RewriteArrowSymbols, true)
-  .setPreference(AlignParameters, true)
-  .setPreference(AlignSingleLineCaseStatements, true)
-  .setPreference(DoubleIndentClassDeclaration, true)
-  .setPreference(PreserveDanglingCloseParenthesis, true)
 
 libraryDependencies ++= Seq( parboiled2, scopt, scalaTest )
   

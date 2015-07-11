@@ -16,23 +16,27 @@
 
 package org.chelona
 
-trait TrigAST[TrigAST <: TurtleAST] extends TurtleAST {
+trait TrigAST extends TurtleAST with RDFASTType {
 
-  case class ASTTrigDoc(rule: TrigAST) extends TurtleAST
+  type TriGType = TrigAST
 
-  case class ASTBlock(rule: TrigAST) extends TurtleAST
+  case class ASTTrigDoc(rule: TurtleType) extends TrigAST
 
-  case class ASTLabelOrSubjectBlock(labelOrSubject: ASTLabelOrSubject, wrappedGraph: ASTWrappedGraph) extends TurtleAST
+  case class ASTBlock(rule: TurtleType) extends TrigAST
 
-  case class ASTTriplesOrGraph(labelOrSubject: TrigAST, rule: TrigAST) extends TurtleAST
+  case class ASTLabelOrSubjectBlock(labelOrSubject: ASTLabelOrSubject, wrappedGraph: ASTWrappedGraph) extends TrigAST
 
-  case class ASTTriple2BlankNodePropertyList(blankNodePropertyList: TrigAST, predicateObjectList: Option[TrigAST]) extends TurtleAST
+  case class ASTTriplesOrGraph(labelOrSubject: TurtleType, rule: TurtleType) extends TrigAST
 
-  case class ASTTriple2Collection(collection: TrigAST, predicateObjectList: TrigAST) extends TurtleAST
+  case class ASTTriple2BlankNodePropertyList(blankNodePropertyList: TurtleType, predicateObjectList: Option[TurtleType]) extends TrigAST
 
-  case class ASTWrappedGraph(triplesBlock: Option[TrigAST]) extends TurtleAST
+  case class ASTTriple2Collection(collection: TurtleType, predicateObjectList: TurtleType) extends TrigAST
 
-  case class ASTTriplesBlock(triples: Seq[TrigAST]) extends TurtleAST
+  case class ASTWrappedGraph(triplesBlock: Option[TurtleType]) extends TrigAST
 
-  case class ASTLabelOrSubject(rule: TrigAST) extends TurtleAST
+  case class ASTTriplesBlock(triples: Seq[TurtleType]) extends TrigAST
+
+  case class ASTLabelOrSubject(rule: TurtleType) extends TrigAST
 }
+
+object TrigAST extends TrigAST

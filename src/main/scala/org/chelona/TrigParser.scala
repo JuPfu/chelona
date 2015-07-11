@@ -25,7 +25,7 @@ import org.parboiled2._
 
 import scala.language.implicitConversions
 
-object TrigParser extends TrigAST[TurtleAST] {
+object TrigParser extends TrigAST {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new TrigParser(input, output, validate, basePath, label)
@@ -35,7 +35,7 @@ object TrigParser extends TrigAST[TurtleAST] {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
   }
 
-  sealed trait QuadAST extends TrigAST[TurtleAST]
+  sealed trait QuadAST extends TrigAST
 
 }
 
@@ -49,7 +49,7 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {
-    (statement ~> ((ast: TurtleAST) ⇒
+    (statement ~> ((ast: TurtleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) trig.renderStatement(ast, trigOutput) else
           ast match {
@@ -65,7 +65,7 @@ class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, 
   }
 
   //[2g] block	::=	triplesOrGraph | wrappedGraph | triples2 | "GRAPH" labelOrSubject wrappedGraph
-  def block: Rule1[TurtleAST] = rule {
+  def block: Rule1[TurtleType] = rule {
     (triplesOrGraph | wrappedGraph | triples2) ~> ASTBlock |
       atomic(ignoreCase("graph")) ~ ws ~ labelOrSubject ~ wrappedGraph ~> ASTLabelOrSubjectBlock
   }

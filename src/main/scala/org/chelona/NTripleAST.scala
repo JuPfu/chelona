@@ -16,31 +16,35 @@
 
 package org.chelona
 
-trait NTripleAST {
+trait NTripleAST extends RDFASTType {
+
+  type NTripleType = NTripleAST
 
   case class ASTBlankLine(token: String) extends NTripleAST
 
   case class ASTComment(token: String) extends NTripleAST
 
-  case class ASTNTriplesDoc(triple: Option[NTripleAST], triples: Seq[NTripleAST]) extends NTripleAST
+  case class ASTNTriplesDoc(triple: Option[NTripleType], triples: Seq[NTripleType]) extends NTripleAST
 
-  case class ASTTriple(subject: NTripleAST, predicate: NTripleAST, `object`: NTripleAST, comment: Option[ASTComment]) extends NTripleAST
+  case class ASTTriple(subject: NTripleType, predicate: NTripleType, `object`: NTripleType, comment: Option[ASTComment]) extends NTripleAST
 
-  case class ASTTripleComment(rule: NTripleAST) extends NTripleAST
+  case class ASTTripleComment(rule: NTripleType) extends NTripleAST
 
-  case class ASTSubject(rule: NTripleAST) extends NTripleAST
+  case class ASTSubject(rule: NTripleType) extends NTripleAST
 
-  case class ASTPredicate(rule: NTripleAST) extends NTripleAST
+  case class ASTPredicate(rule: NTripleType) extends NTripleAST
 
-  case class ASTObject(rule: NTripleAST) extends NTripleAST
+  case class ASTObject(rule: NTripleType) extends NTripleAST
 
   case class ASTLangTag(token: String) extends NTripleAST
 
   case class ASTIriRef(token: String) extends NTripleAST
 
-  case class ASTLiteral(token: NTripleAST, postfix: Option[NTripleAST]) extends NTripleAST
+  case class ASTLiteral(token: NTripleType, postfix: Option[NTripleType]) extends NTripleAST
 
   case class ASTStringLiteralQuote(token: String) extends NTripleAST
 
   case class ASTBlankNodeLabel(token: String) extends NTripleAST
 }
+
+object NTripleAST extends NTripleAST

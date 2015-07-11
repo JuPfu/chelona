@@ -50,7 +50,7 @@ class EvalTurtle(basePath: String, label: String) {
   var bCount = 0
   var cCount = 0
 
-  def renderStatement(ast: TurtleAST, writer: List[SPOTriple] ⇒ Int): Int = {
+  def renderStatement(ast: TurtleType, writer: List[SPOTriple] ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
       case SPOTriples(t) ⇒ writer(t)
       case SPOString(s)  ⇒ 0
@@ -58,7 +58,7 @@ class EvalTurtle(basePath: String, label: String) {
     }
   }
 
-  def evalStatement(expr: TurtleAST): SPOReturnValue = {
+  def evalStatement(expr: TurtleType): SPOReturnValue = {
 
     expr match {
       case ASTTurtleDoc(rule) ⇒ evalStatement(rule)

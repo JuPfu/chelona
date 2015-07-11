@@ -22,7 +22,7 @@ import org.chelona.NQuadParser.NQAST
 
 import org.parboiled2._
 
-object NQuadParser extends NQuadAST[NTripleAST] {
+object NQuadParser extends NQuadAST {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NQuadParser(input, output, validate, basePath, label)
@@ -32,7 +32,7 @@ object NQuadParser extends NQuadAST[NTripleAST] {
     bo.write(s + " " + p + " " + o + (if (g != "") " " + g + " .\n" else " .\n")); 1
   }
 
-  sealed trait NQAST extends NQuadAST[NTripleAST]
+  sealed trait NQAST extends NQuadAST
 }
 
 class NQuadParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output, validate, basePath, label) with NQAST {
@@ -45,7 +45,7 @@ class NQuadParser(input: ParserInput, output: Writer, validate: Boolean = false,
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
-    (statement ~> ((ast: NTripleAST) ⇒
+    (statement ~> ((ast: NTripleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate)
           quad.renderStatement(ast, quadOutput)
@@ -58,7 +58,7 @@ class NQuadParser(input: ParserInput, output: Writer, validate: Boolean = false,
   }
 
   //[2]	statement	::=	subject predicate object graphLabel? '.'
-  def statement: Rule1[NTripleAST] = rule {
+  def statement: Rule1[NTripleType] = rule {
     ws ~ (subject ~ predicate ~ obj ~ graphLabel.? ~ "." ~ comment.? ~> ASTStatement | comment ~> ASTTripleComment) | blank_line ~> ASTBlankLine
   }
 

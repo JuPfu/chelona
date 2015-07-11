@@ -18,6 +18,8 @@ package org.chelona
 
 trait TurtleAST {
 
+  type TurtleType = TurtleAST
+
   case class ASTTurtleDoc(rule: TurtleAST) extends TurtleAST
 
   case class ASTStatement(rule: TurtleAST) extends TurtleAST

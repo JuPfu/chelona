@@ -22,7 +22,7 @@ class EvalNT(basePath: String, label: String) {
 
   var bCount = 0
 
-  def renderStatement(ast: NTripleAST, writer: (String, String, String) ⇒ Int): Int = {
+  def renderStatement(ast: NTripleType, writer: (String, String, String) ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
       case SPOTriple(s, p, o) ⇒ writer(s, p, o)
       case SPOString(s)       ⇒ 0
@@ -30,7 +30,7 @@ class EvalNT(basePath: String, label: String) {
     }
   }
 
-  def evalStatement(expr: NTripleAST): SPOReturnValue = {
+  def evalStatement(expr: NTripleType): SPOReturnValue = {
     expr match {
       case ASTTriple(subject, predicate, obj, comment) ⇒
         comment match { case Some(comment) ⇒ evalStatement(comment); case None ⇒ }

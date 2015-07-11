@@ -32,13 +32,13 @@ object EvalNQuad {
 
 class EvalNQuad(basePath: String, label: String) {
 
-  import org.chelona.NQuadParser._
+  import org.chelona.NQuadAST._
 
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
 
   var bCount = 0
 
-  def renderStatement(ast: NTripleAST, writer: (String, String, String, String) ⇒ Int): Int = {
+  def renderStatement(ast: NTripleType, writer: (String, String, String, String) ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
       case SPOQuad(s, p, o, g) ⇒ writer(s, p, o, g)
       case SPOString(s)        ⇒ 0
@@ -46,7 +46,7 @@ class EvalNQuad(basePath: String, label: String) {
     }
   }
 
-  def evalStatement(expr: NTripleAST): SPOReturnValue = {
+  def evalStatement(expr: NTripleType): SPOReturnValue = {
     expr match {
       case ASTStatement(subject, predicate, obj, graph, comment) ⇒
         comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }

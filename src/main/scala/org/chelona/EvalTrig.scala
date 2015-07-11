@@ -52,7 +52,7 @@ class EvalTrig(basePath: String, label: String) {
   var bCount = 0
   var cCount = 0
 
-  def renderStatement(ast: TurtleAST, writer: List[TrigTuple] ⇒ Int): Int = {
+  def renderStatement(ast: TurtleType, writer: List[TrigTuple] ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
       case TrigTuples(t)  ⇒ writer(t)
       case TrigString(s)  ⇒ 0
@@ -60,7 +60,7 @@ class EvalTrig(basePath: String, label: String) {
     }
   }
 
-  def evalStatement(expr: TurtleAST): TrigReturnValue = {
+  def evalStatement(expr: TurtleType): TrigReturnValue = {
     expr match {
       case ASTTrigDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒
