@@ -62,7 +62,7 @@ object TrigMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = TrigParser(input, output, validate, base, label)
+  val parser = TriGParser(input, output, validate, base, label)
 
   val res = parser.trigDoc.run()
 

@@ -24,7 +24,7 @@ import org.scalatest.FlatSpec
 
 import scala.util.Failure
 
-class TrigEARLSpec extends FlatSpec {
+class TriGEARLSpec extends FlatSpec {
 
   val earl = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./trigearl.trig"), StandardCharsets.UTF_8))
 
@@ -49,7 +49,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -67,7 +67,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -90,7 +90,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -108,7 +108,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -127,7 +127,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -145,7 +145,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -163,7 +163,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
 
     val res = parser.trigDoc.run() match {
@@ -187,7 +187,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -205,7 +205,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -223,7 +223,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -241,7 +241,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -259,7 +259,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -282,7 +282,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -300,7 +300,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(8), "Number of triples generated should have been 8")
 
@@ -318,7 +318,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
 
 
@@ -343,7 +343,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(56), "Number of triples generated should have been 56")
 
@@ -361,7 +361,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -384,7 +384,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -402,7 +402,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -420,7 +420,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -438,7 +438,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -461,7 +461,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -484,7 +484,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -502,7 +502,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -525,7 +525,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -548,7 +548,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -566,7 +566,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -584,7 +584,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -602,7 +602,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -625,7 +625,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -648,7 +648,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -671,7 +671,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -689,7 +689,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TriGTests/trig-subm-01.trig", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TriGTests/trig-subm-01.trig", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -707,7 +707,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -725,7 +725,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -743,7 +743,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -766,7 +766,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(14), "Number of triples generated should have been 14")
 
@@ -784,7 +784,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -802,7 +802,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 1")
 
@@ -820,7 +820,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -838,7 +838,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -856,7 +856,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -879,7 +879,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -902,7 +902,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -920,7 +920,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -938,7 +938,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -956,7 +956,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -974,7 +974,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -992,7 +992,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1010,7 +1010,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1028,7 +1028,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1046,7 +1046,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1064,7 +1064,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1082,7 +1082,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(14), "Number of triples generated should have been 14")
 
@@ -1100,7 +1100,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1123,7 +1123,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1141,7 +1141,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1164,7 +1164,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1182,7 +1182,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1205,7 +1205,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1223,7 +1223,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1241,7 +1241,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1259,7 +1259,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1282,7 +1282,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -1300,7 +1300,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1323,7 +1323,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -1341,7 +1341,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1359,7 +1359,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1382,7 +1382,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1400,7 +1400,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1423,7 +1423,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1441,7 +1441,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1464,7 +1464,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1482,7 +1482,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(19), "Number of triples generated should have been 19")
 
@@ -1500,7 +1500,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -1518,7 +1518,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1541,7 +1541,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1564,7 +1564,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1582,7 +1582,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1605,7 +1605,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1628,7 +1628,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1651,7 +1651,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1674,7 +1674,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1692,7 +1692,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1715,7 +1715,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1733,7 +1733,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1751,7 +1751,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1774,7 +1774,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1792,7 +1792,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1810,7 +1810,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
 
@@ -1828,7 +1828,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1846,7 +1846,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1864,7 +1864,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1887,7 +1887,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1905,7 +1905,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1928,7 +1928,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1951,7 +1951,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -1974,7 +1974,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(10), "Number of triples generated should have been 10")
 
@@ -1992,7 +1992,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2010,7 +2010,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2028,7 +2028,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 1")
 
@@ -2046,7 +2046,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2064,7 +2064,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2082,7 +2082,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2105,7 +2105,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2128,7 +2128,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2151,7 +2151,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2169,7 +2169,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2192,7 +2192,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2210,7 +2210,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2233,7 +2233,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2256,7 +2256,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2274,7 +2274,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2292,7 +2292,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2315,7 +2315,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2338,7 +2338,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2361,7 +2361,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2379,7 +2379,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2397,7 +2397,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(10), "Number of triples generated should have been 10")
 
@@ -2415,7 +2415,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2433,7 +2433,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2451,7 +2451,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2469,7 +2469,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2487,7 +2487,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2510,7 +2510,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2533,7 +2533,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2551,7 +2551,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2569,7 +2569,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2592,7 +2592,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2610,7 +2610,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2628,7 +2628,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2651,7 +2651,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2669,7 +2669,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -2687,7 +2687,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2705,7 +2705,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2723,7 +2723,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2741,7 +2741,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2759,7 +2759,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2782,7 +2782,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2800,7 +2800,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2823,7 +2823,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2841,7 +2841,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -2859,7 +2859,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2882,7 +2882,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -2900,7 +2900,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2918,7 +2918,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -2941,7 +2941,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2959,7 +2959,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -2977,7 +2977,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -2995,7 +2995,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3013,7 +3013,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3036,7 +3036,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3054,7 +3054,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3077,7 +3077,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3095,7 +3095,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3118,7 +3118,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3136,7 +3136,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3159,7 +3159,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3177,7 +3177,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3195,7 +3195,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3213,7 +3213,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3231,7 +3231,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -3249,7 +3249,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3272,7 +3272,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -3290,7 +3290,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3313,7 +3313,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3336,7 +3336,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3354,7 +3354,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3372,7 +3372,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3390,7 +3390,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3408,7 +3408,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3426,7 +3426,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3444,7 +3444,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3462,7 +3462,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3480,7 +3480,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3503,7 +3503,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3521,7 +3521,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -3539,7 +3539,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3557,7 +3557,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3575,7 +3575,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3593,7 +3593,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3616,7 +3616,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3634,7 +3634,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3652,7 +3652,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3670,7 +3670,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3688,7 +3688,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3711,7 +3711,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3729,7 +3729,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -3747,7 +3747,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3771,7 +3771,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3794,7 +3794,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3812,7 +3812,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3830,7 +3830,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3848,7 +3848,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3866,7 +3866,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3884,7 +3884,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3902,7 +3902,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3920,7 +3920,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -3938,7 +3938,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3961,7 +3961,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -3979,7 +3979,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -3997,7 +3997,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -4015,7 +4015,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4038,7 +4038,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4061,7 +4061,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4079,7 +4079,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -4097,7 +4097,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4120,7 +4120,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4138,7 +4138,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4156,7 +4156,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4174,7 +4174,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4192,7 +4192,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4215,7 +4215,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4233,7 +4233,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -4251,7 +4251,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4269,7 +4269,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4292,7 +4292,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4310,7 +4310,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4333,7 +4333,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4351,7 +4351,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4369,7 +4369,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4387,7 +4387,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4405,7 +4405,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -4423,7 +4423,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -4441,7 +4441,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4464,7 +4464,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -4482,7 +4482,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4500,7 +4500,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4518,7 +4518,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4536,7 +4536,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -4554,7 +4554,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -4572,7 +4572,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4590,7 +4590,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4613,7 +4613,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(8), "Number of triples generated should have been 8")
 
@@ -4631,7 +4631,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4649,7 +4649,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -4667,7 +4667,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -4685,7 +4685,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4708,7 +4708,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4726,7 +4726,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4744,7 +4744,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4767,7 +4767,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4785,7 +4785,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4808,7 +4808,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4826,7 +4826,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4849,7 +4849,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4867,7 +4867,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4890,7 +4890,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -4908,7 +4908,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -4926,7 +4926,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -4944,7 +4944,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(10), "Number of triples generated should have been 10")
 
@@ -4962,7 +4962,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -4985,7 +4985,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5003,7 +5003,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -5021,7 +5021,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5044,7 +5044,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5062,7 +5062,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5085,7 +5085,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5103,7 +5103,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5126,7 +5126,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -5144,7 +5144,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5167,7 +5167,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5185,7 +5185,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5203,7 +5203,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5226,7 +5226,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5244,7 +5244,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5262,7 +5262,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5285,7 +5285,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(13), "Number of triples generated should have been 13")
 
@@ -5303,7 +5303,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5321,7 +5321,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5344,7 +5344,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5367,7 +5367,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5385,7 +5385,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5403,7 +5403,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5421,7 +5421,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5439,7 +5439,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5462,7 +5462,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(14), "Number of triples generated should have been 14")
 
@@ -5480,7 +5480,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5503,7 +5503,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5521,7 +5521,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5539,7 +5539,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5557,7 +5557,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5575,7 +5575,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5598,7 +5598,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5616,7 +5616,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5634,7 +5634,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5657,7 +5657,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5680,7 +5680,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5698,7 +5698,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5721,7 +5721,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5739,7 +5739,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5757,7 +5757,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -5775,7 +5775,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -5793,7 +5793,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -5811,7 +5811,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5834,7 +5834,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5852,7 +5852,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5875,7 +5875,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -5898,7 +5898,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -5916,7 +5916,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -5934,7 +5934,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5952,7 +5952,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(8), "Number of triples generated should have been 8")
 
@@ -5970,7 +5970,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -5988,7 +5988,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6006,7 +6006,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6024,7 +6024,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6042,7 +6042,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -6060,7 +6060,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6083,7 +6083,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6101,7 +6101,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -6119,7 +6119,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6137,7 +6137,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6160,7 +6160,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6178,7 +6178,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6196,7 +6196,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6214,7 +6214,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6232,7 +6232,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6250,7 +6250,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6268,7 +6268,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6286,7 +6286,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6304,7 +6304,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6327,7 +6327,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6345,7 +6345,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6363,7 +6363,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -6381,7 +6381,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6404,7 +6404,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(6), "Number of triples generated should have been 6")
 
@@ -6422,7 +6422,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
@@ -6440,7 +6440,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6463,7 +6463,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6481,7 +6481,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6504,7 +6504,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(8), "Number of triples generated should have been 8")
 
@@ -6522,7 +6522,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -6545,7 +6545,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6563,7 +6563,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -6581,7 +6581,7 @@ class TrigEARLSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = TrigParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
+    val parser = TriGParser(input, output, false, "http://www.w3.org/2013/TrigTests", "")
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 

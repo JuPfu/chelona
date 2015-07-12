@@ -18,32 +18,32 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.EvalTrig.TrigTuple
-import org.chelona.TrigParser.QuadAST
+import org.chelona.EvalTriG.TrigTuple
+import org.chelona.TriGParser.QuadAST
 
 import org.parboiled2._
 
 import scala.language.implicitConversions
 
-object TrigParser extends TrigAST {
+object TriGParser extends TriGAST {
 
   def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new TrigParser(input, output, validate, basePath, label)
+    new TriGParser(input, output, validate, basePath, label)
   }
 
   def trigWriter(bo: Writer)(triple: List[TrigTuple]): Int = {
     triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
   }
 
-  sealed trait QuadAST extends TrigAST
+  sealed trait QuadAST extends TriGAST
 
 }
 
-class TrigParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) with QuadAST {
+class TriGParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) with QuadAST {
 
-  import org.chelona.TrigParser.trigWriter
+  import org.chelona.TriGParser.trigWriter
 
-  val trig = new EvalTrig(basePath, label)
+  val trig = new EvalTriG(basePath, label)
 
   val trigOutput = trigWriter(output)_
 
