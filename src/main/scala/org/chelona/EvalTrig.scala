@@ -16,14 +16,14 @@
 
 package org.chelona
 
-import org.chelona.EvalTrig._
-import org.chelona.TrigParser._
+import org.chelona.EvalTriG._
+import org.chelona.TriGParser._
 
 import scala.annotation.tailrec
 import scala.util.Success
 
-object EvalTrig {
-  def apply(basePath: String, label: String) = new EvalTrig(basePath, label)
+object EvalTriG {
+  def apply(basePath: String, label: String) = new EvalTriG(basePath, label)
 
   sealed trait TrigReturnValue
 
@@ -36,7 +36,7 @@ object EvalTrig {
   case class TrigComment(value: String) extends TrigReturnValue
 }
 
-class EvalTrig(basePath: String, label: String) {
+class EvalTriG(basePath: String, label: String) {
 
   import org.chelona.ChelonaParser._
 
@@ -418,3 +418,4 @@ class EvalTrig(basePath: String, label: String) {
     case _          ⇒ false
   }
 }
+//
