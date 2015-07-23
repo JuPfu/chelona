@@ -16,12 +16,6 @@
 
 package org.chelona
 
-trait RDFASTType {
-  type NTripleType
-  type NQuadType <: NTripleType
-
-  type TurtleType
-  type TriGType <: TurtleType
-}
+trait RDFASTType
 
 object RDFASTType extends RDFASTType
