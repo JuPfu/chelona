@@ -16,9 +16,6 @@
 
 package org.chelona
 
-import java.io.Writer
-
-import org.chelona.EvalTriG.TrigTuple
 import org.chelona.TriGParser.QuadAST
 
 import org.parboiled2._
@@ -27,31 +24,22 @@ import scala.language.implicitConversions
 
 object TriGParser extends TriGAST {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+  def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new TriGParser(input, output, validate, basePath, label)
   }
 
-  def trigWriter(bo: Writer)(triple: List[TrigTuple]): Int = {
-    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
-  }
-
   sealed trait QuadAST extends TriGAST
-
 }
 
-class TriGParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) with QuadAST {
+class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) with QuadAST {
 
-  import org.chelona.TriGParser.trigWriter
-
-  val trig = new EvalTriG(basePath, label)
-
-  val trigOutput = trigWriter(output)_
+  val trig = new EvalTriG(output, basePath, label)
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {
     (statement ~> ((ast: TurtleType) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate) trig.renderStatement(ast, trigOutput) else
+        if (!validate) trig.renderStatement(ast) else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1

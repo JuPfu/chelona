@@ -15,10 +15,11 @@
 */
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
+import org.chelona.TriGReturnValue.TrigTuple
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
@@ -62,7 +63,11 @@ object TrigMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = TriGParser(input, output, validate, base, label)
+  def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
+    tuple.asInstanceOf[List[TrigTuple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
+  }
+
+  val parser = TriGParser(input, tupleWriter(output)_, validate, base, label)
 
   val res = parser.trigDoc.run()
 

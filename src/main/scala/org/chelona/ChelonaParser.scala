@@ -16,39 +16,25 @@
 
 package org.chelona
 
-import java.io.Writer
-
 import org.chelona.ChelonaParser.N3AST
 
 import org.parboiled2._
 
 import scala.language.implicitConversions
-import scala.util.{ Success }
+import scala.util.Success
 
-object ChelonaParser extends TurtleAST {
+object ChelonaParser extends TurtleAST with SPOReturnValue {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+  def apply(input: ParserInput, output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
-  }
-  /*
-  def tripleWriter(bo: Writer)(triple: List[JSONTriple]): Int = {
-    triple.map(t ⇒ bo.write("{ \"" + t.s + "\" : { \"" + t.p + "\" : [ { " + t.o + " } ] } }\n")).length
-  }
-*/
-  import org.chelona.EvalTurtle.SPOTriple
-
-  def tripleWriter(bo: Writer)(triple: List[SPOTriple]): Int = {
-    triple.map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
   }
 
   sealed trait N3AST extends TurtleAST
 }
 
-class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
+class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST with SPOReturnValue {
 
   import org.chelona.CharPredicates._
-
-  import org.chelona.ChelonaParser.tripleWriter
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
@@ -65,9 +51,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   var bCount = 0
   var cCount = 0
 
-  val n3 = new EvalTurtle(basePath, label)
-
-  val tripleOutput = tripleWriter(output)_
+  val n3 = new EvalTurtle(output, basePath, label)
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
@@ -82,7 +66,7 @@ class ChelonaParser(val input: ParserInput, val output: Writer, validate: Boolea
   def turtleDoc = rule {
     anyOf(" \n\r\t").* ~ (statement ~> ((ast: TurtleAST) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate) n3.renderStatement(ast, tripleOutput) else
+        if (!validate) n3.renderStatement(ast) else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1

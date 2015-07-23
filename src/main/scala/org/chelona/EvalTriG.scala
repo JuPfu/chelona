@@ -17,28 +17,19 @@
 package org.chelona
 
 import org.chelona.EvalTriG._
-import org.chelona.TriGParser._
 
 import scala.annotation.tailrec
 import scala.util.Success
 
 object EvalTriG {
-  def apply(basePath: String, label: String) = new EvalTriG(basePath, label)
+  def apply(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: String) = new EvalTriG(output, basePath, label)
 
-  sealed trait TrigReturnValue
-
-  case class TrigString(s: String) extends TrigReturnValue
-
-  case class TrigTuple(s: String, p: String, o: String, g: String) extends TrigReturnValue
-
-  case class TrigTuples(values: List[TrigTuple]) extends TrigReturnValue
-
-  case class TrigComment(value: String) extends TrigReturnValue
+  sealed trait TReturnValue extends TriGReturnValue
 }
 
-class EvalTriG(basePath: String, label: String) {
+class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: String) extends TReturnValue {
 
-  import org.chelona.ChelonaParser._
+  import org.chelona.TriGParser._
 
   val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
@@ -52,15 +43,15 @@ class EvalTriG(basePath: String, label: String) {
   var bCount = 0
   var cCount = 0
 
-  def renderStatement(ast: TurtleType, writer: List[TrigTuple] ⇒ Int): Int = {
+  def renderStatement(ast: TurtleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case TrigTuples(t)  ⇒ writer(t)
+      case TrigTuples(t)  ⇒ output(t)
       case TrigString(s)  ⇒ 0
       case TrigComment(c) ⇒ 0
     }
   }
 
-  def evalStatement(expr: TurtleType): TrigReturnValue = {
+  def evalStatement(expr: TurtleType): TriGReturnValue = {
     expr match {
       case ASTTrigDoc(rule) ⇒ evalStatement(rule)
       case ASTStatement(rule) ⇒

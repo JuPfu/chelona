@@ -16,7 +16,7 @@
 
 package org.chelona
 
-trait TurtleAST {
+trait TurtleAST extends RDFASTType {
 
   type TurtleType = TurtleAST
 
@@ -106,3 +106,5 @@ trait TurtleAST {
 
   case class ASTAnon(token: String) extends TurtleAST
 }
+
+object TurtleAST extends TurtleAST

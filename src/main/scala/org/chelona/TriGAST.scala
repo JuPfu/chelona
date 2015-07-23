@@ -18,8 +18,6 @@ package org.chelona
 
 trait TriGAST extends TurtleAST with RDFASTType {
 
-  type TriGType = TriGAST
-
   case class ASTTrigDoc(rule: TurtleType) extends TriGAST
 
   case class ASTBlock(rule: TurtleType) extends TriGAST

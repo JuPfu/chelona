@@ -20,7 +20,7 @@ import java.io.StringWriter
 import org.parboiled2.ParserInput
 import org.scalatest.FlatSpec
 
-class ChelonaConversionSpec extends FlatSpec {
+class ChelonaConversionSpec extends FlatSpec with RDFTripleOutput {
 
   "The input file ./TurtleTests/HYPHEN_MINUS_in_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 
@@ -28,7 +28,7 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -45,7 +45,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -62,7 +63,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -79,7 +81,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -96,7 +99,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -113,7 +117,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -130,7 +135,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -147,7 +153,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -164,7 +171,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -181,7 +189,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -198,7 +207,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -215,7 +225,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -232,7 +243,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -249,7 +261,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -266,7 +279,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -283,7 +297,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -300,7 +315,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -317,7 +333,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -334,7 +351,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -351,7 +369,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -368,7 +387,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -385,7 +405,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -402,7 +423,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -419,7 +441,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -436,7 +459,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -453,7 +477,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -470,7 +495,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -487,7 +513,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -504,7 +531,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -521,7 +549,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -538,7 +567,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -555,7 +585,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -572,7 +603,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -589,7 +621,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -606,7 +639,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -623,7 +657,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -640,7 +675,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -657,7 +693,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -674,7 +711,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -691,7 +729,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -708,7 +747,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -725,7 +765,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -742,7 +783,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -759,7 +801,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -776,7 +819,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -793,7 +837,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -810,7 +855,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -827,7 +873,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -844,7 +891,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -861,7 +909,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -878,7 +927,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -895,7 +945,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -912,7 +963,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -929,7 +981,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -946,7 +999,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -963,7 +1017,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -980,7 +1035,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -997,7 +1053,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1014,7 +1071,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1031,7 +1089,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1048,7 +1107,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1065,7 +1125,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1082,7 +1143,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1099,7 +1161,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1116,7 +1179,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1133,7 +1197,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1150,7 +1215,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1167,7 +1233,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1184,7 +1251,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -1201,7 +1269,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -1218,7 +1287,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -1235,7 +1305,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1252,7 +1323,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -1269,7 +1341,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1286,7 +1359,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -1303,7 +1377,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1320,7 +1395,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -1337,7 +1413,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -1354,7 +1431,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -1371,7 +1449,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
@@ -1388,7 +1467,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1405,7 +1485,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1421,7 +1502,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1438,7 +1520,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1455,7 +1538,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1472,7 +1556,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -1489,7 +1574,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
@@ -1506,7 +1592,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1523,7 +1610,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1540,7 +1628,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
@@ -1557,7 +1646,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1574,7 +1664,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
@@ -1591,7 +1682,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
 
@@ -1608,7 +1700,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
@@ -1625,7 +1718,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
@@ -1642,7 +1736,8 @@ class ChelonaConversionSpec extends FlatSpec {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, output, false, "http://www.w3.org/2013/TurtleTests", "")
+
+    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 

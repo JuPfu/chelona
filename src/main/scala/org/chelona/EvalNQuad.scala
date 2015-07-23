@@ -21,13 +21,13 @@ import org.chelona.EvalNQuad._
 object EvalNQuad {
   def apply(basePath: String, label: String) = new EvalNQuad(basePath, label)
 
-  sealed trait SPOReturnValue
+  sealed trait NQuadReturnValue
 
-  case class SPOString(s: String) extends SPOReturnValue
+  case class NQuadString(s: String) extends NQuadReturnValue
 
-  case class SPOQuad(s: String, p: String, o: String, g: String) extends SPOReturnValue
+  case class NQuadQuad(s: String, p: String, o: String, g: String) extends NQuadReturnValue
 
-  case class SPOComment(value: String) extends SPOReturnValue
+  case class NQuadComment(value: String) extends NQuadReturnValue
 }
 
 class EvalNQuad(basePath: String, label: String) {
@@ -40,24 +40,24 @@ class EvalNQuad(basePath: String, label: String) {
 
   def renderStatement(ast: NTripleType, writer: (String, String, String, String) ⇒ Int): Int = {
     (evalStatement(ast): @unchecked) match {
-      case SPOQuad(s, p, o, g) ⇒ writer(s, p, o, g)
-      case SPOString(s)        ⇒ 0
-      case SPOComment(c)       ⇒ 0
+      case NQuadQuad(s, p, o, g) ⇒ writer(s, p, o, g)
+      case NQuadString(s)        ⇒ 0
+      case NQuadComment(c)       ⇒ 0
     }
   }
 
-  def evalStatement(expr: NTripleType): SPOReturnValue = {
+  def evalStatement(expr: NTripleType): NQuadReturnValue = {
     expr match {
       case ASTStatement(subject, predicate, obj, graph, comment) ⇒
         comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
         graph match {
           case Some(g) ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj), evalStatement(g)): @unchecked) match {
-              case (SPOString(s1), SPOString(p1), SPOString(o1), SPOString(g1)) ⇒ SPOQuad(s1, p1, o1, g1)
+              case (NQuadString(s1), NQuadString(p1), NQuadString(o1), NQuadString(g1)) ⇒ NQuadQuad(s1, p1, o1, g1)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (SPOString(s1), SPOString(p1), SPOString(o1)) ⇒ SPOQuad(s1, p1, o1, "")
+              case (NQuadString(s1), NQuadString(p1), NQuadString(o1)) ⇒ NQuadQuad(s1, p1, o1, "")
             }
         }
       case ASTTripleComment(rule) ⇒ evalStatement(rule)
@@ -66,25 +66,25 @@ class EvalNQuad(basePath: String, label: String) {
       case ASTObject(rule)        ⇒ evalStatement(rule)
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case SPOString(s) ⇒ s
+          case NQuadString(s) ⇒ s
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ SPOString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
+            case ASTIriRef(v) ⇒ NQuadString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s
             }))
-            case ASTLangTag(v) ⇒ SPOString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
+            case ASTLangTag(v) ⇒ NQuadString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s
             }))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ SPOString(token)
-      case ASTIriRef(token)             ⇒ SPOString("<" + token + ">")
-      case ASTStringLiteralQuote(token) ⇒ SPOString("\"" + token + "\"")
-      case ASTBlankNodeLabel(token)     ⇒ SPOString(setBlankNodeName("_:" + token))
-      case ASTComment(token)            ⇒ SPOComment(token)
-      case ASTBlankLine(token)          ⇒ SPOComment(token)
+      case ASTLangTag(token)            ⇒ NQuadString(token)
+      case ASTIriRef(token)             ⇒ NQuadString("<" + token + ">")
+      case ASTStringLiteralQuote(token) ⇒ NQuadString("\"" + token + "\"")
+      case ASTBlankNodeLabel(token)     ⇒ NQuadString(setBlankNodeName("_:" + token))
+      case ASTComment(token)            ⇒ NQuadComment(token)
+      case ASTBlankLine(token)          ⇒ NQuadComment(token)
     }
   }
 

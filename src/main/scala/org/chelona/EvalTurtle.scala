@@ -22,20 +22,12 @@ import scala.annotation.tailrec
 import scala.util.Success
 
 object EvalTurtle {
-  def apply(basePath: String, label: String) = new EvalTurtle(basePath, label)
+  def apply(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: String) = new EvalTurtle(output, basePath, label)
 
-  sealed trait SPOReturnValue
-
-  case class SPOString(s: String) extends SPOReturnValue
-
-  case class SPOTriple(s: String, p: String, o: String) extends SPOReturnValue
-
-  case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
-
-  case class SPOComment(value: String) extends SPOReturnValue
+  sealed trait TurtleReturnValue extends SPOReturnValue
 }
 
-class EvalTurtle(basePath: String, label: String) {
+class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: String) extends TurtleReturnValue {
 
   import org.chelona.ChelonaParser._
 
@@ -50,9 +42,9 @@ class EvalTurtle(basePath: String, label: String) {
   var bCount = 0
   var cCount = 0
 
-  def renderStatement(ast: TurtleType, writer: List[SPOTriple] ⇒ Int): Int = {
+  def renderStatement(ast: TurtleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case SPOTriples(t) ⇒ writer(t)
+      case SPOTriples(t) ⇒ output(t)
       case SPOString(s)  ⇒ 0
       case SPOComment(c) ⇒ 0
     }
