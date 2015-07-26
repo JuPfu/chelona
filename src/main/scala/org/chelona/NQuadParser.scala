@@ -16,39 +16,31 @@
 
 package org.chelona
 
-import java.io.Writer
-
 import org.chelona.NQuadParser.NQAST
 
 import org.parboiled2._
 
 object NQuadParser extends NQuadAST {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+  def apply(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NQuadParser(input, output, validate, basePath, label)
-  }
-
-  def quadWriter(bo: Writer)(s: String, p: String, o: String, g: String): Int = {
-    bo.write(s + " " + p + " " + o + (if (g != "") " " + g + " .\n" else " .\n")); 1
   }
 
   sealed trait NQAST extends NQuadAST
 }
 
-class NQuadParser(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output, validate, basePath, label) with NQAST {
+class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output: (String*) ⇒ Int, validate, basePath, label) with NQAST {
 
-  import org.chelona.NQuadParser.quadWriter
+  //import org.chelona.NQuadParser.quadWriter
 
-  val quad = new EvalNQuad(basePath, label)
-
-  val quadOutput = quadWriter(output)_
+  val quad = new EvalNQuad(output, basePath, label)
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
     (statement ~> ((ast: NTripleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate)
-          quad.renderStatement(ast, quadOutput)
+          quad.renderStatement(ast)
         else
           ast match {
             case ASTComment(s) ⇒ 0

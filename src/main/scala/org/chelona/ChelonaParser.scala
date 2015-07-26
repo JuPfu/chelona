@@ -20,10 +20,9 @@ import org.chelona.ChelonaParser.N3AST
 
 import org.parboiled2._
 
-import scala.language.implicitConversions
 import scala.util.Success
 
-object ChelonaParser extends TurtleAST with SPOReturnValue {
+object ChelonaParser extends TurtleAST {
 
   def apply(input: ParserInput, output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)

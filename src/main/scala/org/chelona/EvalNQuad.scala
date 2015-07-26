@@ -19,18 +19,12 @@ package org.chelona
 import org.chelona.EvalNQuad._
 
 object EvalNQuad {
-  def apply(basePath: String, label: String) = new EvalNQuad(basePath, label)
+  def apply(output: (String*) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
 
-  sealed trait NQuadReturnValue
-
-  case class NQuadString(s: String) extends NQuadReturnValue
-
-  case class NQuadQuad(s: String, p: String, o: String, g: String) extends NQuadReturnValue
-
-  case class NQuadComment(value: String) extends NQuadReturnValue
+  sealed trait NQReturnValue extends NQuadReturnValue
 }
 
-class EvalNQuad(basePath: String, label: String) {
+class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
 
   import org.chelona.NQuadAST._
 
@@ -38,9 +32,9 @@ class EvalNQuad(basePath: String, label: String) {
 
   var bCount = 0
 
-  def renderStatement(ast: NTripleType, writer: (String, String, String, String) ⇒ Int): Int = {
+  def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case NQuadQuad(s, p, o, g) ⇒ writer(s, p, o, g)
+      case NQuadQuad(s, p, o, g) ⇒ output(s, p, o, g)
       case NQuadString(s)        ⇒ 0
       case NQuadComment(c)       ⇒ 0
     }

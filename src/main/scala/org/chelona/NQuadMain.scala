@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.io.{Writer, OutputStreamWriter, BufferedWriter}
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
@@ -63,7 +63,11 @@ object NQuadMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = NQuadParser(input, output, validate, base, label)
+  def quadWriter(bo: Writer)(spog: String*): Int = {
+    bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
+  }
+
+  val parser = NQuadParser(input, quadWriter(output)_, validate, base, label)
 
   val res = parser.nquadsDoc.run()
 

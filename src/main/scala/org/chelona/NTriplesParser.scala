@@ -16,8 +16,6 @@
 
 package org.chelona
 
-import java.io.Writer
-
 import org.chelona.NTriplesParser.NTAST
 
 import org.parboiled2._
@@ -26,30 +24,22 @@ import scala.util.Success
 
 object NTriplesParser extends NTripleAST {
 
-  def apply(input: ParserInput, output: Writer, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+  def apply(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NTriplesParser(input, output, validate, basePath, label)
-  }
-
-  def NTWriter(bo: Writer)(s: String, p: String, o: String): Int = {
-    bo.write(s + " " + p + " " + o + " .\n"); 1
   }
 
   sealed trait NTAST extends NTripleAST
 }
 
-class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
+class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
 
   import org.chelona.CharPredicates._
-
-  import org.chelona.NTriplesParser.NTWriter
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
-  val nt = new EvalNT(basePath, label)
-
-  val tripleOutput = NTWriter(output)_
+  val nt = new EvalNT(output, basePath, label)
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
@@ -69,14 +59,13 @@ class NTriplesParser(val input: ParserInput, val output: Writer, validate: Boole
   def ntriplesDoc = rule {
     (triple ~> ((ast: NTripleAST) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate)
-          nt.renderStatement(ast, tripleOutput)
-        else
-          ast match {
+        if (!validate) nt.renderStatement(ast)
+        else ast match {
             case ASTComment(s) ⇒ 0
             case _             ⇒ 1
-          }
-      } else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+        }
+      }
+      else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
   //[2] triple	::=	subject predicate object '.'

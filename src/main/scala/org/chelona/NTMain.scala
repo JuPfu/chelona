@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.io.{Writer, OutputStreamWriter, BufferedWriter}
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
@@ -63,7 +63,11 @@ object NTMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val parser = NTriplesParser(input, output, validate, base, label)
+  def ntWriter(bo: Writer)(spo: String*): Int = {
+    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
+  }
+
+  val parser = NTriplesParser(input, ntWriter(output)_, validate, base, label)
 
   val res = parser.ntriplesDoc.run()
 
