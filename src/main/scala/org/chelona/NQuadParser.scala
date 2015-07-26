@@ -20,7 +20,7 @@ import org.chelona.NQuadParser.NQAST
 
 import org.parboiled2._
 
-object NQuadParser extends NQuadAST {
+object NQuadParser {
 
   def apply(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NQuadParser(input, output, validate, basePath, label)
