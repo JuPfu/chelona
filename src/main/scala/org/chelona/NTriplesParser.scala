@@ -61,11 +61,10 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
       if (!__inErrorAnalysis) {
         if (!validate) nt.renderStatement(ast)
         else ast match {
-            case ASTComment(s) ⇒ 0
-            case _             ⇒ 1
+          case ASTComment(s) ⇒ 0
+          case _             ⇒ 1
         }
-      }
-      else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+      } else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
   }
 
   //[2] triple	::=	subject predicate object '.'

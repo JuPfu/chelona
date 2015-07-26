@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import java.io.{Writer, OutputStreamWriter, BufferedWriter}
+import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._

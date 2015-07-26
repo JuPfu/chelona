@@ -35,7 +35,7 @@ trait RDFTriGOutput extends RDFReturnType {
 
 trait RDFNTOutput extends RDFReturnType {
   def ntWriter(bo: Writer)(spo: String*): Int = {
-     bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
+    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
   }
 }
 
