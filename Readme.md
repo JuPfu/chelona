@@ -204,13 +204,14 @@ Programmatical Interface
 The example program shows how to convert some Turtle data into the N3 Triple format.
 
     import java.io.StringWriter
-    
-    import org.chelona.ChelonaParser
+
+    import org.chelona.{ RDFTripleOutput, ChelonaParser }
+
     import org.parboiled2.ParseError
-    
-    import scala.util.{Failure, Success}
-    
-    object Main extends App {
+
+    import scala.util.{ Failure, Success }
+
+    object Main extends App with RDFTripleOutput {
 
       val input =
         """@base <http://example.org/> .
@@ -218,7 +219,7 @@ The example program shows how to convert some Turtle data into the N3 Triple for
            @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
            @prefix foaf: <http://xmlns.com/foaf/0.1/> .
            @prefix rel: <http://www.perceive.net/schemas/relationship/> .
-    
+
            <#green-goblin> rel:enemyOf    <#spiderman> 	;
               a foaf:Person ;    # in the context of the Marvel universe
               foaf:name 'Green Goblin' ;
@@ -231,11 +232,12 @@ The example program shows how to convert some Turtle data into the N3 Triple for
 
       val output = new StringWriter()
 
-      val parser = ChelonaParser(input, output)
+      val parser = ChelonaParser(input,  tripleWriter(output)_)
 
       parser.turtleDoc.run() match {
-        case Success(tripleCount)   ⇒ System.err.println("Input converted to "+tripleCount+ " triples.")
-                                      println(output)
+        case Success(tripleCount) ⇒
+          System.err.println("Input converted to " + tripleCount + " triples.")
+          println(output)
         case Failure(e: ParseError) ⇒ System.err.println("Unexpected error during parsing run: " + parser.formatError(e))
         case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
       }
