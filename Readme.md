@@ -243,6 +243,11 @@ The example program shows how to convert some Turtle data into the N3 Triple for
       }
     }
 
+Build Your Own Output Format
+============================
+
+Look at https://github.com/JuPfu/chelona/wiki to see how to create your own output format.
+
 What *Cheló̱na* Does in Detail:
 ==============================
 - parses the ttl file
