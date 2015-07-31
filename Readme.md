@@ -10,12 +10,18 @@ Introduction
 
 With *Cheló̱na* you can
  
-- validate the syntax and semantic of a W3C RDF 1.1 *Trig* file
-- convert a *Trig* file into its canonical quad form
-- convert a *Trig* file into another format, e.g. JSON (to be done)
-- validate the syntax and semantic of a W3C RDF 1.1 Turtle file
-- convert a Turtle file into its canonical triple form
-- convert a Turtle file into another format, e.g. JSON (to be done)
+- validate the syntax and semantic of a W3C RDF 1.1 *Trig*, *Turtle*, *N-Quads* or *N-Triples* file
+- convert a *Trig* or *N-Quads* file into its canonical quad format
+- convert a *Turtle* or *N-Triples* file into its canonical triple format
+
+*Cheló̱na* supports the creation of your own output format. 
+*Cheló̱na* leaves it up to you to write the conversion result e.g. to a file, to a database or communicate via actors. 
+
+The relationship among the various RDF 1.1 formats is shown in this image
+
+![RDF 1.1 Formats](ressources/RDF-Formats.png)
+
+*Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of Parboiled2.
 
 Turtle Section
 ==============
