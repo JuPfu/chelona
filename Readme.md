@@ -21,7 +21,7 @@ The relationship among the various RDF 1.1 formats is shown in this image
 
 ![RDF 1.1 Formats](ressources/RDF-Formats.png)
 
-*Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of Parboiled2.
+*Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of [Parboiled2](https://github.com/sirthias/parboiled2) .
 
 Turtle Section
 ==============
