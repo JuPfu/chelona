@@ -116,12 +116,12 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
         str("\\u0060") | str("\\U00000060") |
         str("\\u007B") | str("\\u007b") | str("\\U0000007B") | str("\\U0000007b") |
         str("\\u007C") | str("\\u007c") | str("\\U0000007C") | str("\\U0000007c") |
-        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).*) ~ push(sb.toString) ~ '>' ~> ((iri: String) ⇒ (test(isAbsoluteIRIRef(iri)) | fail("relative IRI not allowed: " + iri)) ~ push(iri)) ~> ASTIriRef ~ ws
+        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR(false)).*) ~ push(sb.toString) ~ '>' ~> ((iri: String) ⇒ (test(isAbsoluteIRIRef(iri)) | fail("relative IRI not allowed: " + iri)) ~ push(iri)) ~> ASTIriRef ~ ws
   }
 
   //[9]	STRING_LITERAL_QUOTE	::=	'"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"'
   def STRING_LITERAL_QUOTE = rule {
-    atomic('"' ~ clearSB ~ (noneOf("\"\\\r\n") ~ appendSB | UCHAR | ECHAR).* ~ '"') ~ push(sb.toString) ~ ws ~> ASTStringLiteralQuote
+    atomic('"' ~ clearSB ~ (noneOf("\"\\\r\n") ~ appendSB | UCHAR(true) | ECHAR).* ~ '"') ~ push(sb.toString) ~ ws ~> ASTStringLiteralQuote
   }
 
   //[141s]	BLANK_NODE_LABEL	::=	'_:' (PN_CHARS_U | [0-9]) ((PN_CHARS | '.')* PN_CHARS)?
@@ -130,9 +130,9 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
   }
 
   //[10]	UCHAR	::=	'\\u' HEX HEX HEX HEX | '\\U' HEX HEX HEX HEX HEX HEX HEX HEX
-  def UCHAR = rule {
-    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
-      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
+  def UCHAR(flag: Boolean) = rule {
+    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s)) |
+      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s))
   }
 
   //[153s]	ECHAR	::=	'\' [tbnrf"'\]
@@ -147,5 +147,17 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
     case Success(s) ⇒ true
     case _          ⇒ false
+  }
+
+  private def maskQuotes(flag: Boolean, s: String) = {
+    val c = hexStringToCharString(s)
+    if (c.compare("\"") != 0)
+      appendSB(c)
+    else {
+      if (flag)
+        appendSB("\\" + c)
+      else
+        appendSB("\\u0022")
+    }
   }
 }
