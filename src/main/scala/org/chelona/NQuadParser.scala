@@ -31,8 +31,6 @@ object NQuadParser {
 
 class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output: (String*) ⇒ Int, validate, basePath, label) with NQAST {
 
-  //import org.chelona.NQuadParser.quadWriter
-
   val quad = new EvalNQuad(output, basePath, label)
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?

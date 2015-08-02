@@ -29,7 +29,7 @@ Turtle Section
 First Example
 =============
 
-A simple turtle file taken from the W3C recommendation found at http://www.w3.org/TR/turtle/ :
+A simple turtle file taken from the W3C recommendation which resides at http://www.w3.org/TR/turtle/ :
 
     @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 

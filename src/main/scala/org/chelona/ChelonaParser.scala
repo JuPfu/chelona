@@ -215,28 +215,28 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[22] STRING_LITERAL_QUOTE   ::=     '"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"' /* #x22=" #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_QUOTE = rule {
-    '"' ~ clearSB ~ (noneOf("\"\\\r\n") ~ appendSB | UCHAR | ECHAR).* ~ '"' ~ push(sb.toString) ~> ASTStringLiteralQuote
+    '"' ~ clearSB ~ (noneOf("\"\\\r\n") ~ appendSB | UCHAR(true) | ECHAR).* ~ '"' ~ push(sb.toString) ~> ASTStringLiteralQuote
   }
 
   //[23] '" ([^#x27#x5C#xA#xD] | ECHAR | UCHAR)* "'" /* #x27=' #x5C=\ #xA=new line #xD=carriage return */
   def STRING_LITERAL_SINGLE_QUOTE = rule {
-    '\'' ~ clearSB ~ (noneOf("'\"\\\r\n") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR | ECHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
+    '\'' ~ clearSB ~ (noneOf("'\"\\\r\n") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR(true) | ECHAR).* ~ '\'' ~ push(sb.toString) ~> ASTStringLiteralSingleQuote
   }
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR(true) | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\") ~ appendSB | UCHAR | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\") ~ appendSB | UCHAR(true) | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
-  def UCHAR = rule {
-    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s))) |
-      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ appendSB(hexStringToCharString(s)))
+  def UCHAR(flag: Boolean) = rule {
+    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s)) |
+      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s))
   }
 
   //[159s] ECHAR        ::=     '\' [tbnrf"'\]
@@ -262,7 +262,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
         str("\\u0060") | str("\\U00000060") |
         str("\\u007B") | str("\\u007b") | str("\\U0000007B") | str("\\U0000007b") |
         str("\\u007C") | str("\\u007c") | str("\\U0000007C") | str("\\U0000007c") |
-        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR).*) ~ push(sb.toString) ~ '>' ~> ASTIriRef
+        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR(false)).*) ~ push(sb.toString) ~ '>' ~> ASTIriRef
   }
 
   //[136s] PrefixedName 	::= 	PNAME_LN | PNAME_NS
@@ -389,5 +389,17 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
     case Success(s) ⇒ true
     case _          ⇒ false
+  }
+
+  private def maskQuotes(flag: Boolean, s: String) = {
+    val c = hexStringToCharString(s)
+    if (c.compare("\"") != 0)
+      appendSB(c)
+    else {
+      if (flag)
+        appendSB("\\" + c)
+      else
+        appendSB("\\u0022")
+    }
   }
 }

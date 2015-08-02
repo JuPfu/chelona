@@ -34,9 +34,9 @@ object GetCmdLineArgs {
   val argsParser = new OptionParser[Config]("Cheló̱na") {
     head("cheló̱na", "version 1.0")
     help("help") text "prints this usage text"
-    opt[Unit]("verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
+    opt[Unit]('v', "verbose") action { (_, c) ⇒ c.copy(verbose = true) } text "give some additional information"
     opt[Unit]("version") action { (_, c) ⇒ c.copy(version = true) } text "Cheló̱na version information"
-    opt[Unit]('v', "validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
+    opt[Unit]("validate") action { (_, c) ⇒ c.copy(validate = true) } text "validate input file"
     opt[Unit]('t', "trace") action { (_, c) ⇒ c.copy(trace = true) } text "display error trace"
     opt[Unit]('u', "uid") action { (_, c) ⇒ c.copy(uid = true) } text "use UID for blank nodes"
     opt[String]('b', "base") optional () action { (x, c) ⇒ c.copy(base = x) } text "base URI"
