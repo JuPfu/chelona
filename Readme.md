@@ -1,7 +1,7 @@
 <a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"/></a>
 &nbsp;&nbsp;&nbsp;**Cheló̱na**  
 
-A Parboiled2 based Scala Parser for the W3C RDF 1.1 Turtle, Trig, NTriple and NQuad Languages
+A Parboiled2 based Scala Parser for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages
 
 Introduction
 ============
@@ -10,8 +10,8 @@ Introduction
 
 With *Cheló̱na* you can
  
-- validate the syntax and semantic of a W3C RDF 1.1 *Trig*, *Turtle*, *N-Quads* or *N-Triples* file
-- convert a *Trig* or *N-Quads* file into its canonical quad format
+- validate the syntax and semantic of a W3C RDF 1.1 *TriG*, *Turtle*, *N-Quads* or *N-Triples* file
+- convert a *TriG* or *N-Quads* file into its canonical quad format
 - convert a *Turtle* or *N-Triples* file into its canonical triple format
 
 *Cheló̱na* supports the creation of your own output format. 
@@ -269,7 +269,7 @@ What *Cheló̱na* Does in Detail:
 - transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format
 - skolemisation (Replacing blank nodes with IRIs) (to be done)
 
-Trig-Section
+TriG-Section
 ============
 
 The Trig language definition can be found here http://www.w3.org/TR/trig/ .
@@ -277,7 +277,7 @@ The Trig language definition can be found here http://www.w3.org/TR/trig/ .
 First Example
 =============
 
-Here is a simple Trig file which can be found as Example1 at https://www.w3.org/TR/trig/:
+Here is a simple TriG file which can be found as Example1 at https://www.w3.org/TR/trig/:
 
     # This document encodes one graph.
     @prefix ex: <http://www.example.org/vocabulary#> .
@@ -301,7 +301,7 @@ Here is a simple Trig file which can be found as Example1 at https://www.w3.org/
 	
 Conversion is done with
 
-    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TrigMain --verbose ./examples/example1.trig > example1.nq
+    scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TriGMain --verbose ./examples/example1.trig > example1.nq
     
 License
 =======
