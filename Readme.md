@@ -21,11 +21,12 @@ The relationship among the various RDF 1.1 formats is shown in this image
 
 ![RDF 1.1 Formats](ressources/RDF-Formats.png)
 
-*Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of [Parboiled2](https://github.com/sirthias/parboiled2 "Parboiled2").
-
 *Cheló̱na* successfully masters the complete TriG-, Turtle- and N-Triples test suites described at http://www.w3.org/TR/rdf11-testcases/.
 The 100% compliance of the Turtle test suite is listed at https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10 .
 The compliance of the TriG- and N-Triples test suite is reported to the W3C gremium.
+
+*Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of [Parboiled2](https://github.com/sirthias/parboiled2 "Parboiled2").
+
 
 Turtle Section
 ==============
@@ -134,7 +135,7 @@ Inspecting the output file 'example1_n3.ttl' should give this result:
 Validation of a Turtle File
 ---------------------------
 
-When passing the parameter '-v' or '--validate' on the command line, *Cheló̱na* will do a syntax check. No output file is generated.
+When passing the parameter '--validate' on the command line, *Cheló̱na* will do a syntax check. No output file is generated.
 
     scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main --validate --verbose examples/example1.ttl
 
@@ -272,12 +273,12 @@ What *Cheló̱na* Does in Detail:
 TriG-Section
 ============
 
-The Trig language definition can be found here http://www.w3.org/TR/trig/ .
+The TriG language definition can be found here http://www.w3.org/TR/trig/ .
 
 First Example
 =============
 
-Here is a simple TriG file which can be found as Example1 at https://www.w3.org/TR/trig/:
+Example1 at https://www.w3.org/TR/trig/ is a simple TriG-file, which is part of the language description at http://www.w3.org/TR/trig/ .
 
     # This document encodes one graph.
     @prefix ex: <http://www.example.org/vocabulary#> .
@@ -303,6 +304,22 @@ Conversion is done with
 
     scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TriGMain --verbose ./examples/example1.trig > example1.nq
     
+Recommended definitions
+=======================
+
+For ease of use copy the generated Chelona-assembly-X.X.X.jar to /usr/local/lib/. Define an alias for each of the RDF-formats: 
+
+    alias chelona_turtle='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.Main'
+    alias chelona_trig='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.TriGMain'
+    alias chelona_nt='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NTMain'
+    alias chelona_nquad='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NQuadMain'
+    
+For huge input data it might be necessary to increase the heap-size.
+
+Postscript
+==========
+Questions, support, cooperation or collaboration are explicitely welcome!
+
 License
 =======
 
