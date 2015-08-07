@@ -97,6 +97,18 @@ This should generate an archive
 
 where x.x.x denotes the version information, e.g. chelona-assembly-1.0.0.jar.
 
+Recommended definitions
+-----------------------
+
+For ease of use copy the generated Chelona-assembly-X.X.X.jar to /usr/local/lib/. Define an alias for each of the RDF-formats: 
+
+    alias chelona='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.Main'
+    alias chelona_trig='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.TriGMain'
+    alias chelona_nt='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NTMain'
+    alias chelona_nquad='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NQuadMain'
+    
+For huge input data it might be necessary to increase the heap-size.
+
 Running *Cheló̱na* from the command line
 ----------------------------------------
 
@@ -115,6 +127,10 @@ Conversion of the example1.ttl file from the examples directory into the simple 
 is done with the command shown here: 
 
     scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main --verbose ./examples/example1.ttl > example1_n3.ttl
+    
+or shorter using the appropriate alias
+
+    chelona -v ./examples/example1.ttl > example1_n3.ttl
 
 The output generated lists the name of the output file and the number of generated triples:
 
@@ -147,7 +163,7 @@ Unique Blank Node Names
 
 For sake of convenience the next examples assume that an alias chelona has been created.
 
-    alias chelona="scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.Main"
+    alias chelona='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.Main'
 
 The '--uid' command line argument instructs *Cheló̱na* to use a unique identifier for blank nodes.
 
@@ -304,18 +320,10 @@ Conversion is done with
 
     scala -cp ./target/scala-2.11/chelona-assembly-1.0.0.jar org.chelona.TriGMain --verbose ./examples/example1.trig > example1.nq
     
-Recommended definitions
-=======================
+or using the shorthand alias chelona_trig (see the Installation chapter)
 
-For ease of use copy the generated Chelona-assembly-X.X.X.jar to /usr/local/lib/. Define an alias for each of the RDF-formats: 
-
-    alias chelona_turtle='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.Main'
-    alias chelona_trig='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.TriGMain'
-    alias chelona_nt='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NTMain'
-    alias chelona_nquad='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.0.0.jar org.chelona.NQuadMain'
+    chelona_trig -v ./examples/example1.trig > example1.nq
     
-For huge input data it might be necessary to increase the heap-size.
-
 Postscript
 ==========
 Questions, support, cooperation or collaboration are explicitely welcome!
