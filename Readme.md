@@ -24,7 +24,7 @@ The relationship among the various RDF 1.1 formats is shown in this image
 *Cheló̱na* is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of [Parboiled2](https://github.com/sirthias/parboiled2 "Parboiled2").
 
 *Cheló̱na* successfully masters the complete TriG-, Turtle- and N-Triples test suites described at http://www.w3.org/TR/rdf11-testcases/.
-The 100% compliance of the Turtle test suite is confirmed at https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10 .
+The 100% compliance of the Turtle test suite is listed at https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10 .
 The compliance of the TriG- and N-Triples test suite is reported to the W3C gremium.
 
 Turtle Section
