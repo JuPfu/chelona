@@ -1,0 +1,6 @@
+<http://example/s> <http://example/p> <http://example/o> .
+<http://example/s> <http://example/p> "Alice" .
+<http://example/s> <http://example/p> _:b1 .
+_:b2 <http://example/p> <http://example/o> .
+_:b2 <http://example/p> "Alice" .
+_:b2 <http://example/p> _:b3 .
