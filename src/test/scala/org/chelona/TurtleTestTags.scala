@@ -38,3 +38,6 @@ object TestTrigNegativeEval extends Tag("org.chelona.tags.TestTrigNegativeEval")
 
 object TestNTriplesPositiveSyntax extends Tag("org.chelona.tags.TestNTriplesPositiveSyntax")
 object TestNTriplesNegativeSyntax extends Tag("org.chelona.tags.TestNTriplesNegativeSyntax")
+
+object TestNQuadsPositiveSyntax extends Tag("org.chelona.tags.TestNQuadsPositiveSyntax")
+object TestNQuadsNegativeSyntax extends Tag("org.chelona.tags.TestNQuadsNegativeSyntax")

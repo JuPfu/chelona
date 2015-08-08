@@ -397,7 +397,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
       appendSB(c)
     else {
       if (flag)
-        appendSB("\\" + c)
+        appendSB("\\\"")
       else
         appendSB("\\u0022")
     }

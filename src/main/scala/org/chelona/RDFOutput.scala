@@ -39,7 +39,7 @@ trait RDFNTOutput extends RDFReturnType {
   }
 }
 
-trait RDQuadOutput extends RDFReturnType {
+trait RDFQuadOutput extends RDFReturnType {
   def quadWriter(bo: Writer)(spog: String*): Int = {
     bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
   }

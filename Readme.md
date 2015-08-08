@@ -1,7 +1,7 @@
 <a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"/></a>
 &nbsp;&nbsp;&nbsp;**Cheló̱na**  
 
-A Parboiled2 based Scala Parser for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages
+A Parboiled2 based Parser written in Scala for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages
 
 Introduction
 ============
@@ -21,7 +21,7 @@ The relationship among the various RDF 1.1 formats is shown in this image
 
 ![RDF 1.1 Formats](ressources/RDF-Formats.png)
 
-*Cheló̱na* successfully masters the complete TriG-, Turtle- and N-Triples test suites described at http://www.w3.org/TR/rdf11-testcases/.
+*Cheló̱na* successfully masters the complete TriG-, Turtle-, N-Triples and N-Quad test suites described at http://www.w3.org/TR/rdf11-testcases/.
 The 100% compliance of the Turtle test suite is listed at https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10 .
 The compliance of the TriG- and N-Triples test suite is reported to the W3C gremium.
 

@@ -43,7 +43,10 @@ class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) exte
   def evalStatement(expr: NTripleType): NQuadReturnValue = {
     expr match {
       case ASTStatement(subject, predicate, obj, graph, comment) ⇒
-        comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
+        comment match {
+          case Some(c) ⇒ evalStatement(c);
+          case None    ⇒
+        }
         graph match {
           case Some(g) ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj), evalStatement(g)): @unchecked) match {
@@ -54,6 +57,7 @@ class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) exte
               case (NQuadString(s1), NQuadString(p1), NQuadString(o1)) ⇒ NQuadQuad(s1, p1, o1, "")
             }
         }
+      case ASTGraphLabel(rule)    ⇒ evalStatement(rule)
       case ASTTripleComment(rule) ⇒ evalStatement(rule)
       case ASTSubject(rule)       ⇒ evalStatement(rule)
       case ASTPredicate(rule)     ⇒ evalStatement(rule)
