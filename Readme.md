@@ -1,5 +1,5 @@
 <a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"/></a>
-&nbsp;&nbsp;&nbsp;**Cheló̱na**  
+&nbsp;&nbsp;&nbsp;**Cheló̱na Version 1.1**  
 
 A Parboiled2 based Parser written in Scala for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages
 
