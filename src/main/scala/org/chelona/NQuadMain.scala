@@ -34,7 +34,7 @@ object NQuadMain extends App {
   }
 
   if (cmdLineArgs.get.version) {
-    System.err.println("Cheló̱n version 1.0")
+    System.err.println(chelona_version)
     sys.exit(2)
   }
 
