@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
-  version := "1.0.0",
+  version := "1.1.0",
   scalaVersion := "2.11.7",
   name := "Chelona",
   organization := "org.chelona",
