@@ -88,6 +88,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
         retval
       case ASTTriple2Collection(c, p) ⇒
         curGraph = ""
+        cCount += 1
         ((evalStatement(c), evalStatement(p)): @unchecked) match {
           case (TriGTuples(cs), TriGTuples(ps)) ⇒ TriGTuples(cs ::: ps)
         }
