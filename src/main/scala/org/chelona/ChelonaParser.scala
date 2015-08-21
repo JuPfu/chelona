@@ -33,20 +33,11 @@ object ChelonaParser extends TurtleAST {
 class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
 
   import org.chelona.CharPredicates._
-  import org.parboiled2.CharPredicate.{Alpha, AlphaNum, Digit, HexDigit}
+  import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
-  val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
-  val subjectStack = scala.collection.mutable.Stack.empty[String]
-  val predicateStack = scala.collection.mutable.Stack.empty[String]
-
-  var curSubject: String = "---Not valid subject---"
-  var curPredicate: String = "---Not valid predicate---"
-  var aCount = 0
-  var bCount = 0
-  var cCount = 0
 
   val n3 = new EvalTurtle(output, basePath, label)
 
@@ -282,7 +273,6 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
   /* A prefix name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
 	 The predicate "&(DOT.+ ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
-
 	 Example:
 	 [] <b> c:d.1..2...3.
 	 Due to the predicate the last '.' is not part of the local name. The accepted name is "c:d.1..2...3",
@@ -296,7 +286,6 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
   /* A local name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
 	 The predicate "&(DOT.+ ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
-
 	 Example:
 	 [] <b> c:d.1..2...3.
 	 Due to the predicate the last '.' is not part of the local name. The accepted name is "c:d.1..2...3",
@@ -332,7 +321,6 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 	 which is signaled by '.', too.
 	 The predicate "&(DOT.* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
-
 	 Example:
 	 <a> <b> _:c.1..2...3.
 	 Due to the predicate the last '.' is not part of the blank node label. The accepted name is "_:c.1..2...3",
