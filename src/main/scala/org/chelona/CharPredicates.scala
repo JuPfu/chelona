@@ -20,7 +20,6 @@ object CharPredicates {
   import org.parboiled2.CharPredicate
   import org.parboiled2.CharPredicate.{ Alpha, Digit }
 
-  val DOT = CharPredicate('.')
   val SIGN = CharPredicate('+', '-')
   val COLON = CharPredicate(':')
 
@@ -43,8 +42,6 @@ object CharPredicates {
   val ECHAR_CHAR = CharPredicate("tbnrf\"'\\")
 
   val LOCAL_ESC = CharPredicate('_', '~', '.', '-', '!', '$', '&', "'", '(', ')', '*', '+', ',', ';', '=', '/', '?', '#', '@', '%')
-
-  val WS = CharPredicate(" \t")
 
   /* 11th March 2015 surrogate treatment lent from discussion at
      https://gitter.im/sirthias/parboiled2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge */

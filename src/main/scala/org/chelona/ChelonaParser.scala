@@ -169,12 +169,12 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[20] DECIMAL 	::= 	[+-]? [0-9]* '.' [0-9]+
   def DECIMAL = rule {
-    atomic(capture(SIGN.? ~ Digit.* ~ DOT ~ Digit.+)) ~> ASTDecimal ~ ws
+    atomic(capture(SIGN.? ~ Digit.* ~ ch('.') ~ Digit.+)) ~> ASTDecimal ~ ws
   }
 
   //[21] DOUBLE 	::= 	[+-]? ([0-9]+ '.' [0-9]* EXPONENT | '.' [0-9]+ EXPONENT | [0-9]+ EXPONENT)
   def DOUBLE = rule {
-    atomic(capture(SIGN.? ~ (Digit.+ ~ DOT ~ Digit.* | DOT ~ Digit.+ | Digit.+) ~ EXPONENT)) ~> ASTDouble ~ ws
+    atomic(capture(SIGN.? ~ (Digit.+ ~ ch('.') ~ Digit.* | ch('.') ~ Digit.+ | Digit.+) ~ EXPONENT)) ~> ASTDouble ~ ws
   }
 
   //[154s] EXPONENT 	::= 	[eE] [+-]? [0-9]+
@@ -279,7 +279,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_PREFIX = rule {
-    atomic(capture(PN_CHARS_BASE ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTPNPrefix
+    atomic(capture(PN_CHARS_BASE ~ (PN_CHARS | &(ch('.').+ ~ PN_CHARS) ~ ch('.').+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTPNPrefix
   }
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
@@ -292,7 +292,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 	 with the last '.' being recognized as triple terminator.
 	 */
   def PN_LOCAL = rule {
-    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(DOT.+ ~ PN_CHARS_COLON) ~ (DOT ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | isHighSurrogate ~ appendSB ~ isLowSurrogate ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal
+    clearSB ~ atomic((PLX | PN_CHARS_U_COLON_DIGIT ~ appendSB) ~ (PLX | PN_CHARS_COLON ~ appendSB | &(ch('.').+ ~ PN_CHARS_COLON) ~ (ch('.') ~ appendSB).+ ~ PN_CHARS_COLON ~ appendSB | isHighSurrogate ~ appendSB ~ isLowSurrogate ~ appendSB).*) ~ push(sb.toString) ~> ASTPNLocal
   }
 
   //[169s] PLX 	::= 	PERCENT | PN_LOCAL_ESC
@@ -327,7 +327,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 	 with the last '.' being recognized as triple terminator.
 	 */
   def BLANK_NODE_LABEL = rule {
-    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(DOT.+ ~ PN_CHARS) ~ DOT.+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTBlankNodeLabel ~ ws
+    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(ch('.').+ ~ PN_CHARS) ~ ch('.').+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[162s] ANON 	::= 	'[' WS* ']'
