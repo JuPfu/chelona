@@ -368,10 +368,6 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
     prefixMap.contains(ns)
   }
 
-  private def addPrefix(pname_ns: String, pn_local: String): Boolean = {
-    prefixMap.contains(pname_ns)
-  }
-
   private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
     case Success(s) ⇒ true
     case _          ⇒ false
