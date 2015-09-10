@@ -1,3 +1,4 @@
+import ReleaseTransformations._
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
@@ -5,7 +6,7 @@ val commonSettings = Seq(
   version := "1.1.0",
   scalaVersion := "2.11.7",
   name := "Chelona",
-  organization := "org.jupfu",
+  organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
   description := "W3C RDF 1.1 Turtle Parser",
   startYear := Some(2014),
@@ -34,8 +35,6 @@ val formattingSettings = scalariformSettings ++ Seq(
     .setPreference(AlignSingleLineCaseStatements, true)
     .setPreference(DoubleIndentClassDeclaration, true)
     .setPreference(PreserveDanglingCloseParenthesis, true))
-
-useGpg := true
 
 /////////////////////// DEPENDENCIES /////////////////////////
 
@@ -75,7 +74,9 @@ lazy val chelona = project.in(file("."))
 val publishingSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Test := false,
-  useGpg := true,
+  useGpg := false,
+  useGpgAgent := false,
+  sonatypeProfileName := "JuPfu",
   publishTo <<= version { v: String =>
     val nexus = "https://oss.sonatype.org/"
     if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
@@ -83,14 +84,30 @@ val publishingSettings = Seq(
                         },
   pomIncludeRepository := { _ => false },
   pomExtra :=
-      <scm>
-        <url>git@github.com:jupfu/chelona.git</url>
-        <connection>scm:git:git@github.com:jupfu/chelona.git</connection>
-      </scm>
+    <scm>
+      <connection>scm:git:github.com/jupfu/chelona</connection>
+      <developerConnection>scm:git:git@github.com:jupfu/chelona.git</developerConnection>
+      <url>github.com/jupfu/chelona</url>
+    </scm>
       <developers>
         <developer>
-          <id>jupfu</id>
+          <id>JuPfu</id>
           <name>Jürgen Pfundt</name>
           <url>http://github.com/jupfu</url>
         </developer>
       </developers>)
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  ReleaseStep(action = Command.process("publishSigned", _)),
+  setNextVersion,
+  commitNextVersion,
+  ReleaseStep(action = Command.process("sonatypeReleaseAll", _)),
+  pushChanges
+)
