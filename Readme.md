@@ -34,7 +34,7 @@ Turtle Section
 First Example
 =============
 
-A simple turtle file taken from the W3C recommendation which resides at http://www.w3.org/TR/turtle/ :
+Here a simple turtle file taken from the W3C recommendation which resides at http://www.w3.org/TR/turtle/ :
 
     @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 
@@ -64,7 +64,7 @@ The next turtle file is listed as example 15 in the W3C RDF 1.1 Turtle Definitio
 Third Example
 ============
 
-This is example 23 from the W3C RDF 1.1 Terse RDF Triple Language definition
+This is example 23 from the W3C RDF 1.1 Terse RDF Triple language definition
 
 	@prefix : <http://example.org/stuff/1.0/> .
 	(1 2.0 3E1) :p "w" .
@@ -269,6 +269,30 @@ The example program shows how to convert some Turtle data into the N3 Triple for
         case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
       }
     }
+    
+Add the library dependencies for parboiled2 and chelona to your SBT build file
+ 
+    val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
+    val chelona = "com.github.jupfu" %% "chelona" % "1.1.0"
+    
+    libraryDependencies ++= Seq( parboiled2, chelona )
+    
+A complete simple build file for the example program is shown here
+
+    name := "Chelona-Example"
+
+    version := "1.0"
+
+    scalaVersion := "2.11.7"
+
+    test in assembly := {}
+
+    /////////////////////// DEPENDENCIES /////////////////////////
+
+    val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
+    val chelona = "com.github.jupfu" %% "chelona" % "1.1.0"
+
+    libraryDependencies ++= Seq( parboiled2, chelona )
 
 Build Your Own Output Format
 ============================
