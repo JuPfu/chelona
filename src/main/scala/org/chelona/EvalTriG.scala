@@ -31,7 +31,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
 
   import org.chelona.TriGParser._
 
-  val prefixMap2 = scala.collection.mutable.Map.empty[String, String]
+  val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
   val subjectStack = scala.collection.mutable.Stack.empty[String]
   val predicateStack = scala.collection.mutable.Stack.empty[String]
@@ -323,17 +323,17 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
 
   private def definePrefix(key: String, value: String) = {
     if (value.startsWith("//") || hasScheme(value))
-      prefixMap2 += key -> value
+      prefixMap += key -> value
     else if (value.endsWith("/") || value.endsWith("#")) {
-      if (!prefixMap2.contains(key))
-        prefixMap2 += key -> value
+      if (!prefixMap.contains(key))
+        prefixMap += key -> value
       else
-        prefixMap2 += key -> (prefixMap2.getOrElse(key, basePath) + value)
-    } else prefixMap2 += key -> value
+        prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
+    } else prefixMap += key -> value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap2.getOrElse(pname_ns, "" /*basePath*/ )
+    val prefix = prefixMap.getOrElse(pname_ns, "" /*basePath*/ )
     if (prefix.startsWith("//") || hasScheme(prefix)) {
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + pn_local
@@ -345,12 +345,12 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
       }
     } else {
       if (prefix.endsWith("/") || prefix.endsWith("#")) {
-        basePath + prefixMap2.getOrElse("", basePath) + pn_local
+        basePath + prefixMap.getOrElse("", basePath) + pn_local
       } else {
         if (pn_local != "")
-          prefixMap2.getOrElse("", basePath) + "/" + pn_local
+          prefixMap.getOrElse("", basePath) + "/" + pn_local
         else
-          prefixMap2.getOrElse("", basePath)
+          prefixMap.getOrElse("", basePath)
       }
     }
   }
@@ -359,7 +359,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
     if (pn_local.startsWith("//") || hasScheme(pn_local))
       pn_local
     else {
-      val prefix = prefixMap2.getOrElse("", basePath)
+      val prefix = prefixMap.getOrElse("", basePath)
       if (prefix.startsWith("//") || hasScheme(prefix)) {
         if (prefix.endsWith("/") || prefix.endsWith("#"))
           prefix + pn_local
@@ -371,12 +371,12 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
         }
       } else {
         if (prefix.endsWith("/") || prefix.endsWith("#")) {
-          basePath + prefixMap2.getOrElse("", basePath) + pn_local
+          basePath + prefixMap.getOrElse("", basePath) + pn_local
         } else {
           if (pn_local != "")
-            prefixMap2.getOrElse("", basePath) + "/" + pn_local
+            prefixMap.getOrElse("", basePath) + "/" + pn_local
           else
-            prefixMap2.getOrElse("", basePath)
+            prefixMap.getOrElse("", basePath)
         }
       }
     }
@@ -384,14 +384,14 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
 
   private def addBasePrefix(iri: String) = {
     if (iri.startsWith("//") || hasScheme(iri))
-      prefixMap2 += "" -> iri
+      prefixMap += "" -> iri
     else {
-      val prefix = prefixMap2.getOrElse("", basePath)
+      val prefix = prefixMap.getOrElse("", basePath)
       if (prefix.endsWith("/") || prefix.endsWith("#"))
-        prefixMap2 += "" -> (prefix + iri)
+        prefixMap += "" -> (prefix + iri)
       else if (prefix.length > 0)
-        prefixMap2 += "" -> (prefix + "/" + iri)
-      else prefixMap2 += "" -> iri
+        prefixMap += "" -> (prefix + "/" + iri)
+      else prefixMap += "" -> iri
     }
   }
 

@@ -228,6 +228,10 @@ Some internal parsing information will be emitted in case of an error when "--tr
 Programmatical Interface
 ========================
 
+Binding of *Cheló̱na* artifacts from [Maven Central](http://search.maven.org/ "Maven Central") is done by adding the following dependency to your SBT build file
+    
+    libraryDependencies += "com.github.jupfu" %% "chelona" % "1.1.0"
+
 The example program shows how to convert some Turtle data into the N3 Triple format.
 
     import java.io.StringWriter
@@ -269,14 +273,7 @@ The example program shows how to convert some Turtle data into the N3 Triple for
         case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
       }
     }
-    
-Add the library dependencies for parboiled2 and chelona to your SBT build file
- 
-    val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
-    val chelona = "com.github.jupfu" %% "chelona" % "1.1.0"
-    
-    libraryDependencies ++= Seq( parboiled2, chelona )
-    
+        
 A complete simple build file for the example program is shown here
 
     name := "Chelona-Example"
@@ -285,14 +282,7 @@ A complete simple build file for the example program is shown here
 
     scalaVersion := "2.11.7"
 
-    test in assembly := {}
-
-    /////////////////////// DEPENDENCIES /////////////////////////
-
-    val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
-    val chelona = "com.github.jupfu" %% "chelona" % "1.1.0"
-
-    libraryDependencies ++= Seq( parboiled2, chelona )
+    libraryDependencies += "com.github.jupfu" %% "chelona" % "1.1.0"
 
 Build Your Own Output Format
 ============================
