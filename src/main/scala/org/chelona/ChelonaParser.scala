@@ -214,12 +214,12 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[24] STRING_LITERAL_LONG_SINGLE_QUOTE       ::=     "'''" (("'" | "''")? ([^'\] | ECHAR | UCHAR))* "'''"
   def STRING_LITERAL_LONG_SINGLE_QUOTE = rule {
-    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s)) ~ (noneOf("\'\\\"") ~ appendSB | '"' ~ appendSB("\\\"") | UCHAR(true) | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
+    str("'''") ~ clearSB ~ (capture(('\'' ~ '\'' ~ !'\'' | '\'' ~ !('\'' ~ '\'')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (capture(noneOf("\'\\\"")) ~> ((s: String) ⇒ maskEsc(s)) | '"' ~ appendSB("\\\"") | UCHAR(true) | ECHAR)).* ~ str("'''") ~ push(sb.toString) ~> ASTStringLiteralLongSingleQuote
   }
 
   //[25] STRING_LITERAL_LONG_QUOTE      ::=     '"""' (('"' | '""')? ([^"\] | ECHAR | UCHAR))* '"""'
   def STRING_LITERAL_LONG_QUOTE = rule {
-    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (noneOf("\"\\") ~ appendSB | UCHAR(true) | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
+    str("\"\"\"") ~ clearSB ~ (capture(('"' ~ '"' ~ !'"' | '"' ~ !('"' ~ '"')).?) ~> ((s: String) ⇒ appendSB(s.replaceAllLiterally("\"", "\\\""))) ~ (capture(noneOf("\"\\")) ~> ((s: String) ⇒ maskEsc(s)) | UCHAR(true) | ECHAR)).* ~ str("\"\"\"") ~ push(sb.toString) ~> ASTStringLiteralLongQuote
   }
 
   //[26] UCHAR  ::=     '\\u' HEX HEX HEX HEX | '\U' HEX HEX HEX HEX HEX HEX HEX HEX
@@ -383,5 +383,17 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
       else
         appendSB("\\u0022")
     }
+  }
+
+  private def maskEsc(s: String) = {
+    var c = s.charAt(0)
+    if (c < ' ') {
+      if (c == '\n') appendSB("\\n")
+      else if (c == '\r') appendSB("\\r")
+      else if (c == '\t') appendSB("\\t")
+      else if (c == '\f') appendSB("\\f")
+      else if (c == '\b') appendSB("\\b")
+      else appendSB(s)
+    } else appendSB(s)
   }
 }

@@ -1274,7 +1274,7 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt")
     earlOut("literal_with_CARRIAGE_RETURN", true)
@@ -2413,7 +2413,7 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-08.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-08_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-08.nt")
     earlOut("turtle-syntax-string-08", true)
@@ -2431,7 +2431,7 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-09.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-09_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-09.nt")
     earlOut("turtle-syntax-string-09", true)
@@ -2449,7 +2449,7 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-10.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-10_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-10.nt")
     earlOut("turtle-syntax-string-10", true)
@@ -2467,7 +2467,7 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-11.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-11_isomorphic.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in turtle-syntax-string-11.nt")
     earlOut("turtle-syntax-string-11", true)
