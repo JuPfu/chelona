@@ -788,7 +788,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-10.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-10_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-10.nq")
     earlOut("trig-syntax-string-10", output.toString == nq.toString)
@@ -1227,7 +1227,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nq = io.Source.fromFile("./TrigTests/literal_with_CARRIAGE_RETURN_isomorphic.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/literal_with_CARRIAGE_RETURN.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_CARRIAGE_RETURN.nq")
     earlOut("literal_with_CARRIAGE_RETURN", output.toString == nq.toString)
@@ -1796,7 +1796,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-09.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-09_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-09.nq")
     earlOut("trig-syntax-string-09", output.toString == nq.toString)
@@ -2904,7 +2904,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-08.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-08_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-08.nq")
     earlOut("trig-syntax-string-08", output.toString == nq.toString)
@@ -3163,7 +3163,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nq = io.Source.fromFile("./TrigTests/trig-subm-15_isomorphic.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/trig-subm-15.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-subm-15.nq")
     earlOut("trig-subm-15", output.toString == nq.toString)
@@ -5938,7 +5938,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
-    val nq = io.Source.fromFile("./TrigTests/literal_with_LINE_FEED_isomorphic.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/literal_with_LINE_FEED.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in literal_with_LINE_FEED.nq")
     earlOut("literal_with_LINE_FEED", output.toString == nq.toString)
@@ -6010,7 +6010,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-11.nq").mkString
+    val nq = io.Source.fromFile("./TrigTests/trig-syntax-string-11_isomorphic.nq").mkString
 
     assert(output.toString == nq.toString, "Quads generated should be exactly as in trig-syntax-string-11.nq")
     earlOut("trig-syntax-string-11", output.toString == nq.toString)

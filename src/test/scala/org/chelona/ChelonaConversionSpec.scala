@@ -734,7 +734,7 @@ class ChelonaConversionSpec extends FlatSpec with RDFTripleOutput {
 
     assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt")
 
