@@ -43,7 +43,7 @@ class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends
   def evalStatement(expr: NTripleType): NTripleReturnValue = {
     expr match {
       case ASTTriple(subject, predicate, obj, comment) ⇒
-        comment match { case Some(comment) ⇒ evalStatement(comment); case None ⇒ }
+        comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
         ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
           case (NTString(s1), NTString(p1), NTString(o1)) ⇒ NTTriple(s1, p1, o1)
         }
