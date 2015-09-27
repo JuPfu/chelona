@@ -20,6 +20,8 @@ import org.chelona.NTriplesParser.NTAST
 
 import org.parboiled2._
 
+import scala.collection.mutable
+
 import scala.util.Success
 
 object NTriplesParser extends NTripleAST {
@@ -41,6 +43,60 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
 
   val nt = new EvalNT(output, basePath, label)
 
+  /*
+ Parsing of the turtle data is done in the main thread.
+ Evaluation of the abstract syntax tree for each turtle statement is passed to a separate thread "TurtleASTWorker".
+ The ast evaluation procedure n3.renderStatement and the ast for a statement are placed in a queue.
+ The abstract syntax trees of the Turtle statements are evaluated in sequence!
+ Parsing continues immmediatly.
+
+ ---P--- denotes the time for parsing a Turtle statement
+ A       denotes administration time for the worker thread
+ Q       denotes the time for enqueueing or dequeueing an ast of a Turtle statement
+ ++E++   denotes the time for evaluating an ast of a Turtle statement
+
+
+ Without worker thread parsing and evaluation of Turtle ast statements is done sequentially in one thread:
+
+ main thread:   ---P---++E++---P---++E++---P---++E++---P---++E++---P---++E++---P---++E++...
+
+ The main thread enqueues an ast of a parsed Turtle statement.
+ The worker thread dequeues an ast of a Turtle statement and evaluates it.
+
+ main thread:   AAAAA---P---Q---P---Q---P---Q---P---Q---P---Q---P---Q---P---...
+ worker thread:               Q++E++   Q++E++      Q++E++Q++E++Q++E++ Q++E++
+
+ Overhead for administration, e.g. waiting, notifying, joining and shutting down of the worker thread is not shown
+ in the schematic illustration. Only some initial administrative effort is depicted. For small Turtle data it is
+ usually faster to not use a worker thread due to the overhead involved to create, manage and dispose it.
+ It takes some statements until catching up of the delay caused by the worker thread overhead is successful.
+
+ For simple Turtle data, which consists mostly of simple s-p-o triples, the ast evaluation is rather short. The
+ overhead for managing a worker thread compensates the time gain of evaluating the ast in a separate thread.
+
+ +E+     denotes the time for evaluating an ast of a simple s-p-o Turtle statement
+
+ main thread:   ---P---+E+---P---+E+---P---+E+---P---+E+---P---+E+---P---+E+...
+
+ Use the 'thread' option for Turtle data which actually uses explicit Turtle syntax like prefixes,
+ predicate object-lists, collections, etc.
+ */
+
+  var astQueue = mutable.Queue[(NTripleType ⇒ Int, NTripleType)]()
+  val worker = new ASTThreadWorker(astQueue)
+
+  if (!validate) {
+    worker.setName("NTripleASTWorker")
+    worker.start()
+  }
+
+  /*
+   Enqueue ast for a NTriple statement
+   */
+  def asynchronous(ast: (NTripleType ⇒ Int, NTripleType)) = astQueue.synchronized {
+    astQueue.enqueue(ast)
+    if (astQueue.length > 10) astQueue.notify()
+  }
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
     quiet(str(s)) ~ ws
@@ -59,12 +115,28 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
   def ntriplesDoc = rule {
     (triple ~> ((ast: NTripleAST) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate) nt.renderStatement(ast)
-        else ast match {
-          case ASTComment(s) ⇒ 0
-          case _             ⇒ 1
+        if (!validate) {
+          asynchronous((nt.renderStatement, ast)); 1
+        } else
+          ast match {
+            case ASTComment(s) ⇒ 0
+            case _             ⇒ 1
+          }
+      } else { if (!validate) worker.shutdown(); 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      if (!validate) {
+        worker.join(10)
+        worker.shutdown()
+
+        while (!astQueue.isEmpty) {
+          val (eval, ast) = astQueue.dequeue()
+          worker.sum += eval(ast)
         }
-      } else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+      }
+
+      if (validate) v.size
+      else worker.sum
+    }
+    )
   }
 
   //[2] triple	::=	subject predicate object '.'

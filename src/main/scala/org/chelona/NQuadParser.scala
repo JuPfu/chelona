@@ -37,14 +37,28 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
   def nquadsDoc = rule {
     (statement ~> ((ast: NTripleType) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate)
-          quad.renderStatement(ast)
-        else
+        if (!validate) {
+          asynchronous((quad.renderStatement, ast)); 1
+        } else
           ast match {
             case ASTComment(s) ⇒ 0
             case _             ⇒ 1
           }
-      } else 0)).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+      } else { if (!validate) worker.shutdown(); 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      if (!validate) {
+        worker.join(10)
+        worker.shutdown()
+
+        while (!astQueue.isEmpty) {
+          val (eval, ast) = astQueue.dequeue()
+          worker.sum += eval(ast)
+        }
+      }
+
+      if (validate) v.size
+      else worker.sum
+    }
+    )
   }
 
   //[2]	statement	::=	subject predicate object graphLabel? '.'
