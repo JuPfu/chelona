@@ -118,22 +118,21 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> {
-      ((v: Seq[Int]) ⇒ {
-        if (!validate) {
-          worker.join(10)
-          worker.shutdown()
-          while (!astQueue.isEmpty) {
-            val (eval, ast) = astQueue.dequeue();
-            worker.sum += eval(ast)
-          }
-        }
+      } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      if (!validate) {
+        worker.join(10)
+        worker.shutdown()
 
-        if (validate) v.size
-        else worker.sum
+        while (!astQueue.isEmpty) {
+          val (eval, ast) = astQueue.dequeue()
+          worker.sum += eval(ast)
+        }
       }
-      )
+
+      if (validate) v.size
+      else worker.sum
     }
+    )
   }
 
   //[2] statement 	::= 	directive | triples '.'

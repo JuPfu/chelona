@@ -20,6 +20,7 @@ import org.chelona.TriGParser.QuadAST
 
 import org.parboiled2._
 
+import scala.collection.mutable
 import scala.language.implicitConversions
 
 object TriGParser extends TriGAST {
@@ -39,12 +40,28 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
   def trigDoc = rule {
     (statement ~> ((ast: TurtleType) ⇒
       if (!__inErrorAnalysis) {
-        if (!validate) trig.renderStatement(ast) else
+        if (!validate) {
+          asynchronous((trig.renderStatement, ast)); 1
+        } else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else 0)).* ~ EOI ~> ((v: Seq[Int]) ⇒ v.foldLeft(0L)(_ + _))
+      } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      if (!validate) {
+        worker.join(10)
+        worker.shutdown()
+
+        while (!astQueue.isEmpty) {
+          val (eval, ast) = astQueue.dequeue()
+          worker.sum += eval(ast)
+        }
+      }
+
+      if (validate) v.size
+      else worker.sum
+    }
+    )
   }
 
   //[2] trigDoc 	::= 	directive | block
