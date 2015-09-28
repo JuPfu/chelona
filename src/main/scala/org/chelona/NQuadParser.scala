@@ -44,7 +44,7 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
             case ASTComment(s) ⇒ 0
             case _             ⇒ 1
           }
-      } else { if (!validate) worker.shutdown(); 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.join(10)
         worker.shutdown()
@@ -55,7 +55,7 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
         }
       }
 
-      if (validate) v.size
+      if (validate) v.foldLeft(0)(_ + _)
       else worker.sum
     }
     )

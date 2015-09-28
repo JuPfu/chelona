@@ -47,7 +47,7 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.join(10)
         worker.shutdown()
@@ -58,7 +58,7 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
         }
       }
 
-      if (validate) v.size
+      if (validate) v.foldLeft(0)(_ + _)
       else worker.sum
     }
     )

@@ -129,7 +129,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
         }
       }
 
-      if (validate) v.size
+      if (validate) v.foldLeft(0)(_ + _)
       else worker.sum
     }
     )
