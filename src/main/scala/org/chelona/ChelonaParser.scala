@@ -103,9 +103,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
     quiet(str(s)) ~ ws
   }
 
-  def ws = rule {
-    quiet((anyOf(" \n\r\t").* ~ ('#' ~ noneOf("\n\r").*) | anyOf(" \n\r\t").+).+ | anyOf(" \n\r\t").*)
-  }
+  def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n\r").*).*) }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
@@ -129,7 +127,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
         }
       }
 
-      if (validate) v.foldLeft(0)(_ + _)
+      if (validate) v.foldLeft(0L)(_ + _)
       else worker.sum
     }
     )

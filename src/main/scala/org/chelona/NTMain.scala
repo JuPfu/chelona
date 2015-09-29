@@ -64,7 +64,7 @@ object NTMain extends App {
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   def ntWriter(bo: Writer)(spo: String*): Int = {
-    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
+    bo.write(s"$spo(0) $spo(1) $spo(2) .\n"); 1
   }
 
   val parser = NTriplesParser(input, ntWriter(output)_, validate, base, label)

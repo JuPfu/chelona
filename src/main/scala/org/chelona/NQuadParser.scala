@@ -55,7 +55,7 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
         }
       }
 
-      if (validate) v.foldLeft(0)(_ + _)
+      if (validate) v.foldLeft(0L)(_ + _)
       else worker.sum
     }
     )
