@@ -22,23 +22,21 @@ import org.parboiled2._
 
 object NQuadParser {
 
-  def apply(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new NQuadParser(input, output, validate, basePath, label)
+  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new NQuadParser(input, renderStatement, validate, basePath, label)
   }
 
   sealed trait NQAST extends NQuadAST
 }
 
-class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output: (String*) ⇒ Int, validate, basePath, label) with NQAST {
-
-  val quad = new EvalNQuad(output, basePath, label)
+class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) with NQAST {
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
     (statement ~> ((ast: NTripleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
-          asynchronous((quad.renderStatement, ast)); 1
+          asynchronous((renderStatement, ast)); 1
         } else
           ast match {
             case ASTComment(s) ⇒ 0
@@ -50,12 +48,12 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
         worker.shutdown()
 
         while (!astQueue.isEmpty) {
-          val (eval, ast) = astQueue.dequeue()
-          worker.sum += eval(ast)
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
         }
       }
 
-      if (validate) v.foldLeft(0L)(_ + _)
+      if (validate) v.sum
       else worker.sum
     }
     )
@@ -63,7 +61,7 @@ class NQuadParser(input: ParserInput, output: (String*) ⇒ Int, validate: Boole
 
   //[2]	statement	::=	subject predicate object graphLabel? '.'
   def statement: Rule1[NTripleType] = rule {
-    ws ~ (subject ~ predicate ~ obj ~ graphLabel.? ~ "." ~ comment.? ~> ASTStatement | comment ~> ASTTripleComment) | blank_line ~> ASTBlankLine
+    ws ~ (subject ~ predicate ~ `object` ~ graphLabel.? ~ "." ~ comment.? ~> ASTStatement | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
   }
 
   //[6]	graphLabel	::=	IRIREF | BLANK_NODE_LABEL

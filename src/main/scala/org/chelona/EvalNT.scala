@@ -30,7 +30,7 @@ class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends
 
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
 
-  var bCount = 0
+  var bCount: Long = 0L
 
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
@@ -47,10 +47,11 @@ class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends
         ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
           case (NTString(s1), NTString(p1), NTString(o1)) ⇒ NTTriple(s1, p1, o1)
         }
-      case ASTTripleComment(rule) ⇒ evalStatement(rule)
-      case ASTSubject(rule)       ⇒ evalStatement(rule)
-      case ASTPredicate(rule)     ⇒ evalStatement(rule)
-      case ASTObject(rule)        ⇒ evalStatement(rule)
+
+      case ASTSubject(rule)   ⇒ evalStatement(rule)
+      case ASTPredicate(rule) ⇒ evalStatement(rule)
+      case ASTObject(rule)    ⇒ evalStatement(rule)
+      case ASTIriRef(token)   ⇒ NTString("<" + token + ">")
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case NTString(s) ⇒ s
@@ -66,18 +67,18 @@ class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NTString(token)
-      case ASTIriRef(token)             ⇒ NTString("<" + token + ">")
       case ASTStringLiteralQuote(token) ⇒ NTString("\"" + token + "\"")
+      case ASTLangTag(token)            ⇒ NTString(token)
       case ASTBlankNodeLabel(token)     ⇒ NTString(setBlankNodeName("_:" + token))
       case ASTComment(token)            ⇒ NTComment(token)
+      case ASTTripleComment(rule)       ⇒ evalStatement(rule)
       case ASTBlankLine(token)          ⇒ NTComment(token)
     }
   }
 
   private def setBlankNodeName(key: String) = {
     if (!blankNodeMap.contains(key)) {
-      bCount += 1
+      bCount += 1L
       blankNodeMap += key -> ("_:b" + label + bCount)
     }
     blankNodeMap.getOrElse(key, "This should never be returned")

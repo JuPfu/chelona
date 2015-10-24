@@ -20,10 +20,9 @@ import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
 object NTMain extends App {
 
@@ -43,11 +42,9 @@ object NTMain extends App {
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
     System.err.flush()
   }
-
-  val ms: Double = System.currentTimeMillis
 
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
 
@@ -59,31 +56,17 @@ object NTMain extends App {
   val base = cmdLineArgs.get.base
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
 
-  lazy val input: ParserInput = inputfile.get.mkString
+  val trace = cmdLineArgs.get.trace
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   def ntWriter(bo: Writer)(spo: String*): Int = {
-    bo.write(s"$spo(0) $spo(1) $spo(2) .\n"); 1
+    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
   }
 
-  val parser = NTriplesParser(input, ntWriter(output)_, validate, base, label)
+  val evalNT = new EvalNT(ntWriter(output)_, base, label)
 
-  val res = parser.ntriplesDoc.run()
+  NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 100000)
 
   output.close()
-
-  res match {
-    case Success(tripleCount) ⇒
-      val me: Double = System.currentTimeMillis - ms
-      if (verbose) {
-        if (!validate) {
-          System.err.println("Input file '" + file.head + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        } else {
-          System.err.println("Input file '" + file.head + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        }
-      }
-    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.head + "': " + parser.formatError(e)) else System.err.println("File '" + file.head + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
-    case Failure(e)             ⇒ System.err.println("File '" + file.head + "': Unexpected error during parsing run: " + e)
-  }
 }

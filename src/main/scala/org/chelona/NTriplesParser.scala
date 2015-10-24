@@ -21,27 +21,70 @@ import org.chelona.NTriplesParser.NTAST
 import org.parboiled2._
 
 import scala.collection.mutable
+import scala.io.BufferedSource
 
-import scala.util.Success
+import scala.util.{ Failure, Success }
 
 object NTriplesParser extends NTripleAST {
 
-  def apply(input: ParserInput, output: (String*) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new NTriplesParser(input, output, validate, basePath, label)
+  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
+    new NTriplesParser(input, renderStatement, validate, basePath, label, verbose, trace)
   }
 
   sealed trait NTAST extends NTripleAST
+
+  def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
+
+    val ms: Double = System.currentTimeMillis
+
+    val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
+
+    val name = "tralala"
+
+    val in = inputBuffer.getLines()
+
+    var tripleCount: Long = 0L
+    var block = 0L
+
+    while (in.hasNext) {
+      lazy val inputPart: ParserInput = in.take(lines).mkString("\n")
+      val parser = NTriplesParser(inputPart, renderStatement, validate, base, label)
+      val res = parser.ntriplesDoc.run()
+
+      if (in.hasNext) {
+        res match {
+          case Success(count)         ⇒ tripleCount += count
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + name + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
+        }
+      } else {
+        res match {
+          case Success(count) ⇒
+            if (verbose) {
+              tripleCount += count
+              val me: Double = System.currentTimeMillis - ms
+              if (!validate) {
+                System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+              } else {
+                System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+              }
+            }
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
+        }
+      }
+      block += n
+    }
+  }
 }
 
-class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
+class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding with NTAST {
 
   import org.chelona.CharPredicates._
 
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
-
-  val nt = new EvalNT(output, basePath, label)
 
   /*
  Parsing of the turtle data is done in the main thread.
@@ -113,27 +156,50 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
 
   //[1]	ntriplesDoc	::=	triple? (EOL triple)* EOL?
   def ntriplesDoc = rule {
-    (triple ~> ((ast: NTripleAST) ⇒
+    (triple.? ~> ((a: Option[NTripleAST]) ⇒
+      push(a match {
+        case Some(ast) ⇒
+          if (!__inErrorAnalysis) {
+            if (!validate) {
+              asynchronous((renderStatement, ast)); 1
+            } else
+              ast match {
+                case ASTComment(s) ⇒ 0
+                case _             ⇒ 1
+              }
+          } else {
+            if (!validate) {
+              worker.join(10); worker.shutdown()
+            }; 0
+          }
+        case None ⇒ 0
+      }
+      )
+    )) ~ (EOL ~ triple ~> ((ast: NTripleAST) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
-          asynchronous((nt.renderStatement, ast)); 1
+          asynchronous((renderStatement, ast)); 1
         } else
           ast match {
             case ASTComment(s) ⇒ 0
             case _             ⇒ 1
           }
-      } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else {
+        if (!validate) {
+          worker.join(10); worker.shutdown()
+        }; 0
+      })).* ~ EOL.? ~ EOI ~> ((v0: Int, v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.join(10)
         worker.shutdown()
 
         while (!astQueue.isEmpty) {
-          val (eval, ast) = astQueue.dequeue()
-          worker.sum += eval(ast)
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
         }
       }
 
-      if (validate) v.foldLeft(0L)(_ + _)
+      if (validate) v.sum + v0
       else worker.sum
     }
     )
@@ -141,10 +207,8 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
 
   //[2] triple	::=	subject predicate object '.'
   def triple: Rule1[NTripleAST] = rule {
-    ws ~ (subject ~ predicate ~ obj ~ "." ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | blank_line ~> ASTBlankLine
+    ws ~ (subject ~ predicate ~ `object` ~ "." ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
   }
-
-  def blank_line = rule { quiet(capture(anyOf(" \t").+)) }
 
   //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
   def subject = rule {
@@ -157,8 +221,8 @@ class NTriplesParser(val input: ParserInput, val output: (String*) ⇒ Int, vali
   }
 
   //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | literal
-  def obj = rule {
-    (IRIREF | BLANK_NODE_LABEL | literal) ~> ASTObject
+  def `object` = rule {
+    (IRIREF | literal | BLANK_NODE_LABEL) ~> ASTObject
   }
 
   //[6]	literal	::=	STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?

@@ -67,7 +67,9 @@ object NQuadMain extends App {
     bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
   }
 
-  val parser = NQuadParser(input, quadWriter(output)_, validate, base, label)
+  val quad = new EvalNQuad(quadWriter(output)_, base, label)
+
+  val parser = NQuadParser(input, quad.renderStatement, validate, base, label)
 
   val res = parser.nquadsDoc.run()
 

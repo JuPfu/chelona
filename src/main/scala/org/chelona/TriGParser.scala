@@ -58,7 +58,7 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
         }
       }
 
-      if (validate) v.foldLeft(0L)(_ + _)
+      if (validate) v.sum
       else worker.sum
     }
     )

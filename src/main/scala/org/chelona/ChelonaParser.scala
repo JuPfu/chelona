@@ -95,7 +95,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
    */
   def asynchronous(ast: (TurtleType ⇒ Int, TurtleType)) = astQueue.synchronized {
     astQueue.enqueue(ast)
-    if (astQueue.length > 10) astQueue.notify()
+    if (astQueue.length > 20) astQueue.notify()
   }
 
   //[161s]
@@ -127,7 +127,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
         }
       }
 
-      if (validate) v.foldLeft(0L)(_ + _)
+      if (validate) v.sum
       else worker.sum
     }
     )
