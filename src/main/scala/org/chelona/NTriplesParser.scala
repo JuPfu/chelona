@@ -39,8 +39,6 @@ object NTriplesParser extends NTripleAST {
 
     val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
 
-    val name = "tralala"
-
     val in = inputBuffer.getLines()
 
     var tripleCount: Long = 0L
@@ -54,7 +52,7 @@ object NTriplesParser extends NTripleAST {
       if (in.hasNext) {
         res match {
           case Success(count)         ⇒ tripleCount += count
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + name + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
           case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
         }
       } else {

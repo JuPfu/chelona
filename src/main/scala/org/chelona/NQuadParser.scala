@@ -20,6 +20,9 @@ import org.chelona.NQuadParser.NQAST
 
 import org.parboiled2._
 
+import scala.io.BufferedSource
+import scala.util.{ Failure, Success }
+
 object NQuadParser {
 
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
@@ -27,6 +30,48 @@ object NQuadParser {
   }
 
   sealed trait NQAST extends NQuadAST
+
+  def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
+
+    val ms: Double = System.currentTimeMillis
+
+    val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
+
+    val in = inputBuffer.getLines()
+
+    var tripleCount: Long = 0L
+    var block = 0L
+
+    while (in.hasNext) {
+      lazy val inputPart: ParserInput = in.take(lines).mkString("\n")
+      val parser = NQuadParser(inputPart, renderStatement, validate, base, label)
+      val res = parser.nquadsDoc.run()
+
+      if (in.hasNext) {
+        res match {
+          case Success(count)         ⇒ tripleCount += count
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
+        }
+      } else {
+        res match {
+          case Success(count) ⇒
+            if (verbose) {
+              tripleCount += count
+              val me: Double = System.currentTimeMillis - ms
+              if (!validate) {
+                System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+              } else {
+                System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+              }
+            }
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
+        }
+      }
+      block += n
+    }
+  }
 }
 
 class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) with NQAST {

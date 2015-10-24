@@ -43,11 +43,9 @@ object NQuadMain extends App {
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
     System.err.flush()
   }
-
-  val ms: Double = System.currentTimeMillis
 
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
 
@@ -59,7 +57,7 @@ object NQuadMain extends App {
   val base = cmdLineArgs.get.base
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
 
-  lazy val input: ParserInput = inputfile.get.mkString
+  val trace = cmdLineArgs.get.trace
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
@@ -67,26 +65,10 @@ object NQuadMain extends App {
     bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
   }
 
-  val quad = new EvalNQuad(quadWriter(output)_, base, label)
+  val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
 
-  val parser = NQuadParser(input, quad.renderStatement, validate, base, label)
-
-  val res = parser.nquadsDoc.run()
+  NQuadParser.parseAll(file.head.getName, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 100000)
 
   output.close()
-
-  res match {
-    case Success(tripleCount) ⇒
-      val me: Double = System.currentTimeMillis - ms
-      if (verbose) {
-        if (!validate) {
-          System.err.println("Input file '" + file.head + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " quads (quads per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        } else {
-          System.err.println("Input file '" + file.head + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        }
-      }
-    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.head + "': " + parser.formatError(e)) else System.err.println("File '" + file.head + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
-    case Failure(e)             ⇒ System.err.println("File '" + file.head + "': Unexpected error during parsing run: " + e)
-  }
 }
 
