@@ -53,18 +53,22 @@ object NTMain extends App {
   }
 
   val base = cmdLineArgs.get.base
-  val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
+  val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString else ""
 
   val trace = cmdLineArgs.get.trace
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   def ntWriter(bo: Writer)(spo: String*): Int = {
-    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
+    /* Modify the output string to emit subject (spo(0)), predicate(spo(1)) and object (spo(2)) fitted to your needs. */
+    bo.write(spo(0) /* subject */  + " " + spo(1) /* predicate */ + " " + spo(2) /* object */ + " .\n"); 1
   }
 
+  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val evalNT = new EvalNT(ntWriter(output)_, base, label)
 
+  /* Looping in steps of 100000 lines through the input file.
+     Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB in all cases.  */
   NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 100000)
 
   output.close()
