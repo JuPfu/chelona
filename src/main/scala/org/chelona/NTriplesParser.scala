@@ -39,17 +39,17 @@ object NTriplesParser extends NTripleAST {
 
     val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
 
-    val in = inputBuffer.getLines()
-
     var tripleCount: Long = 0L
     var block = 0L
 
-    while (in.hasNext) {
-      lazy val inputPart: ParserInput = in.take(lines).mkString("\n")
+    val iterator = inputBuffer.getLines()
+
+    while (iterator.hasNext) {
+      lazy val inputPart: ParserInput = iterator.take(lines).mkString("\n")
       val parser = NTriplesParser(inputPart, renderStatement, validate, base, label)
       val res = parser.ntriplesDoc.run()
 
-      if (in.hasNext) {
+      if (iterator.hasNext) {
         res match {
           case Success(count)         ⇒ tripleCount += count
           case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
