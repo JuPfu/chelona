@@ -43,7 +43,6 @@ object NTMain extends App {
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
-    System.err.flush()
   }
 
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }

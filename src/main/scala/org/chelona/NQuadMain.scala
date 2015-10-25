@@ -20,10 +20,9 @@ import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
 object NQuadMain extends App {
 
@@ -44,7 +43,6 @@ object NQuadMain extends App {
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
-    System.err.flush()
   }
 
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
