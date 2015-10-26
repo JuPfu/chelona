@@ -197,8 +197,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
         }
       }
 
-      if (validate) v.sum + v0
-      else worker.sum
+      if (validate) v.sum + v0 else worker.sum
     }
     )
   }

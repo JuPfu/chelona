@@ -61,7 +61,7 @@ object NTMain extends App {
 
   def ntWriter(bo: Writer)(spo: String*): Int = {
     /* Modify the output string to emit subject (spo(0)), predicate(spo(1)) and object (spo(2)) fitted to your needs. */
-    bo.write(spo(0) /* subject */  + " " + spo(1) /* predicate */ + " " + spo(2) /* object */ + " .\n"); 1
+    bo.write(spo(0) /* subject */ + " " + spo(1) /* predicate */ + " " + spo(2) /* object */ + " .\n"); 1
   }
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */

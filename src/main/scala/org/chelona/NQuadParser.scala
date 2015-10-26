@@ -98,8 +98,7 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
         }
       }
 
-      if (validate) v.sum
-      else worker.sum
+      if (validate) v.sum else worker.sum
     }
     )
   }
