@@ -19,12 +19,12 @@ package org.chelona
 import org.chelona.EvalNT._
 
 object EvalNT {
-  def apply(output: (String*) ⇒ Int, basePath: String, label: String) = new EvalNT(output, basePath, label)
+  def apply(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, basePath: String, label: String) = new EvalNT(output, basePath, label)
 
   sealed trait NTReturnValue extends NTripleReturnValue
 }
 
-class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends NTReturnValue {
+class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, basePath: String, label: String) extends NTReturnValue {
 
   import org.chelona.NTriplesParser._
 
@@ -45,34 +45,33 @@ class EvalNT(output: (String*) ⇒ Int, basePath: String, label: String) extends
       case ASTTriple(subject, predicate, obj, comment) ⇒
         comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
         ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-          case (NTString(s1), NTString(p1), NTString(o1)) ⇒ NTTriple(s1, p1, o1)
+          case (NTString(s), NTString(p), NTString(o)) ⇒ NTTriple(s, p, o)
         }
-
       case ASTSubject(rule)   ⇒ evalStatement(rule)
       case ASTPredicate(rule) ⇒ evalStatement(rule)
       case ASTObject(rule)    ⇒ evalStatement(rule)
-      case ASTIriRef(token)   ⇒ NTString("<" + token + ">")
+      case ASTIriRef(token)   ⇒ NTString(NTripleElement("<" + token + ">", NTripleEnum.IRIREF))
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case NTString(s) ⇒ s
+          case NTString(element) ⇒ element.text
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ NTString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case NTString(s) ⇒ s
-            }))
-            case ASTLangTag(v) ⇒ NTString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case NTString(s) ⇒ s
-            }))
+            case ASTIriRef(v) ⇒ NTString(NTripleElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case NTString(element) ⇒ element.text
+            }), NTripleEnum.STRING_LITERAL_QUOTE))
+            case ASTLangTag(v) ⇒ NTString(NTripleElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case NTString(element) ⇒ element.text
+            }), NTripleEnum.STRING_LITERAL_QUOTE))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTStringLiteralQuote(token) ⇒ NTString("\"" + token + "\"")
-      case ASTLangTag(token)            ⇒ NTString(token)
-      case ASTBlankNodeLabel(token)     ⇒ NTString(setBlankNodeName("_:" + token))
-      case ASTComment(token)            ⇒ NTComment(token)
+      case ASTStringLiteralQuote(token) ⇒ NTString(NTripleElement("\"" + token + "\"", NTripleEnum.STRING_LITERAL_QUOTE))
+      case ASTLangTag(token)            ⇒ NTString(NTripleElement(token, NTripleEnum.LANGTAG))
+      case ASTBlankNodeLabel(token)     ⇒ NTString(NTripleElement(setBlankNodeName("_:" + token), NTripleEnum.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NTComment(NTripleElement(token, NTripleEnum.COMMENT))
       case ASTTripleComment(rule)       ⇒ evalStatement(rule)
-      case ASTBlankLine(token)          ⇒ NTComment(token)
+      case ASTBlankLine(token)          ⇒ NTComment(NTripleElement(token, NTripleEnum.BLANK_LINE))
     }
   }
 

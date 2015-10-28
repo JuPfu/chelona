@@ -34,8 +34,9 @@ trait RDFTriGOutput extends RDFReturnType {
 }
 
 trait RDFNTOutput extends RDFReturnType {
-  def ntWriter(bo: Writer)(spo: String*): Int = {
-    bo.write(spo(0) + " " + spo(1) + " " + spo(2) + " .\n"); 1
+  def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+    /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
+    bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
   }
 }
 

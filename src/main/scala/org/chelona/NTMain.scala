@@ -59,17 +59,30 @@ object NTMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  def ntWriter(bo: Writer)(spo: String*): Int = {
-    /* Modify the output string to emit subject (spo(0)), predicate(spo(1)) and object (spo(2)) fitted to your needs. */
-    bo.write(spo(0) /* subject */ + " " + spo(1) /* predicate */ + " " + spo(2) /* object */ + " .\n"); 1
+  def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+    /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
+    /* Identification or filtering with respect to token type can be done via attribute tokenType, e.g. */
+    /* if ( s.tokenType == NTripleEnum.IRIREF ) {
+          /* strip leading '<' and trailing '>' */
+       }
+       else if ( s.tokenType == NTripleEnum.STRING_LITERAL_QUOTE ) {
+          /* strip leading '"' and trailing '"' */
+       }
+       else if ( s.tokenType == NTripelEnum.BLANK_NODE ) {
+          /* replace blank_node by absolute IRIREF */
+       }
+    */
+    bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
   }
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val evalNT = new EvalNT(ntWriter(output)_, base, label)
 
-  /* Looping in steps of 100000 lines through the input file.
-     Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB in all cases.  */
-  NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 100000)
+  /* Looping in steps of n lines through the input file.
+     Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB in all cases
+     for n about 150000 lines.
+  */
+  NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
 
   output.close()
 }

@@ -16,13 +16,7 @@
 
 package org.chelona
 
-trait NTripleReturnValue extends RDFReturnType {
-
-  case class NTString(n: NTripleElement) extends NTripleReturnValue
-
-  case class NTTriple(s: NTripleElement, p: NTripleElement, o: NTripleElement) extends NTripleReturnValue
-
-  case class NTComment(value: NTripleElement) extends NTripleReturnValue
+object NTripleEnum extends Enumeration {
+  type NTToken = Value
+  val BLANK_NODE_LABEL, STRING_LITERAL_QUOTE, IRIREF, LANGTAG, BLANK_LINE, COMMENT = Value
 }
-
-object NTripleReturnValue extends NTripleReturnValue
