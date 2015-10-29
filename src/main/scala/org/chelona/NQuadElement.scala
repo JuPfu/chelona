@@ -16,13 +16,6 @@
 
 package org.chelona
 
-trait NQuadReturnValue extends RDFReturnType {
+import NQuadEnum._
 
-  case class NQuadString(s: NQuadElement) extends NQuadReturnValue
-
-  case class NQuadQuad(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement) extends NQuadReturnValue
-
-  case class NQuadComment(value: NQuadElement) extends NQuadReturnValue
-}
-
-object NQuadReturnValue extends NQuadReturnValue
+case class NQuadElement(text: String, tokenType: NQuadToken)

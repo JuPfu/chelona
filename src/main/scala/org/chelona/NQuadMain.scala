@@ -59,13 +59,13 @@ object NQuadMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  def quadWriter(bo: Writer)(spog: String*): Int = {
-    bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
+  def quadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
+    bo.write(s"${s.text} ${p.text} ${o.text}" + (if ( g.text.isEmpty ) " .\n" else s" ${g.text} .\n")); 1
   }
 
   val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
 
-  NQuadParser.parseAll(file.head.getName, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 100000)
+  NQuadParser.parseAll(file.head.getName, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
 
   output.close()
 }

@@ -41,7 +41,7 @@ trait RDFNTOutput extends RDFReturnType {
 }
 
 trait RDFQuadOutput extends RDFReturnType {
-  def quadWriter(bo: Writer)(spog: String*): Int = {
-    bo.write(spog(0) + " " + spog(1) + " " + spog(2) + (if (spog(3) != "") " " + spog(3) + " .\n" else " .\n")); 1
+  def quadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
+    bo.write(s"${s.text} ${p.text} ${o.text}" + (if ( g.text.isEmpty ) " .\n" else s" ${g.text} .\n")); 1
   }
 }

@@ -19,12 +19,12 @@ package org.chelona
 import org.chelona.EvalNQuad._
 
 object EvalNQuad {
-  def apply(output: (String*) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
+  def apply(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
 
   sealed trait NQReturnValue extends NQuadReturnValue
 }
 
-class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
+class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
 
   import org.chelona.NQuadAST._
 
@@ -50,11 +50,11 @@ class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) exte
         graph match {
           case Some(g) ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj), evalStatement(g)): @unchecked) match {
-              case (NQuadString(s1), NQuadString(p1), NQuadString(o1), NQuadString(g1)) ⇒ NQuadQuad(s1, p1, o1, g1)
+              case (NQuadString(s), NQuadString(p), NQuadString(o), NQuadString(g)) ⇒ NQuadQuad(s, p, o, g)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (NQuadString(s1), NQuadString(p1), NQuadString(o1)) ⇒ NQuadQuad(s1, p1, o1, "")
+              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, NQuadElement("", NQuadEnum.STRING_LITERAL_QUOTE))
             }
         }
       case ASTGraphLabel(rule)    ⇒ evalStatement(rule)
@@ -64,25 +64,25 @@ class EvalNQuad(output: (String*) ⇒ Int, basePath: String, label: String) exte
       case ASTObject(rule)        ⇒ evalStatement(rule)
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case NQuadString(s) ⇒ s
+          case NQuadString(s) ⇒ s.text
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ NQuadString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s
-            }))
-            case ASTLangTag(v) ⇒ NQuadString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s
-            }))
+            case ASTIriRef(v) ⇒ NQuadString(NQuadElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s.text
+            }), NQuadEnum.STRING_LITERAL_QUOTE))
+            case ASTLangTag(v) ⇒ NQuadString(NQuadElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s.text
+            }), NQuadEnum.STRING_LITERAL_QUOTE))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NQuadString(token)
-      case ASTIriRef(token)             ⇒ NQuadString("<" + token + ">")
-      case ASTStringLiteralQuote(token) ⇒ NQuadString("\"" + token + "\"")
-      case ASTBlankNodeLabel(token)     ⇒ NQuadString(setBlankNodeName("_:" + token))
-      case ASTComment(token)            ⇒ NQuadComment(token)
-      case ASTBlankLine(token)          ⇒ NQuadComment(token)
+      case ASTLangTag(token)            ⇒ NQuadString(NQuadElement(token, NQuadEnum.LANGTAG))
+      case ASTIriRef(token)             ⇒ NQuadString(NQuadElement("<" + token + ">", NQuadEnum.IRIREF))
+      case ASTStringLiteralQuote(token) ⇒ NQuadString(NQuadElement("\"" + token + "\"", NQuadEnum.STRING_LITERAL_QUOTE))
+      case ASTBlankNodeLabel(token)     ⇒ NQuadString(NQuadElement(setBlankNodeName("_:" + token), NQuadEnum.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NQuadComment(NQuadElement(token, NQuadEnum.COMMENT))
+      case ASTBlankLine(token)          ⇒ NQuadComment(NQuadElement(token, NQuadEnum.BLANK_LINE))
     }
   }
 
