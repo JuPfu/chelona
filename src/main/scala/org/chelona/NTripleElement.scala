@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import NTripleEnum._
+import NTripleBitValue._
 
 case class NTripleElement(text: String, tokenType: NTToken)
 

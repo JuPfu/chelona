@@ -50,7 +50,7 @@ class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, b
       case ASTSubject(rule)   ⇒ evalStatement(rule)
       case ASTPredicate(rule) ⇒ evalStatement(rule)
       case ASTObject(rule)    ⇒ evalStatement(rule)
-      case ASTIriRef(token)   ⇒ NTString(NTripleElement("<" + token + ">", NTripleEnum.IRIREF))
+      case ASTIriRef(token)   ⇒ NTString(NTripleElement("<" + token + ">", NTripleBitValue.IRIREF))
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case NTString(element) ⇒ element.text
@@ -59,19 +59,19 @@ class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, b
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIriRef(v) ⇒ NTString(NTripleElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.text
-            }), NTripleEnum.STRING_LITERAL_QUOTE))
+            }), NTripleBitValue.STRING_LITERAL_QUOTE | NTripleBitValue.IRIREF))
             case ASTLangTag(v) ⇒ NTString(NTripleElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.text
-            }), NTripleEnum.STRING_LITERAL_QUOTE))
+            }), NTripleBitValue.STRING_LITERAL_QUOTE | NTripleBitValue.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTStringLiteralQuote(token) ⇒ NTString(NTripleElement("\"" + token + "\"", NTripleEnum.STRING_LITERAL_QUOTE))
-      case ASTLangTag(token)            ⇒ NTString(NTripleElement(token, NTripleEnum.LANGTAG))
-      case ASTBlankNodeLabel(token)     ⇒ NTString(NTripleElement(setBlankNodeName("_:" + token), NTripleEnum.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NTComment(NTripleElement(token, NTripleEnum.COMMENT))
+      case ASTStringLiteralQuote(token) ⇒ NTString(NTripleElement("\"" + token + "\"", NTripleBitValue.STRING_LITERAL_QUOTE))
+      case ASTLangTag(token)            ⇒ NTString(NTripleElement(token, NTripleBitValue.LANGTAG))
+      case ASTBlankNodeLabel(token)     ⇒ NTString(NTripleElement(setBlankNodeName("_:" + token), NTripleBitValue.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NTComment(NTripleElement(token, NTripleBitValue.COMMENT))
       case ASTTripleComment(rule)       ⇒ evalStatement(rule)
-      case ASTBlankLine(token)          ⇒ NTComment(NTripleElement(token, NTripleEnum.BLANK_LINE))
+      case ASTBlankLine(token)          ⇒ NTComment(NTripleElement(token, NTripleBitValue.BLANK_LINE))
     }
   }
 

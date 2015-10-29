@@ -40,7 +40,6 @@ object NTriplesParser extends NTripleAST {
     val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
 
     var tripleCount: Long = 0L
-    var block = 0L
 
     val iterator = inputBuffer.getLines()
 
@@ -52,7 +51,7 @@ object NTriplesParser extends NTripleAST {
       if (iterator.hasNext) {
         res match {
           case Success(count)         ⇒ tripleCount += count
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
           case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
         }
       } else {
@@ -67,11 +66,10 @@ object NTriplesParser extends NTripleAST {
                 System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
               }
             }
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = block, showTraces = true)))
+          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
           case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
         }
       }
-      block += n
     }
   }
 }

@@ -16,7 +16,13 @@
 
 package org.chelona
 
-object NQuadEnum extends Enumeration {
-  type NQuadToken = Value
-  val BLANK_NODE_LABEL, STRING_LITERAL_QUOTE, IRIREF, LANGTAG, BLANK_LINE, COMMENT = Value
+object NTripleBitValue {
+  val BLANK_NODE_LABEL = 1
+  val IRIREF = BLANK_NODE_LABEL << 1
+  val STRING_LITERAL_QUOTE = IRIREF << 1
+  val LANGTAG = STRING_LITERAL_QUOTE << 1
+  val BLANK_LINE = LANGTAG << 1
+  val COMMENT = BLANK_LINE << 1
+
+  type NTToken = Int
 }

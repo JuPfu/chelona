@@ -16,6 +16,6 @@
 
 package org.chelona
 
-import NQuadEnum._
+import NQuadBitValue._
 
 case class NQuadElement(text: String, tokenType: NQuadToken)

@@ -54,7 +54,7 @@ class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, NQuadElement("", NQuadEnum.STRING_LITERAL_QUOTE))
+              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, NQuadElement("", NQuadBitValue.STRING_LITERAL_QUOTE))
             }
         }
       case ASTGraphLabel(rule)    ⇒ evalStatement(rule)
@@ -70,19 +70,19 @@ class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement)
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIriRef(v) ⇒ NQuadString(NQuadElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case NQuadString(s) ⇒ s.text
-            }), NQuadEnum.STRING_LITERAL_QUOTE))
+            }), NQuadBitValue.STRING_LITERAL_QUOTE | NQuadBitValue.IRIREF))
             case ASTLangTag(v) ⇒ NQuadString(NQuadElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case NQuadString(s) ⇒ s.text
-            }), NQuadEnum.STRING_LITERAL_QUOTE))
+            }), NQuadBitValue.STRING_LITERAL_QUOTE | NQuadBitValue.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NQuadString(NQuadElement(token, NQuadEnum.LANGTAG))
-      case ASTIriRef(token)             ⇒ NQuadString(NQuadElement("<" + token + ">", NQuadEnum.IRIREF))
-      case ASTStringLiteralQuote(token) ⇒ NQuadString(NQuadElement("\"" + token + "\"", NQuadEnum.STRING_LITERAL_QUOTE))
-      case ASTBlankNodeLabel(token)     ⇒ NQuadString(NQuadElement(setBlankNodeName("_:" + token), NQuadEnum.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NQuadComment(NQuadElement(token, NQuadEnum.COMMENT))
-      case ASTBlankLine(token)          ⇒ NQuadComment(NQuadElement(token, NQuadEnum.BLANK_LINE))
+      case ASTLangTag(token)            ⇒ NQuadString(NQuadElement(token, NQuadBitValue.LANGTAG))
+      case ASTIriRef(token)             ⇒ NQuadString(NQuadElement("<" + token + ">", NQuadBitValue.IRIREF))
+      case ASTStringLiteralQuote(token) ⇒ NQuadString(NQuadElement("\"" + token + "\"", NQuadBitValue.STRING_LITERAL_QUOTE))
+      case ASTBlankNodeLabel(token)     ⇒ NQuadString(NQuadElement(setBlankNodeName("_:" + token), NQuadBitValue.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NQuadComment(NQuadElement(token, NQuadBitValue.COMMENT))
+      case ASTBlankLine(token)          ⇒ NQuadComment(NQuadElement(token, NQuadBitValue.BLANK_LINE))
     }
   }
 
