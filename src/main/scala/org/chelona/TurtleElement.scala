@@ -16,7 +16,7 @@
 
 package org.chelona
 
-import TurtleBitValue._
+import org.chelona.TurtleBitValue._
 
 case class TurtleElement(text: String, tokenType: TurtleToken)
 
