@@ -16,16 +16,7 @@
 
 package org.chelona
 
-trait SPOReturnValue extends RDFReturnType {
+import TurtleBitValue._
 
-  case class SPOString(s: TurtleElement) extends SPOReturnValue
+case class TurtleElement(text: String, tokenType: TurtleToken)
 
-  case class SPOTriple(s: TurtleElement, p: TurtleElement, o: TurtleElement) extends SPOReturnValue
-
-  case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
-
-  case class SPOComment(value: TurtleElement) extends SPOReturnValue
-
-}
-
-object SPOReturnValue extends SPOReturnValue

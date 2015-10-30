@@ -64,7 +64,7 @@ object Main extends App {
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   def tripleWriter(bo: Writer)(triple: List[SPOReturnValue]): Int = {
-    triple.asInstanceOf[List[SPOTriple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
+    triple.asInstanceOf[List[SPOTriple]].map(triple ⇒ bo.write(s"${triple.s.text} ${triple.p.text} ${triple.o.text} .\n")).length
   }
 
   val parser = ChelonaParser(input, tripleWriter(output)_, validate, base, label)

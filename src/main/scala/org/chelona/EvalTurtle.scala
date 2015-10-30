@@ -33,11 +33,11 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
-  val subjectStack = scala.collection.mutable.Stack.empty[String]
-  val predicateStack = scala.collection.mutable.Stack.empty[String]
+  val subjectStack = scala.collection.mutable.Stack.empty[TurtleElement]
+  val predicateStack = scala.collection.mutable.Stack.empty[TurtleElement]
 
-  var curSubject: String = "---Not valid subject---"
-  var curPredicate: String = "---Not valid predicate---"
+  var curSubject = TurtleElement("---Not valid subject---", TurtleBitValue.EMPTY)
+  var curPredicate = TurtleElement("---Not valid predicate---", TurtleBitValue.EMPTY)
   var aCount = 0
   var bCount = 0
   var cCount = 0
@@ -62,39 +62,39 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
         evalStatement(rule)
       case ASTIri(rule) ⇒ (rule: @unchecked) match {
         case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case SPOString(s) ⇒ SPOString("<" + addIriPrefix(s) + ">")
+          case SPOString(s) ⇒ SPOString(TurtleElement("<" + addIriPrefix(s.text) + ">", TurtleBitValue.IRIREF))
         }
         case ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      case ASTIriRef(token) ⇒ SPOString(token)
+      case ASTIriRef(token) ⇒ SPOString(TurtleElement(token, TurtleBitValue.IRIREF))
       case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
         case ASTPNameNS(p) ⇒
           (evalStatement(rule): @unchecked) match {
-            case SPOString(s) ⇒ SPOString("<" + addPrefix(s, "") + ">")
+            case SPOString(s) ⇒ SPOString(TurtleElement("<" + addPrefix(s.text, "") + ">", TurtleBitValue.PNAMENS))
           }
         case ASTPNameLN(p, l) ⇒ evalStatement(rule)
       }
       case ASTDirective(rule) ⇒ evalStatement(rule)
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
+          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps.text, is.text)
         }
-        SPOString("")
+        SPOString(TurtleElement("", TurtleBitValue.PREFIXID))
       case ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ addBasePrefix(bs)
+          case SPOString(bs) ⇒ addBasePrefix(bs.text)
         }
-        SPOString("")
+        SPOString(TurtleElement("", TurtleBitValue.BASE))
       case ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case SPOString(bs) ⇒ addBasePrefix(bs)
+          case SPOString(bs) ⇒ addBasePrefix(bs.text)
         }
-        SPOString("")
+        SPOString(TurtleElement("", TurtleBitValue.SPARQLBASE))
       case ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps, is)
+          case (SPOString(ps), SPOString(is)) ⇒ definePrefix(ps.text, is.text)
         }
-        SPOString("")
+        SPOString(TurtleElement("", TurtleBitValue.SPARQLPREFIX))
       case ASTTriples(s, p) ⇒
         ((evalStatement(s), evalStatement(p)): @unchecked) match {
           case (SPOTriples(ts), SPOTriples(ps))     ⇒ SPOTriples(ts ::: ps)
@@ -104,7 +104,7 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
         bCount += 1
-        curSubject = "_:b" + bCount
+        curSubject = TurtleElement("_:b" + bCount, TurtleBitValue.BLANK_NODE_LABEL)
         val sub = evalStatement(s)
         val retval = p match {
           case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
@@ -126,7 +126,7 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
         evalStatement(obj)
       case ASTObjectList(rule) ⇒ SPOTriples(traverseTriples(rule, Nil))
       case ASTVerb(rule)       ⇒ evalStatement(rule)
-      case ASTIsA(token)       ⇒ SPOString("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")
+      case ASTIsA(token)       ⇒ SPOString(TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", TurtleBitValue.IRIREF | TurtleBitValue.ISA))
       case ASTSubject(rule) ⇒ (rule: @unchecked) match {
         case ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
           case SPOString(s) ⇒ curSubject = s; SPOString(curSubject)
@@ -156,13 +156,13 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
           l match {
             case ASTCollection(Vector()) ⇒
               // empty collection
-              SPOTriples(SPOTriple(curSubject, curPredicate, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil)
+              SPOTriples(SPOTriple(curSubject, curPredicate, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TurtleBitValue.IRIREF)) :: Nil)
             case _ ⇒
               subjectStack.push(curSubject)
               cCount += 1
-              curSubject = getCollectionName
+              curSubject = TurtleElement(getCollectionName, TurtleBitValue.BLANK_NODE_LABEL)
               predicateStack.push(curPredicate)
-              curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
+              curPredicate = TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TurtleBitValue.IRIREF)
               (evalStatement(l): @unchecked) match {
                 case SPOTriples(t) ⇒
                   val oldSubject = curSubject
@@ -175,7 +175,7 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
           subjectStack.push(curSubject)
           predicateStack.push(curPredicate)
           bCount += 1
-          curSubject = "_:b" + bCount
+          curSubject = TurtleElement("_:b" + bCount, TurtleBitValue.BLANK_NODE_LABEL)
           val bnode = curSubject
           (evalStatement(l): @unchecked) match {
             case SPOTriples(t) ⇒
@@ -187,56 +187,56 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
       case ASTLiteral(rule)               ⇒ evalStatement(rule)
       case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case ASTCollection(rule) ⇒
-        curSubject = getCollectionName
+        curSubject = TurtleElement(getCollectionName, TurtleBitValue.BLANK_NODE_LABEL)
         subjectStack.push(curSubject)
-        curPredicate = "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>"
+        curPredicate = TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TurtleBitValue.IRIREF)
         predicateStack.push(curPredicate)
         val res = SPOTriples(traverseCollection(rule, Nil))
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         res
       case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token)       ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>")
-      case ASTDecimal(token)       ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>")
-      case ASTDouble(token)        ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>")
+      case ASTInteger(token)       ⇒ SPOString(TurtleElement("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>", TurtleBitValue.INTEGER))
+      case ASTDecimal(token)       ⇒ SPOString(TurtleElement("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>", TurtleBitValue.DECIMAL))
+      case ASTDouble(token)        ⇒ SPOString(TurtleElement("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>", TurtleBitValue.DOUBLE))
       case ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case SPOString(s) ⇒ s
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIri(v) ⇒ SPOString(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
-            }))
-            case ASTLangTag(v) ⇒ SPOString(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case SPOString(s) ⇒ s
-            }))
+            case ASTIri(v) ⇒ SPOString(TurtleElement(literal.text + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case SPOString(s) ⇒ s.text
+            }), TurtleBitValue.STRING_LITERAL_QUOTE | TurtleBitValue.IRIREF))
+            case ASTLangTag(v) ⇒ SPOString(TurtleElement(literal.text + "@" + ((evalStatement(postfix): @unchecked) match {
+              case SPOString(s) ⇒ s.text
+            }), TurtleBitValue.STRING_LITERAL_QUOTE | TurtleBitValue.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)                      ⇒ SPOString(token)
-      case ASTBooleanLiteral(token)               ⇒ SPOString("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>")
+      case ASTLangTag(token)                      ⇒ SPOString(TurtleElement(token, TurtleBitValue.LANGTAG))
+      case ASTBooleanLiteral(token)               ⇒ SPOString(TurtleElement("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", TurtleBitValue.BOOLEAN_LITERAL))
       case ASTString(rule)                        ⇒ evalStatement(rule)
-      case ASTStringLiteralQuote(token)           ⇒ SPOString("\"" + token + "\"")
-      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString("\"" + token + "\"")
-      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString("\"" + token + "\"")
-      case ASTStringLiteralLongQuote(token)       ⇒ SPOString("\"" + token + "\"")
+      case ASTStringLiteralQuote(token)           ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralLongQuote(token)       ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
-          case None            ⇒ SPOString("")
+          case None            ⇒ SPOString(TurtleElement("", TurtleBitValue.PNAMENS))
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString("<" + addPrefix(pname_ns, pn_local) + ">")
+          case (SPOString(pname_ns), SPOString(pn_local)) ⇒ SPOString(TurtleElement("<" + addPrefix(pname_ns.text, pn_local.text) + ">", TurtleBitValue.PNAMELN))
         }
-      case ASTPNPrefix(token)       ⇒ SPOString(token)
-      case ASTPNLocal(token)        ⇒ SPOString(token)
+      case ASTPNPrefix(token)       ⇒ SPOString(TurtleElement(token, TurtleBitValue.PNPREFIX))
+      case ASTPNLocal(token)        ⇒ SPOString(TurtleElement(token, TurtleBitValue.PNLOCAL))
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ SPOString(setBlankNodeName("_:" + token))
-      case ASTAnon(token) ⇒
-        aCount += 1; SPOString("_:a" + label + aCount)
-      case ASTComment(token) ⇒ SPOComment(token)
+      case ASTBlankNodeLabel(token) ⇒ SPOString(TurtleElement(setBlankNodeName("_:" + token), TurtleBitValue.BLANK_NODE_LABEL))
+      case ASTAnon(token) ⇒ aCount += 1
+        SPOString(TurtleElement("_:a" + label + aCount, TurtleBitValue.ANON))
+      case ASTComment(token) ⇒ SPOComment(TurtleElement(token, TurtleBitValue.COMMENT))
     }
   }
 
@@ -264,20 +264,20 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
       (evalStatement(x): @unchecked) match {
         case SPOTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = getCollectionName
-          triples ::: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o) :: (SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject) :: Nil))
+          curSubject = TurtleElement(getCollectionName, TurtleBitValue.BLANK_NODE_LABEL)
+          triples ::: (SPOTriple(oldSubject, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TurtleBitValue.IRIREF), o) :: (SPOTriple(oldSubject, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TurtleBitValue.IRIREF), curSubject) :: Nil))
         } else {
-          triples :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", o)
+          triples :+ SPOTriple(oldSubject, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TurtleBitValue.IRIREF), o)
         })
         case SPOTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = getCollectionName
-          triples ::: (t :+ SPOTriple(oldSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", curSubject))
+          curSubject = TurtleElement(getCollectionName, TurtleBitValue.BLANK_NODE_LABEL)
+          triples ::: (t :+ SPOTriple(oldSubject, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TurtleBitValue.IRIREF), curSubject))
         } else {
           triples ::: t
         })
       }
-    case Nil ⇒ triples ::: SPOTriple(curSubject, "<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", "<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>") :: Nil
+    case Nil ⇒ triples ::: SPOTriple(curSubject, TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TurtleBitValue.IRIREF), TurtleElement("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TurtleBitValue.IRIREF)) :: Nil
   }
 
   private def definePrefix(key: String, value: String) = {

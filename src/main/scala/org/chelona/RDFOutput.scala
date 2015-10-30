@@ -23,7 +23,7 @@ import org.chelona.TriGReturnValue.TriGTuple
 
 trait RDFTripleOutput extends RDFReturnType {
   def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.asInstanceOf[List[SPOTriple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + " .\n")).length
+    triple.asInstanceOf[List[SPOTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
   }
 }
 
@@ -42,6 +42,6 @@ trait RDFNTOutput extends RDFReturnType {
 
 trait RDFQuadOutput extends RDFReturnType {
   def quadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
-    bo.write(s"${s.text} ${p.text} ${o.text}" + (if ( g.text.isEmpty ) " .\n" else s" ${g.text} .\n")); 1
+    bo.write(s"${s.text} ${p.text} ${o.text}" + (if (g.text.isEmpty) " .\n" else s" ${g.text} .\n")); 1
   }
 }

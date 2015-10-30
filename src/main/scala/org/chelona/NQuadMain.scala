@@ -60,7 +60,7 @@ object NQuadMain extends App {
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   def quadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
-    bo.write(s"${s.text} ${p.text} ${o.text}" + (if ( g.text.isEmpty ) " .\n" else s" ${g.text} .\n")); 1
+    bo.write(s"${s.text} ${p.text} ${o.text}" + (if (g.text.isEmpty) " .\n" else s" ${g.text} .\n")); 1
   }
 
   val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
