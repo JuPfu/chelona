@@ -90,7 +90,7 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
         worker.join(10)
         worker.shutdown()
 
-        while (!astQueue.isEmpty) {
+        while (astQueue.nonEmpty) {
           val (renderStatement, ast) = astQueue.dequeue()
           worker.sum += renderStatement(ast)
         }
@@ -103,7 +103,7 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
 
   //[2]	statement	::=	subject predicate object graphLabel? '.'
   def statement: Rule1[NTripleType] = rule {
-    ws ~ (subject ~ predicate ~ `object` ~ graphLabel.? ~ "." ~ comment.? ~> ASTStatement | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
+    ws ~ (subject ~ predicate ~ `object` ~ graphLabel.? ~ '.' ~ ws ~ comment.? ~> ASTStatement | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
   }
 
   //[6]	graphLabel	::=	IRIREF | BLANK_NODE_LABEL

@@ -234,7 +234,8 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
       case ASTPNLocal(token)        ⇒ SPOString(TurtleElement(token, TurtleBitValue.PNLOCAL))
       case ASTBlankNode(rule)       ⇒ evalStatement(rule)
       case ASTBlankNodeLabel(token) ⇒ SPOString(TurtleElement(setBlankNodeName("_:" + token), TurtleBitValue.BLANK_NODE_LABEL))
-      case ASTAnon(token) ⇒ aCount += 1
+      case ASTAnon(token) ⇒
+        aCount += 1
         SPOString(TurtleElement("_:a" + label + aCount, TurtleBitValue.ANON))
       case ASTComment(token) ⇒ SPOComment(TurtleElement(token, TurtleBitValue.COMMENT))
     }
