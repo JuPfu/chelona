@@ -20,7 +20,6 @@ import org.chelona.ChelonaParser._
 import org.parboiled2._
 
 import scala.collection.mutable
-
 import scala.util.Success
 
 object ChelonaParser extends TurtleAST {
@@ -255,12 +254,12 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[128s] RDFLiteral 	::= 	String (LANGTAG | '^^' iri)?
   def rdfLiteral = rule {
-    string ~ (ws ~ LANGTAG | "^^" ~ iri).? ~ ws ~> ASTRdfLiteral
+    string ~ ws ~ (LANGTAG | '^' ~ '^' ~ ws ~ iri).? ~ ws ~> ASTRdfLiteral
   }
 
   //[144s] LANGTAG 	::= 	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
   def LANGTAG = rule {
-    atomic("@" ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
+    atomic('@' ~ capture(Alpha.+ ~ ('-' ~ AlphaNum.+).*)) ~> ASTLangTag
   }
 
   //[133s] BooleanLiteral 	::= 	'true' | 'false'

@@ -16,12 +16,14 @@
 
 package org.chelona
 
-import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
+import java.io._
+import java.nio.channels.FileChannel
 import java.nio.charset.StandardCharsets
+import java.nio.file.{ StandardOpenOption, Paths }
+import java.util
 
 import org.chelona.GetCmdLineArgs._
 
-import scala.io.BufferedSource
 import scala.util.Try
 
 object NTMain extends App {
@@ -45,14 +47,17 @@ object NTMain extends App {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
   }
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val path = Paths.get(file.head.getCanonicalPath)
 
-  if (inputfile.isFailure) {
-    System.err.println("Error: " + inputfile.failed.get)
+  val fileChannel: Try[FileChannel] = Try { FileChannel.open(path, util.EnumSet.of(StandardOpenOption.READ)) }
+
+  if (fileChannel.isFailure) {
+    System.err.println("Error: " + fileChannel.failed.get)
     sys.exit(3)
   }
 
   val base = cmdLineArgs.get.base
+
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString else ""
 
   val trace = cmdLineArgs.get.trace
@@ -62,13 +67,16 @@ object NTMain extends App {
   def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
     /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
     /* Identification or filtering with respect to token type can be done via attribute tokenType, e.g. */
-    /* if ( s.tokenType == NTripleEnum.IRIREF ) {
+    /* if ( s.tokenType & NTripleBitValue.IRIREF ) {
           /* strip leading '<' and trailing '>' */
        }
-       else if ( s.tokenType == NTripleEnum.STRING_LITERAL_QUOTE ) {
+       else if ( s.tokenType & NTripleBitValue.STRING_LITERAL_QUOTE ) {
+          if ( s.tokenType & NTripleBitValue.LANGTAG ) {
+             /* only select english strings */
+          }
           /* strip leading '"' and trailing '"' */
        }
-       else if ( s.tokenType == NTripelEnum.BLANK_NODE ) {
+       else if ( s.tokenType & NTripleBitValue.BLANK_NODE ) {
           /* replace blank_node by absolute IRIREF */
        }
     */
@@ -78,11 +86,11 @@ object NTMain extends App {
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val evalNT = new EvalNT(ntWriter(output)_, base, label)
 
-  /* Looping in steps of n lines through the input file.
+  /* Looping in blocks of n lines through the input file.
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB in all cases
-     for n about 150000 lines.
+     for blocksize n chosen to be about 150000 lines.
   */
-  NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
+  NTriplesParser.parseAll(file.head.getCanonicalPath, fileChannel.get, evalNT.renderStatement, validate, base, label, verbose, trace, 4096 * 4096 * 4)
 
   output.close()
 }

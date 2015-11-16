@@ -45,7 +45,7 @@ object NQuadMain extends App {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
   }
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val inputfile: Try[BufferedSource] = Try { scala.io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
 
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
@@ -53,6 +53,7 @@ object NQuadMain extends App {
   }
 
   val base = cmdLineArgs.get.base
+
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
 
   val trace = cmdLineArgs.get.trace

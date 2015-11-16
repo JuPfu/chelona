@@ -16,60 +16,103 @@
 
 package org.chelona
 
+import java.nio.channels.FileChannel
+import java.nio.ByteBuffer
+import java.nio.charset.{ StandardCharsets, Charset }
+
 import org.chelona.NTriplesParser.NTAST
 
 import org.parboiled2._
 
 import scala.collection.mutable
-import scala.io.BufferedSource
-
-import scala.util.{ Failure, Success }
+import scala.util.Success
 
 object NTriplesParser extends NTripleAST {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
+  def apply(input: ParserInput, renderStatement: NTripleAST ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
     new NTriplesParser(input, renderStatement, validate, basePath, label, verbose, trace)
   }
 
   sealed trait NTAST extends NTripleAST
 
-  def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
+  def parseAll(filename: String, input: FileChannel, renderStatement: NTripleAST ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
 
     val ms: Double = System.currentTimeMillis
 
-    val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
+    var parseQueue = mutable.Queue[NTriplesParser]()
+    val worker = new ParseThreadWorker(parseQueue, filename, validate, verbose, trace)
+
+    if (!validate) {
+      worker.setName("NTriplesParser")
+      worker.start()
+    }
 
     var tripleCount: Long = 0L
 
-    val iterator = inputBuffer.getLines()
+    val cs: Charset = StandardCharsets.UTF_8
 
-    while (iterator.hasNext) {
-      lazy val inputPart: ParserInput = iterator.take(lines).mkString("\n")
-      val parser = NTriplesParser(inputPart, renderStatement, validate, base, label)
-      val res = parser.ntriplesDoc.run()
+    val size = if (n < 1000000) 1000000 else if (n > 1000000000) 1000000000 else n
+    val byteBuf: ByteBuffer = ByteBuffer.allocateDirect(size)
 
-      if (iterator.hasNext) {
-        res match {
-          case Success(count)         ⇒ tripleCount += count
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
-          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
-        }
-      } else {
-        res match {
-          case Success(count) ⇒
-            if (verbose) {
-              tripleCount += count
-              val me: Double = System.currentTimeMillis - ms
-              if (!validate) {
-                System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-              } else {
-                System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-              }
-            }
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
-          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
-        }
+    var charRead = input.read(byteBuf)
+
+    while (charRead > 0) {
+
+      byteBuf.flip()
+
+      var k = byteBuf.limit() - 1
+
+      while (k >= 0 && byteBuf.get(k) != '\n') {
+        k -= 1
       }
+
+      val c = cs.decode(byteBuf)
+
+      var j = c.limit() - 1
+
+      while (j >= 0 && c.charAt(j) != '\n') {
+        j -= 1
+      }
+
+      if (j >= 0) {
+        val dest = new Array[Char](j + 1)
+
+        c.get(dest, 0, j + 1)
+
+        asynchronous(NTriplesParser(dest, renderStatement, validate, base, label))
+      }
+      byteBuf.position(k + 1)
+      byteBuf.compact()
+
+      charRead = input.read(byteBuf)
+    }
+
+    if (!validate) {
+      worker.join(2)
+      worker.shutdown()
+
+      while (parseQueue.nonEmpty) {
+        val parser = parseQueue.dequeue()
+        val ms1: Double = System.currentTimeMillis
+        parser.ntriplesDoc.run()
+        val me1: Double = System.currentTimeMillis - ms1
+        System.err.println("EMPTY NPARSE DURATION =" + (me1 / 1000.0))
+      }
+    }
+    input.close()
+
+    if (verbose) {
+      val me: Double = System.currentTimeMillis - ms
+      if (!validate) {
+        System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+      } else {
+        System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+      }
+    }
+
+    def asynchronous(parser: NTriplesParser) = parseQueue.synchronized {
+      parseQueue.enqueue(parser)
+      if (parseQueue.nonEmpty) parseQueue.notify()
     }
   }
 }
@@ -78,7 +121,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
 
   import org.chelona.CharPredicates._
 
-  import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
+  import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
@@ -136,13 +179,9 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
     astQueue.enqueue(ast)
     if (astQueue.length > 10) astQueue.notify()
   }
-  //[161s]
-  implicit def wspStr(s: String): Rule0 = rule {
-    quiet(str(s)) ~ ws
-  }
 
   def ws = rule {
-    quiet((anyOf(" \t").*))
+    quiet(anyOf(" \t").*)
   }
 
   //
@@ -151,27 +190,8 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
   }
 
   //[1]	ntriplesDoc	::=	triple? (EOL triple)* EOL?
-  def ntriplesDoc = rule {
-    (triple.? ~> ((a: Option[NTripleAST]) ⇒
-      push(a match {
-        case Some(ast) ⇒
-          if (!__inErrorAnalysis) {
-            if (!validate) {
-              asynchronous((renderStatement, ast)); 1
-            } else
-              ast match {
-                case ASTComment(s) ⇒ 0
-                case _             ⇒ 1
-              }
-          } else {
-            if (!validate) {
-              worker.join(10); worker.shutdown()
-            }; 0
-          }
-        case None ⇒ 0
-      }
-      )
-    )) ~ (EOL ~ triple ~> ((ast: NTripleAST) ⇒
+  def ntriplesDoc: Rule1[Long] = rule {
+    (triple ~> ((ast: NTripleAST) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
           asynchronous((renderStatement, ast)); 1
@@ -182,32 +202,42 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
           }
       } else {
         if (!validate) {
-          worker.join(10); worker.shutdown()
-        }; 0
-      })).* ~ EOL.? ~ EOI ~> ((v0: Int, v: Seq[Int]) ⇒ {
+          worker.join(10)
+          worker.shutdown()
+        }
+        0
+      }
+    )).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.join(10)
         worker.shutdown()
 
-        while (!astQueue.isEmpty) {
-          val (renderStatement, ast) = astQueue.dequeue()
-          worker.sum += renderStatement(ast)
+        while (astQueue.nonEmpty) {
+          val (eval, ast) = astQueue.dequeue()
+          worker.sum += eval(ast)
         }
       }
 
-      if (validate) v.sum + v0 else worker.sum
+      if (validate) v.sum
+      else worker.sum
     }
     )
   }
 
   //[2] triple	::=	subject predicate object '.'
   def triple: Rule1[NTripleAST] = rule {
-    ws ~ (subject ~ predicate ~ `object` ~ "." ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
+    ws ~ (subject ~ predicate ~ `object` ~ '.' ~ ws ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
   }
 
   //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
   def subject = rule {
-    (IRIREF | BLANK_NODE_LABEL) ~> ASTSubject
+    run {
+      cursorChar match {
+        case '<' ⇒ IRIREF
+        case '_' ⇒ BLANK_NODE_LABEL
+        case _   ⇒ MISMATCH
+      }
+    } ~> ASTSubject
   }
 
   //[4]	predicate	::=	IRIREF
@@ -217,12 +247,19 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
 
   //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | literal
   def `object` = rule {
-    (IRIREF | literal | BLANK_NODE_LABEL) ~> ASTObject
+    run {
+      cursorChar match {
+        case '<' ⇒ IRIREF
+        case '"' ⇒ literal
+        case '_' ⇒ BLANK_NODE_LABEL
+        case _   ⇒ MISMATCH
+      }
+    } ~> ASTObject
   }
 
   //[6]	literal	::=	STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
   def literal = rule {
-    STRING_LITERAL_QUOTE ~ (ws ~ LANGTAG | "^^" ~ IRIREF).? ~> ASTLiteral ~ ws
+    STRING_LITERAL_QUOTE ~ ws ~ (LANGTAG | '^' ~ '^' ~ ws ~ IRIREF).? ~> ASTLiteral ~ ws
   }
 
   //[144s]	LANGTAG	::=	'@' [a-zA-Z]+ ('-' [a-zA-Z0-9]+)*
@@ -238,16 +275,16 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
   //[8]	IRIREF	::=	'<' ([^#x00-#x20<>"{}|^`\] | UCHAR)* '>'
   def IRIREF = rule {
     atomic('<' ~ clearSB ~ (IRIREF_CHAR ~ appendSB |
-      !(((str("\\u000") | str("\\u001") | str("\\U0000000") | str("\\U0000001")) ~ HexDigit) |
-        str("\\u0020") | str("\\U00000020") | str("\\u0034") | str("\\U00000034") |
-        str("\\u003C") | str("\\u003c") | str("\\U0000003C") | str("\\U0000003c") |
-        str("\\u003E") | str("\\u003e") | str("\\U0000003E") | str("\\U0000003e") |
-        str("\\u005C") | str("\\u005c") | str("\\U0000005C") | str("\\U0000005c") |
-        str("\\u005E") | str("\\u005e") | str("\\U0000005E") | str("\\U0000005E") |
-        str("\\u0060") | str("\\U00000060") |
-        str("\\u007B") | str("\\u007b") | str("\\U0000007B") | str("\\U0000007b") |
-        str("\\u007C") | str("\\u007c") | str("\\U0000007C") | str("\\U0000007c") |
-        str("\\u007D") | str("\\u007d") | str("\\U0000007D") | str("\\U0000007d")) ~ UCHAR(false)).*) ~ push(sb.toString) ~ '>' ~> ((iri: String) ⇒ (test(isAbsoluteIRIRef(iri)) | fail("relative IRI not allowed: " + iri)) ~ push(iri)) ~> ASTIriRef ~ ws
+      !((("\\u000" | "\\u001" | "\\U0000000" | "\\U0000001") ~ HexDigit) |
+        "\\u0020" | "\\U00000020" | "\\u0034" | "\\U00000034" |
+        "\\u003C" | "\\u003c" | "\\U0000003C" | "\\U0000003c" |
+        "\\u003E" | "\\u003e" | "\\U0000003E" | "\\U0000003e" |
+        "\\u005C" | "\\u005c" | "\\U0000005C" | "\\U0000005c" |
+        "\\u005E" | "\\u005e" | "\\U0000005E" | "\\U0000005E" |
+        "\\u0060" | "\\U00000060" |
+        "\\u007B" | "\\u007b" | "\\U0000007B" | "\\U0000007b" |
+        "\\u007C" | "\\u007c" | "\\U0000007C" | "\\U0000007c" |
+        "\\u007D" | "\\u007d" | "\\U0000007D" | "\\U0000007d") ~ UCHAR(false)).*) ~ push(sb.toString) ~ '>' ~> ((iri: String) ⇒ (test(isAbsoluteIRIRef(iri)) | fail("relative IRI not allowed: " + iri)) ~ push(iri)) ~> ASTIriRef ~ ws
   }
 
   //[9]	STRING_LITERAL_QUOTE	::=	'"' ([^#x22#x5C#xA#xD] | ECHAR | UCHAR)* '"'
@@ -257,18 +294,18 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
 
   //[141s]	BLANK_NODE_LABEL	::=	'_:' (PN_CHARS_U | [0-9]) ((PN_CHARS | '.')* PN_CHARS)?
   def BLANK_NODE_LABEL = rule {
-    atomic(str("_:") ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(ch('.').+ ~ PN_CHARS) ~ ch('.').+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTBlankNodeLabel ~ ws
+    atomic("_:" ~ capture(PN_CHARS_U_DIGIT ~ (PN_CHARS | &(ch('.').+ ~ PN_CHARS) ~ ch('.').+ ~ PN_CHARS | isHighSurrogate ~ isLowSurrogate).*)) ~> ASTBlankNodeLabel ~ ws
   }
 
   //[10]	UCHAR	::=	'\\u' HEX HEX HEX HEX | '\\U' HEX HEX HEX HEX HEX HEX HEX HEX
   def UCHAR(flag: Boolean) = rule {
-    atomic(str("\\u") ~ capture(4.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s)) |
-      atomic(str("\\U") ~ capture(8.times(HexDigit))) ~> ((s: String) ⇒ maskQuotes(flag, s))
+    atomic("\\u" ~ capture(4.times(HexDigit))) ~> (maskQuotes(flag, _)) |
+      atomic("\\U" ~ capture(8.times(HexDigit))) ~> (maskQuotes(flag, _))
   }
 
   //[153s]	ECHAR	::=	'\' [tbnrf"'\]
   def ECHAR = rule {
-    atomic(str("\\") ~ appendSB ~ ECHAR_CHAR ~ appendSB)
+    atomic("\\" ~ appendSB ~ ECHAR_CHAR ~ appendSB)
   }
 
   private def isAbsoluteIRIRef(iriRef: String): Boolean = {

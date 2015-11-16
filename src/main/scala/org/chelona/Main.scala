@@ -49,7 +49,7 @@ object Main extends App {
 
   val ms: Double = System.currentTimeMillis
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val inputfile: Try[BufferedSource] = Try { scala.io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
 
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
