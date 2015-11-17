@@ -21,7 +21,7 @@ import org.parboiled2._
 import scala.collection.mutable
 import scala.util.{ Failure, Success }
 
-final class ParseThreadWorker(parseQueue: mutable.Queue[NTriplesParser], filename: String, validate: Boolean, verbose: Boolean, trace: Boolean) extends Thread {
+final class NTriplesThreadWorker(parseQueue: mutable.Queue[_ <: NTriplesParser], filename: String, validate: Boolean, verbose: Boolean, trace: Boolean) extends Thread {
 
   var terminated = false
 

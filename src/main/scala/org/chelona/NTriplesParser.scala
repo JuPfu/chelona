@@ -38,7 +38,7 @@ object NTriplesParser extends NTripleAST {
     val ms: Double = System.currentTimeMillis
 
     var parseQueue = mutable.Queue[NTriplesParser]()
-    val worker = new ParseThreadWorker(parseQueue, filename, validate, verbose, trace)
+    val worker = new NTriplesThreadWorker(parseQueue, filename, validate, verbose, trace)
 
     if (!validate) {
       worker.setName("NTriplesParser")

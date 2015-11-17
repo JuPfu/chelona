@@ -65,7 +65,7 @@ object NQuadMain extends App {
 
   val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
 
-  NQuadParser.parseAll(file.head.getName, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
+  NQuadParser.parseAll(file.head.getCanonicalPath, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
 
   output.close()
 }
