@@ -37,6 +37,14 @@ object NTriplesParser extends NTripleAST {
 
     val ms: Double = System.currentTimeMillis
 
+    var parseQueue = mutable.Queue[NTriplesParser]()
+    val worker = new ParseThreadWorker(parseQueue, filename, validate, verbose, trace)
+
+    if (!validate) {
+      worker.setName("NTriplesParser")
+      worker.start()
+    }
+
     val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
 
     var tripleCount: Long = 0L
@@ -44,32 +52,36 @@ object NTriplesParser extends NTripleAST {
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
-      lazy val inputPart: ParserInput = iterator.take(lines).mkString("\n")
-      val parser = NTriplesParser(inputPart, renderStatement, validate, base, label)
-      val res = parser.ntriplesDoc.run()
+      asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
+    }
 
-      if (iterator.hasNext) {
+    if (!validate) {
+      worker.join(2)
+      worker.shutdown()
+
+      while (parseQueue.nonEmpty) {
+        val parser = parseQueue.dequeue()
+        val res = parser.ntriplesDoc.run()
         res match {
           case Success(count)         ⇒ tripleCount += count
           case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
           case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
         }
-      } else {
-        res match {
-          case Success(count) ⇒
-            if (verbose) {
-              tripleCount += count
-              val me: Double = System.currentTimeMillis - ms
-              if (!validate) {
-                System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-              } else {
-                System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-              }
-            }
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
-          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
-        }
       }
+    }
+
+    if (verbose) {
+      val me: Double = System.currentTimeMillis - ms
+      if (!validate) {
+        System.err.println("Input file '" + filename + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+      } else {
+        System.err.println("Input file '" + filename + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+      }
+    }
+
+    def asynchronous(parser: NTriplesParser) = parseQueue.synchronized {
+      parseQueue.enqueue(parser)
+      if (parseQueue.nonEmpty) parseQueue.notify()
     }
   }
 }
