@@ -85,7 +85,7 @@ object NTMain extends App {
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
      for n chosen to be about 100000 lines.
   */
-  NTriplesParser.parseAll(file.head.getName, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 50000)
+  NTriplesParser.parseAll(file.head.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 50000)
 
   output.close()
 }
