@@ -49,12 +49,12 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
           }
       } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
-        worker.join(10)
         worker.shutdown()
+        worker.join()
 
         while (!astQueue.isEmpty) {
-          val (eval, ast) = astQueue.dequeue()
-          worker.sum += eval(ast)
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
         }
       }
 

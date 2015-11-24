@@ -118,12 +118,12 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
           }
       } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
-        worker.join(10)
         worker.shutdown()
+        worker.join()
 
-        while (!astQueue.isEmpty) {
-          val (eval, ast) = astQueue.dequeue()
-          worker.sum += eval(ast)
+        while (astQueue.nonEmpty) {
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
         }
       }
 
