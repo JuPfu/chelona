@@ -44,19 +44,22 @@ object NQuadParser {
       worker.start()
     }
 
-    val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
+    val lines = if (n < 50000) 100000 else if (n > 1000000) 1000000 else n
 
     var tripleCount: Long = 0L
 
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
+      if (parseQueue.length > 1024) Thread.sleep(100)
       asynchronous(NQuadParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
     }
 
     if (!validate) {
-      worker.join(2)
       worker.shutdown()
+      worker.join()
+
+      tripleCount += worker.tripleCount
 
       while (parseQueue.nonEmpty) {
         val parser = parseQueue.dequeue()
@@ -100,8 +103,8 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
           }
       } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
-        worker.join(10)
         worker.shutdown()
+        worker.join()
 
         while (astQueue.nonEmpty) {
           val (renderStatement, ast) = astQueue.dequeue()

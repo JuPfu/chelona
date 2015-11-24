@@ -31,8 +31,8 @@ final class ASTThreadWorker[T](astQueue: mutable.Queue[(T ⇒ Int, T)]) extends 
   import scala.annotation.tailrec
 
   @tailrec final override def run() = poll() match {
-    case Some((eval, ast)) ⇒
-      sum += eval(ast); run()
+    case Some((renderStatement, ast)) ⇒
+      sum += renderStatement(ast); run()
     case None ⇒
   }
 

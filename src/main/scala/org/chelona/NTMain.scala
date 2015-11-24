@@ -59,6 +59,9 @@ object NTMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
+  /*
+    This is the user defined procedure, which contains your business logic.
+   */
   def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
     /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
     /* Identification or filtering with respect to token type can be done via attribute tokenType, e.g. */

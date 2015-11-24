@@ -45,19 +45,22 @@ object NTriplesParser extends NTripleAST {
       worker.start()
     }
 
-    val lines = if (n < 1) 100000 else if (n > 1000000) 1000000 else n
+    val lines = if (n < 50000) 100000 else if (n > 1000000) 1000000 else n
 
     var tripleCount: Long = 0L
 
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
+      if (parseQueue.length > 1024) Thread.sleep(100)
       asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
     }
 
     if (!validate) {
-      worker.join(2)
       worker.shutdown()
+      worker.join()
+
+      tripleCount += worker.tripleCount
 
       while (parseQueue.nonEmpty) {
         val parser = parseQueue.dequeue()
@@ -167,12 +170,12 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
       }
     )).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) â‡’ {
       if (!validate) {
-        worker.join(10)
         worker.shutdown()
+        worker.join()
 
         while (astQueue.nonEmpty) {
-          val (eval, ast) = astQueue.dequeue()
-          worker.sum += eval(ast)
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
         }
       }
 
