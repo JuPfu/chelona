@@ -40,10 +40,8 @@ object NTriplesParser extends NTripleAST {
     var parseQueue = mutable.Queue[NTriplesParser]()
     val worker = new NTriplesThreadWorker(parseQueue, filename, validate, verbose, trace)
 
-    if (!validate) {
-      worker.setName("NTriplesParser")
-      worker.start()
-    }
+    worker.setName("NTriplesParser")
+    worker.start()
 
     val lines = if (n < 50000) 100000 else if (n > 1000000) 1000000 else n
 
@@ -52,24 +50,22 @@ object NTriplesParser extends NTripleAST {
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
-      if (parseQueue.length > 1024) Thread.sleep(100)
+      if (parseQueue.length > 1024) Thread.sleep(100) // a more sophiticated throtteling should be supplied
       asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
     }
 
-    if (!validate) {
-      worker.shutdown()
-      worker.join()
+    worker.shutdown()
+    worker.join()
 
-      tripleCount += worker.tripleCount
+    tripleCount += worker.tripleCount
 
-      while (parseQueue.nonEmpty) {
-        val parser = parseQueue.dequeue()
-        val res = parser.ntriplesDoc.run()
-        res match {
-          case Success(count)         ⇒ tripleCount += count
-          case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
-          case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
-        }
+    while (parseQueue.nonEmpty) {
+      val parser = parseQueue.dequeue()
+      val res = parser.ntriplesDoc.run()
+      res match {
+        case Success(count)         ⇒ tripleCount += count
+        case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
+        case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
       }
     }
 
