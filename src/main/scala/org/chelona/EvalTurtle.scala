@@ -293,7 +293,7 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
-    val prefix = prefixMap.getOrElse(pname_ns, "" /*basePath*/ )
+    val prefix = prefixMap.getOrElse(pname_ns, "")
     if (prefix.startsWith("//") || hasScheme(prefix)) {
       if (prefix.endsWith("/") || prefix.endsWith("#"))
         prefix + pn_local
