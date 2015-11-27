@@ -18,12 +18,17 @@ package org.chelona
 import org.parboiled2._
 import org.parboiled2.CharPredicate.{ Alpha, AlphaNum }
 
+import scala.util.Success
+
 object SchemeIdentifier {
 
   val SchemeChar = AlphaNum ++ '+' ++ '-' ++ '.'
 
-  def apply(input: ParserInput) = {
-    new SchemeIdentifier(input)
+  def apply(input: ParserInput): Boolean = {
+    new SchemeIdentifier(input).scheme.run() match {
+      case Success(s) ⇒ true
+      case _          ⇒ false
+    }
   }
 }
 

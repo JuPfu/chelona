@@ -365,8 +365,5 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
 
   private def getCollectionName = "_:c" + label + cCount
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
-    case Success(s) ⇒ true
-    case _          ⇒ false
-  }
+  private def hasScheme(iri: String) = SchemeIdentifier(iri)
 }

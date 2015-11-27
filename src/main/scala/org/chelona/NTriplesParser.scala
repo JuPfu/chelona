@@ -269,10 +269,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
     iriRef.startsWith("//") || hasScheme(iriRef)
   }
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri).scheme.run() match {
-    case Success(s) ⇒ true
-    case _          ⇒ false
-  }
+  private def hasScheme(iri: String) = SchemeIdentifier(iri)
 
   private def maskQuotes(flag: Boolean, s: String) = {
     val c = hexStringToCharString(s)

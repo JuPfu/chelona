@@ -23,7 +23,7 @@ object CharPredicates {
   val SIGN = CharPredicate('+', '-')
   val COLON = CharPredicate(':')
 
-  val IRIREF_CHAR = CharPredicate('\u0021' to '\uFFFF') -- CharPredicate("<>\"{}|^`\\")
+  val IRIREF_CHAR = CharPredicate('\u0021' to '\uFFFE') -- CharPredicate("<>\"{}|^`\\")
 
   val PN_CHARS_BASE = Alpha ++ CharPredicate('\u00C0' to '\u00D6', '\u00D8' to '\u00F6', '\u00F8' to '\u02FF', '\u0370' to '\u037D', '\u037F' to '\u1FFF',
     '\u200C' to '\u200D', '\u2070' to '\u218F', '\u2C00' to '\u2FeF', '\u3001' to '\uD7FF', '\uF900' to '\uFDCF',
