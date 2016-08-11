@@ -3,7 +3,7 @@ import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
   version := "1.1.0",
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
   name := "Chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
@@ -12,8 +12,8 @@ val commonSettings = Seq(
   licenses := Seq("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   javacOptions ++= Seq(
     "-encoding", "UTF-8",
-    "-source", "1.6",
-    "-target", "1.6",
+    "-source", "1.8",
+    "-target", "1.8",
     "-Xlint:unchecked",
     "-Xlint:deprecation"),
   scalacOptions ++= List(
@@ -25,7 +25,7 @@ val commonSettings = Seq(
     "-Xlint",
     "-Yopt:_",
     "-language:_",
-    "-target:jvm-1.6"))
+    "-target:jvm-1.8"))
 
 val formattingSettings = scalariformSettings ++ Seq(
   ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -37,9 +37,9 @@ val formattingSettings = scalariformSettings ++ Seq(
 
 /////////////////////// DEPENDENCIES /////////////////////////
 
-val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
-val scopt = "com.github.scopt" %% "scopt" % "3.3.0"
-val scalaTest = "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
+val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.3"
+val scopt = "com.github.scopt" %% "scopt" % "3.5.0"
+val scalaTest = "org.scalatest" % "scalatest_2.11" % "2.2.6" % "test"
 
 /////////////////////// PROJECTS /////////////////////////
 

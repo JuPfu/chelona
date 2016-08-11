@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, b
   private def setBlankNodeName(key: String) = {
     if (!blankNodeMap.contains(key)) {
       bCount += 1L
-      blankNodeMap += key -> ("_:b" + label + bCount)
+      blankNodeMap += key → ("_:b" + label + bCount)
     }
     blankNodeMap.getOrElse(key, "This should never be returned")
   }

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ object Main extends App {
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
     System.err.flush()
   }
 
@@ -78,12 +78,12 @@ object Main extends App {
       val me: Double = System.currentTimeMillis - ms
       if (verbose) {
         if (!validate) {
-          System.err.println("Input file '" + file.head + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+          System.err.println("Input file '" + file.head.getCanonicalPath + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         } else {
-          System.err.println("Input file '" + file.head + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+          System.err.println("Input file '" + file.head.getCanonicalPath + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         }
       }
-    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.head + "': " + parser.formatError(e)) else System.err.println("File '" + file.head + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
-    case Failure(e)             ⇒ System.err.println("File '" + file.head + "': Unexpected error during parsing run: " + e)
+    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.head.getCanonicalPath + "': " + parser.formatError(e)) else System.err.println("File '" + file.head.getCanonicalPath + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
+    case Failure(e)             ⇒ System.err.println("File '" + file.head.getCanonicalPath + "': Unexpected error during parsing run: " + e)
   }
 }

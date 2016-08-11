@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -19,14 +19,16 @@ import org.parboiled2.{ ParseError, ParserInput, ErrorFormatter }
 
 import java.lang.{ StringBuilder ⇒ JStringBuilder }
 
-class ChelonaErrorFormatter(block: Long = 0L,
-                            showExpected: Boolean = true,
-                            showPosition: Boolean = true,
-                            showLine: Boolean = true,
-                            showTraces: Boolean = false,
-                            showFrameStartOffset: Boolean = true,
-                            expandTabs: Int = -1,
-                            traceCutOff: Int = 120) extends ErrorFormatter {
+class ChelonaErrorFormatter(
+    block:                Long    = 0L,
+    showExpected:         Boolean = true,
+    showPosition:         Boolean = true,
+    showLine:             Boolean = true,
+    showTraces:           Boolean = false,
+    showFrameStartOffset: Boolean = true,
+    expandTabs:           Int     = -1,
+    traceCutOff:          Int     = 120
+) extends ErrorFormatter {
 
   /**
    * Formats the given [[ParseError]] into the given StringBuilder

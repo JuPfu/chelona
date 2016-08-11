@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -17,28 +17,28 @@
 package org.chelona
 
 object TurtleBitValue {
-  val EMPTY = 0
+  final val EMPTY = 0
 
-  val BLANK_NODE_LABEL = 1
-  val ISA = BLANK_NODE_LABEL << 1
-  val IRIREF = ISA << 1
-  val PREFIXID = IRIREF << 1
-  val BASE = PREFIXID << 1
-  val SPARQLBASE = BASE << 1
-  val SPARQLPREFIX = SPARQLBASE << 1
-  val INTEGER = SPARQLPREFIX << 1
-  val DECIMAL = INTEGER << 1
-  val DOUBLE = DECIMAL << 1
-  val STRING_LITERAL_QUOTE = IRIREF << 1
-  val LANGTAG = STRING_LITERAL_QUOTE << 1
-  val ANON = LANGTAG << 1
-  val BOOLEAN_LITERAL = ANON << 1
-  val PNAMENS = BOOLEAN_LITERAL << 1
-  val PNAMELN = PNAMENS << 1
-  val PNPREFIX = PNAMELN << 1
-  val PNLOCAL = PNPREFIX << 1
-  val BLANK_LINE = PNLOCAL << 1
-  val COMMENT = BLANK_LINE << 1
+  final val BLANK_NODE_LABEL = 1
+  final val ISA = BLANK_NODE_LABEL << 1
+  final val IRIREF = ISA << 1
+  final val PREFIXID = IRIREF << 1
+  final val BASE = PREFIXID << 1
+  final val SPARQLBASE = BASE << 1
+  final val SPARQLPREFIX = SPARQLBASE << 1
+  final val INTEGER = SPARQLPREFIX << 1
+  final val DECIMAL = INTEGER << 1
+  final val DOUBLE = DECIMAL << 1
+  final val STRING_LITERAL_QUOTE = IRIREF << 1
+  final val LANGTAG = STRING_LITERAL_QUOTE << 1
+  final val ANON = LANGTAG << 1
+  final val BOOLEAN_LITERAL = ANON << 1
+  final val PNAMENS = BOOLEAN_LITERAL << 1
+  final val PNAMELN = PNAMENS << 1
+  final val PNPREFIX = PNAMELN << 1
+  final val PNLOCAL = PNPREFIX << 1
+  final val BLANK_LINE = PNLOCAL << 1
+  final val COMMENT = BLANK_LINE << 1
 
   type TurtleToken = Int
 }

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ object NTriplesParser extends NTripleAST {
 
     val ms: Double = System.currentTimeMillis
 
-    var parseQueue = mutable.Queue[NTriplesParser]()
-    val worker = new NTriplesThreadWorker(parseQueue, filename, validate, verbose, trace)
+    var parserQueue = mutable.Queue[NTriplesParser]()
+    val worker = new NTriplesThreadWorker(parserQueue, filename, validate, verbose, trace)
 
     worker.setName("NTriplesParser")
     worker.start()
@@ -50,7 +50,7 @@ object NTriplesParser extends NTripleAST {
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
-      if (parseQueue.length > 1024) Thread.sleep(100) // a more sophiticated throtteling should be supplied
+      if (parserQueue.length > 1024) Thread.sleep(10) // a more sophisticated throtteling should be supplied
       asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
     }
 
@@ -59,13 +59,14 @@ object NTriplesParser extends NTripleAST {
 
     tripleCount += worker.tripleCount
 
-    while (parseQueue.nonEmpty) {
-      val parser = parseQueue.dequeue()
+    while (parserQueue.nonEmpty) {
+      val parser = parserQueue.dequeue()
       val res = parser.ntriplesDoc.run()
       res match {
-        case Success(count)         ⇒ tripleCount += count
-        case Failure(e: ParseError) ⇒ if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
-        case Failure(e)             ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
+        case Success(count) ⇒ tripleCount += count
+        case Failure(e: ParseError) ⇒
+          if (!trace) System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount))) else System.err.println("File '" + filename + "': " + parser.formatError(e, new ChelonaErrorFormatter(block = tripleCount, showTraces = true)))
+        case Failure(e) ⇒ System.err.println("File '" + filename + "': Unexpected error during parsing run: " + e)
       }
     }
 
@@ -78,9 +79,9 @@ object NTriplesParser extends NTripleAST {
       }
     }
 
-    def asynchronous(parser: NTriplesParser) = parseQueue.synchronized {
-      parseQueue.enqueue(parser)
-      if (parseQueue.nonEmpty) parseQueue.notify()
+    def asynchronous(parser: NTriplesParser) = parserQueue.synchronized {
+      parserQueue.enqueue(parser)
+      if (parserQueue.length > 4) parserQueue.notify()
     }
   }
 }
@@ -134,7 +135,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
    */
   def asynchronous(ast: (NTripleType ⇒ Int, NTripleType)) = astQueue.synchronized {
     astQueue.enqueue(ast)
-    if (astQueue.length > 10) astQueue.notify()
+    if (astQueue.length > 255) astQueue.notify()
   }
 
   def ws = rule {
@@ -159,12 +160,11 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
           }
       } else {
         if (!validate) {
-          worker.join(10)
           worker.shutdown()
+          worker.join()
         }
         0
-      }
-    )).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.shutdown()
         worker.join()
@@ -177,8 +177,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
 
       if (validate) v.sum
       else worker.sum
-    }
-    )
+    })
   }
 
   //[2] triple	::=	subject predicate object '.'

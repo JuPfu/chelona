@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -129,8 +129,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
       if (validate) v.sum
       else worker.sum
-    }
-    )
+    })
   }
 
   //[2] statement 	::= 	directive | triples '.'
@@ -342,7 +341,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
   /* A prefix name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(DOT.+ ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(ch('.').+ ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 	 Example:
 	 [] <b> c:d.1..2...3.
@@ -355,7 +354,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
 
   //[168s] PN_LOCAL 	::= 	(PN_CHARS_U | ':' | [0-9] | PLX) ((PN_CHARS | '.' | ':' | PLX)* (PN_CHARS | ':' | PLX))?
   /* A local name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
-	 The predicate "&(DOT.+ ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(ch('.').+ ~ PN_CHARS_COLON)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 	 Example:
 	 [] <b> c:d.1..2...3.
@@ -390,7 +389,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
   /* A blank node label is allowed to contain dots ('.'), but it is forbidden as last character of the recognized label name.
 	 The reason for this is, when '.' is used as last character of a blank node label, it collides with triple termination,
 	 which is signaled by '.', too.
-	 The predicate "&(DOT.* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
+	 The predicate "&(ch('.').* ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.
 	 Example:
 	 <a> <b> _:c.1..2...3.
@@ -420,13 +419,13 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
   private def definePrefix(key: String, iriRef: ASTIriRef): Unit = {
     val value = iriRef.token
     if (value.startsWith("//") || hasScheme(value))
-      prefixMap += key -> value
+      prefixMap += key → value
     else if (value.endsWith("/")) {
       if (!prefixMap.contains(key))
-        prefixMap += key -> value
+        prefixMap += key → value
       else
-        prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
-    } else prefixMap += key -> value
+        prefixMap += key → (prefixMap.getOrElse(key, basePath) + value)
+    } else prefixMap += key → value
   }
 
   private def addPrefix(pname_ns: ASTPNameNS, pn_local: ASTPNLocal): Boolean = {

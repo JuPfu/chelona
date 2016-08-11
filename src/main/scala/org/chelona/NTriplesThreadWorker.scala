@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@ import org.parboiled2._
 import scala.collection.mutable
 import scala.util.{ Failure, Success }
 
-final class NTriplesThreadWorker(parseQueue: mutable.Queue[_ <: NTriplesParser], filename: String, validate: Boolean, verbose: Boolean, trace: Boolean) extends Thread {
+final class NTriplesThreadWorker(parserQueue: mutable.Queue[_ <: NTriplesParser], filename: String, validate: Boolean, verbose: Boolean, trace: Boolean) extends Thread {
 
   var terminated = false
 
   var tripleCount = 0L
 
-  final def poll(): Option[NTriplesParser] = parseQueue.synchronized {
-    while (parseQueue.isEmpty && !terminated) parseQueue.wait()
-    if (!terminated) Some(parseQueue.dequeue()) else None
+  final def poll(): Option[NTriplesParser] = parserQueue.synchronized {
+    while (parserQueue.isEmpty && !terminated) parserQueue.wait()
+    if (!terminated) Some(parserQueue.dequeue()) else None
   }
 
   import scala.annotation.tailrec
@@ -46,10 +46,10 @@ final class NTriplesThreadWorker(parseQueue: mutable.Queue[_ <: NTriplesParser],
     case None ⇒
   }
 
-  final def shutdown() = parseQueue.synchronized {
+  final def shutdown() = parserQueue.synchronized {
     if (!terminated) {
       terminated = true
-      parseQueue.notify()
+      parserQueue.notify()
     }
   }
 }

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -323,13 +323,13 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
 
   private def definePrefix(key: String, value: String) = {
     if (value.startsWith("//") || hasScheme(value))
-      prefixMap += key -> value
+      prefixMap += key → value
     else if (value.endsWith("/") || value.endsWith("#")) {
       if (!prefixMap.contains(key))
-        prefixMap += key -> value
+        prefixMap += key → value
       else
-        prefixMap += key -> (prefixMap.getOrElse(key, basePath) + value)
-    } else prefixMap += key -> value
+        prefixMap += key → (prefixMap.getOrElse(key, basePath) + value)
+    } else prefixMap += key → value
   }
 
   private def addPrefix(pname_ns: String, pn_local: String): String = {
@@ -384,21 +384,21 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
 
   private def addBasePrefix(iri: String) = {
     if (iri.startsWith("//") || hasScheme(iri))
-      prefixMap += "" -> iri
+      prefixMap += "" → iri
     else {
       val prefix = prefixMap.getOrElse("", basePath)
       if (prefix.endsWith("/") || prefix.endsWith("#"))
-        prefixMap += "" -> (prefix + iri)
+        prefixMap += "" → (prefix + iri)
       else if (prefix.length > 0)
-        prefixMap += "" -> (prefix + "/" + iri)
-      else prefixMap += "" -> iri
+        prefixMap += "" → (prefix + "/" + iri)
+      else prefixMap += "" → iri
     }
   }
 
   private def setBlankNodeName(key: String) = {
     if (!blankNodeMap.contains(key)) {
       bCount += 1
-      blankNodeMap += key -> ("_:b" + label + bCount)
+      blankNodeMap += key → ("_:b" + label + bCount)
     }
     blankNodeMap.getOrElse(key, "This should never be returned")
   }

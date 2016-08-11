@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -22,14 +22,16 @@ import scopt._
 
 object GetCmdLineArgs {
 
-  case class Config(validate: Boolean = false,
-                    file: Seq[File] = Seq(),
-                    verbose: Boolean = false,
-                    uid: Boolean = false,
-                    base: String = "http://chelona.org",
-                    out: String = "N3",
-                    version: Boolean = false,
-                    trace: Boolean = false)
+  case class Config(
+    validate: Boolean   = false,
+    file:     Seq[File] = Seq(),
+    verbose:  Boolean   = false,
+    uid:      Boolean   = false,
+    base:     String    = "http://chelona.org",
+    out:      String    = "N3",
+    version:  Boolean   = false,
+    trace:    Boolean   = false
+  )
 
   val argsParser = new OptionParser[Config]("Cheló̱na") {
     head("cheló̱na", "version 1.0")
