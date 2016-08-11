@@ -15,11 +15,11 @@
 */
 package org.chelona
 
-import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
@@ -42,9 +42,7 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
     earl.flush()
   }
 
-
-  
-"The input file ./NQuadTests/nt-syntax-bad-struct-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+  "The input file ./NQuadTests/nt-syntax-bad-struct-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // N-Triples does not have objectList (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-struct-01.nq").mkString
 
@@ -68,8 +66,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-base-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-base-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // @base not allowed in N-Triples (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-base-01.nq").mkString
 
@@ -93,8 +91,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-file-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-file-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // One comment, one empty line
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-file-03.nq").mkString
 
@@ -113,8 +111,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bad-uri-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bad-uri-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Graph name URI must be absolute (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bad-uri-01.nq").mkString
 
@@ -138,8 +136,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // mismatching string literal open/close (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-02.nq").mkString
 
@@ -163,8 +161,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_REVERSE_SOLIDUS.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_REVERSE_SOLIDUS.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with REVERSE SOLIDUS
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_REVERSE_SOLIDUS.nq").mkString
 
@@ -183,8 +181,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/minimal_whitespace.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/minimal_whitespace.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // tests absense of whitespace between subject, predicate, object and end-of-statement
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/minimal_whitespace.nq").mkString
 
@@ -203,8 +201,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-prefix-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-prefix-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // @prefix not allowed in n-triples (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-prefix-01.nq").mkString
 
@@ -228,8 +226,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_2_dquotes.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_2_dquotes.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with 2 squotes """"""a""""b""""""
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_2_dquotes.nq").mkString
 
@@ -248,8 +246,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-uri-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-uri-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // IRIs with Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-uri-02.nq").mkString
 
@@ -268,8 +266,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-string-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-string-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // langString literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-string-02.nq").mkString
 
@@ -288,8 +286,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bad-quint-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bad-quint-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // N-Quads does not have a fifth element (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bad-quint-01.nq").mkString
 
@@ -313,8 +311,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-struct-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-struct-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // N-Triples does not have predicateObjectList (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-struct-02.nq").mkString
 
@@ -338,8 +336,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_numeric_escape4.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_numeric_escape4.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with numeric escape4 \\u
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_numeric_escape4.nq").mkString
 
@@ -358,8 +356,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with simple literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-04.nq").mkString
 
@@ -378,8 +376,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_all_controls.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_all_controls.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal_all_controls '\x00\x01\x02\x03\x04...'
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_all_controls.nq").mkString
 
@@ -398,8 +396,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with simple literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-04.nq").mkString
 
@@ -418,8 +416,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bad-literal-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bad-literal-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Graph name may not be a simple literal (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bad-literal-01.nq").mkString
 
@@ -443,8 +441,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : bad long escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-03.nq").mkString
 
@@ -468,8 +466,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-07.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-07.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : relative IRI not allowed in predicate (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-07.nq").mkString
 
@@ -493,8 +491,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with URI triple
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-01.nq").mkString
 
@@ -513,8 +511,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // single quotes (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-03.nq").mkString
 
@@ -538,8 +536,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-04.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-04.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : character escapes not allowed (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-04.nq").mkString
 
@@ -563,8 +561,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bnode-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bnode-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Blank node labels may start with a digit
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bnode-03.nq").mkString
 
@@ -583,8 +581,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with URI triple
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-01.nq").mkString
 
@@ -603,8 +601,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-str-esc-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-str-esc-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // string literal with escaped newline
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-str-esc-01.nq").mkString
 
@@ -623,8 +621,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-subm-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-subm-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Submission test from Original RDF Test Cases
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-subm-01.nq").mkString
 
@@ -643,8 +641,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-string-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-string-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // langString literal with region
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-string-03.nq").mkString
 
@@ -663,8 +661,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_CHARACTER_TABULATION.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_CHARACTER_TABULATION.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with CHARACTER TABULATION
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_CHARACTER_TABULATION.nq").mkString
 
@@ -683,8 +681,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-datatypes-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-datatypes-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // integer as xsd:string
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-datatypes-02.nq").mkString
 
@@ -703,8 +701,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-uri-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-uri-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Only IRIs
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-uri-01.nq").mkString
 
@@ -723,8 +721,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-04.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-04.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // long single string literal (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-04.nq").mkString
 
@@ -748,8 +746,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_LINE_FEED.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_LINE_FEED.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with LINE FEED
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_LINE_FEED.nq").mkString
 
@@ -768,8 +766,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-lang-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-lang-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // langString with bad lang (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-lang-01.nq").mkString
 
@@ -793,8 +791,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-str-esc-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-str-esc-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // string literal with Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-str-esc-02.nq").mkString
 
@@ -813,8 +811,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-esc-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-esc-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-esc-01.nq").mkString
 
@@ -838,8 +836,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-06.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-06.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with datatyped literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-06.nq").mkString
 
@@ -858,8 +856,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-num-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-num-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // no numbers in N-Triples (integer) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-num-01.nq").mkString
 
@@ -883,8 +881,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with BNode object
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-03.nq").mkString
 
@@ -903,8 +901,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-06.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-06.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // string literal with no end (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-06.nq").mkString
 
@@ -928,8 +926,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-06.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-06.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with datatyped literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-06.nq").mkString
 
@@ -948,8 +946,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-09.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-09.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : relative IRI not allowed in datatype (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-09.nq").mkString
 
@@ -973,8 +971,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with BNode object
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-03.nq").mkString
 
@@ -993,8 +991,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-05.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-05.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // long double string literal (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-05.nq").mkString
 
@@ -1018,8 +1016,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : bad escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-02.nq").mkString
 
@@ -1043,8 +1041,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-06.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-06.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : relative IRI not allowed in subject (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-06.nq").mkString
 
@@ -1068,8 +1066,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-esc-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-esc-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-esc-02.nq").mkString
 
@@ -1093,8 +1091,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_ascii_boundaries.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_ascii_boundaries.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal_ascii_boundaries '\x00\x26\x28...'
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_ascii_boundaries.nq").mkString
 
@@ -1113,8 +1111,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-str-esc-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-str-esc-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // string literal with long Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-str-esc-03.nq").mkString
 
@@ -1133,8 +1131,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bnode-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bnode-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // bnode object
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bnode-02.nq").mkString
 
@@ -1153,8 +1151,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_squote.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_squote.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with squote ""x'y""
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_squote.nq").mkString
 
@@ -1173,8 +1171,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bad-literal-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bad-literal-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Graph name may not be a datatyped literal (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bad-literal-03.nq").mkString
 
@@ -1198,8 +1196,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-file-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-file-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Empty file
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-file-01.nq").mkString
 
@@ -1218,8 +1216,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-num-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-num-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // no numbers in N-Triples (float) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-num-03.nq").mkString
 
@@ -1243,8 +1241,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_CARRIAGE_RETURN.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_CARRIAGE_RETURN.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with CARRIAGE RETURN
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_CARRIAGE_RETURN.nq").mkString
 
@@ -1263,8 +1261,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-uri-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-uri-03.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // IRIs with long Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-uri-03.nq").mkString
 
@@ -1283,8 +1281,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/lantag_with_subtag.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/lantag_with_subtag.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // lantag with subtag ""x""@en-us
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/lantag_with_subtag.nq").mkString
 
@@ -1303,8 +1301,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bad-literal-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bad-literal-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Graph name may not be a language tagged literal (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bad-literal-02.nq").mkString
 
@@ -1328,8 +1326,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_REVERSE_SOLIDUS2.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_REVERSE_SOLIDUS2.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // REVERSE SOLIDUS at end of literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_REVERSE_SOLIDUS2.nq").mkString
 
@@ -1348,8 +1346,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-num-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-num-02.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // no numbers in N-Triples (decimal) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-num-02.nq").mkString
 
@@ -1373,8 +1371,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-datatypes-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-datatypes-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // xsd:byte literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-datatypes-01.nq").mkString
 
@@ -1393,8 +1391,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-07.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-07.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // string literal with no start (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-07.nq").mkString
 
@@ -1418,8 +1416,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_UTF8_boundaries.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_UTF8_boundaries.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal_with_UTF8_boundaries '\x80\x7ff\x800\xfff...'
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_UTF8_boundaries.nq").mkString
 
@@ -1438,8 +1436,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_all_punctuation.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_all_punctuation.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal_all_punctuation '!""#$%&()...'
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_all_punctuation.nq").mkString
 
@@ -1458,8 +1456,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-uri-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-uri-04.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Legal IRIs
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-uri-04.nq").mkString
 
@@ -1478,8 +1476,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_FORM_FEED.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_FORM_FEED.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with FORM FEED
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_FORM_FEED.nq").mkString
 
@@ -1498,8 +1496,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_dquote.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_dquote.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with dquote ""x""y""
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_dquote.nq").mkString
 
@@ -1518,8 +1516,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-esc-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-esc-03.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-esc-03.nq").mkString
 
@@ -1543,8 +1541,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_BACKSPACE.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_BACKSPACE.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with BACKSPACE
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_BACKSPACE.nq").mkString
 
@@ -1563,8 +1561,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/langtagged_string.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/langtagged_string.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // langtagged string ""x""@en
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/langtagged_string.nq").mkString
 
@@ -1583,8 +1581,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_numeric_escape8.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_numeric_escape8.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with numeric escape8 \U
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_numeric_escape8.nq").mkString
 
@@ -1603,8 +1601,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with BNode subject
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-02.nq").mkString
 
@@ -1623,8 +1621,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : space (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-01.nq").mkString
 
@@ -1648,8 +1646,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-05.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-05.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : character escapes not allowed (2) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-05.nq").mkString
 
@@ -1673,8 +1671,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/comment_following_triple.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/comment_following_triple.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Tests comments after a triple
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/comment_following_triple.nq").mkString
 
@@ -1693,8 +1691,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-05.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-05.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with language tagged literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-05.nq").mkString
 
@@ -1713,8 +1711,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-file-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-file-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // Only comment
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-file-02.nq").mkString
 
@@ -1733,8 +1731,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-string-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-string-01.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // mismatching string literal open/close (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-string-01.nq").mkString
 
@@ -1758,8 +1756,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-uri-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-uri-02.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // URI graph with BNode subject
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-uri-02.nq").mkString
 
@@ -1778,8 +1776,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bnode-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bnode-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // bnode subject
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bnode-01.nq").mkString
 
@@ -1798,8 +1796,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nq-syntax-bnode-05.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nq-syntax-bnode-05.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // BNode graph with language tagged literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nq-syntax-bnode-05.nq").mkString
 
@@ -1818,8 +1816,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-bad-uri-08.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-bad-uri-08.nq" must "fail" taggedAs (TestNQuadsNegativeSyntax) in {
     // Bad IRI : relative IRI not allowed in object (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-bad-uri-08.nq").mkString
 
@@ -1843,8 +1841,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal_with_2_squotes.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal_with_2_squotes.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal with 2 squotes ""x''y""
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal_with_2_squotes.nq").mkString
 
@@ -1863,8 +1861,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/literal.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/literal.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // literal """"""x""""""
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/literal.nq").mkString
 
@@ -1883,8 +1881,8 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
     output.close()
   }
-  
-"The input file ./NQuadTests/nt-syntax-string-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
+
+  "The input file ./NQuadTests/nt-syntax-string-01.nq" must "succeed" taggedAs (TestNQuadsPositiveSyntax) in {
     // string literal
     lazy val input: ParserInput = io.Source.fromFile("./NQuadTests/nt-syntax-string-01.nq").mkString
 

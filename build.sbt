@@ -3,7 +3,7 @@ import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
   version := "1.1.0",
-  scalaVersion := "2.11.7",
+  scalaVersion := "2.11.8",
   name := "Chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
@@ -35,12 +35,6 @@ val formattingSettings = scalariformSettings ++ Seq(
     .setPreference(DoubleIndentClassDeclaration, true)
     .setPreference(PreserveDanglingCloseParenthesis, true))
 
-/////////////////////// DEPENDENCIES /////////////////////////
-
-val parboiled2 = "org.parboiled" %% "parboiled" % "2.1.0"
-val scopt = "com.github.scopt" %% "scopt" % "3.3.0"
-val scalaTest = "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
-
 /////////////////////// PROJECTS /////////////////////////
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
@@ -60,17 +54,32 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(PreserveDanglingCloseParenthesis, true)
 
-libraryDependencies ++= Seq(parboiled2, scopt, scalaTest)
 
-lazy val chelona = project.in(file("."))
+lazy val chelone = crossProject.in(file("."))
   .settings(commonSettings: _*)
+  .settings(scalariformSettings: _*)
   .settings(formattingSettings: _*)
   .settings(publishingSettings: _*)
-  .settings(libraryDependencies ++= Seq(parboiled2))
+  .settings(libraryDependencies ++=
+    Seq(
+      "org.parboiled" %%% "parboiled" % "2.1.3",
+      "org.scalatest" %%% "scalatest" % "3.0.0" % Test)
+    )
+  .jvmSettings(libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0")
+
+lazy val cheloneJVM = chelone.jvm
+lazy val cheloneJS = chelone.js
+
+lazy val root = project.in(file("."))
+  .settings(commonSettings:_*)
+  .settings(
+    mainClass in Compile := (mainClass in cheloneJVM in Compile).value
+  )
+  .aggregate(cheloneJS, cheloneJVM)
 
 /////////////////////// PUBLISH /////////////////////////
 
-val publishingSettings = Seq(
+lazy val publishingSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Test := false,
   useGpg := false,

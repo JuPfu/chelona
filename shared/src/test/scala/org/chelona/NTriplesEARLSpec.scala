@@ -15,11 +15,11 @@
 */
 package org.chelona
 
-import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
