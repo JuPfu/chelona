@@ -15,11 +15,11 @@
 */
 package org.chelona
 
-import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
@@ -41,7 +41,6 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     earl.write(earl_assertion);
     earl.flush()
   }
-
 
   "The input file ./TrigTests/trig-syntax-str-esc-03.trig" must "succeed" taggedAs (TestTrigPositiveSyntax) in {
     // string literal with long Unicode escape
@@ -164,7 +163,6 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     val output = new StringWriter()
 
     val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TrigTests", "")
-
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -319,8 +317,6 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     val output = new StringWriter()
 
     val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TrigTests", "")
-
-
 
     val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
@@ -3754,7 +3750,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
         true
       case Failure(e: ParseError) ⇒
         // due to Parboiled2 formatting error earl output somewhat earlier
-        System.err.println("File './TrigTests/trig-graph-bad-06.trig': " + e /*parser.formatError(e)*/)
+        System.err.println("File './TrigTests/trig-graph-bad-06.trig': " + e /*parser.formatError(e)*/ )
         false
       case Failure(e) ⇒
         System.err.println("File './TrigTests/trig-graph-bad-06.trig': Unexpected error during parsing run: " + e)
