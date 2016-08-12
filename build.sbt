@@ -45,7 +45,11 @@ val scalaTest = "org.scalatest" % "scalatest_2.11" % "2.2.6" % "test"
 
 resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
+resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+
 resolvers += Resolver.sonatypeRepo("public")
+
+resolvers += Resolver.typesafeRepo("releases")
 
 parallelExecution in Test := true
 
@@ -70,7 +74,7 @@ lazy val chelona = project.in(file("."))
 
 /////////////////////// PUBLISH /////////////////////////
 
-val publishingSettings = Seq(
+lazy val publishingSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Test := false,
   useGpg := false,
