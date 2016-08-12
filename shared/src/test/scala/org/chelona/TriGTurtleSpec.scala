@@ -15,11 +15,11 @@
 */
 package org.chelona
 
-import java.io.{BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter}
+import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.parboiled2.{ParseError, ParserInput}
+import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
@@ -1274,7 +1274,7 @@ class TriGTurtleSpec extends FlatSpec with RDFTriGOutput {
 
     assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
-    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN_isomorphic.nt").mkString
+    val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
 
     assert(output.toString == nt.toString, "Triples generated should be exactly as in literal_with_CARRIAGE_RETURN.nt")
     earlOut("literal_with_CARRIAGE_RETURN", true)
