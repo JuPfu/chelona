@@ -13,10 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.chelona
+package chelona
 
 import java.io.StringWriter
 
+import org.chelona.{ ChelonaParser, RDFTripleOutput }
 import org.parboiled2.ParserInput
 import org.scalatest.FlatSpec
 

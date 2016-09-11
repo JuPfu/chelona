@@ -17,7 +17,6 @@
 package org.chelona
 
 import org.chelona.NQuadParser.NQAST
-
 import org.parboiled2._
 
 import scala.collection.mutable

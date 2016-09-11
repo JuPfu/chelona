@@ -20,11 +20,11 @@ import scala.collection.mutable
 
 final class ASTThreadWorker[T](astQueue: mutable.Queue[(T ⇒ Int, T)]) extends Thread {
 
-  var terminated = false
+  @volatile var terminated = false
   var sum = 0L
 
   final def poll(): Option[(T ⇒ Int, T)] = astQueue.synchronized {
-    while (astQueue.isEmpty && !terminated) astQueue.wait()
+    while (astQueue.isEmpty && !terminated) astQueue.wait(10)
     if (!terminated) Some(astQueue.dequeue()) else None
   }
 
@@ -42,5 +42,11 @@ final class ASTThreadWorker[T](astQueue: mutable.Queue[(T ⇒ Int, T)]) extends 
       astQueue.notify()
     }
   }
+
+  final def quit() = astQueue.synchronized {
+    terminated = true
+    astQueue.clear()
+  }
+
 }
 

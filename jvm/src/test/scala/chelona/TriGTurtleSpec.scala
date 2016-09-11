@@ -13,18 +13,21 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.chelona
+package chelona
 
 import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
+import org.chelona.{ RDFTriGOutput, TriGParser }
 import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
 import scala.util.Failure
 
-class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
+class TriGTurtleSpec extends FlatSpec with RDFTriGOutput {
+
+  val datum = java.time.LocalDate.now
 
   val earl = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("./earl.ttl"), StandardCharsets.UTF_8))
 
@@ -34,9 +37,10 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
     val subject = "<https://github.com/JuPfu/chelona>"
     val test = testcase // "IRI_subject"
     val outcome = if (passed) "passed" else "failed"
-    val datum = Calendar.getInstance.getTime
+    val datum = Calendar.getInstance.getTime // java.time.LocalDate.now //
+    val datum_format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
     val mode = "automatic"
-    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
+    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum_format.format(datum)}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
     earl.write(earl_assertion); earl.flush()
   }
 
@@ -46,9 +50,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/IRI_spo.nt").mkString
 
@@ -64,9 +68,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/IRI_with_four_digit_numeric_escape.nt").mkString
 
@@ -82,9 +86,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/IRI_with_four_digit_numeric_escape.nt").mkString
 
@@ -100,9 +104,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/IRI_with_all_punctuation.nt").mkString
 
@@ -118,9 +122,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/bareword_a_predicate.nt").mkString
 
@@ -136,9 +140,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/old_style_prefix.nt").mkString
 
@@ -154,9 +158,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/SPARQL_style_prefix.nt").mkString
 
@@ -172,9 +176,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefixed_IRI_predicate.nt").mkString
 
@@ -190,9 +194,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefixed_IRI_object.nt").mkString
 
@@ -208,9 +212,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefix_only_IRI.nt").mkString
 
@@ -226,9 +230,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefix_with_PN_CHARS_BASE_character_boundaries.nt").mkString
 
@@ -244,9 +248,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefix_with_non_leading_extras.nt").mkString
 
@@ -262,9 +266,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/default_namespace_IRI.nt").mkString
 
@@ -280,9 +284,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefix_reassigned_and_used.nt").mkString
 
@@ -298,9 +302,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/reserved_escaped_localName.nt").mkString
 
@@ -316,9 +320,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/percent_escaped_localName.nt").mkString
 
@@ -334,9 +338,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/HYPHEN_MINUS_in_localName.nt").mkString
 
@@ -352,9 +356,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/underscore_in_localName.nt").mkString
 
@@ -370,9 +374,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localname_with_COLON.nt").mkString
 
@@ -388,9 +392,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries_isomorphic.nt").mkString
 
@@ -406,9 +410,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries_isomorphic.nt").mkString
 
@@ -424,9 +428,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries_isomorphic.nt").mkString
 
@@ -442,9 +446,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_leading_underscore.nt").mkString
 
@@ -460,9 +464,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_leading_digit.nt").mkString
 
@@ -478,9 +482,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/localName_with_non_leading_extras_isomorphic.nt").mkString
 
@@ -496,9 +500,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/old_style_base.nt").mkString
 
@@ -514,9 +518,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/SPARQL_style_base.nt").mkString
 
@@ -532,9 +536,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_subject.nt").mkString
 
@@ -550,9 +554,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_object.nt").mkString
 
@@ -568,9 +572,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.nt").mkString
 
@@ -586,9 +590,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_with_leading_underscore.nt").mkString
 
@@ -604,9 +608,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_with_leading_digit.nt").mkString
 
@@ -622,9 +626,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/labeled_blank_node_with_non_leading_extras.nt").mkString
 
@@ -640,9 +644,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/anonymous_blank_node_subject.nt").mkString
 
@@ -658,9 +662,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/anonymous_blank_node_object.nt").mkString
 
@@ -676,9 +680,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/sole_blankNodePropertyList.nt").mkString
 
@@ -694,9 +698,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/blankNodePropertyList_as_subject.nt").mkString
 
@@ -712,9 +716,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/blankNodePropertyList_as_object.nt").mkString
 
@@ -730,9 +734,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/blankNodePropertyList_with_multiple_triples.nt").mkString
 
@@ -748,9 +752,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/nested_blankNodePropertyLists.nt").mkString
 
@@ -766,9 +770,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/blankNodePropertyList_containing_collection_isomorphic.nt").mkString
 
@@ -784,9 +788,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/collection_subject_isomorphic.nt").mkString
 
@@ -802,9 +806,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/collection_object_isomorphic.nt").mkString
 
@@ -820,9 +824,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/empty_collection.nt").mkString
 
@@ -838,9 +842,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/nested_collection_isomorphic.nt").mkString
 
@@ -856,9 +860,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
+    assert(parser.trigDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
     val nt = io.Source.fromFile("./TurtleTests/first_isomorphic.nt").mkString
 
@@ -874,9 +878,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
+    assert(parser.trigDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
     val nt = io.Source.fromFile("./TurtleTests/last_isomorphic.nt").mkString
 
@@ -892,9 +896,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL1.nt").mkString
 
@@ -910,9 +914,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL1_ascii_boundaries_isomorphic.nt").mkString
 
@@ -928,9 +932,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL1_with_UTF8_boundaries.nt").mkString
 
@@ -946,9 +950,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL1_all_controls_isomorphic.nt").mkString
 
@@ -964,9 +968,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL1_all_punctuation.nt").mkString
 
@@ -982,9 +986,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1.nt").mkString
 
@@ -1000,9 +1004,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_ascii_boundaries_isomorphic.nt").mkString
 
@@ -1018,9 +1022,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries_isomorphic.nt").mkString
 
@@ -1036,9 +1040,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_with_1_squote.nt").mkString
 
@@ -1054,9 +1058,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG1_with_2_squotes.nt").mkString
 
@@ -1072,9 +1076,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL2.nt").mkString
 
@@ -1090,9 +1094,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL2_ascii_boundaries_isomorphic.nt").mkString
 
@@ -1108,9 +1112,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL2_with_UTF8_boundaries.nt").mkString
 
@@ -1126,9 +1130,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2.nt").mkString
 
@@ -1144,9 +1148,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_ascii_boundaries_isomorphic.nt").mkString
 
@@ -1162,9 +1166,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_with_UTF8_boundaries.nt").mkString
 
@@ -1180,9 +1184,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_with_1_squote.nt").mkString
 
@@ -1198,9 +1202,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_with_2_squotes.nt").mkString
 
@@ -1216,9 +1220,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_CHARACTER_TABULATION_isomorphic.nt").mkString
 
@@ -1234,9 +1238,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_BACKSPACE_isomorphic.nt").mkString
 
@@ -1252,9 +1256,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_LINE_FEED_isomorphic.nt").mkString
 
@@ -1270,9 +1274,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_CARRIAGE_RETURN.nt").mkString
 
@@ -1288,9 +1292,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_FORM_FEED_isomorphic.nt").mkString
 
@@ -1306,9 +1310,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_REVERSE_SOLIDUS.nt").mkString
 
@@ -1324,9 +1328,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_escaped_CHARACTER_TABULATION.nt").mkString
 
@@ -1342,9 +1346,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_escaped_BACKSPACE.nt").mkString
 
@@ -1360,9 +1364,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_escaped_LINE_FEED.nt").mkString
 
@@ -1378,9 +1382,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_escaped_CARRIAGE_RETURN.nt").mkString
 
@@ -1396,9 +1400,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_escaped_FORM_FEED.nt").mkString
 
@@ -1414,9 +1418,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_numeric_escape4.nt").mkString
 
@@ -1432,9 +1436,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_with_numeric_escape8.nt").mkString
 
@@ -1450,9 +1454,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/IRIREF_datatype.nt").mkString
 
@@ -1468,9 +1472,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/prefixed_name_datatype.nt").mkString
 
@@ -1486,9 +1490,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/bareword_integer.nt").mkString
 
@@ -1504,9 +1508,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/bareword_decimal.nt").mkString
 
@@ -1522,9 +1526,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/bareword_double.nt").mkString
 
@@ -1540,9 +1544,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/double_lower_case_e.nt").mkString
 
@@ -1558,9 +1562,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/negative_numeric.nt").mkString
 
@@ -1576,9 +1580,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/positive_numeric.nt").mkString
 
@@ -1594,9 +1598,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/numeric_with_leading_0.nt").mkString
 
@@ -1612,9 +1616,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_true.nt").mkString
 
@@ -1630,9 +1634,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/literal_false.nt").mkString
 
@@ -1648,9 +1652,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/langtagged_non_LONG.nt").mkString
 
@@ -1666,9 +1670,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/langtagged_LONG.nt").mkString
 
@@ -1684,9 +1688,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/lantag_with_subtag.nt").mkString
 
@@ -1702,9 +1706,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/objectList_with_two_objects.nt").mkString
 
@@ -1720,9 +1724,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/predicateObjectList_with_two_objectLists.nt").mkString
 
@@ -1738,9 +1742,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/repeated_semis_at_end.nt").mkString
 
@@ -1756,9 +1760,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/repeated_semis_not_at_end.nt").mkString
 
@@ -1774,9 +1778,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/comment_following_localName.nt").mkString
 
@@ -1792,9 +1796,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/number_sign_following_localName.nt").mkString
 
@@ -1810,9 +1814,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/comment_following_PNAME_NS.nt").mkString
 
@@ -1828,9 +1832,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/number_sign_following_PNAME_NS.nt").mkString
 
@@ -1846,9 +1850,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/LITERAL_LONG2_with_REVERSE_SOLIDUS.nt").mkString
 
@@ -1864,9 +1868,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -1887,9 +1891,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/two_LITERAL_LONG2s.nt").mkString
 
@@ -1905,9 +1909,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/langtagged_LONG_with_subtag.nt").mkString
 
@@ -1923,9 +1927,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-file-01.nt").mkString
 
@@ -1941,9 +1945,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-file-02.nt").mkString
 
@@ -1959,9 +1963,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-file-03.nt").mkString
 
@@ -1977,9 +1981,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-uri-01.nt").mkString
 
@@ -1995,9 +1999,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-uri-02.nt").mkString
 
@@ -2013,9 +2017,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-uri-03.nt").mkString
 
@@ -2031,9 +2035,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-uri-04.nt").mkString
 
@@ -2049,9 +2053,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-base-01.nt").mkString
 
@@ -2067,9 +2071,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-base-02.nt").mkString
 
@@ -2085,9 +2089,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-base-03.nt").mkString
 
@@ -2103,9 +2107,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-base-04.nt").mkString
 
@@ -2121,9 +2125,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-01.nt").mkString
 
@@ -2139,9 +2143,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
+    assert(parser.trigDoc.run() == scala.util.Success(0), "Number of triples generated should have been 0")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-02.nt").mkString
 
@@ -2157,9 +2161,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-03.nt").mkString
 
@@ -2175,9 +2179,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-04.nt").mkString
 
@@ -2193,9 +2197,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-05.nt").mkString
 
@@ -2211,9 +2215,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-06_isomorphic.nt").mkString
 
@@ -2229,9 +2233,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-07.nt").mkString
 
@@ -2247,9 +2251,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-08.nt").mkString
 
@@ -2265,9 +2269,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-prefix-09.nt").mkString
 
@@ -2283,9 +2287,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-01.nt").mkString
 
@@ -2301,9 +2305,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-02.nt").mkString
 
@@ -2319,9 +2323,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-03.nt").mkString
 
@@ -2337,9 +2341,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-04.nt").mkString
 
@@ -2355,9 +2359,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-05.nt").mkString
 
@@ -2373,9 +2377,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-06.nt").mkString
 
@@ -2391,9 +2395,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-07.nt").mkString
 
@@ -2409,9 +2413,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-08_isomorphic.nt").mkString
 
@@ -2427,9 +2431,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-09_isomorphic.nt").mkString
 
@@ -2445,9 +2449,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-10_isomorphic.nt").mkString
 
@@ -2463,9 +2467,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-string-11_isomorphic.nt").mkString
 
@@ -2481,9 +2485,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-str-esc-01.nt").mkString
 
@@ -2499,9 +2503,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-str-esc-02.nt").mkString
 
@@ -2517,9 +2521,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-str-esc-03.nt").mkString
 
@@ -2535,9 +2539,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-01.nt").mkString
 
@@ -2553,9 +2557,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-02.nt").mkString
 
@@ -2571,9 +2575,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-pname-esc-03_isomorphic.nt").mkString
 
@@ -2589,9 +2593,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-01.nt").mkString
 
@@ -2607,9 +2611,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-02.nt").mkString
 
@@ -2625,9 +2629,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-03.nt").mkString
 
@@ -2643,9 +2647,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-04.nt").mkString
 
@@ -2661,9 +2665,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-05.nt").mkString
 
@@ -2679,9 +2683,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-06.nt").mkString
 
@@ -2697,9 +2701,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-07.nt").mkString
 
@@ -2715,9 +2719,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-08.nt").mkString
 
@@ -2733,9 +2737,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-09.nt").mkString
 
@@ -2751,9 +2755,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+    assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-bnode-10.nt").mkString
 
@@ -2769,9 +2773,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-01.nt").mkString
 
@@ -2787,9 +2791,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-02.nt").mkString
 
@@ -2805,9 +2809,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-03.nt").mkString
 
@@ -2823,9 +2827,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-04.nt").mkString
 
@@ -2841,9 +2845,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-05.nt").mkString
 
@@ -2859,9 +2863,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-06.nt").mkString
 
@@ -2877,9 +2881,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-07.nt").mkString
 
@@ -2895,9 +2899,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-08.nt").mkString
 
@@ -2913,9 +2917,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-09.nt").mkString
 
@@ -2931,9 +2935,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-10.nt").mkString
 
@@ -2949,9 +2953,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-number-11.nt").mkString
 
@@ -2967,9 +2971,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-01.nt").mkString
 
@@ -2985,9 +2989,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-datatypes-02.nt").mkString
 
@@ -3003,9 +3007,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-01.nt").mkString
 
@@ -3021,9 +3025,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-02.nt").mkString
 
@@ -3039,9 +3043,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-kw-03.nt").mkString
 
@@ -3057,9 +3061,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-01.nt").mkString
 
@@ -3075,9 +3079,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-02.nt").mkString
 
@@ -3093,9 +3097,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-03.nt").mkString
 
@@ -3111,9 +3115,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-04.nt").mkString
 
@@ -3129,9 +3133,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-struct-05.nt").mkString
 
@@ -3147,9 +3151,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-01.nt").mkString
 
@@ -3165,9 +3169,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
+    assert(parser.trigDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-02.nt").mkString
 
@@ -3183,9 +3187,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-03.nt").mkString
 
@@ -3201,9 +3205,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-04.nt").mkString
 
@@ -3219,9 +3223,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(19), "Number of triples generated should have been 19")
+    assert(parser.trigDoc.run() == scala.util.Success(19), "Number of triples generated should have been 19")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-lists-05.nt").mkString
 
@@ -3237,9 +3241,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3260,9 +3264,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3283,9 +3287,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3306,9 +3310,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3329,9 +3333,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3352,9 +3356,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3375,9 +3379,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3398,9 +3402,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3421,9 +3425,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3444,9 +3448,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3467,9 +3471,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3490,9 +3494,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3513,9 +3517,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3536,9 +3540,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3559,9 +3563,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3582,9 +3586,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3605,9 +3609,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3628,9 +3632,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3651,9 +3655,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3674,9 +3678,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3697,9 +3701,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3720,9 +3724,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3743,9 +3747,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3766,9 +3770,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3789,9 +3793,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3812,9 +3816,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3835,9 +3839,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3858,9 +3862,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3881,9 +3885,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3904,9 +3908,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3927,9 +3931,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3950,9 +3954,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3973,9 +3977,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -3996,9 +4000,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4019,9 +4023,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4042,9 +4046,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4065,9 +4069,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4088,9 +4092,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4111,9 +4115,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4134,9 +4138,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4157,9 +4161,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4180,9 +4184,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4203,9 +4207,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4226,9 +4230,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4249,9 +4253,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4272,9 +4276,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4295,9 +4299,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4318,9 +4322,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4341,9 +4345,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4364,9 +4368,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4387,9 +4391,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4410,9 +4414,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4433,9 +4437,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4456,9 +4460,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4479,9 +4483,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4502,9 +4506,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4525,9 +4529,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4548,9 +4552,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4571,9 +4575,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4594,9 +4598,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4617,9 +4621,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4640,9 +4644,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4663,9 +4667,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4686,9 +4690,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4709,9 +4713,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4732,9 +4736,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4755,9 +4759,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4778,9 +4782,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -4801,9 +4805,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-01.nt").mkString
 
@@ -4819,9 +4823,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-eval-struct-02.nt").mkString
 
@@ -4837,9 +4841,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-01_isomorphic.nt").mkString
 
@@ -4855,9 +4859,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-02.nt").mkString
 
@@ -4873,9 +4877,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-03.nt").mkString
 
@@ -4891,9 +4895,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-04.nt").mkString
 
@@ -4909,9 +4913,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-05_isomorphic.nt").mkString
 
@@ -4927,9 +4931,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+    assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-06_isomorphic.nt").mkString
 
@@ -4945,9 +4949,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-07.nt").mkString
 
@@ -4963,9 +4967,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-08_isomorphic.nt").mkString
 
@@ -4981,9 +4985,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-09.nt").mkString
 
@@ -4999,9 +5003,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+    assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-10_isomorphic.nt").mkString
 
@@ -5017,9 +5021,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-11.nt").mkString
 
@@ -5035,9 +5039,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+    assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-12.nt").mkString
 
@@ -5053,9 +5057,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
+    assert(parser.trigDoc.run() == scala.util.Success(4), "Number of triples generated should have been 4")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-13.nt").mkString
 
@@ -5071,9 +5075,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-14_isomorphic.nt").mkString
 
@@ -5089,9 +5093,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-15_isomorphic.nt").mkString
 
@@ -5107,9 +5111,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-16_isomorphic.nt").mkString
 
@@ -5125,9 +5129,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-17.nt").mkString
 
@@ -5143,9 +5147,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-18.nt").mkString
 
@@ -5161,9 +5165,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-19.nt").mkString
 
@@ -5179,9 +5183,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-20.nt").mkString
 
@@ -5197,9 +5201,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-21.nt").mkString
 
@@ -5215,9 +5219,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
+    assert(parser.trigDoc.run() == scala.util.Success(2), "Number of triples generated should have been 2")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-22.nt").mkString
 
@@ -5233,9 +5237,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
+    assert(parser.trigDoc.run() == scala.util.Success(7), "Number of triples generated should have been 7")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-23.nt").mkString
 
@@ -5251,9 +5255,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-24.nt").mkString
 
@@ -5269,9 +5273,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-25.nt").mkString
 
@@ -5287,9 +5291,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
+    assert(parser.trigDoc.run() == scala.util.Success(22), "Number of triples generated should have been 22")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-26.nt").mkString
 
@@ -5305,9 +5309,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-subm-27.nt").mkString
 
@@ -5323,9 +5327,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5346,9 +5350,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5369,9 +5373,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5392,9 +5396,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5415,9 +5419,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5438,9 +5442,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5461,9 +5465,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5484,9 +5488,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5507,9 +5511,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5530,9 +5534,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5553,9 +5557,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5576,9 +5580,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5599,9 +5603,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5622,9 +5626,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    val res = parser.turtleDoc.run() match {
+    val res = parser.trigDoc.run() match {
       case scala.util.Success(tripleCount) ⇒
         true
       case Failure(e: ParseError) ⇒
@@ -5645,9 +5649,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
+    assert(parser.trigDoc.run() == scala.util.Success(5), "Number of triples generated should have been 5")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-colons.nt").mkString
 
@@ -5663,9 +5667,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
+    assert(parser.trigDoc.run() == scala.util.Success(3), "Number of triples generated should have been 3")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ln-dots.nt").mkString
 
@@ -5681,9 +5685,9 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
 
     val output = new StringWriter()
 
-    val parser = ChelonaParser(input, tripleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
+    val parser = TriGParser(input, tupleWriter(output)_, false, "http://www.w3.org/2013/TurtleTests", "")
 
-    assert(parser.turtleDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
+    assert(parser.trigDoc.run() == scala.util.Success(1), "Number of triples generated should have been 1")
 
     val nt = io.Source.fromFile("./TurtleTests/turtle-syntax-ns-dots.nt").mkString
 

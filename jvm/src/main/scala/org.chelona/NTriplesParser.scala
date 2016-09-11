@@ -17,12 +17,10 @@
 package org.chelona
 
 import org.chelona.NTriplesParser.NTAST
-
 import org.parboiled2._
 
 import scala.collection.mutable
 import scala.io.BufferedSource
-
 import scala.util.{ Failure, Success }
 
 object NTriplesParser extends NTripleAST {
@@ -89,7 +87,6 @@ object NTriplesParser extends NTripleAST {
 class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding with NTAST {
 
   import org.chelona.CharPredicates._
-
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")

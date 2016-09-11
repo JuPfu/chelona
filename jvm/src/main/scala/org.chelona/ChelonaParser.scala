@@ -21,8 +21,6 @@ import org.parboiled2._
 
 import scala.collection.mutable
 
-import scala.util.Success
-
 object ChelonaParser extends TurtleAST {
 
   def apply(input: ParserInput, output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
@@ -116,7 +114,7 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else { if (!validate) worker.shutdown(); 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else { if (!validate) { worker.shutdown(); worker.join(); worker.interrupt() }; 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.shutdown()
         worker.join()
@@ -126,6 +124,8 @@ class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒
           worker.sum += renderStatement(ast)
         }
       }
+
+      worker.quit()
 
       if (validate) v.sum
       else worker.sum

@@ -17,10 +17,8 @@
 package org.chelona
 
 import org.chelona.TriGParser.QuadAST
-
 import org.parboiled2._
 
-import scala.collection.mutable
 import scala.language.implicitConversions
 
 object TriGParser extends TriGAST {

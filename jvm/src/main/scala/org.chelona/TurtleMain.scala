@@ -25,7 +25,7 @@ import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
 
-object Main extends App {
+object TurtleMain extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 

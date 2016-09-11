@@ -13,8 +13,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.chelona
+package chelona
 
+import org.chelona.ChelonaParser
 import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
