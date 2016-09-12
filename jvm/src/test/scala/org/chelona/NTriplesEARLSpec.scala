@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package chelona
+package org.chelona
 
 import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets

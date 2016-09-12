@@ -13,13 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package chelona
+package org.chelona
 
 import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.chelona.{ ChelonaParser, RDFTripleOutput }
 import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 
@@ -37,9 +36,10 @@ class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
     val subject = "<https://github.com/JuPfu/chelona>"
     val test = testcase // "IRI_subject"
     val outcome = if (passed) "passed" else "failed"
-    val datum = Calendar.getInstance.getTime // java.time.LocalDate.now
+    val datum = Calendar.getInstance.getTime
+    val datum_format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
     val mode = "automatic"
-    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
+    val earl_assertion = s"""[ a earl:Assertion;\n  earl:assertedBy ${assertedBy};\n  earl:subject ${subject};\n  earl:test <http://www.w3.org/2013/TurtleTests/manifest.ttl#${test}>;\n  earl:result [\n    a earl:TestResult;\n    earl:outcome earl:${outcome};\n    dc:date "${datum_format.format(datum)}"^^xsd:dateTime];\n  earl:mode earl:${mode} ] .\n"""
     earl.write(earl_assertion); earl.flush()
   }
 
