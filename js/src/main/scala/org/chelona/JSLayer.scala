@@ -24,18 +24,18 @@ class JSLayer(rdf_input: String, verbose: Boolean, validate: Boolean) {
 
   lazy val input: ParserInput = rdf_input
 
-  val output = /*new BufferedWriter(*/ new OutputStreamWriter(System.out, "UTF-8" /*StandardCharsets.UTF_8*/ ) /*)*/
+  //val output = /*new BufferedWriter(*/ new OutputStreamWriter(System.out, "UTF-8" /*StandardCharsets.UTF_8*/ ) /*)*/
 
-  def tripleWriter(bo: Writer)(triple: List[SPOReturnValue]): Int = {
-    triple.map { case SPOTriple(TurtleElement(s, l1), TurtleElement(p, l2), TurtleElement(o, l3)) ⇒ { System.out.print(s"${s} ${p} ${o} .\n") } }.length
+  def tripleWriter(triple: List[SPOReturnValue]): Int = {
+    triple.map { case SPOTriple(TurtleElement(s, l1), TurtleElement(p, l2), TurtleElement(o, l3)) ⇒ { System.out.println(s"${s} ${p} ${o} .") } }.length
   }
 
   val file = "chelona.ttl"
-  val parser = ChelonaParser(input, tripleWriter(output) _, validate, base, label)
+  val parser = ChelonaParser(input, tripleWriter, validate, base, label)
 
   val res = parser.turtleDoc.run()
 
-  output.close()
+  //output.close()
 
   res match {
     case Success(tripleCount) ⇒
