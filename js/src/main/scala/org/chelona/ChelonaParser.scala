@@ -19,6 +19,9 @@ package org.chelona
 import org.chelona.ChelonaParser._
 import org.parboiled2._
 
+import scala.scalajs.js.annotation.JSExport
+
+@JSExport
 object ChelonaParser extends TurtleAST {
 
   def apply(input: ParserInput, output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {

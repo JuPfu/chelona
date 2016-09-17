@@ -21,8 +21,10 @@ import org.parboiled2._
 
 import scala.collection.mutable
 import scala.io.BufferedSource
+import scala.scalajs.js.annotation.JSExport
 import scala.util.{ Failure, Success }
 
+@JSExport
 object NQuadParser {
 
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {

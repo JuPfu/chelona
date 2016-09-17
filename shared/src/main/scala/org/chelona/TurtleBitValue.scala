@@ -41,4 +41,10 @@ object TurtleBitValue {
   final val COMMENT = BLANK_LINE << 1
 
   type TurtleToken = Int
+
+  @inline
+  def isBLANK_NODE_LABEL (`type`: TurtleToken) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
+
+  @inline
+  def isIRIREF (`type`: TurtleToken) = (`type` & IRIREF) == IRIREF
 }

@@ -20,7 +20,9 @@ import org.chelona.TriGParser.QuadAST
 import org.parboiled2._
 
 import scala.language.implicitConversions
+import scala.scalajs.js.annotation.JSExport
 
+@JSExport
 object TriGParser extends TriGAST {
 
   def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {

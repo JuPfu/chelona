@@ -76,10 +76,17 @@ object MainJS extends JSApp {
                   <http://chelona.org/AHM-align-lowprec> <http://chelona.org/dataDump> <http://chelona.org/alignments/am_to_ulannl_amb.ttl> .
                   """
 
-    val input2 = "\t\n\n\t\t\n\t\n    \n    <s> #\n\n\n#\n\t\n \t\t<p>#\n\t\t\n    \n\t\t<ö>#\n        \n   \n\n\n       .#"
+    val input2 = "\t\n\n\t\t\n\t\n    \n    <s> #\n\n\n#\n\t\n \t\t<p>#\n\t\t\n    \n\t\t<ö>#\n        \n   \n\n\n       .#\n"
 
     val input3 = "_:chinese a \"\"\"我喜歡中國的食物，\n侍者從不粗魯，\n想想很多事情，他們所做的打動，\n有毛澤東思想，道家思想，易經和國際象棋。\"\"\" ."
 
-    JSLayer(input3, true, false)
+    val input4 = """@prefix ericFoaf: <http://www.w3.org/People/Eric/ericP-foaf.rdf#> .
+    @prefix : <http://xmlns.com/foaf/0.1/> .
+      ericFoaf:ericP :givenName "Eric" ;
+    :knows <http://norman.walsh.name/knows/who/dan-brickley> ,
+    [ :mbox <mailto:timbl@w3.org> ] ,
+    <http://getopenid.com/amyvdh> ."""
+
+    System.out.println(TurtleParserJS.parse(input4, true, false))
   }
 }
