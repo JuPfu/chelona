@@ -26,10 +26,45 @@
 <div id="res">Input:</div>
 
 <textarea id="input_data" rows="20" cols="120">
-_:chinese a """我喜歡中國的食物，
-侍者從不粗魯，
-想想很多事情，他們所做的打動，
-有毛澤東思想，道家思想，易經和國際象棋。""" .
+#Example from https://en.wikipedia.org/wiki/FOAF_(ontology)
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<#JW>
+    a foaf:Person ;
+    foaf:name "Jimmy Wales" ;
+    foaf:mbox <mailto:jwales@bomis.com> ;
+    foaf:homepage <http://www.jimmywales.com> ;
+    foaf:nick "Jimbo" ;
+    foaf:depiction <http://www.jimmywales.com/aus_img_small.jpg> ;
+    foaf:interest <http://www.wikimedia.org> ;
+    foaf:knows [
+        a foaf:Person ;
+        foaf:name "Angela Beesley"
+    ] .
+
+<http://www.wikimedia.org>
+    rdfs:label "Wikimedia" .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<#JW>
+    a foaf:Person ;
+    foaf:name "Jimmy Wales" ;
+    foaf:mbox <mailto:jwales@bomis.com> ;
+    foaf:homepage <http://www.jimmywales.com> ;
+    foaf:nick "Jimbo" ;
+    foaf:depiction <http://www.jimmywales.com/aus_img_small.jpg> ;
+    foaf:interest <http://www.wikimedia.org> ;
+    foaf:knows [
+        a foaf:Person ;
+        foaf:name "Angela Beesley"
+    ] .
+
+<http://www.wikimedia.org>
+    rdfs:label "Wikimedia" .
 </textarea>
 
 <input type="button" value="parse" onclick='parse()'/>
