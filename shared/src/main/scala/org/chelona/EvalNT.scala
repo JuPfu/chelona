@@ -59,14 +59,14 @@ class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, b
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIriRef(v) ⇒ NTString(NTripleElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.text
-            }), NTripleBitValue.STRING_LITERAL_QUOTE | NTripleBitValue.IRIREF))
+            }), NTripleBitValue.STRING_LITERAL | NTripleBitValue.IRIREF))
             case ASTLangTag(v) ⇒ NTString(NTripleElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.text
-            }), NTripleBitValue.STRING_LITERAL_QUOTE | NTripleBitValue.LANGTAG))
+            }), NTripleBitValue.STRING_LITERAL | NTripleBitValue.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTStringLiteralQuote(token) ⇒ NTString(NTripleElement("\"" + token + "\"", NTripleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralQuote(token) ⇒ NTString(NTripleElement("\"" + token + "\"", NTripleBitValue.STRING_LITERAL))
       case ASTLangTag(token)            ⇒ NTString(NTripleElement(token, NTripleBitValue.LANGTAG))
       case ASTBlankNodeLabel(token)     ⇒ NTString(NTripleElement(setBlankNodeName("_:" + token), NTripleBitValue.BLANK_NODE_LABEL))
       case ASTComment(token)            ⇒ NTComment(NTripleElement(token, NTripleBitValue.COMMENT))
