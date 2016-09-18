@@ -30,8 +30,11 @@
         var txt = document.getElementById('input_data').value;
         var result = org.chelona.TurtleParserJS().parse(txt, true, false, "", uid = true);
         document.getElementById('output_data').innerHTML = result;
+        document.getElementById('report_data').innerHTML = org.chelona.TurtleParserJS().getInformation();
     }
 </script>
+
+<div id="res">Input:</div>
 
 <textarea id="input_data" rows="20" cols="120">
 <http://chelona.org/AHM-vocs> <http://purl.org/dc/terms/title> <http://chelona.org/Dataset> .
@@ -89,6 +92,12 @@
 </textarea>
 
 <input type="button" value="parse" onclick='parse()'/>
+
+<div id="res">Information:</div>
+
+<textarea id="report_data" rows="5" cols="120">
+No report available.
+</textarea>
 
 <div id="res">Result:</div>
 

@@ -10,6 +10,12 @@ import scala.util.{ Failure, Success }
 
 @JSExport
 object TurtleParserJS {
+
+  object ParseReport { var information: String = "No information available." }
+
+  @JSExport
+  def getInformation(): String = { ParseReport.information }
+
   @JSExport
   def parse(rdf_input: String, verbose: Boolean = true, validate: Boolean = false, base: String = "", uid: Boolean = false): String = {
 
@@ -26,6 +32,7 @@ object TurtleParserJS {
         else
           token
       }
+
       triple.map {
         case SPOTriple(TurtleElement(s, type1), TurtleElement(p, type2), TurtleElement(o, type3)) ⇒ {
           val subject = formatter(s, type1)
@@ -46,29 +53,19 @@ object TurtleParserJS {
     res match {
       case Success(tripleCount) ⇒
         val me: Double = System.currentTimeMillis - ms
-        if (verbose) {
-          if (!validate) {
-            System.err.println("Input file converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-            output.toString
-          } else {
-            System.err.println("Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-            "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
-          }
+        if (!validate) {
+          ParseReport.information = "Input file converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         } else {
-          if (!validate) {
-            output.toString
-          } else {
-            "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
-          }
+          ParseReport.information = "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         }
       case Failure(e: ParseError) ⇒ {
         System.err.println(parser.formatError(e))
-        parser.formatError(e)
+        ParseReport.information = parser.formatError(e)
       }
       case Failure(e) ⇒ {
-        System.err.println(" Unexpected error during parsing run: " + e)
-        " Unexpected error during parsing run: " + e
+        ParseReport.information = " Unexpected error during parsing run: " + e
       }
     }
+    output.toString
   }
 }

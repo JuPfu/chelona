@@ -15,6 +15,8 @@
 */
 package org.chelona
 
+import org.chelona.TurtleParserJS.ParseReport
+
 import scala.scalajs.js.JSApp
 import scala.scalajs.js.annotation.JSExport
 
@@ -88,5 +90,6 @@ object MainJS extends JSApp {
     <http://getopenid.com/amyvdh> ."""
 
     System.out.println(TurtleParserJS.parse(input4, true, false))
+    System.out.println(TurtleParserJS.getInformation())
   }
 }
