@@ -207,20 +207,20 @@ class EvalTurtle(output: List[SPOReturnValue] ⇒ Int, basePath: String, label: 
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIri(v) ⇒ SPOString(TurtleElement(literal.text + "^^" + ((evalStatement(postfix): @unchecked) match {
               case SPOString(s) ⇒ s.text
-            }), TurtleBitValue.STRING_LITERAL_QUOTE | TurtleBitValue.IRIREF))
+            }), TurtleBitValue.STRING_LITERAL | TurtleBitValue.IRIREF))
             case ASTLangTag(v) ⇒ SPOString(TurtleElement(literal.text + "@" + ((evalStatement(postfix): @unchecked) match {
               case SPOString(s) ⇒ s.text
-            }), TurtleBitValue.STRING_LITERAL_QUOTE | TurtleBitValue.LANGTAG))
+            }), TurtleBitValue.STRING_LITERAL | TurtleBitValue.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
       case ASTLangTag(token)                      ⇒ SPOString(TurtleElement(token, TurtleBitValue.LANGTAG))
       case ASTBooleanLiteral(token)               ⇒ SPOString(TurtleElement("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", TurtleBitValue.BOOLEAN_LITERAL))
       case ASTString(rule)                        ⇒ evalStatement(rule)
-      case ASTStringLiteralQuote(token)           ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
-      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
-      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
-      case ASTStringLiteralLongQuote(token)       ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralQuote(token)           ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL | TurtleBitValue.STRING_LITERAL_QUOTE))
+      case ASTStringLiteralSingleQuote(token)     ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL | TurtleBitValue.STRING_LITERAL_SINGLE_QUOTE))
+      case ASTStringLiteralLongSingleQuote(token) ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL | TurtleBitValue.STRING_LITERAL_LONG_SINGLE_QUOTE))
+      case ASTStringLiteralLongQuote(token)       ⇒ SPOString(TurtleElement("\"" + token + "\"", TurtleBitValue.STRING_LITERAL | TurtleBitValue.STRING_LITERAL_LONG_QUOTE))
       case ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)

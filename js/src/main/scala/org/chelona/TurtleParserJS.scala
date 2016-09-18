@@ -3,8 +3,7 @@ package org.chelona
 import java.io.{ StringWriter, Writer }
 
 import org.chelona.SPOReturnValue.SPOTriple
-import org.chelona.TriGReturnValue.TriGTuple
-import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
+import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{ Failure, Success }
@@ -23,7 +22,6 @@ object TurtleParserJS {
     def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
         if (TurtleBitValue.isIRIREF(`type`))
-          //if ((`type` & TurtleBitValue.IRIREF) == TurtleBitValue.IRIREF)
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
@@ -36,7 +34,6 @@ object TurtleParserJS {
 
           bo.write(subject + " " + predicate + " " + `object` + " .\n")
         }
-        case _ ⇒ System.err.println("MAP ERROR")
       }.length
     }
 

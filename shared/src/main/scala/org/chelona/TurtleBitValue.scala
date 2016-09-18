@@ -29,8 +29,12 @@ object TurtleBitValue {
   final val INTEGER = SPARQLPREFIX << 1
   final val DECIMAL = INTEGER << 1
   final val DOUBLE = DECIMAL << 1
-  final val STRING_LITERAL_QUOTE = IRIREF << 1
-  final val LANGTAG = STRING_LITERAL_QUOTE << 1
+  final val STRING_LITERAL = DOUBLE << 1
+  final val STRING_LITERAL_QUOTE = STRING_LITERAL << 1
+  final val STRING_LITERAL_SINGLE_QUOTE = STRING_LITERAL_QUOTE << 1
+  final val STRING_LITERAL_LONG_SINGLE_QUOTE = STRING_LITERAL_SINGLE_QUOTE << 1
+  final val STRING_LITERAL_LONG_QUOTE = STRING_LITERAL_LONG_SINGLE_QUOTE << 1
+  final val LANGTAG = STRING_LITERAL_LONG_QUOTE << 1
   final val ANON = LANGTAG << 1
   final val BOOLEAN_LITERAL = ANON << 1
   final val PNAMENS = BOOLEAN_LITERAL << 1
@@ -42,9 +46,39 @@ object TurtleBitValue {
 
   type TurtleToken = Int
 
+  // synthetic
+  final val NUMBER = INTEGER | DECIMAL | DOUBLE
+
   @inline
   def isBLANK_NODE_LABEL (`type`: TurtleToken) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
 
   @inline
+  def isISA (`type`: TurtleToken) = (`type` & ISA) == ISA
+
+  @inline
   def isIRIREF (`type`: TurtleToken) = (`type` & IRIREF) == IRIREF
+
+  @inline
+  def isPREFIXID (`type`: TurtleToken) = (`type` & PREFIXID) == PREFIXID
+
+  @inline
+  def isBASE (`type`: TurtleToken) = (`type` & BASE) == BASE
+
+  @inline
+  def isINTEGER (`type`: TurtleToken) = (`type` & INTEGER) == INTEGER
+
+  @inline
+  def isDECIMAL (`type`: TurtleToken) = (`type` & DECIMAL) == DECIMAL
+
+  @inline
+  def isDOUBLE (`type`: TurtleToken) = (`type` & DOUBLE) == DOUBLE
+
+  @inline
+  def isNUMBER (`type`: TurtleToken) =  ((`type` & NUMBER ) | NUMBER) > 0
+
+  @inline
+  def isANON (`type`: TurtleToken) = (`type` & ANON) == ANON
+
+  @inline
+  def isBOOLEAN_LITERAL (`type`: TurtleToken) = (`type` & BOOLEAN_LITERAL) == BOOLEAN_LITERAL
 }
