@@ -2,19 +2,22 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.SPOReturnValue.SPOTriple
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{ Failure, Success }
 
 @JSExport
-object TurtleParserJS {
+object NTriplesParserJS {
 
-  object ParseReport { var information: String = "No information available." }
+  object ParseReport {
+    var information: String = "No information available."
+  }
 
   @JSExport
-  def getInformation(): String = { ParseReport.information }
+  def getInformation(): String = {
+    ParseReport.information
+  }
 
   @JSExport
   def parse(rdf_input: String, verbose: Boolean = true, validate: Boolean = false, base: String = "", uid: Boolean = false): String = {
@@ -25,33 +28,30 @@ object TurtleParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TurtleBitValue.isIRIREF(`type`))
+        if (NTripleBitValue.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
       }
 
-      triple.map {
-        case SPOTriple(TurtleElement(s, type1), TurtleElement(p, type2), TurtleElement(o, type3)) ⇒ {
-          val subject = formatter(s, type1)
-          val predicate = formatter(p, type2)
-          val `object` = formatter(o, type3)
+      val subject = formatter(s.text, s.tokenType)
+      val predicate = formatter(p.text, p.tokenType)
+      val `object` = formatter(o.text, o.tokenType)
 
-          bo.write(subject + " " + predicate + " " + `object` + " .\n")
-        }
-      }.length
+      bo.write(subject + " " + predicate + " " + `object` + " .\n");
+      1
     }
 
     val output = new StringWriter()
 
     /* AST evaluation procedure. Here is the point to provide your own flavour, if you dare. */
-    val evalTurtle = new EvalTurtle(tripleWriter(output) _, base, label)
+    val evalNT = new EvalNT(ntWriter(output) _, base, label)
 
-    val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
+    val parser = NTriplesParser(input, evalNT.renderStatement, validate, base, label)
 
-    val res = parser.turtleDoc.run()
+    val res = parser.ntriplesDoc.run()
 
     res match {
       case Success(tripleCount) ⇒

@@ -27,14 +27,14 @@ import scala.util.{ Failure, Success }
 @JSExport
 object NTriplesParser extends NTripleAST {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
-    new NTriplesParser(input, renderStatement, validate, basePath, label, verbose, trace)
+  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new NTriplesParser(input, renderStatement, validate, basePath, label)
   }
 
   sealed trait NTAST extends NTripleAST
 }
 
-class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding with NTAST {
+class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
