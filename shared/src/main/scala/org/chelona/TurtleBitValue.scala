@@ -74,7 +74,7 @@ object TurtleBitValue {
   def isDOUBLE (`type`: TurtleToken) = (`type` & DOUBLE) == DOUBLE
 
   @inline
-  def isNUMBER (`type`: TurtleToken) =  ((`type` & NUMBER ) > 0
+  def isNUMBER (`type`: TurtleToken) =  (`type` & NUMBER ) > 0
 
   @inline
   def isANON (`type`: TurtleToken) = (`type` & ANON) == ANON
