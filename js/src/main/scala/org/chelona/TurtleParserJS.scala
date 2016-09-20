@@ -46,7 +46,7 @@ object TurtleParserJS {
 
     val output = new StringWriter()
 
-    /* AST evaluation procedure. Here is the point to provide your own flavour, if you dare. */
+    /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
     val evalTurtle = new EvalTurtle(tripleWriter(output) _, base, label)
 
     val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
@@ -62,7 +62,6 @@ object TurtleParserJS {
           ParseReport.information = "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         }
       case Failure(e: ParseError) ⇒ {
-        System.err.println(parser.formatError(e))
         ParseReport.information = parser.formatError(e)
       }
       case Failure(e) ⇒ {

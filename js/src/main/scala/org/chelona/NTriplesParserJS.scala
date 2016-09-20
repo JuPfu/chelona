@@ -40,7 +40,7 @@ object NTriplesParserJS {
       val predicate = formatter(p.text, p.tokenType)
       val `object` = formatter(o.text, o.tokenType)
 
-      bo.write(subject + " " + predicate + " " + `object` + " .\n");
+      bo.write(subject + " " + predicate + " " + `object` + " .\n")
       1
     }
 
