@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014-2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -16,16 +16,6 @@
 
 package org.chelona
 
-trait SPOReturnValue extends RDFReturnType {
+import org.chelona.TriGBitValue._
 
-  case class SPOString(s: TurtleElement) extends SPOReturnValue
-
-  case class SPOTriple(s: TurtleElement, p: TurtleElement, o: TurtleElement) extends SPOReturnValue
-
-  case class SPOTriples(values: List[SPOTriple]) extends SPOReturnValue
-
-  case class SPOComment(value: TurtleElement) extends SPOReturnValue
-
-}
-
-object SPOReturnValue extends SPOReturnValue
+case class TriGElement(text: String, tokenType: TriGToken)

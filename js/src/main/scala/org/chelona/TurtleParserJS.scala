@@ -2,7 +2,7 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.SPOReturnValue.SPOTriple
+import org.chelona.TurtleReturnValue.TurtleTriple
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
@@ -34,7 +34,7 @@ object TurtleParserJS {
       }
 
       triple.map {
-        case SPOTriple(TurtleElement(s, type1), TurtleElement(p, type2), TurtleElement(o, type3)) ⇒ {
+        case TurtleTriple(TurtleElement(s, type1), TurtleElement(p, type2), TurtleElement(o, type3)) ⇒ {
           val subject = formatter(s, type1)
           val predicate = formatter(p, type2)
           val `object` = formatter(o, type3)

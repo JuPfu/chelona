@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2016 Juergen Pfundt
+* Copyright (C) 2014-2015 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -16,7 +16,16 @@
 
 package org.chelona
 
-import org.chelona.TurtleBitValue._
+trait TurtleReturnValue extends RDFReturnType {
 
-case class TurtleElement(text: String, tokenType: TurtleToken)
+  case class TurtleString(s: TurtleElement) extends TurtleReturnValue
 
+  case class TurtleTriple(s: TurtleElement, p: TurtleElement, o: TurtleElement) extends TurtleReturnValue
+
+  case class TurtleTriples(values: List[TurtleTriple]) extends TurtleReturnValue
+
+  case class TurtleComment(value: TurtleElement) extends TurtleReturnValue
+
+}
+
+object TurtleReturnValue extends TurtleReturnValue

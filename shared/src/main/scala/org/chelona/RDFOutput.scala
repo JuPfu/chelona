@@ -18,18 +18,22 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.SPOReturnValue.SPOTriple
+import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 
 trait RDFTripleOutput extends RDFReturnType {
   def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.asInstanceOf[List[SPOTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
+    triple.asInstanceOf[List[TurtleTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
   }
 }
 
 trait RDFTriGOutput extends RDFReturnType {
   def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
-    tuple.asInstanceOf[List[TriGTuple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
+    tuple.map {
+      case TriGTuple(TriGElement(s, type1), TriGElement(p, type2), TriGElement(o, type3), TriGElement(g, type4)) ⇒ {
+        bo.write(s + " " + p + " " + o + (if (g.length > 0) " " + g + " .\n" else " .\n"))
+      }
+    }.length
   }
 }
 

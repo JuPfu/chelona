@@ -23,14 +23,14 @@ import scala.collection.mutable
 
 object ChelonaParser extends TurtleAST {
 
-  def apply(input: ParserInput, output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+  def apply(input: ParserInput, output: List[TurtleReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new ChelonaParser(input, output, validate, basePath, label)
   }
 
   sealed trait N3AST extends TurtleAST
 }
 
-class ChelonaParser(val input: ParserInput, val output: List[SPOReturnValue] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
+class ChelonaParser(val input: ParserInput, val output: List[TurtleReturnValue] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
