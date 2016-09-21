@@ -2,7 +2,7 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.SPOReturnValue.SPOTriple
+import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 import org.parboiled2.{ ParseError, ParserInput }
 
@@ -25,10 +25,6 @@ object TriGParserJS {
     val label = if (uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
 
     lazy val input: ParserInput = rdf_input
-
-    def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
-      tuple.asInstanceOf[List[TriGTuple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
-    }
 
     def triGWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {

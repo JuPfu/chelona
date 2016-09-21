@@ -18,12 +18,12 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.SPOReturnValue.SPOTriple
+import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 
 trait RDFTripleOutput extends RDFReturnType {
   def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.asInstanceOf[List[SPOTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
+    triple.asInstanceOf[List[TurtleTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
   }
 }
 

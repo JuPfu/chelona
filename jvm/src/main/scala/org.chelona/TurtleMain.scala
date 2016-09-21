@@ -19,7 +19,7 @@ import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.chelona.SPOReturnValue.SPOTriple
+import org.chelona.TurtleReturnValue.TurtleTriple
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
@@ -63,8 +63,8 @@ object TurtleMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  def tripleWriter(bo: Writer)(triple: List[SPOReturnValue]): Int = {
-    triple.asInstanceOf[List[SPOTriple]].map(triple ⇒ bo.write(s"${triple.s.text} ${triple.p.text} ${triple.o.text} .\n")).length
+  def tripleWriter(bo: Writer)(triple: List[TurtleReturnValue]): Int = {
+    triple.asInstanceOf[List[TurtleTriple]].map(triple ⇒ bo.write(s"${triple.s.text} ${triple.p.text} ${triple.o.text} .\n")).length
   }
 
   val parser = ChelonaParser(input, tripleWriter(output)_, validate, base, label)
