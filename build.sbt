@@ -79,9 +79,9 @@ lazy val chelonaJS = chelona.js
 lazy val root = project.in(file("."))
   .settings(commonSettings:_*)
   .settings(
+    mainClass in assembly := Some("org.chelona.TurtleMain"),
     mainClass in Compile := (mainClass in chelonaJVM in Compile).value
   )
-  .aggregate(chelonaJS, chelonaJVM)
 
 /////////////////////// PUBLISH /////////////////////////
 
