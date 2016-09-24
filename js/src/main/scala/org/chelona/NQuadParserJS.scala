@@ -18,22 +18,19 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
+import org.chelona.NQuadReturnValue._
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
 import scala.util.{ Failure, Success }
 
 @JSExport
-object NTriplesParserJS {
+object NQuadParserJS {
 
-  object ParseReport {
-    var information: String = "No information available."
-  }
+  object ParseReport { var information: String = "No information available." }
 
   @JSExport
-  def getInformation(): String = {
-    ParseReport.information
-  }
+  def getInformation(): String = { ParseReport.information }
 
   @JSExport
   def parse(rdf_input: String, verbose: Boolean = true, validate: Boolean = false, base: String = "", uid: Boolean = false): String = {
@@ -44,9 +41,9 @@ object NTriplesParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+    def nquadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (NTripleBitValue.isIRIREF(`type`))
+        if (NQuadBitValue.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
@@ -55,6 +52,7 @@ object NTriplesParserJS {
       val subject = formatter(s.text, s.tokenType)
       val predicate = formatter(p.text, p.tokenType)
       val `object` = formatter(o.text, o.tokenType)
+      val graph = formatter(g.text, g.tokenType)
 
       bo.write(subject + " " + predicate + " " + `object` + " .\n")
       1
@@ -63,11 +61,11 @@ object NTriplesParserJS {
     val output = new StringWriter()
 
     /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalNT = new EvalNT(ntWriter(output) _, base, label)
+    val evalNQuad = new EvalNQuad(nquadWriter(output) _, base, label)
 
-    val parser = NTriplesParser(input, evalNT.renderStatement, validate, base, label)
+    val parser = NQuadParser(input, evalNQuad.renderStatement, validate, base, label)
 
-    val res = parser.ntriplesDoc.run()
+    val res = parser.nquadsDoc.run()
 
     res match {
       case Success(tripleCount) ⇒
@@ -78,7 +76,6 @@ object NTriplesParserJS {
           ParseReport.information = "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         }
       case Failure(e: ParseError) ⇒ {
-        System.err.println(parser.formatError(e))
         ParseReport.information = parser.formatError(e)
       }
       case Failure(e) ⇒ {

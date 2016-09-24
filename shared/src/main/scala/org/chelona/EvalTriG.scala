@@ -38,6 +38,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
   var curSubject: TriGElement = TriGElement("---Not valid subject---", TriGBitValue.STRING_LITERAL)
   var curPredicate: TriGElement = TriGElement("---Not valid predicate---", TriGBitValue.STRING_LITERAL)
   var curGraph: TriGElement = TriGElement("", TriGBitValue.STRING_LITERAL)
+
   var aCount = 0
   var bCount = 0
   var cCount = 0
@@ -69,7 +70,9 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
       case ASTLabelOrSubjectBlock(l, s) ⇒
         evalStatement(l); evalStatement(s)
       case ASTTriplesOrGraph(l, rule) ⇒
-        evalStatement(l); rule match { case ASTPredicateObjectList(po) ⇒ curGraph = TriGElement("", TriGBitValue.STRING_LITERAL); case _ ⇒ }; evalStatement(rule)
+        evalStatement(l)
+        rule match { case ASTPredicateObjectList(po) ⇒ curGraph = TriGElement("", TriGBitValue.STRING_LITERAL); case _ ⇒ }
+        evalStatement(rule)
       case ASTTriple2BlankNodePropertyList(b, p) ⇒
         curGraph = TriGElement("", TriGBitValue.STRING_LITERAL)
         subjectStack.push(curSubject)
@@ -94,7 +97,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
         }
       case ASTWrappedGraph(t) ⇒ t match {
         case Some(g) ⇒ evalStatement(g)
-        case None    ⇒ TriGNone() //TriGString("")
+        case None    ⇒ TriGNone()
       }
       case ASTTriplesBlock(t) ⇒ TriGTuples(traverseTriples(t, Nil))
       case ASTLabelOrSubject(ls) ⇒
@@ -118,22 +121,22 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
       case ASTDirective(rule) ⇒ evalStatement(rule)
       case ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (TriGString(TriGElement(ps,t1)), TriGString(TriGElement(is, t2))) ⇒ definePrefix(ps, is)
+          case (TriGString(ps), TriGString(is)) ⇒ definePrefix(ps.text, is.text)
         }
         TriGNone()
       case ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case TriGString(TriGElement(bs, t)) ⇒ addBasePrefix(bs)
+          case TriGString(bs) ⇒ addBasePrefix(bs.text)
         }
         TriGNone()
       case ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case TriGString(TriGElement(bs, t)) ⇒ addBasePrefix(bs)
+          case TriGString(bs) ⇒ addBasePrefix(bs.text)
         }
         TriGNone()
       case ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (TriGString(TriGElement(ps, t1)), TriGString(TriGElement(is, t2))) ⇒ definePrefix(ps, is)
+          case (TriGString(ps), TriGString(is)) ⇒ definePrefix(ps.text, is.text)
         }
         TriGNone()
       case ASTTriples(s, p) ⇒
@@ -270,7 +273,7 @@ class EvalTriG(output: List[TriGReturnValue] ⇒ Int, basePath: String, label: S
         }
       case ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (TriGString(TriGElement(pname_ns, t1)), TriGString(TriGElement(pn_local, t2))) ⇒ TriGString(TriGElement("<" + addPrefix(pname_ns, pn_local) + ">", TriGBitValue.PNAMELN))
+          case (TriGString(pname_ns), TriGString(pn_local)) ⇒ TriGString(TriGElement("<" + addPrefix(pname_ns.text, pn_local.text) + ">", TriGBitValue.PNAMELN))
         }
       case ASTPNPrefix(token)       ⇒ TriGString(TriGElement(token, TriGBitValue.PNPREFIX))
       case ASTPNLocal(token)        ⇒ TriGString(TriGElement(token, TriGBitValue.PNLOCAL))

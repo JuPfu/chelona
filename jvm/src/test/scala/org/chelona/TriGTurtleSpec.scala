@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014 Juergen Pfundt
+* Copyright (C) 2014-2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -13,13 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 package org.chelona
 
 import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWriter }
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.chelona.{ RDFTriGOutput, TriGParser }
+//import org.chelona.{ RDFTriGOutput, TriGParser }
 import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 

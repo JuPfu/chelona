@@ -1,8 +1,23 @@
+/*
+* Copyright (C) 2014, 2015, 2016 Juergen Pfundt
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+* http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
 package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 import org.parboiled2.{ ParseError, ParserInput }
 
@@ -28,7 +43,7 @@ object TriGParserJS {
 
     def triGWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TurtleBitValue.isIRIREF(`type`))
+        if (TriGBitValue.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
@@ -36,13 +51,12 @@ object TriGParserJS {
 
       triple.map {
         case TriGTuple(s, p, o, g) ⇒ {
-          /* type information has yet to be added to EvalTriG */
-          // val subject = formatter(s, type1)
-          // val predicate = formatter(p, type2)
-          //val `object` = formatter(o, type3)
+          val subject = formatter(s.text, s.tokenType)
+          val predicate = formatter(p.text, p.tokenType)
+          val `object` = formatter(o.text, o.tokenType)
+          val graph = formatter(g.text, g.tokenType)
 
-          //bo.write(subject + " " + predicate + " " + `object` + " .\n")
-          bo.write(s + " " + p + " " + o + " " + g + " .\n")
+          bo.write(subject + " " + predicate + " " + `object` + (if (graph.length > 0) " " + graph + " .\n" else " .\n"))
         }
       }.length
     }

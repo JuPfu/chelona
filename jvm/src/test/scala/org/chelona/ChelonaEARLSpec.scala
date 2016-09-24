@@ -24,7 +24,7 @@ import org.scalatest.FlatSpec
 
 import scala.util.Failure
 
-class ChelonaEARLSpec extends FlatSpec with RDFTripleOutput {
+class ChelonaEARLSpec extends FlatSpec with RDFTurtleOutput {
 
   val datum = java.time.LocalDate.now
 

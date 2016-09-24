@@ -9,7 +9,7 @@
 
 <h1><a href="https://github.com/JuPfu/chelona">Cheló̱na</a> a Parboiled2 based RDF-Turtle parser - Scala.js example</h1>
 
-<p>Paste your RDF-Turtle or RDF-NTriple data into the upper text area and press the parse button to let Cheló̱na
+<p>Paste your RDF-TriG, RDF-Turtle or RDF-NTriple data into the upper text area and press the parse button to let Cheló̱na
     convert your input into the RDF-NTriple format.</p>
 
 <script type="text/javascript" src="../../../target/scala-2.11/chelona-opt.js"></script>
@@ -17,9 +17,9 @@
 <script type="text/javascript">
     function parse() {
         var txt = document.getElementById('input_data').value;
-        var result = org.chelona.TurtleParserJS().parse(txt, true, false, "", uid = true);
+        var result = org.chelona.TriGParserJS().parse(txt, true, false, "", uid = true);
         document.getElementById('output_data').innerHTML = result;
-        document.getElementById('report_data').innerHTML = org.chelona.TurtleParserJS().getInformation();
+        document.getElementById('report_data').innerHTML = org.chelona.TriGParserJS().getInformation();
     }
 </script>
 

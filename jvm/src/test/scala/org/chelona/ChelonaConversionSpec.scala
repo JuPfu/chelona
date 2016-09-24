@@ -20,7 +20,7 @@ import java.io.StringWriter
 import org.parboiled2.ParserInput
 import org.scalatest.FlatSpec
 
-class ChelonaConversionSpec extends FlatSpec with RDFTripleOutput {
+class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
   "The input file ./TurtleTests/HYPHEN_MINUS_in_localName.ttl" must "succeed" taggedAs (TurtleSyntax) in {
 

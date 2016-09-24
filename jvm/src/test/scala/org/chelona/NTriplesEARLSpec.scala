@@ -19,7 +19,7 @@ import java.io.{ BufferedWriter, FileOutputStream, OutputStreamWriter, StringWri
 import java.nio.charset.StandardCharsets
 import java.util.Calendar
 
-import org.chelona.{ EvalNT, NTriplesParser, RDFNTOutput }
+//import org.chelona.{ EvalNT, NTriplesParser, RDFNTOutput }
 import org.parboiled2.{ ParseError, ParserInput }
 import org.scalatest.FlatSpec
 

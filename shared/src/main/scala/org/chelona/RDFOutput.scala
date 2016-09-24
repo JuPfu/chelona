@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2014-2015 Juergen Pfundt
+* Copyright (C) 2014-2016 Juergen Pfundt
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ import java.io.Writer
 import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 
-trait RDFTripleOutput extends RDFReturnType {
+trait RDFTurtleOutput extends RDFReturnType {
   def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.asInstanceOf[List[TurtleTriple]].map(triple ⇒ bo.write(triple.s.text + " " + triple.p.text + " " + triple.o.text + " .\n")).length
+    triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + " " + p.text + " " + o.text + " .\n") } }.length
   }
 }
 

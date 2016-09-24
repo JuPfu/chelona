@@ -19,10 +19,22 @@ package org.chelona
 object NQuadBitValue {
   val BLANK_NODE_LABEL = 1
   val IRIREF = BLANK_NODE_LABEL << 1
-  val STRING_LITERAL_QUOTE = IRIREF << 1
-  val LANGTAG = STRING_LITERAL_QUOTE << 1
+  val STRING_LITERAL = IRIREF << 1
+  val LANGTAG = STRING_LITERAL << 1
   val BLANK_LINE = LANGTAG << 1
   val COMMENT = BLANK_LINE << 1
 
   type NQuadToken = Int
+
+  @inline
+  def isBLANK_NODE_LABEL (`type`: NQuadToken) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
+
+  @inline
+  def isIRIREF (`type`: NQuadToken) = (`type` & IRIREF) == IRIREF
+
+  @inline
+  def isSTRING_LITERAL (`type`: NQuadToken) = (`type` & STRING_LITERAL) == STRING_LITERAL
+
+  @inline
+  def isLANGTAG (`type`: NQuadToken) = (`type` & LANGTAG) == LANGTAG
 }
