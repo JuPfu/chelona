@@ -23,23 +23,21 @@ import scala.language.implicitConversions
 
 object TriGParser extends TriGAST {
 
-  def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new TriGParser(input, output, validate, basePath, label)
+  def apply(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new TriGParser(input, renderStatement, validate, basePath, label)
   }
 
   sealed trait QuadAST extends TriGAST
 }
 
-class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) with QuadAST {
-
-  val trig = new EvalTriG(output, basePath, label)
+class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, renderStatement, validate, basePath, label) with QuadAST {
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {
     (statement ~> ((ast: TurtleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
-          asynchronous((trig.renderStatement, ast)); 1
+          asynchronous((renderStatement, ast)); 1
         } else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0

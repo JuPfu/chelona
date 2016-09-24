@@ -23,14 +23,14 @@ import scala.collection.mutable
 
 object ChelonaParser extends TurtleAST {
 
-  def apply(input: ParserInput, output: List[TurtleReturnValue] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new ChelonaParser(input, output, validate, basePath, label)
+  def apply(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new ChelonaParser(input, renderStatement, validate, basePath, label)
   }
 
   sealed trait N3AST extends TurtleAST
 }
 
-class ChelonaParser(val input: ParserInput, val output: List[TurtleReturnValue] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
+class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with N3AST {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
@@ -38,8 +38,6 @@ class ChelonaParser(val input: ParserInput, val output: List[TurtleReturnValue] 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
-
-  val n3 = new EvalTurtle(output, basePath, label)
 
   /*
    Parsing of the turtle data is done in the main thread.
@@ -108,7 +106,7 @@ class ChelonaParser(val input: ParserInput, val output: List[TurtleReturnValue] 
     anyOf(" \n\r\t").* ~ (statement ~> ((ast: TurtleAST) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
-          asynchronous((n3.renderStatement, ast)); 1
+          asynchronous((renderStatement, ast)); 1
         } else
           ast match {
             case ASTStatement(ASTComment(s)) ⇒ 0

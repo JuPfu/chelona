@@ -63,11 +63,18 @@ object TriGMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
-    tuple.asInstanceOf[List[TriGTuple]].map(t ⇒ bo.write(t.s + " " + t.p + " " + t.o + (if (t.g != "") " " + t.g + " .\n" else " .\n"))).length
+  def triGWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    triple.map {
+      case TriGTuple(s, p, o, g) ⇒ {
+        bo.write(s.text + " " + p.text + " " + o.text + (if (g.text.length > 0) " " + g.text + " .\n" else " .\n"))
+      }
+    }.length
   }
 
-  val parser = TriGParser(input, tupleWriter(output)_, validate, base, label)
+  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
+  val evalTriG = new EvalTriG(triGWriter(output) _, base, label)
+
+  val parser = TriGParser(input, evalTriG.renderStatement, validate, base, label)
 
   val res = parser.trigDoc.run()
 

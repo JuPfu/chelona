@@ -83,7 +83,7 @@ object NTMain extends App {
     bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
   }
 
-  /* AST evaluation procedure. Here is the point to provide your own flavour, if you dare. */
+  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val evalNT = new EvalNT(ntWriter(output)_, base, label)
 
   /* Looping in steps of n lines through the input file.

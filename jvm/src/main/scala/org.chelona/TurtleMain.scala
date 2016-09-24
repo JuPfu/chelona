@@ -61,13 +61,16 @@ object TurtleMain extends App {
 
   lazy val input: ParserInput = inputfile.get.mkString
 
-  val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
-
-  def tripleWriter(bo: Writer)(triple: List[TurtleReturnValue]): Int = {
-    triple.asInstanceOf[List[TurtleTriple]].map(triple ⇒ bo.write(s"${triple.s.text} ${triple.p.text} ${triple.o.text} .\n")).length
+  def turtleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + " " + p.text + " " + o.text + " .\n") } }.length
   }
 
-  val parser = ChelonaParser(input, tripleWriter(output)_, validate, base, label)
+  val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+
+  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
+  val evalTurtle = new EvalTurtle(turtleWriter(output) _, base, label)
+
+  val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
 
   val res = parser.turtleDoc.run()
 
