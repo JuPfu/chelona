@@ -30,8 +30,8 @@ trait RDFTurtleOutput extends RDFReturnType {
 trait RDFTriGOutput extends RDFReturnType {
   def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
     tuple.map {
-      case TriGTuple(TriGElement(s, type1), TriGElement(p, type2), TriGElement(o, type3), TriGElement(g, type4)) ⇒ {
-        bo.write(s + " " + p + " " + o + (if (g.length > 0) " " + g + " .\n" else " .\n"))
+      case TriGTuple(s, p, o, g) ⇒ {
+        bo.write(s.text + " " + p.text + " " + o.text + (if (g.text.length > 0) " " + g.text + " .\n" else " .\n"))
       }
     }.length
   }
@@ -39,7 +39,6 @@ trait RDFTriGOutput extends RDFReturnType {
 
 trait RDFNTOutput extends RDFReturnType {
   def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
-    /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
     bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
   }
 }
