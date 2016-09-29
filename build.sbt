@@ -2,7 +2,7 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
 
 val commonSettings = Seq(
-  version := "1.1.3",
+  version := "1.2.0",
   scalaVersion := "2.11.8",
   name := "Chelona",
   organization := "com.github.jupfu",
@@ -67,7 +67,7 @@ lazy val chelona = crossProject.in(file("."))
   .settings(libraryDependencies ++=
     Seq(
       "org.parboiled" %%% "parboiled" % "2.1.3",
-      "com.chuusai" %%% "shapeless" % "2.2.5",
+      "com.chuusai" %%% "shapeless" % "2.3.0",
       "org.scalatest" %%% "scalatest" % "3.0.0" % Test)
     )
   .jvmSettings(libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0")
