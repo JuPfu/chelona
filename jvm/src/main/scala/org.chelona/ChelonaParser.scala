@@ -42,7 +42,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
   /*
    Parsing of the turtle data is done in the main thread.
    Evaluation of the abstract syntax tree for each turtle statement is passed to a separate thread "TurtleASTWorker".
-   The ast evaluation procedure n3.renderStatement and the ast for a statement are placed in a queue.
+   The ast evaluation procedure renderStatement and the ast for a statement are placed in a queue.
    The abstract syntax trees of the Turtle statements are evaluated in sequence!
    Parsing continues immmediatly.
 
@@ -112,7 +112,20 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else { if (!validate) { worker.shutdown(); worker.join(); worker.interrupt() }; 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else {
+        if (!validate) {
+          if (astQueue.nonEmpty) {
+            worker.shutdown()
+            worker.join()
+
+            while (astQueue.nonEmpty) {
+              val (renderStatement, ast) = astQueue.dequeue()
+              worker.sum += renderStatement(ast)
+            }
+          }
+        }
+        0
+      })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.shutdown()
         worker.join()

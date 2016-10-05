@@ -78,7 +78,6 @@ object NTriplesParserJS {
           ParseReport.information = "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         }
       case Failure(e: ParseError) ⇒ {
-        System.err.println(parser.formatError(e))
         ParseReport.information = parser.formatError(e)
       }
       case Failure(e) ⇒ {

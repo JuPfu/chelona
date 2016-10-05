@@ -25,7 +25,7 @@ import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
 
-object TurtleMain extends App {
+object TurtleMain extends App with RDFTurtleOutput {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -38,18 +38,18 @@ object TurtleMain extends App {
     sys.exit(2)
   }
 
-  val file = cmdLineArgs.get.file
+  val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
     System.err.flush()
   }
 
   val ms: Double = System.currentTimeMillis
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
 
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
@@ -61,14 +61,11 @@ object TurtleMain extends App {
 
   lazy val input: ParserInput = inputfile.get.mkString
 
-  def turtleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + " " + p.text + " " + o.text + " .\n") } }.length
-  }
-
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalTurtle = new EvalTurtle(turtleWriter(output) _, base, label)
+  /* tripleWriter is defined in trait RDFTurtleOutput */
+  val evalTurtle = new EvalTurtle(tripleWriter(output) _, base, label)
 
   val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
 
@@ -81,12 +78,12 @@ object TurtleMain extends App {
       val me: Double = System.currentTimeMillis - ms
       if (verbose) {
         if (!validate) {
-          System.err.println("Input file '" + file.head.getCanonicalPath + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+          System.err.println("Input file '" + file.getCanonicalPath + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         } else {
-          System.err.println("Input file '" + file.head.getCanonicalPath + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+          System.err.println("Input file '" + file.getCanonicalPath + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
         }
       }
-    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.head.getCanonicalPath + "': " + parser.formatError(e)) else System.err.println("File '" + file.head.getCanonicalPath + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
-    case Failure(e)             ⇒ System.err.println("File '" + file.head.getCanonicalPath + "': Unexpected error during parsing run: " + e)
+    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e)) else System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
+    case Failure(e)             ⇒ System.err.println("File '" + file.getCanonicalPath + "': Unexpected error during parsing run: " + e)
   }
 }

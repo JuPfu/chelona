@@ -4,12 +4,13 @@ import scalariform.formatter.preferences._
 val commonSettings = Seq(
   version := "1.2.0",
   scalaVersion := "2.11.8",
-  name := "Chelona",
+  name := "chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
   description := "W3C RDF 1.1 Turtle Parser",
   startYear := Some(2014),
   licenses := Seq("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")),
+  test in assembly := {},
   javacOptions ++= Seq(
     "-encoding", "UTF-8",
     "-source", "1.8",
@@ -47,8 +48,6 @@ resolvers += Resolver.typesafeRepo("releases")
 
 parallelExecution in Test := true
 
-test in assembly := {}
-
 scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
@@ -57,7 +56,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(DoubleIndentClassDeclaration, true)
   .setPreference(PreserveDanglingCloseParenthesis, true)
-
 
 lazy val chelona = crossProject.in(file("."))
   .settings(commonSettings: _*)
@@ -83,6 +81,15 @@ lazy val root = project.in(file("."))
     mainClass in Compile := (mainClass in chelonaJVM in Compile).value
   )
 
+
+scalatex.SbtPlugin.projectSettings
+
+lazy val readme = scalatex.ScalatexReadme(
+  projectId = "readme",
+  wd = file(""),
+  url = "https://github.com/lihaoyi/scalatex/tree/master",
+  source = "Readme"
+)
 /////////////////////// PUBLISH /////////////////////////
 
 lazy val publishingSettings = Seq(

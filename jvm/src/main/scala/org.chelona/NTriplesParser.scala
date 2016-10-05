@@ -48,7 +48,7 @@ object NTriplesParser extends NTripleAST {
     val iterator = inputBuffer.getLines()
 
     while (iterator.hasNext) {
-      if (parserQueue.length > 1024) Thread.sleep(10) // a more sophisticated throtteling should be supplied
+      if (parserQueue.length > 1024) Thread.sleep(100) // a more sophisticated throtteling should be supplied
       asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
     }
 
@@ -79,7 +79,7 @@ object NTriplesParser extends NTripleAST {
 
     def asynchronous(parser: NTriplesParser) = parserQueue.synchronized {
       parserQueue.enqueue(parser)
-      if (parserQueue.length > 4) parserQueue.notify()
+      if (parserQueue.nonEmpty) parserQueue.notify()
     }
   }
 }
@@ -94,7 +94,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
   /*
  Parsing of the turtle data is done in the main thread.
  Evaluation of the abstract syntax tree for each turtle statement is passed to a separate thread "TurtleASTWorker".
- The ast evaluation procedure n3.renderStatement and the ast for a statement are placed in a queue.
+ The ast evaluation procedure renderStatement and the ast for a statement are placed in a queue.
  The abstract syntax trees of the Turtle statements are evaluated in sequence!
  Parsing continues immmediatly.
  ---P--- denotes the time for parsing a Turtle statement
@@ -132,7 +132,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
    */
   def asynchronous(ast: (NTripleType â‡’ Int, NTripleType)) = astQueue.synchronized {
     astQueue.enqueue(ast)
-    if (astQueue.length > 255) astQueue.notify()
+    if (astQueue.length > 20) astQueue.notify()
   }
 
   def ws = rule {
@@ -157,8 +157,15 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
           }
       } else {
         if (!validate) {
-          worker.shutdown()
-          worker.join()
+          if (astQueue.nonEmpty) {
+            worker.shutdown()
+            worker.join()
+
+            while (astQueue.nonEmpty) {
+              val (renderStatement, ast) = astQueue.dequeue()
+              worker.sum += renderStatement(ast)
+            }
+          }
         }
         0
       })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) â‡’ {
@@ -171,6 +178,8 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
           worker.sum += renderStatement(ast)
         }
       }
+
+      worker.quit()
 
       if (validate) v.sum
       else worker.sum

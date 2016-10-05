@@ -96,7 +96,20 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
             case ASTComment(s) ⇒ 0
             case _             ⇒ 1
           }
-      } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else {
+        if (!validate) {
+          if (astQueue.nonEmpty) {
+            worker.shutdown()
+            worker.join()
+
+            while (astQueue.nonEmpty) {
+              val (renderStatement, ast) = astQueue.dequeue()
+              worker.sum += renderStatement(ast)
+            }
+          }
+        }
+        0
+      })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.shutdown()
         worker.join()
@@ -106,6 +119,8 @@ class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, val
           worker.sum += renderStatement(ast)
         }
       }
+
+      worker.quit()
 
       if (validate) v.sum else worker.sum
     })

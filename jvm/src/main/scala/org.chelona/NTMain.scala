@@ -38,15 +38,15 @@ object NTMain extends App {
     sys.exit(2)
   }
 
-  val file = cmdLineArgs.get.file
+  val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
   }
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
 
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
@@ -90,7 +90,7 @@ object NTMain extends App {
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
      for n chosen to be about 100000 lines.
   */
-  NTriplesParser.parseAll(file.head.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 500000)
+  NTriplesParser.parseAll(file.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
 
   output.close()
 }

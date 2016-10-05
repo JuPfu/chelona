@@ -43,7 +43,20 @@ class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, valid
             case ASTStatement(ASTComment(s)) ⇒ 0
             case _                           ⇒ 1
           }
-      } else { if (!validate) { worker.join(10); worker.shutdown() }; 0 })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      } else {
+        if (!validate) {
+          if (astQueue.nonEmpty) {
+            worker.shutdown()
+            worker.join()
+
+            while (astQueue.nonEmpty) {
+              val (renderStatement, ast) = astQueue.dequeue()
+              worker.sum += renderStatement(ast)
+            }
+          }
+        }
+        0
+      })).* ~ EOI ~> ((v: Seq[Int]) ⇒ {
       if (!validate) {
         worker.shutdown()
         worker.join()
@@ -53,6 +66,8 @@ class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, valid
           worker.sum += renderStatement(ast)
         }
       }
+
+      worker.quit()
 
       if (validate) v.sum
       else worker.sum

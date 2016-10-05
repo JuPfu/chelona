@@ -37,15 +37,15 @@ object NQuadMain extends App {
     sys.exit(2)
   }
 
-  val file = cmdLineArgs.get.file
+  val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.head.getCanonicalPath)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
   }
 
-  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file.head)(StandardCharsets.UTF_8) }
+  val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
 
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
@@ -65,7 +65,7 @@ object NQuadMain extends App {
 
   val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
 
-  NQuadParser.parseAll(file.head.getCanonicalPath, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
+  NQuadParser.parseAll(file.getCanonicalPath, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
 
   output.close()
 }
