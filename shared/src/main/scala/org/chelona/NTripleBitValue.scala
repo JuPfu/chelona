@@ -19,8 +19,8 @@ package org.chelona
 object NTripleBitValue {
   val BLANK_NODE_LABEL = 1
   val IRIREF = BLANK_NODE_LABEL << 1
-  val STRING_LITERAL = IRIREF << 1
-  val LANGTAG = STRING_LITERAL << 1
+  val STRING_LITERAL_QUOTE = IRIREF << 1
+  val LANGTAG = STRING_LITERAL_QUOTE << 1
   val BLANK_LINE = LANGTAG << 1
   val COMMENT = BLANK_LINE << 1
 
@@ -33,8 +33,11 @@ object NTripleBitValue {
   def isIRIREF (`type`: NTToken) = (`type` & IRIREF) == IRIREF
 
   @inline
-  def isSTRING_LITERAL (`type`: NTToken) = (`type` & STRING_LITERAL) == STRING_LITERAL
+  def isSTRING_LITERAL_QUOTE (`type`: NTToken) = (`type` & STRING_LITERAL_QUOTE) == STRING_LITERAL_QUOTE
 
   @inline
   def isLANGTAG (`type`: NTToken) = (`type` & LANGTAG) == LANGTAG
+
+  @inline
+  def isLITERALTAG (`type`: NTToken) = (`type` & (STRING_LITERAL_QUOTE | IRIREF)) == (STRING_LITERAL_QUOTE | IRIREF)
 }

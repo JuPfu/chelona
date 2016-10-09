@@ -48,3 +48,50 @@ trait RDFQuadOutput extends RDFReturnType {
     bo.write(s"${s.text} ${p.text} ${o.text}" + (if (g.text.isEmpty) " .\n" else s" ${g.text} .\n")); 1
   }
 }
+
+trait JSONLDOutput extends RDFReturnType {
+  /* Simple JSON output for NTriples */
+  def jsonWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+
+    // How to identfy first and last triple ?
+
+    val sb: StringBuilder = new StringBuilder("  {\n" + """  "@id": """")
+
+    //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
+    if ( NTripleBitValue.isIRIREF(s.tokenType) ) {
+      sb.append(s.text.substring(1, s.text.length-1) + """"""" + ",\n")
+    }
+    else if ( NTripleBitValue.isBLANK_NODE_LABEL(s.tokenType)) {
+      sb.append(s.text + """"""" + ",\n")
+    }
+
+    //[4]	predicate	::=	IRIREF
+    if( NTripleBitValue.isIRIREF(p.tokenType) ) {
+      sb.append("""  """" + p.text.substring(1, p.text.length-1) + """"""" + ":\n")
+    }
+
+    //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
+    if ( NTripleBitValue.isIRIREF(o.tokenType) && !NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType)) {
+      sb.append("""  { "@id": """" + o.text.substring(1, o.text.length-1) + """"""" + " }\n]\n")
+    }
+    else if ( NTripleBitValue.isBLANK_NODE_LABEL(o.tokenType)) {
+      sb.append("""    { "@id": """" + o.text + """"""" + " }\n  },\n")
+    }
+    else if ( NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType) ) {
+       if ( NTripleBitValue.isLANGTAG(o.tokenType)) {
+         val parts = o.text.split("@")
+         sb.append("    {\n    " + """@type": """ + parts(1) + ",\n")
+         sb.append("""    "@value": """ + parts(0) + ",\n   }\n   },\n")
+       } else if ( NTripleBitValue.isLITERALTAG(o.tokenType)) {
+         val parts = o.text.split("\\^\\^")
+         sb.append("    {\n    " + """"@type": """" + parts(1).substring(1, parts(1).length-1) + """"""" + ",\n")
+         sb.append("""    "@value": """ + parts(0) + "\n    }\n  },\n")
+       }
+       else {
+         sb.append("""    { "@value": """ + o.text + " }\n  },")
+       }
+    }
+
+    bo.write(sb.toString()); 1
+  }
+}
