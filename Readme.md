@@ -89,16 +89,30 @@ The *sbt-assembly* plugin located at https://github.com/sbt/sbt-assembly is used
 Move into the *Cheló̱na* directory.
 From the command line type 
 
-    sbt assembly
+    sbt chelonaJVM/assembly
 	
 This should generate an archive
 
-    target/scala-2.11/chelona-assembly-x.x.x.jar
+    jvm/target/scala-2.11/chelona-assembly-x.x.x.jar
 
-where x.x.x denotes the version information, e.g. chelona-assembly-1.1.0.jar.
+where x.x.x denotes the version information, e.g. chelona-assembly-1.2.0.jar.
 
-Recommended definitions
------------------------
+Create a *Cheló̱na* JavaScript file
+-----------------------------------
+
+Move into the *Cheló̱na* directory.
+From the command line type 
+
+    sbt 
+    chelonaJS/compile
+    chelonaJS/fullOptJS
+	
+This should generate an JavaScript file
+
+    js/target/scala-2.11/chelona-opt.js
+
+Recommended definitions for command line usage
+----------------------------------------------
 
 For ease of use copy the generated Chelona-assembly-X.X.X.jar to /usr/local/lib/. Define an alias for each of the RDF-formats: 
 
