@@ -12,7 +12,7 @@
   <body>
     <section class="page-header">
       <h1 class="project-name">Chelona</h1>
-      <h2 class="project-tagline">A Parboiled2 based W3C RDF 1.1 Turtle parser for Scala and JavaScript</h2>
+      <h2 class="project-tagline">A Parboiled2 based W3C RDF 1.1 Turtle, TriG, N-Triples and N-Quad parser for Scala and JavaScript</h2>
       <a href="https://github.com/JuPfu/chelona" class="btn">View on GitHub</a>
       <a href="https://github.com/JuPfu/chelona/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/JuPfu/chelona/tarball/master" class="btn">Download .tar.gz</a>
@@ -20,9 +20,9 @@
 
     <section class="main-content">
       <p><a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"></a>
-   <strong>Cheló̱na Version 1.1</strong>  </p>
+   <strong>Cheló̱na Version 1.2</strong>  </p>
 
-<p>A Parboiled2 based Parser written in Scala for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages</p>
+<p>A Parboiled2 based Parser for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages</p>
 
 <h1>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
@@ -42,7 +42,7 @@
 
 <p>The relationship among the various RDF 1.1 formats is shown in this image</p>
 
-<p><img src="ressources/RDF-Formats.png" alt="RDF 1.1 Formats"></p>
+<p><img src="https://github.com/JuPfu/chelona/blob/master/ressources/RDF-Formats.png" alt="RDF 1.1 Formats"></p>
 
 <p><em>Cheló̱na</em> successfully masters the complete TriG-, Turtle-, N-Triples and N-Quad test suites described at <a href="http://www.w3.org/TR/rdf11-testcases/">http://www.w3.org/TR/rdf11-testcases/</a>.
 The 100% compliance of the Turtle test suite is listed at <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10">https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10</a> .
@@ -146,15 +146,28 @@ chelonaJS/fullOptJS
 <h2>
 <a id="recommended-definitions-for-command-line-usage" class="anchor" href="#recommended-definitions-for-command-line-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recommended definitions for command line usage</h2>
 
-<p>For ease of use copy the generated Chelona-assembly-X.X.X.jar to /usr/local/lib/. Define an alias for each of the RDF-formats: </p>
+<p>For ease of use, copy the generated Chelona-assembly-X.X.X.jar to /usr/local/opt/chelona.</p>
 
-<pre><code>alias chelona='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.1.0.jar org.chelona.Main'
-alias chelona_trig='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.1.0.jar org.chelona.TriGMain'
-alias chelona_ntriples='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.1.0.jar org.chelona.NTMain'
-alias chelona_nquads='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.1.0.jar org.chelona.NQuadMain'
+<pre><code>mkdir -p /usr/local/opt/chelona
+cp jvm/target/scala-2.11/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona
+ln -s /usr/local/opt/chelona/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona/chelona.jar
 </code></pre>
 
-<p>For huge input data it might be necessary to increase the heap-size.</p>
+<p>Define an alias for each of the RDF-formats:</p>
+
+<pre><code>alias chelona='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TurtleMain'
+</code></pre>
+
+<p>Just to make naming homogeneous, a second alias <a href="https://github.com/em" class="user-mention">@em</a>{cturtle} is introduced. It is up to you which alias you prefer.</p>
+
+<pre><code>alias cturtle='chelona'
+</code></pre>
+
+<p>You get more than just a converter for the <a href="https://github.com/lnk" class="user-mention">@lnk</a>("RDF 1.1 Turtle", "<a href="https://www.w3.org/TR/turtle/">https://www.w3.org/TR/turtle/</a>") format. You also get converters for the <a href="https://github.com/lnk" class="user-mention">@lnk</a>("RDF 1.1 TriG", "<a href="https://www.w3.org/TR/trig/TriG">https://www.w3.org/TR/trig/TriG</a>") language, the <img src="https://www.w3.org/TR/n-triples" alt="RDF 1.1 N-Triples"> language and the <img src="https://www.w3.org/TR/n-quads" alt="RDF 1.1 N-Quads">  language.</p>
+
+<p>The N-Triples and N-Quads formats are able to consume very large files without the heap-size exceeding the proposed values of 4 Gigabyte as they process the input in fixed sized chunks.</p>
+
+<p>A chunk-wise digesting for TriG and Turtle formats has not been implemented yet. For huge input data it might therefore be necessary to increase the heap-size for these formats.</p>
 
 <h2>
 <a id="running-cheló̱na-from-the-command-line" class="anchor" href="#running-chel%C3%B3%CC%B1na-from-the-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running <em>Cheló̱na</em> from the command line</h2>
@@ -290,7 +303,7 @@ File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected 
 
 <p>Binding of <em>Cheló̱na</em> artifacts from <a href="http://search.maven.org/" title="Maven Central">Maven Central</a> is done by adding the following dependency to your SBT build file</p>
 
-<pre><code>libraryDependencies += "com.github.jupfu" %% "chelona" % "1.1.0"
+<pre><code>libraryDependencies += "com.github.jupfu" %% "chelona" % "1.2.0"
 </code></pre>
 
 <p>The example program shows how to convert some Turtle data into the N3 Triple format.</p>
