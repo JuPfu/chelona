@@ -51,18 +51,29 @@ trait RDFQuadOutput extends RDFReturnType {
 
 trait JSONLDOutput extends RDFReturnType {
   /* Simple JSON output for NTriples */
+  val sb: StringBuilder = new StringBuilder()
+
+  def jsonWriterInit(bo: Writer)(s: String = "[\n"): Unit = {
+    bo.write(s)
+    if ( sb.nonEmpty) {
+      sb.clear()
+    }
+  }
+
   def jsonWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
 
-    // How to identfy first and last triple ?
-
-    val sb: StringBuilder = new StringBuilder("  {\n" + """  "@id": """")
+    if ( sb.nonEmpty) {
+      sb.append(",\n")
+      bo.write(sb.toString())
+      sb.clear()
+    }
 
     //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
     if ( NTripleBitValue.isIRIREF(s.tokenType) ) {
-      sb.append(s.text.substring(1, s.text.length-1) + """"""" + ",\n")
+      sb.append("  {\n" + """  "@id": """" + s.text.substring(1, s.text.length-1) + """"""" + ",\n")
     }
     else if ( NTripleBitValue.isBLANK_NODE_LABEL(s.tokenType)) {
-      sb.append(s.text + """"""" + ",\n")
+      sb.append("  {\n" + """  "@id": """" + s.text + """"""" + ",\n")
     }
 
     //[4]	predicate	::=	IRIREF
@@ -72,26 +83,35 @@ trait JSONLDOutput extends RDFReturnType {
 
     //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
     if ( NTripleBitValue.isIRIREF(o.tokenType) && !NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType)) {
-      sb.append("""  { "@id": """" + o.text.substring(1, o.text.length-1) + """"""" + " }\n]\n")
+      sb.append("""    { "@id": """" + o.text.substring(1, o.text.length-1) + """"""" + "}\n  }")
     }
     else if ( NTripleBitValue.isBLANK_NODE_LABEL(o.tokenType)) {
-      sb.append("""    { "@id": """" + o.text + """"""" + " }\n  },\n")
+      sb.append("""    { "@id": """" + o.text + """"""" + " }\n  }")
     }
     else if ( NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType) ) {
        if ( NTripleBitValue.isLANGTAG(o.tokenType)) {
          val parts = o.text.split("@")
-         sb.append("    {\n    " + """@type": """ + parts(1) + ",\n")
-         sb.append("""    "@value": """ + parts(0) + ",\n   }\n   },\n")
+         sb.append("    {\n    " + """"@type": """" + parts(1) + """"""" + ",\n")
+         sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")
        } else if ( NTripleBitValue.isLITERALTAG(o.tokenType)) {
          val parts = o.text.split("\\^\\^")
          sb.append("    {\n    " + """"@type": """" + parts(1).substring(1, parts(1).length-1) + """"""" + ",\n")
-         sb.append("""    "@value": """ + parts(0) + "\n    }\n  },\n")
+         sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")
        }
        else {
-         sb.append("""    { "@value": """ + o.text + " }\n  },")
+         sb.append("""    { "@value": """ + o.text + " }\n  }")
        }
     }
 
-    bo.write(sb.toString()); 1
+    1
+  }
+
+  def jsonWriterTrailer(bo: Writer)(s: String="\n]"): Unit = {
+    if ( sb.nonEmpty) {
+      bo.write(sb.toString())
+      sb.clear()
+    }
+
+    bo.write(s)
   }
 }

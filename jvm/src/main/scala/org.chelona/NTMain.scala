@@ -61,27 +61,8 @@ object NTMain extends App with JSONLDOutput {
   /* open output stream */
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  /*
-    This is the user defined procedure, which contains your business logic.
-   */
-  def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
-    /* Modify the output string to emit subject (s.text), predicate(p.text) and object (o.text) fitted to your needs. */
-    /* Identification or filtering with respect to token type can be done via attribute tokenType, e.g. */
-    /* if ( s.tokenType & NTripleBitValue.IRIREF ) {
-          // e.g. strip leading '<' and trailing '>'
-       }
-       else if ( s.tokenType & NTripleBitValue.STRING_LITERAL_QUOTE ) {
-          if ( s.tokenType & NTripleBitValue.LANGTAG ) {
-             // e.g. only select english strings
-          }
-          // e.g. strip leading '"' and trailing '"'
-       }
-       else if ( s.tokenType & NTripleBitValue.BLANK_NODE ) {
-          // e.g. replace blank_node by absolute IRIREF
-       }
-    */
-    bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
-  }
+  /* initialize output */
+  jsonWriterInit(output)()
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val evalNT = new EvalNT(jsonWriter(output)_, base, label)
@@ -91,6 +72,9 @@ object NTMain extends App with JSONLDOutput {
      for n chosen to be about 100000 lines.
   */
   NTriplesParser.parseAll(file.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
+
+  /* finalize output */
+  jsonWriterTrailer(output)()
 
   output.close()
 }
