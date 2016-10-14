@@ -1,446 +1,662 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>Chelona by JuPfu</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Chelona</h1>
-      <h2 class="project-tagline">A Parboiled2 based W3C RDF 1.1 Turtle, TriG, N-Triples and N-Quad parser for Scala and JavaScript</h2>
-      <a href="https://github.com/JuPfu/chelona" class="btn">View on GitHub</a>
-      <a href="https://github.com/JuPfu/chelona/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/JuPfu/chelona/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+<!DOCTYPE html><html><head><link href="META-INF/resources/webjars/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" /><link href="styles.css" rel="stylesheet" /><link rel="shortcut icon" type="image/png" href="favicon.png" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><style>
+.scalatex-site-Styles-headerLink{
+  color: #777;
+  opacity: 0.05;
+  text-decoration: none;
+}
 
-    <section class="main-content">
-      <p><a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework"> <img border="0" src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon"></a>
-   <strong>Cheló̱na Version 1.2</strong>  </p>
 
-<p>A Parboiled2 based Parser for the W3C RDF 1.1 Turtle, TriG, N-Triple and N-Quad Languages</p>
+.scalatex-site-Styles-hoverContainer:hover .scalatex-site-Styles-headerLink{
+  color: #777;
+  opacity: 0.5;
+  text-decoration: none;
+}
+.scalatex-site-Styles-hoverContainer:hover .scalatex-site-Styles-headerLink:hover{
+  opacity: 1.0;
+}
+.scalatex-site-Styles-hoverContainer:hover .scalatex-site-Styles-headerLink:active{
+  opacity: 0.75;
+}
 
-<h1>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h1>
+.scalatex-site-Styles-content{
+  color: #777;
+  line-height: 1.6em;
+  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;
+  padding: 0 1em;
+  padding-bottom: 50px;
+}
+.scalatex-site-Styles-content *{
+  position: relative;
+}
+.scalatex-site-Styles-content p{
+  text-align: justify;
+}
+.scalatex-site-Styles-content a:link{
+  color: #37a;
+  text-decoration: none;
+}
+.scalatex-site-Styles-content a:visited{
+  color: #949;
+  text-decoration: none;
+}
+.scalatex-site-Styles-content a:hover{
+  text-decoration: underline;
+}
+.scalatex-site-Styles-content a:active{
+  color: #000;
+  text-decoration: underline;
+}
+.scalatex-site-Styles-content code{
+  color: #000;
+}
 
-<p><em>Cheló̱na</em> (χελώνα) is the greek word for turtle. At the time working on this software I spent a beautiful holiday on the island of Rhodos, so this seemed to be an appropriate name for a turtle parser.</p>
+/*Workaround for bug in highlight.js IDEA theme*/
+span.hljs-tag, span.hljs-symbol{
+    background: none;
+}
+    </style><title>Cheló̱na Version 1.2</title><script src="scripts.js"></script></head><body><div>
 
-<p>With <em>Cheló̱na</em> you can</p>
+<a href="https://www.scala-js.org" style="position: absolute;top: 25px;right: 810px;border: 3;" title="Scala.js"><img src="https://www.scala-js.org/assets/badges/scalajs-0.6.8.svg" alt="Scala.js Icon" /></a>
 
-<ul>
-<li>validate the syntax and semantic of a W3C RDF 1.1 <em>TriG</em>, <em>Turtle</em>, <em>N-Quads</em> or <em>N-Triples</em> file</li>
-<li>convert a <em>TriG</em> or <em>N-Quads</em> file into its canonical quad format</li>
-<li>convert a <em>Turtle</em> or <em>N-Triples</em> file into its canonical triple format</li>
-</ul>
+<a href="http://www.w3.org/RDF/" style="position: absolute;top: 25px;right: 115px;border: 3;" title="RDF Resource Description Framework"><img src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon" /></a>
 
-<p><em>Cheló̱na</em> supports the creation of your own output format. 
-<em>Cheló̱na</em> leaves it up to you to write the conversion result e.g. to a file, to a database or communicate via actors. </p>
+<div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Cheló̱naVersion1.2" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Cheló̱na Version 1.2<a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naVersion1.2" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div><div class=" scalatex-site-Styles-content">
 
-<p>The relationship among the various RDF 1.1 formats is shown in this image</p>
+  <h3>
+    A <a href="https://github.com/sirthias/parboiled2">Parboiled2</a> based parser written in Scala for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a>, <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a>, <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> and <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> languages.
+</h3>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Introduction" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Introduction<a class=" scalatex-site-Styles-headerLink" href="#Introduction" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <p>
+      Cheló̱na (χελώνα) is the greek word for turtle. At the time working on this software I spent a beautiful holiday on the island of Rhodos, so this seemed to be an appropriate name for a Turtle parser.
+</p>
+    <p>
+      Some examples what you can do with Cheló̱na</p>
+    <li>
+      convert a <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a> or <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> file into its canonical quad format</li>
+    <li>
+      convert a <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a> or <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> file into its canonical triple format</li>
+    <li>
+      build your own output format for the TriG, Turtle, N-Triples or N-Quads languages</li>
+    <li>
+      filter or transrom the generated output to your needs</li>
+    <li>
+      write the conversion result e.g. to a file, to a database or communicate the results via actors</li>
+    <li>
+      validate the syntax and semantic of a W3C RDF 1.1 TriG, Turtle, N-Quads or N-Triples file
+</li>
+    <p>
+      Cheló̱na successfully masters the complete TriG-, Turtle-, N-Triples and N-Quad test suites described at <a href="https://www.w3.org/TR/rdf11-testcases/">W3 RDF11-Testcases</a>.
+      The 100% compliance of the Turtle test suite is listed at <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10">W3 RDF-Turtle Reports</a>.
+      The compliance of the TriG- and N-Triples test suite is reported to the <a href="https://www.w3.org/standards/semanticweb/">W3 Consortium</a>.
+</p>
+    <p>
+      Cheló̱na is written completely in <a href="http://www.scala-lang.org">Scala</a>. It can be used as a stand alone program or it can be integrated in your Java or Scala project.
+</p>
+    <p>
+      Starting with <b>version 1.2</b> Cheló̱na can be crosscompiled to <b>JavaScript</b> with the help of
+      <a href="https://www.scala-js.org">Scala.js</a>. This opens the door for Cheló̱na usage in the world of web-applications.
+</p>
+    <p>
+      Parsing of the supported RDF 1.1 formats is done with the help of <a href="https://github.com/sirthias/parboiled2">Parboiled2</a>.
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="BuildCheló̱nafromsource" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Build Cheló̱na from source<a class=" scalatex-site-Styles-headerLink" href="#BuildCheló̱nafromsource" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <h1 id="Prerequisites" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Prerequisites" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Prerequisites</h1>
+      <p>
+        Please, assure the development tools listed are up to date and properly working in your environment before you proceed:
+        <li>
+          <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java JDK</a></li>
+        <li>
+          <a href="http://www.scala-lang.org">Scala</a></li>
+        <li>
+          <a href="http://www.scala-sbt.org">sbt - Scala Build Tool</a>
+</li></p>
+    <h1 id="DownloadSourceFiles" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#DownloadSourceFiles" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Download Source Files</h1>
+      <p>
+        Download the <a href="https://github.com/JuPfu/chelona/archive/master.zip">Cheló̱na Zip-File</a> from this site.
+</p>
+      <p>
+        Unzip the data in a clean directory.
+</p>
+    <h1 id="ScalaandJavaPart" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ScalaandJavaPart" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Scala and Java Part</h1>
 
-<p><img src="https://github.com/JuPfu/chelona/tree/master/ressources/RDF-Formats.png" alt="RDF 1.1 Formats"></p>
+      <h2 id="CreateaCheló̱naJAR" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJAR" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JAR</h2>
+        <p>
+          To create a jar-file for the Java virtual machine, e.g. Java or Scala,
+          move into the Cheló̱na directory. From the command line type
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt chelonaJVM/assembly
+</code></div>
+        <p>
+          This should generate an archive in the sub-directory
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">jvm/target/scala-2.11/Chelona-assembly-x.x.x.jar
+</code></div>
+        <p>
+          where x.x.x denotes the version information, e.g. chelona-assembly-<b>1.2.0.</b>jar.
+</p>
+        <p>
+          <span>To your information:
+            The sbt-assembly plugin located at <a href="https://github.com/sbt/sbt-assembly">https://github.com/sbt/sbt-assembly</a>
+            is used to create a Cheló̱na JAR containing all dependencies.</span>
+</p>
+      <h2 id="Recommendeddefinitions" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Recommendeddefinitions" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Recommended definitions</h2>
 
-<p><em>Cheló̱na</em> successfully masters the complete TriG-, Turtle-, N-Triples and N-Quad test suites described at <a href="http://www.w3.org/TR/rdf11-testcases/">http://www.w3.org/TR/rdf11-testcases/</a>.
-The 100% compliance of the Turtle test suite is listed at <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10">https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10</a> .
-The compliance of the TriG- and N-Triples test suite is reported to the W3C gremium.</p>
-
-<p><em>Cheló̱na</em> is written completely in Scala. Parsing of the supported RDF 1.1 formats is done with the help of <a href="https://github.com/sirthias/parboiled2" title="Parboiled2">Parboiled2</a>.</p>
-
-<h1>
-<a id="turtle-section" class="anchor" href="#turtle-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Turtle Section</h1>
-
-<h1>
-<a id="first-example" class="anchor" href="#first-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>First Example</h1>
-
-<p>Here a simple turtle file taken from the W3C recommendation which resides at <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a> :</p>
-
-<pre><code>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-
-_:alice foaf:knows _:bob .
-_:bob foaf:knows _:alice .
-</code></pre>
-
-<p><em>Cheló̱na</em> dissolves the statements into the canonical form, which is represented by pure subject, predicate and object components:</p>
-
-<pre><code>_:alice &lt;http://xmlns.com/foaf/0.1/knows&gt; _:bob .
-_:bob &lt;http://xmlns.com/foaf/0.1/knows&gt; _:alice .
-</code></pre>
-
-<h1>
-<a id="second-example" class="anchor" href="#second-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Second Example</h1>
-
-<p>The next turtle file is listed as example 15 in the W3C RDF 1.1 Turtle Definition document at <a href="http://www.w3.org/TR/turtle">http://www.w3.org/TR/turtle</a> :</p>
-
-<pre><code>@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-
-# Someone knows someone else, who has the name "Bob".
-[] foaf:knows [ foaf:name "Bob" ] .
-</code></pre>
-
-<p><em>Cheló̱na</em> transforms the statements into the simple subject-predicate-object (s-p-o) format:</p>
-
-<pre><code>_:a1 &lt;http://xmlns.com/foaf/0.1/knows&gt; _:b1 .
-_:b1 &lt;http://xmlns.com/foaf/0.1/name&gt; "Bob" .
-</code></pre>
-
-<h1>
-<a id="third-example" class="anchor" href="#third-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Third Example</h1>
-
-<p>This is example 23 from the W3C RDF 1.1 Terse RDF Triple language definition</p>
-
-<pre><code>@prefix : &lt;http://example.org/stuff/1.0/&gt; .
-(1 2.0 3E1) :p "w" .
-</code></pre>
-
-<p><em>Cheló̱na</em> resolves the collection and gives the equivalent sequence of turtle statements in the canonical form:</p>
-
-<pre><code>_:c1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "1"^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .
-_:c1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c2 .
-_:c2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "2.0"^^&lt;http://www.w3.org/2001/XMLSchema#decimal&gt; .
-_:c2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c3 .
-_:c3 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "3E1"^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .
-_:c3 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&gt; .
-_:c1 &lt;http://example.org/stuff/1.0/p&gt; "w" .
-</code></pre>
-
-<h1>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
-
-<h2>
-<a id="create-a-cheló̱na-jar-with-all-dependencies" class="anchor" href="#create-a-chel%C3%B3%CC%B1na-jar-with-all-dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a <em>Cheló̱na</em> JAR with all dependencies</h2>
-
-<p>The <em>sbt-assembly</em> plugin located at <a href="https://github.com/sbt/sbt-assembly">https://github.com/sbt/sbt-assembly</a> is used to create a <em>Cheló̱na</em> JAR containing all dependencies.
-Move into the <em>Cheló̱na</em> directory.
-From the command line type </p>
-
-<pre><code>sbt chelonaJVM/assembly
-</code></pre>
-
-<p>This should generate an archive</p>
-
-<pre><code>jvm/target/scala-2.11/chelona-assembly-x.x.x.jar
-</code></pre>
-
-<p>where x.x.x denotes the version information, e.g. chelona-assembly-1.2.0.jar.</p>
-
-<h2>
-<a id="create-a-cheló̱na-javascript-file" class="anchor" href="#create-a-chel%C3%B3%CC%B1na-javascript-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create a <em>Cheló̱na</em> JavaScript file</h2>
-
-<p>Move into the <em>Cheló̱na</em> directory.
-From the command line type </p>
-
-<pre><code>sbt 
-chelonaJS/compile
-chelonaJS/fullOptJS
-</code></pre>
-
-<p>This should generate an JavaScript file</p>
-
-<pre><code>js/target/scala-2.11/chelona-opt.js
-</code></pre>
-
-<h2>
-<a id="recommended-definitions-for-command-line-usage" class="anchor" href="#recommended-definitions-for-command-line-usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Recommended definitions for command line usage</h2>
-
-<p>For ease of use, copy the generated Chelona-assembly-X.X.X.jar to /usr/local/opt/chelona.</p>
-
-<pre><code>mkdir -p /usr/local/opt/chelona
+        <p>
+          For ease of use, copy the generated Chelona-assembly-X.X.X.jar to <b>/usr/local/opt/chelona</b>.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">mkdir -p /usr/local/opt/chelona
 cp jvm/target/scala-2.11/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona
 ln -s /usr/local/opt/chelona/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona/chelona.jar
-</code></pre>
+</code></div>
+        <p>
+          Define an alias for each of the RDF-formats:
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias chelona='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TurtleMain'
+</code></div>
+        <p>
+          Just to make naming homogeneous, a second alias <em>cturtle</em> is introduced. It is up to you which alias you prefer.
+          Use either <em>chelona</em> or <em>cturtle</em> to convert a Turtle file.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias cturtle='chelona'
+</code></div>
+        <p>
+          You get more than just a converter for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a> format. You
+          also get converters for the <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a> language, the
+          <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> language and the
+          <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> language.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias ctrig='scala -Yopt:_ -J-Xmx4G -cp /usr/local/lib/opt/chelona/chelona.jar org.chelona.TriGMain'
+alias ctriples='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NTMain'
+alias cquads='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NQuadMain'
+</code></div>
+        <p>
+          The N-Triples and N-Quads formats are able to consume very large files without the heap-size exceeding the proposed values
+          of 4 Gigabyte as they process the input in fixed sized chunks.
+</p>
+        <p>
+          A chunk-wise digesting for TriG and Turtle formats has not been implemented yet. For huge input data it might therefore be
+          necessary to increase the heap-size for these formats.
+</p>
+     <h1 id="JavaScriptPart" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#JavaScriptPart" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>JavaScript Part</h1>
 
-<p>Define an alias for each of the RDF-formats:</p>
+       <h2 id="CreateaCheló̱naJAR" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJAR" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JAR</h2>
+         <p>
+           To create a jar-file for usage with <a href="https://www.scala-js.org">Scala.js</a>, move into the Cheló̱na directory.
+           From the command line type
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt
+</code></div>
+         <p>
+           After sbt has started, build a jar file for use in Scala.js projects
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelonaJS/clean
+chelonaJS/compile
+chelonaJS/package
+</code></div>
+         <p>
+           The jar file is built in js/target/scala-2.11/chelona_sjs0.6_2.11-1.2.0.jar
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt
+</code></div>
+         <p>
+           To make a JavaScript library type
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelonaJS/fullOptJS
+</code></div>
+         <p>
+           Open the file turtle.html which is located in chelonaJS/src/main/resource with your favorite browser.
 
-<pre><code>alias chelona='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TurtleMain'
-</code></pre>
 
-<p>Just to make naming homogeneous, a second alias <a href="https://github.com/em" class="user-mention">@em</a>{cturtle} is introduced. It is up to you which alias you prefer.</p>
 
-<pre><code>alias cturtle='chelona'
-</code></pre>
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="HowtouseCheló̱na" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">How to use Cheló̱na<a class=" scalatex-site-Styles-headerLink" href="#HowtouseCheló̱na" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <h1 id="RunningCheló̱nafromthecommandline" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#RunningCheló̱nafromthecommandline" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Running Cheló̱na from the command line</h1>
 
-<p>You get more than just a converter for the <a href="https://github.com/lnk" class="user-mention">@lnk</a>("RDF 1.1 Turtle", "<a href="https://www.w3.org/TR/turtle/">https://www.w3.org/TR/turtle/</a>") format. You also get converters for the <a href="https://github.com/lnk" class="user-mention">@lnk</a>("RDF 1.1 TriG", "<a href="https://www.w3.org/TR/trig/TriG">https://www.w3.org/TR/trig/TriG</a>") language, the <img src="https://www.w3.org/TR/n-triples" alt="RDF 1.1 N-Triples"> language and the <img src="https://www.w3.org/TR/n-quads" alt="RDF 1.1 N-Quads">  language.</p>
+      <p>
+        This section shows how to convert a RDF 1.1 Turtle file into the simple S-P-O Turtle format (N3).
+        The file <a href="http://www.w3.org/TR/turtle/#sec-intro">example1.ttl</a> is the first example for the
+        Terse RDF Triple Language aka Turtle format. It describes the relationship between Green Goblin and Spiderman.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">@base &lt;http://example.org/&gt; .
+@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix rel: &lt;http://www.perceive.net/schemas/relationship/&gt; .
 
-<p>The N-Triples and N-Quads formats are able to consume very large files without the heap-size exceeding the proposed values of 4 Gigabyte as they process the input in fixed sized chunks.</p>
-
-<p>A chunk-wise digesting for TriG and Turtle formats has not been implemented yet. For huge input data it might therefore be necessary to increase the heap-size for these formats.</p>
-
-<h2>
-<a id="running-cheló̱na-from-the-command-line" class="anchor" href="#running-chel%C3%B3%CC%B1na-from-the-command-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Running <em>Cheló̱na</em> from the command line</h2>
-
-<p>Conversion of the example1.ttl file from the examples directory into the simple S-P-O Turtle format (N3)</p>
-
-<pre><code>&lt;#green-goblin&gt; rel:enemyOf    &lt;#spiderman&gt;     ;
+&lt;#green-goblin&gt;
+    rel:enemyOf &lt;#spiderman&gt; ;
     a foaf:Person ;    # in the context of the Marvel universe
-    foaf:name "Green Goblin" ;
-    foaf:mail "GreenGoblin@marvel.com" .
+    foaf:name &quot;Green Goblin&quot; .
 
 &lt;#spiderman&gt;
     rel:enemyOf &lt;#green-goblin&gt; ;
     a foaf:Person ;
-    foaf:name "Spiderman", "Человек-паук"@ru .
-</code></pre>
-
-<p>is done with the command shown here: </p>
-
-<pre><code>scala -cp ./target/scala-2.11/chelona-assembly-1.1.0.jar org.chelona.Main --verbose ./examples/example1.ttl &gt; example1_n3.ttl
-</code></pre>
-
-<p>or shorter using the appropriate alias</p>
-
-<pre><code>chelona -v ./examples/example1.ttl &gt; example1_n3.ttl
-</code></pre>
-
-<p>The output generated lists the name of the output file and the number of generated triples:</p>
-
-<pre><code>Convert: ./examples/example1.ttl
-Input file './examples/example1.ttl' converted in 0.064sec 8 triples (triples per second = 125)
-</code></pre>
-
-<p>Inspecting the output file 'example1_n3.ttl' should give this result:</p>
-
-<pre><code>&lt;http://example.org/#green-goblin&gt; &lt;http://www.perceive.net/schemas/relationship/enemyOf&gt; &lt;http://example.org/#spiderman&gt; .
+    foaf:name &quot;Spiderman&quot;, &quot;Человек-паук&quot;@ru
+</code></div>
+      <p>
+        Assuming you have installed Cheló̱na in /usr/local/lib/opt/chelona/ as recommended in the last section, the following command
+        let's you convert the Turtle format into the simple N3 triple format.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -cp /usr/local/lib/opt/chelona/chelona-assembly-1.2.0.jar org.chelona.Main --verbose ./examples/example1.ttl &gt; example1_n3.ttl
+</code></div>
+      <p>
+        Using the appropriate alias makes it easier and shorter to achieve the same goal
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona -v ./examples/example1.ttl &gt; example1_n3.ttl
+</code></div>
+      <p>
+        The console log information generated lists the name of the output file and the number of generated triples:
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="asciidoc scalatex-site-Styles-highlightMe">Convert: /Users/jp/chelona/examples/example1.ttl
+Input file '/Users/jp/chelona/examples/example1.ttl' converted in 0.064sec 8 triples (triples per second = 125)
+</code></div>
+      <p>
+        Inspecting the output file <em>example1_n3.ttl</em> should give this result:
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://example.org/#green-goblin&gt; &lt;http://www.perceive.net/schemas/relationship/enemyOf&gt; &lt;http://example.org/#spiderman&gt; .
 &lt;http://example.org/#green-goblin&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://xmlns.com/foaf/0.1/Person&gt; .
-&lt;http://example.org/#green-goblin&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; "Green Goblin" .
-&lt;http://example.org/#green-goblin&gt; &lt;http://xmlns.com/foaf/0.1/mail&gt; "GreenGoblin@marvel.com" .
+&lt;http://example.org/#green-goblin&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Green Goblin&quot; .
+&lt;http://example.org/#green-goblin&gt; &lt;http://xmlns.com/foaf/0.1/mail&gt; &quot;GreenGoblin@marvel.com&quot; .
 &lt;http://example.org/#spiderman&gt; &lt;http://www.perceive.net/schemas/relationship/enemyOf&gt; &lt;http://example.org/#green-goblin&gt; .
 &lt;http://example.org/#spiderman&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://xmlns.com/foaf/0.1/Person&gt; .
-&lt;http://example.org/#spiderman&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; "Spiderman" .
-&lt;http://example.org/#spiderman&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; "Человек-паук"@ru .
-</code></pre>
-
-<h2>
-<a id="validation-of-a-turtle-file" class="anchor" href="#validation-of-a-turtle-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Validation of a Turtle File</h2>
-
-<p>When passing the parameter '--validate' on the command line, <em>Cheló̱na</em> will do a syntax check. No output file is generated.</p>
-
-<pre><code>scala -cp ./target/scala-2.11/chelona-assembly-1.1.0.jar org.chelona.Main --validate --verbose examples/example1.ttl
-
-Validate: examples/example1.ttl
-Input file 'examples/example1.ttl' composed of 7 statements successfully validated in 0.099sec (statements per second = 71)
-</code></pre>
-
-<h2>
-<a id="unique-blank-node-names" class="anchor" href="#unique-blank-node-names" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Unique Blank Node Names</h2>
-
-<p>For sake of convenience the next examples assume that an alias chelona has been created.</p>
-
-<pre><code>alias chelona='scala -Yopt:_ -J-Xmx2G -cp /usr/local/lib/scala-2.11/Chelona-assembly-1.1.0.jar org.chelona.Main'
-</code></pre>
-
-<p>The '--uid' command line argument instructs <em>Cheló̱na</em> to use a unique identifier for blank nodes.</p>
-
-<pre><code>chelona --uid examples/example23.ttl
-
-_:c83cecd897cf243a9a6203bad3f5f0b411 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "1"^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .
+&lt;http://example.org/#spiderman&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Spiderman&quot; .&quot;,
+&lt;http://example.org/#spiderman&gt; &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Человек-паук&quot;@ru .&quot;
+</code></div>
+    <h1 id="ValidationofaTurtleFile" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ValidationofaTurtleFile" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Validation of a Turtle File</h1>
+      <p>
+        When passing the parameter '--validate' on the command line, Cheló̱na will do a syntax check. No output file is generated.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona -v --validate --verbose examples/example1.ttl
+</code></div>
+      <p>
+        The <b>-v</b> parameter is a shortcut for <b>--verbose</b>, which causes Cheló̱na to emit some status information.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="asciidoc scalatex-site-Styles-highlightMe">Validate: /Users/jp/chelona/examples/example1.ttl
+Input file '/Users/jp/chelona/examples/example1.ttl' composed of 7 statements successfully validated in 0.099sec (statements per second = 71)
+</code></div>
+    <h1 id="UniqueBlankNodeNames" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#UniqueBlankNodeNames" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Unique Blank Node Names</h1>
+      <p>
+        For sake of convenience the next examples assume that an alias chelona has been created.
+</p>
+      <p>
+        The '--uid' command line argument instructs Cheló̱na to use a unique identifier for blank nodes.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona --uid examples/example23.ttl
+</code></div>
+      <p>
+        Blank nodes are emitted with a random base, which is incremented as needed
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:c83cecd897cf243a9a6203bad3f5f0b411 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; &quot;1&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .
 _:c83cecd897cf243a9a6203bad3f5f0b411 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c83cecd897cf243a9a6203bad3f5f0b412 .
-_:c83cecd897cf243a9a6203bad3f5f0b412 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "2.0"^^&lt;http://www.w3.org/2001/XMLSchema#decimal&gt; .
+_:c83cecd897cf243a9a6203bad3f5f0b412 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; &quot;2.0&quot;^^&lt;http://www.w3.org/2001/XMLSchema#decimal&gt; .
 _:c83cecd897cf243a9a6203bad3f5f0b412 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c83cecd897cf243a9a6203bad3f5f0b413 .
-_:c83cecd897cf243a9a6203bad3f5f0b413 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; "3E1"^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .
+_:c83cecd897cf243a9a6203bad3f5f0b413 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; &quot;3E1&quot;^^&lt;http://www.w3.org/2001/XMLSchema#double&gt; .
 _:c83cecd897cf243a9a6203bad3f5f0b413 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&gt; .
-_:c83cecd897cf243a9a6203bad3f5f0b411 &lt;http://example.org/stuff/1.0/p&gt; "w" .
-</code></pre>
-
-<h2>
-<a id="base-definition" class="anchor" href="#base-definition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Base Definition</h2>
-
-<p>Relative IRIs like &lt;#green-goblin&gt; are resolved relative to the current base IRI. When no base is defined, the value passed by the
-'--base' parameter is prepended to the relative IRI.
-File 'base.ttl' consist of the single triple statement with two relative IRIs.</p>
-
-<pre><code>&lt;#green-goblin&gt; a &lt;#comic-hero&gt; .
-</code></pre>
-
-<p>The relative IRIs are appended to the "http://marvel/universe" string.</p>
-
-<pre><code>chelona --base "http://marvel/universe" base.ttl
-
-&lt;http://marvel/universe/#green-goblin&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://marvel/universe/#comic-hero&gt; .
-</code></pre>
-
-<p>With $PWD resolving to "/Users/jp/chelona" the '--base' parameter produces a prefix "&lt;file:///Users/jp/chelona/" which is prepended to the relative IRI.</p>
-
-<pre><code>chelona --base "file://"$PWD base.ttl
-
-&lt;file:///Users/jp/chelona/#green-goblin&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;file:///Users/jp/chelona/#comic-hero&gt; .
-</code></pre>
-
-<h2>
-<a id="error-handling" class="anchor" href="#error-handling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Error Handling</h2>
-
-<p>In case of an error <em>Cheló̱na</em> will display an error message and give a hint where the problem occurred.</p>
-
-<pre><code>chelona --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
-
-Validate: TurtleTests/turtle-syntax-bad-struct-02.ttl
-File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected predicate or http://www.w3.org/1999/02/22-rdf-syntax-ns#type (line 2, column 40):
+_:c83cecd897cf243a9a6203bad3f5f0b411 &lt;http://example.org/stuff/1.0/p&gt; &quot;w&quot; .
+</code></div>
+     <h1 id="BaseDefinition" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#BaseDefinition" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Base Definition</h1>
+       <p>
+         Relative IRIs like
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;#green-goblin&gt;
+</code></div>
+       <p>
+         are resolved relative to the current base IRI. When no base is defined, the value passed by the '--base' parameter is prepended to the relative IRI.
+</p>
+       <p>
+         Look at file 'base.ttl', which consists of a single triple statement with two relative IRIs.
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;#green-goblin&gt; a &lt;#comic-hero&gt; .
+</code></div>
+       <p>
+         The relative IRIs are appended to the &quot;http://marvel/universe&quot; string.
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona --base &quot;http://marvel/universe&quot; base.ttl
+</code></div>
+       <p>
+         Here the generated result
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://marvel/universe/#green-goblin&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://marvel/universe/#comic-hero&gt; .
+</code></div>
+       <p>
+         With $PWD resolving to the current working directory <em>/Users/jp/chelona</em> the '--base' parameter produces a prefix <em>&lt;file:///Users/jp/chelona/</em>
+         which is prepended to the relative IRI.
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona --base &quot;file://&quot;$PWD base.ttl
+</code></div>
+       <p>
+         The same example file converted again with $PWD resolved shows the prepended prefix
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;file:///Users/jp/chelona/#green-goblin&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;file:///Users/jp/chelona/#comic-hero&gt; .
+</code></div>
+      <h1 id="ErrorReporting" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ErrorReporting" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Error Reporting</h1>
+        <p>
+          In case of an error Cheló̱na will display an error message and give a hint where the problem occurred.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona --validate --verbose TurtleTests/turtle-syntax-bad-struct-02.ttl
+</code></div>
+        <p>
+          Error report
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="asciidoc scalatex-site-Styles-highlightMe">Validate: /Users/jp/chelona/TurtleTests/turtle-syntax-bad-struct-02.ttl
+File '/Users/jp/chelona/TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected predicate or http://www.w3.org/1999/02/22-rdf-syntax-ns#type (line 2, column 40):
 &lt;http://www.w3.org/2013/TurtleTests/s&gt; = &lt;http://www.w3.org/2013/TurtleTests/o&gt; .
-</code></pre>
-
-<p>Some internal parsing information will be emitted in case of an error when "--trace" is used as command line argument.</p>
-
-<pre><code>chelona --validate --verbose --trace TurtleTests/turtle-syntax-bad-struct-02.ttl
-
-Validate: TurtleTests/turtle-syntax-bad-struct-02.ttl
-File 'TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected IRIREF or prefixedName (line 2, column 40):
+</code></div>
+        <p>
+          Some internal parsing information will be emitted in case of an error when &quot;--trace&quot; is used as command line argument.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona --validate --verbose --trace TurtleTests/turtle-syntax-bad-struct-02.ttl
+</code></div>
+        <p>
+          Extended error report
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="asciidoc scalatex-site-Styles-highlightMe">Validate: /Users/jp/chelona/TurtleTests/turtle-syntax-bad-struct-02.ttl
+File '/Users/jp/chelona/TurtleTests/turtle-syntax-bad-struct-02.ttl': Invalid input '=', expected IRIREF or prefixedName (line 2, column 40):
 &lt;http://www.w3.org/2013/TurtleTests/s&gt; = &lt;http://www.w3.org/2013/TurtleTests/o&gt; .
                                        ^
 
 5 rules mismatched at error location:
-  ...oc/ *:-58 /statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /IRIREF/ atomic / '&lt;'
-  ...| /predicate/ /iri/ | /prefixedName/ | /PNAME_LN/ /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:&lt;CharPredicate&gt;
-  ... |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_LN/ /PNAME_NS/ ':'
-  ...po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:&lt;CharPredicate&gt;
-  .../statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ':'
-</code></pre>
+...oc/ *:-58 /statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /IRIREF/ atomic / '&lt;'
+...| /predicate/ /iri/ | /prefixedName/ | /PNAME_LN/ /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:&lt;CharPredicate&gt;
+... |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_LN/ /PNAME_NS/ ':'
+...po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ? /PN_PREFIX/ atomic / capture / PN_CHARS_BASE:&lt;CharPredicate&gt;
+.../statement/ |:-39 /triples/ |:-39 /predicateObjectList/ + /po/ /verb/ | /predicate/ /iri/ | /prefixedName/ | /PNAME_NS/ ':'
+</code></div>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="RDF1.1LanguageFormats" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">RDF 1.1 Language Formats<a class=" scalatex-site-Styles-headerLink" href="#RDF1.1LanguageFormats" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
 
-<h1>
-<a id="programmatical-interface" class="anchor" href="#programmatical-interface" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Programmatical Interface</h1>
+    <p>
+      How are the RDF 1.1 language formats linked together ?
+</p>
+    <p>
+      The relationship among the various RDF 1.1 formats is shown in this image
 
-<p>Binding of <em>Cheló̱na</em> artifacts from <a href="http://search.maven.org/" title="Maven Central">Maven Central</a> is done by adding the following dependency to your SBT build file</p>
+      <div>
+        <a href="https://github.com/JuPfu/chelona" style="position: relative;top: 0px;right: 0px;border: 0;"><img src="https://github.com/JuPfu/chelona/raw/master/ressources/RDF-Formats.png" alt="Fork me on GitHub" style="width: 75%;height: 75%;" /></a>
+</div></p>
+    <h1 id="RDFHierarchy" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#RDFHierarchy" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>RDF Hierarchy</h1>
+      <h2 id="N-TriplesFormat" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#N-TriplesFormat" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>N-Triples Format</h2>
+        <p>
+          Quoting the W3C definition of <a href="http://www.w3.org/TR/n-triples/">N-Triples</a>:
 
-<pre><code>libraryDependencies += "com.github.jupfu" %% "chelona" % "1.2.0"
-</code></pre>
+          <cite>
+            The <a href="http://www.w3.org/TR/n-triples/">N-Triples</a> format is a line-based, plain text format for encoding an RDF graph.
+            N-Triples triples are a sequence of RDF terms representing the subject, predicate and object of an RDF Triple.
+            These may be separated by white space. This sequence is terminated by a '.' and a new line (optional at the end of a document).
+</cite>
+          <p>
+            <a href="http://www.w3.org/TR/n-triples/#sec-introduction">Example 1</a> contains most of the syntax features for N-Triples
+</p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://one.example/subject1&gt; &lt;http://one.example/predicate1&gt; &lt;http://one.example/object1&gt; . # comments here
+# or on a line by themselves
+_:subject1 &lt;http://an.example/predicate1&gt; &quot;object1&quot; .
+_:subject2 &lt;http://an.example/predicate2&gt; &quot;object2&quot; .
+</code></div></p>
+      <h2 id="N-QuadsFormat" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#N-QuadsFormat" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>N-Quads Format</h2>
+        <p>
+          Quoting the W3C definition of <a href="http://www.w3.org/TR/n-quads/">N-Quads</a>:
 
-<p>The example program shows how to convert some Turtle data into the N3 Triple format.</p>
+          <cite>
+            The <a href="http://www.w3.org/TR/n-quads/">N-Quads</a> format is a line-based, plain text format for encoding an RDF dataset.
+            N-Quads statements are a sequence of RDF terms representing the subject, predicate, object and <em>graph label</em> of an RDF Triple
+            and the graph it is part of in a dataset. These may be separated by white space.
+            This sequence is terminated by a '.' and a new line (optional at the end of a document).
+</cite>
+          <p>
+            <a href="http://www.w3.org/TR/n-quads/#sec-intro">Example 1</a> contains most of the syntax features for N-Quads
+</p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://one.example/subject1&gt; &lt;http://one.example/predicate1&gt; &lt;http://one.example/object1&gt; &lt;http://example.org/graph3&gt; . # comments here
+# or on a line by themselves
+_:subject1 &lt;http://an.example/predicate1&gt; &quot;object1&quot; &lt;http://example.org/graph1&gt; .
+_:subject2 &lt;http://an.example/predicate2&gt; &quot;object2&quot; &lt;http://example.org/graph5&gt; .
+</code></div>
+          <p>
+            It is important to note that each N-Triples file is also a valid N-Quads file.
 
-<pre><code>import java.io.StringWriter
+            This is also reflected in that the
+            <a href="https://github.com/JuPfu/chelona/blob/master/src/main/scala/org/chelona/NQuadParser.scala">N-Quads grammar</a>
+            extends the <a href="https://github.com/JuPfu/chelona/blob/master/src/main/scala/org/chelona/NTriplesParser.scala">N-Triples grammar</a>
+            with just two rules.
+</p>
+          <p>
+            Therefore, each N-Triples file can also be used as input for the N-Quads converter.
+</p></p>
+      <h2 id="TurtleFormat" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#TurtleFormat" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Turtle Format</h2>
+        <p>
+          Quoting the W3C definition of <a href="http://www.w3.org/TR/turtle/">Turtle</a>:
 
-import org.chelona.{ RDFTripleOutput, ChelonaParser }
+          <cite>
+            A <a href="http://www.w3.org/TR/turtle/">Turtle</a> document is a textual representations of an RDF graph.
 
-import org.parboiled2.ParseError
+            <p>
+              N-Triples triples are also Turtle simple triples, but Turtle includes other representations of RDF terms and
+              abbreviations of RDF Triples. When parsed by a Turtle parser, data in the N-Triples format will produce exactly
+              the same triples as a parser for the N-triples language.
+</p></cite></p>
+      <h2 id="TriGFormat" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#TriGFormat" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>TriG Format</h2>
+        <p>
+          Quoting the W3C definition of <a href="http://www.w3.org/TR/trig/">TriG</a>:
 
-import scala.util.{ Failure, Success }
+          <cite>
+            TriG is an extension of <a href="http://www.w3.org/TR/turtle/">Turtle</a>, extended to support representing a complete RDF Dataset.
+</cite>
+          <p>
+            Therefore, <a href="http://www.w3.org/TR/turtle/">Turtle</a> is a valid input format for the TriG parser.
+</p>
+          <p>
+            N-Triples triples are also Turtle simple triples. As TriG is an extension of <a href="http://www.w3.org/TR/trig/">Turtle</a>,
+            N-Triples are also <a href="http://www.w3.org/TR/trig/">TriG</a> triples.
+            When parsed by a <a href="http://www.w3.org/TR/trig/">TriG</a> parser, data in the N-Triples format will produce exactly
+            the same triples as a parser for the N-triples language.
+</p>
+          <p>
+            It is important to note that each <a href="http://www.w3.org/TR/n-quads/">N-Quads</a> file is also a valid
+            <a href="http://www.w3.org/TR/trig/">TriG</a> file.
+            This is also reflected in that the
+            <a href="https://github.com/JuPfu/chelona/blob/master/src/main/scala/org/chelona/TriGParser.scala">TriG grammar</a>
+            extends the <a href="https://github.com/JuPfu/chelona/blob/master/src/main/scala/org/chelona/NQuadParser.scala">N-Quads grammar</a>
+            with just a few rules.
+</p></p>
+    <h1 id="Summary" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Summary" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Summary</h1>
+      <p>
+        This image sums up the last section by showing which RDF 1.1 formats can be proffered as input to which RDF 1.1 parser.
+        <li>The simple N-Triples format is understood from any of the depicted parsers</li>
+        <li>The Turtle format can be digested by Turtle and TriG parser</li>
+        <li>The N-Quads format is accepted by the N-Quads and TriG parser</li>
+        <li>TriG data can only be processed by the TriG parser</li>
 
-object Main extends App with RDFTripleOutput {
+        <div>
+          <a href="https://github.com/JuPfu/chelona" style="position: relative;top: 0px;right: 0px;border: 0;"><img src="https://github.com/JuPfu/chelona/raw/master/ressources/RDF-Input-Formats.png" alt="Fork me on GitHub" style="width: 75%;height: 75%;" /></a>
+</div></p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Turtle" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Turtle<a class=" scalatex-site-Styles-headerLink" href="#Turtle" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
 
-  val input =
-    """@base &lt;http://example.org/&gt; .
-       @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
-       @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-       @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-       @prefix rel: &lt;http://www.perceive.net/schemas/relationship/&gt; .
+      <h1 id="FirstExample" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#FirstExample" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>First Example</h1>
+        <p>
+          Here a simple turtle file listed as <a href="http://www.w3.org/TR/turtle/#BNodes">Example 14</a> in the Blank Nodes chapter of
+          the W3C RDF 1.1 Turtle definition document:
 
-       &lt;#green-goblin&gt; rel:enemyOf    &lt;#spiderman&gt;  ;
-          a foaf:Person ;    # in the context of the Marvel universe
-          foaf:name 'Green Goblin' ;
-          foaf:mail 'GreenGoblin@marvel.com' .
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
-       &lt;#spiderman&gt;
-          rel:enemyOf &lt;#green-goblin&gt; ;
-          a foaf:Person ;
-          foaf:name 'Spiderman', 'Человек-паук'@ru ."""
+_:alice foaf:knows _:bob .
+_:bob foaf:knows _:alice .
+</code></div></p>
+        <p>
+          This Turtle file is availabe in the examples sub-directory. Applying Cheló̱na to convert the Turtle file into the N-Triples format:
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona examples/example14.ttl
+</code></div>
+        <p>
+          Cheló̱na dissolves the statements into the canonical form, which is represented by pure subject, predicate and object components:
 
-  val output = new StringWriter()
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:b1 &lt;http://xmlns.com/foaf/0.1/knows&gt; _:b2 .
+_:b2 &lt;http://xmlns.com/foaf/0.1/knows&gt; _:b1 .
+</code></div></p>
+      <h1 id="SecondExample" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#SecondExample" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Second Example</h1>
+        <p>
+          The next turtle file is listed as <a href="http://www.w3.org/TR/turtle/#unlabeled-bnodes">Example 15</a> in the W3C RDF 1.1 Turtle Definition document:
 
-  val parser = ChelonaParser(input,  tripleWriter(output)_)
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
 
-  parser.turtleDoc.run() match {
-    case Success(tripleCount) ⇒
-      System.err.println("Input converted to " + tripleCount + " triples.")
-      println(output)
-    case Failure(e: ParseError) ⇒ System.err.println("Unexpected error during parsing run: " + parser.formatError(e))
-    case Failure(e)             ⇒ System.err.println("Unexpected error during parsing run: " + e)
-  }
-}
-</code></pre>
+# Someone knows someone else, who has the name &quot;Bob&quot;.
+[] foaf:knows [ foaf:name &quot;Bob&quot; ] .
+</code></div></p>
+        <p>
+          This Turtle file is availabe in the examples sub-directory. Applying Cheló̱na to convert the Turtle file into the N-Triples format:
 
-<p>A complete simple build file for the example program is shown here</p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona examples/example15.ttl
+</code></div></p>
+        <p>
+          Cheló̱na transforms the statements into the simple subject-predicate-object (s-p-o) format:
 
-<pre><code>name := "Chelona-Example"
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:a1 &lt;http://xmlns.com/foaf/0.1/knows&gt; _:b1 .
+_:b1 &lt;http://xmlns.com/foaf/0.1/name&gt; &quot;Bob&quot; .
+</code></div></p>
+      <h1 id="ThirdExample" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ThirdExample" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Third Example</h1>
+        <p>
+          This is <a href="http://www.w3.org/TR/turtle/#sec-examples">Example 25</a> from the W3C RDF 1.1 Terse RDF Triple language definition.
+          It serves as an example for <a href="http://www.w3.org/TR/turtle/#grammar-production-collection">nested collections involving other syntactic forms</a>.
 
-version := "1.0"
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">PREFIX : &lt;http://example.org/stuff/1.0/&gt;
+(1 [:p :q] ( 2 ) ) :p2 :q2 .
+</code></div></p>
+        <p>
+          This Turtle file is availabe in the examples sub-directory. Applying Cheló̱na to convert the Turtle file into the N-Triples format:
 
-scalaVersion := "2.11.7"
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona examples/example25.ttl
+</code></div></p>
+        <p>
+          Cheló̱na resolves the collection and gives the equivalent sequence of turtle statements in the canonical form:
 
-libraryDependencies += "com.github.jupfu" %% "chelona" % "1.1.0"
-</code></pre>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:c1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; &quot;1&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .
+_:c1 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c2 .
+_:c2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; _:b1 .
+_:b1 &lt;http://example.org/stuff/1.0/p&gt; &lt;http://example.org/stuff/1.0/q&gt; .
+_:c2 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; _:c3 .
+_:c3 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; _:c4 .
+_:c4 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#first&gt; &quot;2&quot;^^&lt;http://www.w3.org/2001/XMLSchema#integer&gt; .
+_:c4 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&gt; .
+_:c3 &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#rest&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#nil&gt; .
+_:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2&gt; .
+</code></div></p>
+        <p>
+          A detailed explanation as how to derive this N-Triples output from the input file above can be found in the quest for
+          <a href="http://lists.w3.org/Archives/Public/public-rdf-comments/2014May/0003.html">Missing triple in example 26</a>.
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="TriG" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">TriG<a class=" scalatex-site-Styles-headerLink" href="#TriG" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
 
-<h1>
-<a id="build-your-own-output-format" class="anchor" href="#build-your-own-output-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Build Your Own Output Format</h1>
+    <h1 id="FirstExample" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#FirstExample" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>First Example</h1>
+      <p>
+        <a href="http://www.w3.org/TR/trig/#sec-graph-statements">Example 1</a> is a simple TriG-file, which is part of the
+        TriG language description.
 
-<p>Look at <a href="https://github.com/JuPfu/chelona/wiki">https://github.com/JuPfu/chelona/wiki</a> to see how to create your own output format.</p>
-
-<h1>
-<a id="what-cheló̱na-does-in-detail" class="anchor" href="#what-chel%C3%B3%CC%B1na-does-in-detail" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>What <em>Cheló̱na</em> Does in Detail:</h1>
-
-<ul>
-<li>parses the ttl file</li>
-<li>reports syntax errors</li>
-<li>builds an abstract syntax tree for each valid turtle statement</li>
-<li>resolves prefix declarations</li>
-<li>unescapes numeric and string escape sequences in string-literal productions</li>
-<li>unescapes numeric escape sequences in Iriref productions for output format 'raw'</li>
-<li>transforms each turtle statment into the canonical subject-predicate-object (s-p-o) format</li>
-<li>skolemisation (Replacing blank nodes with IRIs) (to be done)</li>
-</ul>
-
-<h1>
-<a id="trig-section" class="anchor" href="#trig-section" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TriG-Section</h1>
-
-<p>The TriG language definition can be found here <a href="http://www.w3.org/TR/trig/">http://www.w3.org/TR/trig/</a> .</p>
-
-<h1>
-<a id="first-example-1" class="anchor" href="#first-example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>First Example</h1>
-
-<p>Example1 at <a href="https://www.w3.org/TR/trig/">https://www.w3.org/TR/trig/</a> is a simple TriG-file, which is part of the language description at <a href="http://www.w3.org/TR/trig/">http://www.w3.org/TR/trig/</a> .</p>
-
-<pre><code># This document encodes one graph.
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe"># This document encodes one graph.
 @prefix ex: &lt;http://www.example.org/vocabulary#&gt; .
 @prefix : &lt;http://www.example.org/exampleDocument#&gt; .
 
 :G1 { :Monica a ex:Person ;
-              ex:name "Monica Murphy" ;
+              ex:name &quot;Monica Murphy&quot; ;
               ex:homepage &lt;http://www.monicamurphy.org&gt; ;
               ex:email &lt;mailto:monica@monicamurphy.org&gt; ;
               ex:hasSkill ex:Management ,
                           ex:Programming . }
-</code></pre>
+</code></div>
+        <p>
+          Applying the TriG parser to convert this file into the N-Triples format either explicitly
 
-<p><em>Cheló̱na</em> dissolves the statements into the canonical quad form, which is represented by pure subject, predicate, object and graph components:</p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -Yopt:_ -J-Xmx4G -cp /usr/local/lib/opt/chelona/Chelona-assembly-1.2.0.jar org.chelona.TriGMain examples/example1.trig
+</code></div>
+          <p>
+            or shorter using the alias <a href="#Recommendeddefinitions">ctrig</a>
+</p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">ctrig examples/example1.trig
+</code></div></p>
+        <p>
+          Cheló̱na dissolves the statements into the canonical form, which is represented by pure graph, subject, predicate and object components:
 
-<pre><code>&lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.example.org/vocabulary#Person&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
-&lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#name&gt; "Monica Murphy" &lt;http://www.example.org/exampleDocument#G1&gt; .
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.example.org/vocabulary#Person&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
+&lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#name&gt; &quot;Monica Murphy&quot; &lt;http://www.example.org/exampleDocument#G1&gt; .
 &lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#homepage&gt; &lt;http://www.monicamurphy.org&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
 &lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#email&gt; &lt;mailto:monica@monicamurphy.org&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
 &lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#hasSkill&gt; &lt;http://www.example.org/vocabulary#Management&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
 &lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#hasSkill&gt; &lt;http://www.example.org/vocabulary#Programming&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
-</code></pre>
+</code></div></p></p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="N-Triples" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">N-Triples<a class=" scalatex-site-Styles-headerLink" href="#N-Triples" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <p>
+      N-Triples part
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="N-Quads" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">N-Quads<a class=" scalatex-site-Styles-headerLink" href="#N-Quads" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <p>
+      Quads part
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="AshorthistoryofCheló̱na" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">A short history of Cheló̱na<a class=" scalatex-site-Styles-headerLink" href="#AshorthistoryofCheló̱na" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <h1 id="Howitallbegan" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Howitallbegan" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>How it all began</h1>
 
-<p>Conversion is done with</p>
+      <p>
+        On the quest for my personal dark matter in the area of programming, Functional Programming materialized in the form
+        of a Coursera course &quot;Functional Programming Principles in Scala&quot; instructed by Martin Odersky.</p>
+    <h1 id="Parsing" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Parsing" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Parsing</h1>
+      <p>
+        Parsing of any of the RDF-grammars is done with the help of Parboiled2. The parsing process is divided into two
+        separate steps.
+        <li>
+          Driven by the input data the grammar rules are evaluated. Starting with the main entry rule, e.g. <em>ntriplesDoc</em>
+          for the N-Triples parser, the parsing process branches into matching sub-rules. Rules which bear relevant semantic
+          information produce an Abstract Syntax Tree node (AST-node).
 
-<pre><code>scala -cp ./target/scala-2.11/chelona-assembly-1.1.0.jar org.chelona.TriGMain --verbose ./examples/example1.trig &gt; example1.nq
-</code></pre>
+          <p>
+            The N-Triples statement below, for example
+            <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:alice &lt;http://xmlns.com/foaf/0.1/knows&gt; _:bob .
+</code></div></p>
+          <p>
+            is transformed into the AST listed here
+            <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">ASTTriple(
+   ASTSubject(
+      ASTBlankNodeLabel(alice)),
+   ASTPredicate(
+      ASTIriRef(http://xmlns.com/foaf/0.1/knows)),
+   ASTObject(
+      ASTBlankNodeLabel(bob)),
+   None)
+</code></div>
+            <p>
+              The N-Triples statement consist of a subject, which is a blank node named <em>&quot;alice&quot;</em>,
+              a predicate, which is a URL <em>&quot;http://xmlns.com/foaf/0.1/knows&quot;</em> and
+              an object, which is a blank node named <em>&quot;bob&quot;</em>.
+</p></p>
+          <p>
+            All of the RDF-grammars build an AST of a single statement only.
+</p></li>
+        <li>
+          The next step is the traversal of the AST nodes which make up a single RDF-statement.
 
-<p>or using the shorthand alias chelona_trig (see the Installation chapter)</p>
-
-<pre><code>chelona_trig -v ./examples/example1.trig &gt; example1.nq
-</code></pre>
-
-<h1>
-<a id="postscript" class="anchor" href="#postscript" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Postscript</h1>
-
-<p>Questions, support, cooperation or collaboration are explicitely welcome!</p>
-
-<h1>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h1>
-
-<p><em>Cheló̱na</em> is released under the <code>Apache License 2.0</code></p>
-
-<p><a href="http://en.wikipedia.org/wiki/Apache_license">http://en.wikipedia.org/wiki/Apache_license</a></p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/JuPfu/chelona">Chelona</a> is maintained by <a href="https://github.com/JuPfu">JuPfu</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
-
-  
-  </body>
-</html>
+</li></p>
+      <p>
+         The building of an AST for a single RFD-statement reduces the memory requirements drastically. As each generated AST for a single
+         statement is immediately traversed and evaluated, output is also generated at once.
+</p>
+       <p>
+         Decoupling of parsing and AST evaluation
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Postscript" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Postscript<a class=" scalatex-site-Styles-headerLink" href="#Postscript" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <p>
+      Questions, support, cooperation or collaboration are explicitely welcome!
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Licence" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Licence<a class=" scalatex-site-Styles-headerLink" href="#Licence" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+    <p>
+      Cheló̱na is released under the <a href="http://en.wikipedia.org/wiki/Apache_license">Apache License 2.0</a>
+</p></div>
+</div><script>
+    scalatex.scrollspy.Controller().main(
+      [{"value":"Cheló̱na Version 1.2","children":[{"value":"Introduction","children":[]},{"value":"Build Cheló̱na from source","children":[{"value":"Prerequisites","children":[]},{"value":"Download Source Files","children":[]},{"value":"Scala and Java Part","children":[{"value":"Create a Cheló̱na JAR","children":[]},{"value":"Recommended definitions","children":[]}]},{"value":"JavaScript Part","children":[{"value":"Create a Cheló̱na JAR","children":[]}]}]},{"value":"How to use Cheló̱na","children":[{"value":"Running Cheló̱na from the command line","children":[]},{"value":"Validation of a Turtle File","children":[]},{"value":"Unique Blank Node Names","children":[]},{"value":"Base Definition","children":[]},{"value":"Error Reporting","children":[]}]},{"value":"RDF 1.1 Language Formats","children":[{"value":"RDF Hierarchy","children":[{"value":"N-Triples Format","children":[]},{"value":"N-Quads Format","children":[]},{"value":"Turtle Format","children":[]},{"value":"TriG Format","children":[]}]},{"value":"Summary","children":[]}]},{"value":"Turtle","children":[{"value":"First Example","children":[]},{"value":"Second Example","children":[]},{"value":"Third Example","children":[]}]},{"value":"TriG","children":[{"value":"First Example","children":[]}]},{"value":"N-Triples","children":[]},{"value":"N-Quads","children":[]},{"value":"A short history of Cheló̱na","children":[{"value":"How it all began","children":[]},{"value":"Parsing","children":[]}]},{"value":"Postscript","children":[]},{"value":"Licence","children":[]}]}]
+  )</script><script>
+    ['DOMContentLoaded', 'load'].forEach(function(ev){
+      addEventListener(ev, function(){
+        Array.prototype.forEach.call(
+          document.getElementsByClassName('scalatex-site-Styles-highlightMe'),
+          hljs.highlightBlock
+        );
+      })
+    })
+  </script></body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
