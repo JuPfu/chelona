@@ -59,34 +59,22 @@ span.hljs-tag, span.hljs-symbol{
 }
     </style><title>Cheló̱na Version 1.2</title><script src="scripts.js"></script></head><body><div>
 
-<a href="https://www.scala-js.org" style="position: absolute;top: 25px;right: 810px;border: 3;" title="Scala.js"><img src="https://www.scala-js.org/assets/badges/scalajs-0.6.8.svg" alt="Scala.js Icon" /></a>
+<a href="https://www.scala-js.org" style="position: absolute;top: 25px;left: 350px;border: 3;" title="Scala.js"><img src="https://www.scala-js.org/assets/badges/scalajs-0.6.8.svg" alt="Scala.js Icon" /></a>
 
 <a href="http://www.w3.org/RDF/" style="position: absolute;top: 25px;right: 115px;border: 3;" title="RDF Resource Description Framework"><img src="http://www.w3.org/RDF/icons/rdf_w3c_icon.96.gif" alt="RDF Resource Description Framework Icon" /></a>
 
 <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Cheló̱naVersion1.2" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Cheló̱na Version 1.2<a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naVersion1.2" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div><div class=" scalatex-site-Styles-content">
 
   <h3>
-    A <a href="https://github.com/sirthias/parboiled2">Parboiled2</a> based parser written in Scala for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a>, <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a>, <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> and <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> languages.
+    A <a href="https://github.com/sirthias/parboiled2">Parboiled2</a> based parser for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a>,
+    <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a>, <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> and <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a>
+    languages for Scala, Java and JavaScript.
 </h3>
   <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Introduction" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Introduction<a class=" scalatex-site-Styles-headerLink" href="#Introduction" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+
     <p>
       Cheló̱na (χελώνα) is the greek word for turtle. At the time working on this software I spent a beautiful holiday on the island of Rhodos, so this seemed to be an appropriate name for a Turtle parser.
 </p>
-    <p>
-      Some examples what you can do with Cheló̱na</p>
-    <li>
-      convert a <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a> or <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> file into its canonical quad format</li>
-    <li>
-      convert a <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a> or <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> file into its canonical triple format</li>
-    <li>
-      build your own output format for the TriG, Turtle, N-Triples or N-Quads languages</li>
-    <li>
-      filter or transrom the generated output to your needs</li>
-    <li>
-      write the conversion result e.g. to a file, to a database or communicate the results via actors</li>
-    <li>
-      validate the syntax and semantic of a W3C RDF 1.1 TriG, Turtle, N-Quads or N-Triples file
-</li>
     <p>
       Cheló̱na successfully masters the complete TriG-, Turtle-, N-Triples and N-Quad test suites described at <a href="https://www.w3.org/TR/rdf11-testcases/">W3 RDF11-Testcases</a>.
       The 100% compliance of the Turtle test suite is listed at <a href="https://dvcs.w3.org/hg/rdf/raw-file/default/rdf-turtle/reports/index.html#subj_10">W3 RDF-Turtle Reports</a>.
@@ -96,11 +84,103 @@ span.hljs-tag, span.hljs-symbol{
       Cheló̱na is written completely in <a href="http://www.scala-lang.org">Scala</a>. It can be used as a stand alone program or it can be integrated in your Java or Scala project.
 </p>
     <p>
-      Starting with <b>version 1.2</b> Cheló̱na can be crosscompiled to <b>JavaScript</b> with the help of
-      <a href="https://www.scala-js.org">Scala.js</a>. This opens the door for Cheló̱na usage in the world of web-applications.
+      Starting with <b>version 1.2.0</b> Cheló̱na is available for <b>JavaScript</b>, too.
+      Cross compilation is done with the help of <a href="https://www.scala-js.org">Scala.js</a>.
+      This opens the door for Cheló̱na usage in a Web-Browser or as a server side script.
 </p>
     <p>
       Parsing of the supported RDF 1.1 formats is done with the help of <a href="https://github.com/sirthias/parboiled2">Parboiled2</a>.
+
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Features" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Features<a class=" scalatex-site-Styles-headerLink" href="#Features" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+
+    <h1 id="Cheló̱naasanApplication" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naasanApplication" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Cheló̱na as an Application</h1>
+
+      <p>
+        Use Cheló̱na as an application to convert <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a>-, <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a>-, <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a>- or <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a>-files
+        into <a href="https://www.w3.org/TR/json-ld/">JSON-LD</a> or a simple N-Triples or N-Quads format.
+</p>
+      <p>
+        Extend the Cheló̱na application:
+        <li>
+          Build your own  output format for the TriG, Turtle, N-Triples or N-Quads languages.</li>
+        <li>
+          Filter or transform the parsed data to your needs</li>
+        <li>
+          Write the conversion result e.g. to a file, to a database or communicate the results via actors</li>
+        <li>
+          Validate the syntax and semantics of a W3C RDF 1.1 TriG, Turtle, N-Quads or N-Triples file
+</li></p>
+    <h1 id="Cheló̱naasaLibrary" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naasaLibrary" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Cheló̱na as a Library</h1>
+
+      <p>
+        Integrate Cheló̱na into your application to handle RDF 1.1 input formats
+        (<a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a>, <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a>, <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> or <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a>).
+</p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Installation" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Installation<a class=" scalatex-site-Styles-headerLink" href="#Installation" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+
+    <h1 id="Cheló̱naApplication" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naApplication" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Cheló̱na Application</h1>
+
+      <p>
+        The Cheló̱na application is available from <a href="http://search.maven.org/#search%7Cga%7C1%7Cchelona">Maven Central</a>.
+        Download <a href="http://search.maven.org/remotecontent?filepath=com/github/jupfu/chelona_2.11/1.2.0/chelona_2.11-1.2.0.jar">chelona_2.11-1.2.0.jar</a>.
+
+        The latest released version is <b>version 1.2.0</b>. It is available for Scala 2.11.
+
+        A version for Scala 2.12 will be released soon.
+</p>
+      <h2 id="RecommendedDefinitions" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#RecommendedDefinitions" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Recommended Definitions</h2>
+
+         <p>
+           For ease of use, copy the downloaded <a href="http://search.maven.org/#search%7Cga%7C1%7Cchelona">Maven Central</a> file to <em>/usr/local/opt/chelona</em>.
+           The additional symbolic link introduced in the lines below makes it easy to upgrade to a newer release of
+           the Cheló̱na application. No need to adapt any scripts or references on your side.
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">mkdir -p /usr/local/opt/chelona
+cp jvm/target/scala-2.11/chelona_2.11-1.2.0.jar /usr/local/opt/chelona
+ln -s /usr/local/opt/chelona/chelona_2.11-1.2.0.jar /usr/local/opt/chelona/chelona.jar
+</code></div>
+         <p>
+           Define an alias for each of the RDF-formats (e.g. in your ~/.bashrc file):
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias chelona='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TurtleMain'
+</code></div>
+         <p>
+           Just to make naming homogeneous, a second alias <em>cturtle</em> is introduced. It is up to you, which alias you prefer.
+           Use either <em>chelona</em> or <em>cturtle</em> to convert a Turtle file.
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias cturtle='chelona'
+</code></div>
+         <p>
+           You get more than just a converter for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a> format. You
+           also get converters for the <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a> language, the
+           <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> language and the
+           <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> language.
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias ctrig='scala -Yopt:_ -J-Xmx4G -cp /usr/local/lib/opt/chelona/chelona.jar org.chelona.TriGMain'
+alias ctriples='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NTMain'
+alias cquads='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NQuadMain'
+</code></div>
+         <p>
+           The N-Triples and N-Quads formats are able to consume very large files without heap-size exceeding the proposed values
+           of 4 Gigabyte as they process the input in fixed sized chunks.
+</p>
+         <p>
+           A chunk-wise digesting for TriG and Turtle formats has not been implemented yet. For huge input data it might therefore be
+           necessary to increase the heap-size for these formats.
+
+</p>
+    <h1 id="Cheló̱naLibrary" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Cheló̱naLibrary" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Cheló̱na Library</h1>
+
+      <p>
+        The Cheló̱na artifacts are available from <a href="http://search.maven.org/#search%7Cga%7C1%7Cchelona">Maven Central</a> and can be integrated into your SBT-based Scala project like this:
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">libraryDependencies += &quot;com.github.jupfu&quot; % &quot;chelona_2.11&quot; % &quot;1.2.0&quot;
+</code></div>
+      <p>
+        The latest released version is <b>version 1.2.0</b>. It is available for Scala 2.11.
+
+        A version for Scala 2.12 will be released soon.
 </p>
   <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="BuildCheló̱nafromsource" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Build Cheló̱na from source<a class=" scalatex-site-Styles-headerLink" href="#BuildCheló̱nafromsource" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
     <h1 id="Prerequisites" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Prerequisites" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Prerequisites</h1>
@@ -115,97 +195,54 @@ span.hljs-tag, span.hljs-symbol{
 </li></p>
     <h1 id="DownloadSourceFiles" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#DownloadSourceFiles" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Download Source Files</h1>
       <p>
-        Download the <a href="https://github.com/JuPfu/chelona/archive/master.zip">Cheló̱na Zip-File</a> from this site.
+        Download Cheló̱na sources <a href="https://github.com/JuPfu/chelona/archive/master.zip">Cheló̱na Zip-File</a> from this site.
 </p>
       <p>
         Unzip the data in a clean directory.
 </p>
     <h1 id="ScalaandJavaPart" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ScalaandJavaPart" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Scala and Java Part</h1>
 
-      <h2 id="CreateaCheló̱naJAR" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJAR" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JAR</h2>
+      <h2 id="CreateaCheló̱naJarArchive" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJarArchive" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na Jar Archive</h2>
         <p>
-          To create a jar-file for the Java virtual machine, e.g. Java or Scala,
-          move into the Cheló̱na directory. From the command line type
+          To create a jar-file for the Java virtual machine move into the Cheló̱na directory. From the command line type
 </p>
         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt chelonaJVM/assembly
 </code></div>
         <p>
-          This should generate an archive in the sub-directory
-</p>
-        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">jvm/target/scala-2.11/Chelona-assembly-x.x.x.jar
-</code></div>
+          The <a href="https://github.com/sbt/sbt-assembly">sbt-assembly plugin</a> is used to create a Cheló̱na jar file
+          containing all dependencies.</p>
         <p>
-          where x.x.x denotes the version information, e.g. chelona-assembly-<b>1.2.0.</b>jar.
-</p>
-        <p>
-          <span>To your information:
-            The sbt-assembly plugin located at <a href="https://github.com/sbt/sbt-assembly">https://github.com/sbt/sbt-assembly</a>
-            is used to create a Cheló̱na JAR containing all dependencies.</span>
-</p>
-      <h2 id="Recommendeddefinitions" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Recommendeddefinitions" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Recommended definitions</h2>
+          This results in a <b>chelona-assembly-x.x.x.jar</b> jar-archive deployed in the <b>jvm/target/scala-2.11</b> sub-directory.
+          The placeholder x.x.x denotes the version information, e.g. chelona-assembly-<b>1.2.0.</b>jar.
 
-        <p>
-          For ease of use, copy the generated Chelona-assembly-X.X.X.jar to <b>/usr/local/opt/chelona</b>.
-</p>
-        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">mkdir -p /usr/local/opt/chelona
-cp jvm/target/scala-2.11/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona
-ln -s /usr/local/opt/chelona/Chelona-assembly-1.2.0.jar /usr/local/opt/chelona/chelona.jar
-</code></div>
-        <p>
-          Define an alias for each of the RDF-formats:
-</p>
-        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias chelona='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TurtleMain'
-</code></div>
-        <p>
-          Just to make naming homogeneous, a second alias <em>cturtle</em> is introduced. It is up to you which alias you prefer.
-          Use either <em>chelona</em> or <em>cturtle</em> to convert a Turtle file.
-</p>
-        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias cturtle='chelona'
-</code></div>
-        <p>
-          You get more than just a converter for the <a href="https://www.w3.org/TR/turtle/">RDF 1.1 Turtle</a> format. You
-          also get converters for the <a href="https://www.w3.org/TR/trig/TriG">RDF 1.1 TriG</a> language, the
-          <a href="https://www.w3.org/TR/n-triples">RDF 1.1 N-Triples</a> language and the
-          <a href="https://www.w3.org/TR/n-quads">RDF 1.1 N-Quads</a> language.
-</p>
-        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">alias ctrig='scala -Yopt:_ -J-Xmx4G -cp /usr/local/lib/opt/chelona/chelona.jar org.chelona.TriGMain'
-alias ctriples='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NTMain'
-alias cquads='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.NQuadMain'
-</code></div>
-        <p>
-          The N-Triples and N-Quads formats are able to consume very large files without the heap-size exceeding the proposed values
-          of 4 Gigabyte as they process the input in fixed sized chunks.
-</p>
-        <p>
-          A chunk-wise digesting for TriG and Turtle formats has not been implemented yet. For huge input data it might therefore be
-          necessary to increase the heap-size for these formats.
+          It is recommended to define the Cheló̱na aliases as described in the section <a href="#RecommendedDefinitions">Recommended Definitions</a>
 </p>
      <h1 id="JavaScriptPart" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#JavaScriptPart" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>JavaScript Part</h1>
 
-       <h2 id="CreateaCheló̱naJAR" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJAR" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JAR</h2>
+       <h2 id="CreateaCheló̱naJar-ArchiveforScala.js" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJar-ArchiveforScala.js" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na Jar-Archive for Scala.js</h2>
          <p>
-           To create a jar-file for usage with <a href="https://www.scala-js.org">Scala.js</a>, move into the Cheló̱na directory.
+           To create a jar-file for use with <a href="https://www.scala-js.org">Scala.js</a>, move into the Cheló̱na directory.
            From the command line type
 </p>
          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt
-</code></div>
-         <p>
-           After sbt has started, build a jar file for use in Scala.js projects
-</p>
-         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelonaJS/clean
+chelonaJS/clean
 chelonaJS/compile
 chelonaJS/package
 </code></div>
          <p>
-           The jar file is built in js/target/scala-2.11/chelona_sjs0.6_2.11-1.2.0.jar
+           This results in a <b>chelona_sjs0.6_2.11-x.x.x.jar</b> jar-archive deployed in the <b>js/target/scala-2.11</b> sub-directory.
+           The placeholder x.x.x denotes the version information, e.g. chelona_sjs0.6_2.11-<b>1.2.0.</b>jar.
 </p>
-         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt
-</code></div>
+       <h2 id="CreateaCheló̱naJavaScript" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJavaScript" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JavaScript</h2>
+
          <p>
            To make a JavaScript library type
 </p>
-         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelonaJS/fullOptJS
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt chelonaJS/fullOptJS
 </code></div>
+         <p>
+           This results in a JavaScript file <b>/chelona-opt.js</b> deployed in the <b>js/target/scala-2.11</b> sub-directory.
+</p>
          <p>
            Open the file turtle.html which is located in chelonaJS/src/main/resource with your favorite browser.
 
@@ -649,7 +686,7 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
 </p></div>
 </div><script>
     scalatex.scrollspy.Controller().main(
-      [{"value":"Cheló̱na Version 1.2","children":[{"value":"Introduction","children":[]},{"value":"Build Cheló̱na from source","children":[{"value":"Prerequisites","children":[]},{"value":"Download Source Files","children":[]},{"value":"Scala and Java Part","children":[{"value":"Create a Cheló̱na JAR","children":[]},{"value":"Recommended definitions","children":[]}]},{"value":"JavaScript Part","children":[{"value":"Create a Cheló̱na JAR","children":[]}]}]},{"value":"How to use Cheló̱na","children":[{"value":"Running Cheló̱na from the command line","children":[]},{"value":"Validation of a Turtle File","children":[]},{"value":"Unique Blank Node Names","children":[]},{"value":"Base Definition","children":[]},{"value":"Error Reporting","children":[]}]},{"value":"RDF 1.1 Language Formats","children":[{"value":"RDF Hierarchy","children":[{"value":"N-Triples Format","children":[]},{"value":"N-Quads Format","children":[]},{"value":"Turtle Format","children":[]},{"value":"TriG Format","children":[]}]},{"value":"Summary","children":[]}]},{"value":"Turtle","children":[{"value":"First Example","children":[]},{"value":"Second Example","children":[]},{"value":"Third Example","children":[]}]},{"value":"TriG","children":[{"value":"First Example","children":[]}]},{"value":"N-Triples","children":[]},{"value":"N-Quads","children":[]},{"value":"A short history of Cheló̱na","children":[{"value":"How it all began","children":[]},{"value":"Parsing","children":[]}]},{"value":"Postscript","children":[]},{"value":"Licence","children":[]}]}]
+      [{"value":"Cheló̱na Version 1.2","children":[{"value":"Introduction","children":[]},{"value":"Features","children":[{"value":"Cheló̱na as an Application","children":[]},{"value":"Cheló̱na as a Library","children":[]}]},{"value":"Installation","children":[{"value":"Cheló̱na Application","children":[{"value":"Recommended Definitions","children":[]}]},{"value":"Cheló̱na Library","children":[]}]},{"value":"Build Cheló̱na from source","children":[{"value":"Prerequisites","children":[]},{"value":"Download Source Files","children":[]},{"value":"Scala and Java Part","children":[{"value":"Create a Cheló̱na Jar Archive","children":[]}]},{"value":"JavaScript Part","children":[{"value":"Create a Cheló̱na Jar-Archive for Scala.js","children":[]},{"value":"Create a Cheló̱na JavaScript","children":[]}]}]},{"value":"How to use Cheló̱na","children":[{"value":"Running Cheló̱na from the command line","children":[]},{"value":"Validation of a Turtle File","children":[]},{"value":"Unique Blank Node Names","children":[]},{"value":"Base Definition","children":[]},{"value":"Error Reporting","children":[]}]},{"value":"RDF 1.1 Language Formats","children":[{"value":"RDF Hierarchy","children":[{"value":"N-Triples Format","children":[]},{"value":"N-Quads Format","children":[]},{"value":"Turtle Format","children":[]},{"value":"TriG Format","children":[]}]},{"value":"Summary","children":[]}]},{"value":"Turtle","children":[{"value":"First Example","children":[]},{"value":"Second Example","children":[]},{"value":"Third Example","children":[]}]},{"value":"TriG","children":[{"value":"First Example","children":[]}]},{"value":"N-Triples","children":[]},{"value":"N-Quads","children":[]},{"value":"A short history of Cheló̱na","children":[{"value":"How it all began","children":[]},{"value":"Parsing","children":[]}]},{"value":"Postscript","children":[]},{"value":"Licence","children":[]}]}]
   )</script><script>
     ['DOMContentLoaded', 'load'].forEach(function(ev){
       addEventListener(ev, function(){
@@ -659,4 +696,4 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
         );
       })
     })
-  </script></body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+  </script></body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
