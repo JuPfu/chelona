@@ -25,7 +25,7 @@ import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
 
-object TriGMain extends App {
+object TriGMain extends App with RDFTriGOutput {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -63,16 +63,8 @@ object TriGMain extends App {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  def triGWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.map {
-      case TriGTuple(s, p, o, g) ⇒ {
-        bo.write(s.text + " " + p.text + " " + o.text + (if (g.text.length > 0) " " + g.text + " .\n" else " .\n"))
-      }
-    }.length
-  }
-
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalTriG = new EvalTriG(triGWriter(output) _, base, label)
+  val evalTriG = new EvalTriG(trigWriter(output) _, base, label)
 
   val parser = TriGParser(input, evalTriG.renderStatement, validate, base, label)
 

@@ -41,7 +41,7 @@ object TriGParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def triGWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    def triGHTMLWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
         if (TriGBitValue.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
@@ -64,17 +64,17 @@ object TriGParserJS {
     val output = new StringWriter()
 
     /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalTriG = new EvalTriG(triGWriter(output) _, base, label)
+    val evalTriG = new EvalTriG(triGHTMLWriter(output) _, base, label)
 
     val parser = TriGParser(input, evalTriG.renderStatement, validate, base, label)
 
-    val res = parser.turtleDoc.run()
+    val res = parser.trigDoc.run()
 
     res match {
       case Success(tripleCount) ⇒
         val me: Double = System.currentTimeMillis - ms
         if (!validate) {
-          ParseReport.information = "Input file converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
+          ParseReport.information = "Input file converted in " + (me / 1000.0) + "sec " + tripleCount + " quads (quads per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         } else {
           ParseReport.information = "Input file composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")"
         }

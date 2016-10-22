@@ -22,13 +22,13 @@ import org.chelona.TurtleReturnValue.TurtleTriple
 import org.chelona.TriGReturnValue.TriGTuple
 
 trait RDFTurtleOutput extends RDFReturnType {
-  def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+  def turtleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
     triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + " " + p.text + " " + o.text + " .\n") } }.length
   }
 }
 
 trait RDFTriGOutput extends RDFReturnType {
-  def tupleWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
+  def trigWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
     tuple.map {
       case TriGTuple(s, p, o, g) ⇒ {
         bo.write(s.text + " " + p.text + " " + o.text + (if (g.text.length > 0) " " + g.text + " .\n" else " .\n"))
@@ -38,7 +38,7 @@ trait RDFTriGOutput extends RDFReturnType {
 }
 
 trait RDFNTOutput extends RDFReturnType {
-  def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+  def ntripleWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
     bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
   }
 }
@@ -111,7 +111,6 @@ trait JSONLDOutput extends RDFReturnType {
       bo.write(sb.toString())
       sb.clear()
     }
-
     bo.write(s)
   }
 }

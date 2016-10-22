@@ -19,7 +19,6 @@ import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.chelona.TurtleReturnValue.TurtleTriple
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
@@ -65,7 +64,7 @@ object TurtleMain extends App with RDFTurtleOutput {
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   /* tripleWriter is defined in trait RDFTurtleOutput */
-  val evalTurtle = new EvalTurtle(tripleWriter(output) _, base, label)
+  val evalTurtle = new EvalTurtle(turtleWriter(output) _, base, label)
 
   val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
 

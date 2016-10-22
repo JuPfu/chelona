@@ -35,8 +35,7 @@ class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, b
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
       case NTTriple(s, p, o) ⇒ output(s, p, o)
-      case NTString(s)       ⇒ 0
-      case NTComment(c)      ⇒ 0
+      case _                 ⇒ 0
     }
   }
 
