@@ -181,7 +181,67 @@ alias cquads='scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.
         The latest released version is <b>version 1.2.0</b>. It is available for Scala 2.11.
 
         A version for Scala 2.12 will be released soon.
+
+        <h2 id="ProgrammaticalInterface" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ProgrammaticalInterface" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Programmatical Interface</h2>
+
+          <p>
+            This example program shows how to integrate Cheló̱na in your own program.</p>
+          <p>
+            The program converts some Turtle data into the N3 Triple format.
 </p>
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">import java.io.{StringWriter, Writer}
+
+import org.chelona._
+
+import org.parboiled2.ParseError
+
+import scala.util.{Failure, Success}
+
+object Main extends App with RDFTurtleOutput {
+
+  val input =
+    &quot;&quot;&quot;@base &lt;http://example.org/&gt; .
+       @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+       @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+       @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+       @prefix rel: &lt;http://www.peChelonaParserrceive.net/schemas/relationship/&gt; .
+
+       &lt;#green-goblin&gt; rel:enemyOf    &lt;#spiderman&gt; 	;
+          a foaf:Person ;    # in the context of the Marvel universe
+          foaf:name 'Green Goblin' ;
+          foaf:mail 'GreenGoblin@marvel.com' .
+
+       &lt;#spiderman&gt;
+          rel:enemyOf &lt;#green-goblin&gt; ;
+          a foaf:Person ;
+          foaf:name 'Spiderman', 'Человек-паук'@ru .&quot;&quot;&quot;
+
+  val output = new StringWriter()
+
+  val evalTurtle = new EvalTurtle(tripleWriter(output) _, &quot;&quot;, &quot;&quot;)
+
+  val parser = ChelonaParser(input, evalTurtle.renderStatement)
+
+  parser.turtleDoc.run() match {
+    case Success(tripleCount) ⇒
+      System.err.println(&quot;Input converted to &quot; + tripleCount + &quot; triples.&quot;)
+      println(output)
+    case Failure(e: ParseError) ⇒ System.err.println(&quot;Unexpected error during parsing run: &quot; + parser.formatError(e))
+    case Failure(e)             ⇒ System.err.println(&quot;Unexpected error during parsing run: &quot; + e)
+  }
+}
+</code></div>
+         <p>
+           A complete sbt build file for the example program is shown here
+</p>
+         <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">name := &quot;Chelona-Example&quot;
+
+version := &quot;1.0&quot;
+
+scalaVersion := &quot;2.11.8&quot;
+
+libraryDependencies += &quot;com.github.jupfu&quot; % &quot;chelona_2.11&quot; % &quot;1.2.0&quot;
+</code></div></p>
   <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="BuildCheló̱nafromsource" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Build Cheló̱na from source<a class=" scalatex-site-Styles-headerLink" href="#BuildCheló̱nafromsource" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
     <h1 id="Prerequisites" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Prerequisites" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Prerequisites</h1>
       <p>
@@ -233,7 +293,7 @@ chelonaJS/package
            This results in a <b>chelona_sjs0.6_2.11-x.x.x.jar</b> jar-archive deployed in the <b>js/target/scala-2.11</b> sub-directory.
            The placeholder x.x.x denotes the version information, e.g. chelona_sjs0.6_2.11-<b>1.2.0.</b>jar.
 </p>
-       <h2 id="CreateaCheló̱naJavaScript" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJavaScript" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JavaScript</h2>
+       <h2 id="CreateaCheló̱naJavaScriptFile" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#CreateaCheló̱naJavaScriptFile" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Create a Cheló̱na JavaScript File</h2>
 
          <p>
            To make a JavaScript library type
@@ -241,13 +301,11 @@ chelonaJS/package
          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">sbt chelonaJS/fullOptJS
 </code></div>
          <p>
-           This results in a JavaScript file <b>/chelona-opt.js</b> deployed in the <b>js/target/scala-2.11</b> sub-directory.
+           This results in a JavaScript file <b>chelona-opt.js</b> deployed in the <b>js/target/scala-2.11</b> sub-directory.
 </p>
          <p>
-           Open the file turtle.html which is located in chelonaJS/src/main/resource with your favorite browser.
-
-
-
+           To see <b>chelona-opt.js</b> in action, open the file <b>turtle.html</b>, which is located in <b>chelonaJS/src/main/resource</b>
+           with your favorite browser.
 </p>
   <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="HowtouseCheló̱na" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">How to use Cheló̱na<a class=" scalatex-site-Styles-headerLink" href="#HowtouseCheló̱na" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
     <h1 id="RunningCheló̱nafromthecommandline" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#RunningCheló̱nafromthecommandline" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Running Cheló̱na from the command line</h1>
@@ -274,13 +332,13 @@ chelonaJS/package
     foaf:name &quot;Spiderman&quot;, &quot;Человек-паук&quot;@ru
 </code></div>
       <p>
-        Assuming you have installed Cheló̱na in /usr/local/lib/opt/chelona/ as recommended in the last section, the following command
+        Assuming you have installed Cheló̱na in <b>/usr/local/opt/chelona</b> as recommended in <a href="#RecommendedDefinitions">Recommended Definitions</a>, the following command
         let's you convert the Turtle format into the simple N3 triple format.
 </p>
-      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -cp /usr/local/lib/opt/chelona/chelona-assembly-1.2.0.jar org.chelona.Main --verbose ./examples/example1.ttl &gt; example1_n3.ttl
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -cp /usr/local/opt/chelona/chelona.jar org.chelona.Main --verbose ./examples/example1.ttl &gt; example1_n3.ttl
 </code></div>
       <p>
-        Using the appropriate alias makes it easier and shorter to achieve the same goal
+        Using the recommended alias makes it easier and shorter to achieve the same goal
 </p>
       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona -v ./examples/example1.ttl &gt; example1_n3.ttl
 </code></div>
@@ -306,7 +364,7 @@ Input file '/Users/jp/chelona/examples/example1.ttl' converted in 0.064sec 8 tri
       <p>
         When passing the parameter '--validate' on the command line, Cheló̱na will do a syntax check. No output file is generated.
 </p>
-      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona -v --validate --verbose examples/example1.ttl
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">chelona -v --validate examples/example1.ttl
 </code></div>
       <p>
         The <b>-v</b> parameter is a shortcut for <b>--verbose</b>, which causes Cheló̱na to emit some status information.
@@ -316,7 +374,7 @@ Input file '/Users/jp/chelona/examples/example1.ttl' composed of 7 statements su
 </code></div>
     <h1 id="UniqueBlankNodeNames" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#UniqueBlankNodeNames" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Unique Blank Node Names</h1>
       <p>
-        For sake of convenience the next examples assume that an alias chelona has been created.
+        For sake of convenience the next examples assume that the chelona alias has been created.
 </p>
       <p>
         The '--uid' command line argument instructs Cheló̱na to use a unique identifier for blank nodes.
@@ -602,7 +660,7 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
         <p>
           Applying the TriG parser to convert this file into the N-Triples format either explicitly
 
-          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -Yopt:_ -J-Xmx4G -cp /usr/local/lib/opt/chelona/Chelona-assembly-1.2.0.jar org.chelona.TriGMain examples/example1.trig
+          <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">scala -Yopt:_ -J-Xmx4G -cp /usr/local/opt/chelona/chelona.jar org.chelona.TriGMain examples/example1.trig
 </code></div>
           <p>
             or shorter using the alias <a href="#Recommendeddefinitions">ctrig</a>
@@ -610,7 +668,7 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
           <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="bash scalatex-site-Styles-highlightMe">ctrig examples/example1.trig
 </code></div></p>
         <p>
-          Cheló̱na dissolves the statements into the canonical form, which is represented by pure graph, subject, predicate and object components:
+          Cheló̱na dissolves the statements into the canonical form, which is represented by pure subject, predicate, object and graph components:
 
           <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">&lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&gt; &lt;http://www.example.org/vocabulary#Person&gt; &lt;http://www.example.org/exampleDocument#G1&gt; .
 &lt;http://www.example.org/exampleDocument#Monica&gt; &lt;http://www.example.org/vocabulary#name&gt; &quot;Monica Murphy&quot; &lt;http://www.example.org/exampleDocument#G1&gt; .
@@ -627,55 +685,304 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
     <p>
       Quads part
 </p>
-  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="AshorthistoryofCheló̱na" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">A short history of Cheló̱na<a class=" scalatex-site-Styles-headerLink" href="#AshorthistoryofCheló̱na" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
-    <h1 id="Howitallbegan" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Howitallbegan" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>How it all began</h1>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="AshortExplanationofCheló̱na" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">A short Explanation of Cheló̱na<a class=" scalatex-site-Styles-headerLink" href="#AshortExplanationofCheló̱na" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
 
-      <p>
-        On the quest for my personal dark matter in the area of programming, Functional Programming materialized in the form
-        of a Coursera course &quot;Functional Programming Principles in Scala&quot; instructed by Martin Odersky.</p>
+    <p>
+      The parsing process is divided into two separate steps, which are parsing and AST (Abstract Syntax Tree) evaluation.
+</p>
     <h1 id="Parsing" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#Parsing" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Parsing</h1>
       <p>
-        Parsing of any of the RDF-grammars is done with the help of Parboiled2. The parsing process is divided into two
-        separate steps.
-        <li>
-          Driven by the input data the grammar rules are evaluated. Starting with the main entry rule, e.g. <em>ntriplesDoc</em>
-          for the N-Triples parser, the parsing process branches into matching sub-rules. Rules which bear relevant semantic
-          information produce an Abstract Syntax Tree node (AST-node).
-
-          <p>
-            The N-Triples statement below, for example
-            <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:alice &lt;http://xmlns.com/foaf/0.1/knows&gt; _:bob .
-</code></div></p>
-          <p>
-            is transformed into the AST listed here
-            <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">ASTTriple(
-   ASTSubject(
-      ASTBlankNodeLabel(alice)),
-   ASTPredicate(
-      ASTIriRef(http://xmlns.com/foaf/0.1/knows)),
-   ASTObject(
-      ASTBlankNodeLabel(bob)),
-   None)
-</code></div>
-            <p>
-              The N-Triples statement consist of a subject, which is a blank node named <em>&quot;alice&quot;</em>,
-              a predicate, which is a URL <em>&quot;http://xmlns.com/foaf/0.1/knows&quot;</em> and
-              an object, which is a blank node named <em>&quot;bob&quot;</em>.
-</p></p>
-          <p>
-            All of the RDF-grammars build an AST of a single statement only.
-</p></li>
-        <li>
-          The next step is the traversal of the AST nodes which make up a single RDF-statement.
-
-</li></p>
+        The first step is parsing the input.
+</p>
       <p>
-         The building of an AST for a single RFD-statement reduces the memory requirements drastically. As each generated AST for a single
-         statement is immediately traversed and evaluated, output is also generated at once.
+        Parsing of any of the RDF-grammars is done with the help of
+        <a href="https://github.com/sirthias/parboiled2">Parboiled2</a>.
+        Driven by the input data the grammar rules are evaluated.
+        Starting with the main entry rule, e.g. <em>ntriplesDoc</em> for the N-Triples parser, the parsing process branches
+        into matching sub-rules. Rules which bear relevant semantic information produce an Abstract Syntax Tree node (AST-node).</p>
+      <p>
+        The parsing process of the N-Triples statement below,
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">_:alice &lt;http://xmlns.com/foaf/0.1/knows&gt; _:bob . # Alice knows Bob
+</code></div></p>
+      <p>
+        results in an AST listed here
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">ASTTriple(
+   ASTSubject(ASTBlankNodeLabel(alice)),
+   ASTPredicate(ASTIriRef(http://xmlns.com/foaf/0.1/knows)),
+   ASTObject(ASTBlankNodeLabel(bob)),
+   Some(ASTComment( Alice knows Bob)))
+)
+</code></div></p>
+      <p>
+        The N-Triples statement has been decomposed in the following elements
+        <li>
+          a subject, which is a blank node named <em>&quot;alice&quot;</em>,</li>
+        <li>
+          a predicate, which is a URL <em>&quot;http://xmlns.com/foaf/0.1/knows&quot;</em>,</li>
+        <li>
+          an object, which is a blank node named <em>&quot;bob&quot;</em> and</li>
+        <li>
+          an optional comment <em>&quot; Alice knows Bob&quot;</em>.
+</li></p>
+    <h1 id="ASTTraversalandEvaluation" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#ASTTraversalandEvaluation" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>AST Traversal and Evaluation</h1>
+      <p>
+        The second step is the traversal and evaluation of the AST nodes.</p>
+      <p>
+        All of the RDF-grammars traverse and evaluate the AST for a single input statement at a time.
+        The evalStatement-function returns a <em>NTripleReturnValue</em> type.</p>
+      <p>
+        Comments are dropped in the current implementation of the renderStatement function.
+        The NTTriples-routine has no comment parameter for trailing comments and not so obvious, stand alone comments
+        on a line, which can be handled by adding the <em>case NTComment(c)</em> in the renderStatement routine, are also ignored.
+</p>
+      <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">def renderStatement(ast: NTripleType): Int = {
+  (evalStatement(ast): @unchecked) match {
+    case NTTriple(s, p, o) ⇒ output(s, p, o)
+    case _                 ⇒ 0
+  }
+}
+</code></div>
+      <p>
+        The decoupling of parsing and AST evaluation has various advantages.
+        <li>
+          As each AST for a single statement is traversed and evaluated separately, this results in output for
+          each statement generated at once</li>
+        <li>
+          The building of an AST for a single RDF-statement reduces the memory requirements drastically</li>
+        <li>
+          Spawning the AST traversal in a separate thread (for the Scala branch) allows parsing to continue immediately
+</li></p>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="DoItYourself" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Do It Yourself<a class=" scalatex-site-Styles-headerLink" href="#DoItYourself" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+
+     <p>
+       Cheló̱na supports the building of your own output format.
+       This self created format can be written to a file, it can be stored in a database or transferred via actors.
+       The Turtle and TriG format expect a function of type List[SPOReturnValue] ⇒ Int.
+       One Turtle or TriG input statement can result in one to n triples respectively quadruples being generated.
+       The generated triples respectively quadruples for a single Turtle or TriG statement are assembled in the list of SPOReturnValues.
+       Each Turtle or TriG statement fills the list anew.
+       The Int return value of the output function should return the number of output statements generated for each Turtle or TriG statement.
+       A few examples will show how to proceed.
+</p>
+     <h1 id="StandardNTripleFormat" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#StandardNTripleFormat" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Standard NTriple Format</h1>
+
+       <p>
+         The <a href="https://github.com/JuPfu/chelona/blob/master/jvm/src/main/scala/org.chelona/TurtleMain.scala">TurtleMain</a> object
+         extends trait RDFTurtleOutput, which is defined in
+         <a href="https://github.com/JuPfu/chelona/blob/master/shared/src/main/scala/org/chelona/RDFOutput.scala">RDFOutput.scala</a>.</p>
+       <p>
+         The defined code block referenced for writing the subject, predicate and object elements is listed below
+</p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">def turtleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
+  triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + &quot; &quot; + p.text + &quot; &quot; + o.text + &quot; .\n&quot;) } }.length
+}
+</code></div>
+       <p>
+         With a writer stream passed to tripleWriter the required signature for the output function is achieved
 </p>
        <p>
-         Decoupling of parsing and AST evaluation
+         The TurtleMain routine contains the following reference to the turtleWriter
 </p>
+       <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">/* tripleWriter is defined in trait RDFTurtleOutput */
+val evalTurtle = new EvalTurtle(turtleWriter(output) _, base, label)
+/* pass the input, render procedure and some flags to the parser */
+val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
+/* start turtle parser */
+val res = parser.turtleDoc.run()
+</code></div>
+     <h1 id="SimpleHTML-OutputforTriGParserInput" style="display: block;" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><a class=" scalatex-site-Styles-headerLink" href="#SimpleHTML-OutputforTriGParserInput" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a>Simple HTML-Output for TriG Parser Input</h1>
+
+       <p>
+         There are a few things to consider when defining a simple HTML-table output format.
+         Angle brackets '&lt;', '&gt;' have to be substituted by &amp;lt; and &amp;gt; and string literals can be followed by an iri (URI).
+</p>
+       <p>
+         A complete example shows the usage of the HTML output definition:
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">def trigHTMLWriter(bo: Writer)(quad: List[RDFReturnType]): Int = {
+  def formatter(token: String, `type`: Int) = {
+    if (TriGBitValue.isIRIREF(`type`))
+      &quot;&amp;lt;&quot; + token.substring(1, token.length - 1) + &quot;&amp;gt;&quot;
+    else
+      token
+  }
+
+  quad.map {
+    case TriGTuple(s, p, o, g) ⇒ {
+      val subject = formatter(s.text, s.tokenType)
+      val predicate = formatter(p.text, p.tokenType)
+      val `object` = formatter(o.text, o.tokenType)
+      val graph = formatter(g.text, g.tokenType)
+
+      bo.write(subject + &quot; &quot; + predicate + &quot; &quot; + `object` + (if (graph.length &gt; 0) &quot; &quot; + graph + &quot; .\n&quot; else &quot; .\n&quot;))
+    }
+  }.length
+}
+</code></div>
+        <p>
+          Adding State to Simple HTML-Output for Cheló̱na
+</p>
+        <p>
+          A counter is induced into the output function.
+</p>
+        <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">object myCount { var counter = 0 }
+
+def trigHTMLWriter(counterObject: myCount.type)(bo: Writer)(quad: List[SPOReturnValue]): Int = {
+  def formatter(token: String, `type`: Int) = {
+     if (TriGBitValue.isIRIREF(`type`))
+       &quot;&amp;lt;&quot; + token.substring(1, token.length - 1) + &quot;&amp;gt;&quot;
+     else
+       token
+   }
+
+   quad.map {
+     case TriGTuple(s, p, o, g) ⇒ {
+       val subject = formatter(s.text, s.tokenType)
+       val predicate = formatter(p.text, p.tokenType)
+       val `object` = formatter(o.text, o.tokenType)
+       val graph = formatter(g.text, g.tokenType)
+
+       myCount.counter = myCount.counter + 1
+
+       bo.write(&quot;&lt;tr&gt;&lt;td&gt;&lt;code&gt;&quot; + myCount.counter + &quot;&lt;/code&gt;&quot; + subject + &quot; &quot; + predicate + &quot; &quot; + `object` + (if (graph.length &gt; 0) &quot; &quot; + graph + &quot; .\n&quot; else &quot; .\n&quot;))
+     }
+   }.length
+ }
+</code></div>
+  <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="JSON-LDOutputforN-Triples" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">JSON-LD Output for N-Triples<a class=" scalatex-site-Styles-headerLink" href="#JSON-LDOutputforN-Triples" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
+
+    <p>
+      The file <a href="https://github.com/JuPfu/chelona/blob/master/shared/src/main/scala/org/chelona/RDFOutput.scala">RDFOutput.scala</a> contains
+      the output formats currently available for the Cheló̱na package.</p>
+    <p>
+      If you are planning to make your own output format or apply some transformations or filtering to the parsed input data, then this
+      is the right place to look at.
+</p>
+    <p>
+      First, a short glance how Cheló̱na is digesting the input format. The way it works for N-Triples is also valid for the other input formats
+      supported by Cheló̱na.
+</p>
+    <p>
+      The N-Triples parser <a href="https://github.com/JuPfu/chelona/blob/master/js/src/main/scala/org/chelona/NTriplesParser.scala">NTriplesParser.scala</a> parses
+      a complete N-Triples statement. In the parsing process an Abstract Syntax Tree (AST) is build for this statement. The AST for this single
+      parsed N-Triple statement is passed to the render routine. This is done for each N-Triples statement contained in the input data.
+</p>
+    <p>
+      Here the relevant excerpt of the main rule, which shows the <b>renderStatement(ast)</b> call:
+</p>
+     <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">//[1]	ntriplesDoc	::=	triple? (EOL triple)* EOL?
+def ntriplesDoc: Rule1[Int] = rule {
+  (triple ~&gt; ((ast: NTripleAST) ⇒
+    if (!__inErrorAnalysis) {
+      if (!validate) {
+        renderStatement(ast)
+      } else
+        ast match {
+          case ASTComment(s) ⇒ 0
+          case _             ⇒ 1
+        }
+    } else {
+      0
+    })).*(EOL) ~ EOL.? ~ EOI ~&gt; ((v: Seq[Int]) ⇒ {
+    v.sum
+  })
+}
+</code></div>
+    <p>
+      The render routine is passed as the second argument to the NTriplesParser routine
+</p>
+    <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, ...
+</code></div>
+    <p>
+      The renderStatement
+</p>
+    <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">val output = new StringWriter()
+
+/* initialize output */
+JSONLDWriterInit(output)()
+
+/* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
+val evalNT = new EvalNT(JSONLDWriter(output)_, base, label)
+
+val parser = NTriplesParser(input, evalNT.renderStatement, validate, base, label)
+
+val res = parser.ntriplesDoc.run()
+
+/* finalize output */
+jsonWriterTrailer(output)()
+</code></div>
+    <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">class EvalNT(output: (NTripleElement, NTripleElement, NTripleElement) ⇒ Int, basePath: String, label: String) extends NTReturnValue {
+</code></div>
+    <p>
+      Each <a href="https://github.com/JuPfu/chelona/blob/master/shared/src/main/scala/org/chelona/NTripleBitValue.scala">NTripleBitValue.scala</a> has
+      some definitions
+
+</p>
+    <div style="width:auto;overflow:auto;white-space:pre"><code style="background-color:#F7F7F7;" class="scala scalatex-site-Styles-highlightMe">trait JSONLDOutput extends RDFReturnType {
+  /* Simple JSON output for NTriples */
+  val sb: StringBuilder = new StringBuilder()
+
+  def jsonWriterInit(bo: Writer)(s: String = &quot;[\n&quot;): Unit = {
+    bo.write(s)
+    if ( sb.nonEmpty) {
+      sb.clear()
+    }
+  }
+
+  def jsonWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+
+    if ( sb.nonEmpty) {
+      sb.append(&quot;,\n&quot;)
+      bo.write(sb.toString())
+      sb.clear()
+    }
+
+    //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
+    if ( NTripleBitValue.isIRIREF(s.tokenType) ) {
+      sb.append(&quot;  {\n&quot; + &quot;&quot;&quot;  &quot;@id&quot;: &quot;&quot;&quot;&quot; + s.text.substring(1, s.text.length-1) + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;,\n&quot;)
+    }
+    else if ( NTripleBitValue.isBLANK_NODE_LABEL(s.tokenType)) {
+      sb.append(&quot;  {\n&quot; + &quot;&quot;&quot;  &quot;@id&quot;: &quot;&quot;&quot;&quot; + s.text + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;,\n&quot;)
+    }
+
+    //[4]	predicate	::=	IRIREF
+    if( NTripleBitValue.isIRIREF(p.tokenType) ) {
+      sb.append(&quot;&quot;&quot;  &quot;&quot;&quot;&quot; + p.text.substring(1, p.text.length-1) + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;:\n&quot;)
+    }
+
+    //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
+    if ( NTripleBitValue.isIRIREF(o.tokenType) &amp;&amp; !NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType)) {
+      sb.append(&quot;&quot;&quot;    { &quot;@id&quot;: &quot;&quot;&quot;&quot; + o.text.substring(1, o.text.length-1) + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;}\n  }&quot;)
+    }
+    else if ( NTripleBitValue.isBLANK_NODE_LABEL(o.tokenType)) {
+      sb.append(&quot;&quot;&quot;    { &quot;@id&quot;: &quot;&quot;&quot;&quot; + o.text + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot; }\n  }&quot;)
+    }
+    else if ( NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType) ) {
+       if ( NTripleBitValue.isLANGTAG(o.tokenType)) {
+         val parts = o.text.split(&quot;@&quot;)
+         sb.append(&quot;    {\n    &quot; + &quot;&quot;&quot;&quot;@type&quot;: &quot;&quot;&quot;&quot; + parts(1) + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;,\n&quot;)
+         sb.append(&quot;&quot;&quot;    &quot;@value&quot;: &quot;&quot;&quot; + parts(0) + &quot;\n    }\n  }&quot;)
+       } else if ( NTripleBitValue.isLITERALTAG(o.tokenType)) {
+         val parts = o.text.split(&quot;\\^\\^&quot;)
+         sb.append(&quot;    {\n    &quot; + &quot;&quot;&quot;&quot;@type&quot;: &quot;&quot;&quot;&quot; + parts(1).substring(1, parts(1).length-1) + &quot;&quot;&quot;&quot;&quot;&quot;&quot; + &quot;,\n&quot;)
+         sb.append(&quot;&quot;&quot;    &quot;@value&quot;: &quot;&quot;&quot; + parts(0) + &quot;\n    }\n  }&quot;)
+       }
+       else {
+         sb.append(&quot;&quot;&quot;    { &quot;@value&quot;: &quot;&quot;&quot; + o.text + &quot; }\n  }&quot;)
+       }
+    }
+    1
+  }
+
+  def jsonWriterTrailer(bo: Writer)(s: String=&quot;\n]&quot;): Unit = {
+    if ( sb.nonEmpty) {
+      bo.write(sb.toString())
+      sb.clear()
+    }
+    bo.write(s)
+  }
+}
+</code></div>
   <div style="margin: 0px;color: #333;text-align: center;padding: 2.5em 2em 0;border-bottom: 1px solid #eee;display: block;" id="Postscript" class=" scalatex-site-Styles-hoverContainer scalatex-site-Styles-headerTag"><h1 style="margin: 0.2em 0;font-size: 3em;font-weight: 300;">Postscript<a class=" scalatex-site-Styles-headerLink" href="#Postscript" style="position: absolute;right: 0px;"><i class="fa fa-link"></i></a></h1><br /></div>
     <p>
       Questions, support, cooperation or collaboration are explicitely welcome!
@@ -686,7 +993,7 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
 </p></div>
 </div><script>
     scalatex.scrollspy.Controller().main(
-      [{"value":"Cheló̱na Version 1.2","children":[{"value":"Introduction","children":[]},{"value":"Features","children":[{"value":"Cheló̱na as an Application","children":[]},{"value":"Cheló̱na as a Library","children":[]}]},{"value":"Installation","children":[{"value":"Cheló̱na Application","children":[{"value":"Recommended Definitions","children":[]}]},{"value":"Cheló̱na Library","children":[]}]},{"value":"Build Cheló̱na from source","children":[{"value":"Prerequisites","children":[]},{"value":"Download Source Files","children":[]},{"value":"Scala and Java Part","children":[{"value":"Create a Cheló̱na Jar Archive","children":[]}]},{"value":"JavaScript Part","children":[{"value":"Create a Cheló̱na Jar-Archive for Scala.js","children":[]},{"value":"Create a Cheló̱na JavaScript","children":[]}]}]},{"value":"How to use Cheló̱na","children":[{"value":"Running Cheló̱na from the command line","children":[]},{"value":"Validation of a Turtle File","children":[]},{"value":"Unique Blank Node Names","children":[]},{"value":"Base Definition","children":[]},{"value":"Error Reporting","children":[]}]},{"value":"RDF 1.1 Language Formats","children":[{"value":"RDF Hierarchy","children":[{"value":"N-Triples Format","children":[]},{"value":"N-Quads Format","children":[]},{"value":"Turtle Format","children":[]},{"value":"TriG Format","children":[]}]},{"value":"Summary","children":[]}]},{"value":"Turtle","children":[{"value":"First Example","children":[]},{"value":"Second Example","children":[]},{"value":"Third Example","children":[]}]},{"value":"TriG","children":[{"value":"First Example","children":[]}]},{"value":"N-Triples","children":[]},{"value":"N-Quads","children":[]},{"value":"A short history of Cheló̱na","children":[{"value":"How it all began","children":[]},{"value":"Parsing","children":[]}]},{"value":"Postscript","children":[]},{"value":"Licence","children":[]}]}]
+      [{"value":"Cheló̱na Version 1.2","children":[{"value":"Introduction","children":[]},{"value":"Features","children":[{"value":"Cheló̱na as an Application","children":[]},{"value":"Cheló̱na as a Library","children":[]}]},{"value":"Installation","children":[{"value":"Cheló̱na Application","children":[{"value":"Recommended Definitions","children":[]}]},{"value":"Cheló̱na Library","children":[{"value":"Programmatical Interface","children":[]}]}]},{"value":"Build Cheló̱na from source","children":[{"value":"Prerequisites","children":[]},{"value":"Download Source Files","children":[]},{"value":"Scala and Java Part","children":[{"value":"Create a Cheló̱na Jar Archive","children":[]}]},{"value":"JavaScript Part","children":[{"value":"Create a Cheló̱na Jar-Archive for Scala.js","children":[]},{"value":"Create a Cheló̱na JavaScript File","children":[]}]}]},{"value":"How to use Cheló̱na","children":[{"value":"Running Cheló̱na from the command line","children":[]},{"value":"Validation of a Turtle File","children":[]},{"value":"Unique Blank Node Names","children":[]},{"value":"Base Definition","children":[]},{"value":"Error Reporting","children":[]}]},{"value":"RDF 1.1 Language Formats","children":[{"value":"RDF Hierarchy","children":[{"value":"N-Triples Format","children":[]},{"value":"N-Quads Format","children":[]},{"value":"Turtle Format","children":[]},{"value":"TriG Format","children":[]}]},{"value":"Summary","children":[]}]},{"value":"Turtle","children":[{"value":"First Example","children":[]},{"value":"Second Example","children":[]},{"value":"Third Example","children":[]}]},{"value":"TriG","children":[{"value":"First Example","children":[]}]},{"value":"N-Triples","children":[]},{"value":"N-Quads","children":[]},{"value":"A short Explanation of Cheló̱na","children":[{"value":"Parsing","children":[]},{"value":"AST Traversal and Evaluation","children":[]}]},{"value":"Do It Yourself","children":[{"value":"Standard NTriple Format","children":[]},{"value":"Simple HTML-Output for TriG Parser Input","children":[]}]},{"value":"JSON-LD Output for N-Triples","children":[]},{"value":"Postscript","children":[]},{"value":"Licence","children":[]}]}]
   )</script><script>
     ['DOMContentLoaded', 'load'].forEach(function(ev){
       addEventListener(ev, function(){
@@ -696,4 +1003,4 @@ _:c1 &lt;http://example.org/stuff/1.0/p2&gt; &lt;http://example.org/stuff/1.0/q2
         );
       })
     })
-  </script></body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+  </script></body></html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
