@@ -47,7 +47,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // string literal with long Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -65,7 +65,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'true' cannot be used as subject (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-kw-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -88,7 +88,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Only comment
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-file-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -106,7 +106,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langString literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -125,7 +125,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefix-only IRI (p:)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefix_only_IRI.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -143,7 +143,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // sole blankNodePropertyList [ <p> <o> ] .
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/sole_blankNodePropertyList.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -161,7 +161,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Prefix must not end in dot (error in triple, not prefix directive like trig-syntax-bad-ns-dot-end)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-missing-ns-dot-end.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -184,7 +184,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Empty PREFIX
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -202,7 +202,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL2_with_UTF8_boundaries '\x80\x7ff\x800\xfff...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL2_with_UTF8_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -220,7 +220,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled bnode subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -238,7 +238,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // empty collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -256,7 +256,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : good escape, bad charcater (negative evaluation test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-bad-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -279,7 +279,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // missing '.'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -297,7 +297,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // - and _ in names and qnames
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-12.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -315,7 +315,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-esc-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -338,7 +338,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // tests absense of whitespace in various positions
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-minimal-whitespace-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -356,7 +356,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // No prefix (2) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -379,7 +379,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // double literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -397,7 +397,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -415,7 +415,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix with no suffix
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -433,7 +433,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : {abc} (negative evaluation test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-bad-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -456,7 +456,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle does not allow bnodes-as-predicates (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -479,7 +479,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // collection subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/collection_subject.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -497,7 +497,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal as subject (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-14.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -520,7 +520,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // N3 paths not in Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -543,7 +543,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // blankNodePropertyList as object <s> <p> [ … ] .
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/blankNodePropertyList_as_object.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -561,7 +561,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle (bare blankNodePropertyList)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -579,7 +579,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL1_with_UTF8_boundaries '\x80\x7ff\x800\xfff...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL1_with_UTF8_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -597,7 +597,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @forAll is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-12.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -620,7 +620,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // N3 is...of not in Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -643,7 +643,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal as predicate (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-15.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -666,7 +666,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     //
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -684,7 +684,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Blank subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TriGTests/trig-subm-01.trig", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TriGTests/trig-subm-01.trig", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TriGTests/trig-subm-01.trig", "")
 
@@ -702,7 +702,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mixed list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-lists-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -720,7 +720,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // boolean literals
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-22.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -738,7 +738,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH needs {}
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -761,7 +761,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // first, not last, non-empty nested collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/first.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -779,7 +779,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // long langString literal with embedded newline
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -797,7 +797,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL2 "x"
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL2.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -815,7 +815,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // integer as xsd:string
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-datatypes-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -833,7 +833,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with escaped LINE FEED
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_escaped_LINE_FEED.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -851,7 +851,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Prefix must not start with dot
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-ns-dot-start.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -874,7 +874,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // A graph may not be named with an empty collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -897,7 +897,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bare : allowed
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-14.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -915,7 +915,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Colons in pname local names
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-ln-colons.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -933,7 +933,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // string literal with Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -951,7 +951,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // base with relative IRIs
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-base-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -969,7 +969,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graph may be named with PNAME
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -987,7 +987,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // negative numeric
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/negative_numeric.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1005,7 +1005,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // long string literal with embedded single- and double-quotes
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1023,7 +1023,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // pname with back-slash escapes (2)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1041,7 +1041,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // triple with IRIs
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-struct-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1059,7 +1059,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // negative integer literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1077,7 +1077,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // last, not first, non-empty nested collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/last.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1095,7 +1095,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad hex escape in local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-ln-escape.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1118,7 +1118,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG2_with_UTF8_boundaries '\x80\x7ff\x800\xfff...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_UTF8_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1136,7 +1136,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @base inside graph (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-base-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1159,7 +1159,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRI with four digit numeric escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/IRI_with_four_digit_numeric_escape.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1177,7 +1177,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mismatching string literal open/close (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1200,7 +1200,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRIREF datatype ""^^<t>
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/IRIREF_datatype.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1218,7 +1218,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with CARRIAGE RETURN
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_CARRIAGE_RETURN.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1236,7 +1236,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // number sign following localName
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/number_sign_following_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1254,7 +1254,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mismatching string literal long/short (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1277,7 +1277,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // collection object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/collection_object.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1295,7 +1295,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // = is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1318,7 +1318,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @base
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-base-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1336,7 +1336,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with assigned, NFC-normalized, basic-multilingual-plane PN CHARS BASE character boundaries (p:AZazÀÖØöø...)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1354,7 +1354,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // A graph may not be named with an empty collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-collection-graph-bad-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1377,7 +1377,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with CHARACTER TABULATION
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_CHARACTER_TABULATION.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1395,7 +1395,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-esc-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1418,7 +1418,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefix with PN CHARS BASE character boundaries (prefix: AZazÀÖØöø...:)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefix_with_PN_CHARS_BASE_character_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1436,7 +1436,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle does not allow labeled bnodes-as-predicates (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1459,7 +1459,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // pname with back-slash escapes
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1477,7 +1477,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mixed lists with embedded lists
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-lists-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1495,7 +1495,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // positive integer, decimal and doubles
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-19.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1513,7 +1513,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Local name must not begin with dash
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-ln-dash-start.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1536,7 +1536,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle does not allow literals-as-subjects (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1559,7 +1559,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langtagged LONG """x"""@en
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/langtagged_LONG.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1577,7 +1577,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-num-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1600,7 +1600,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-LITERAL2_with_langtag_and_datatype.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1623,7 +1623,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH not followed by DOT
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1646,7 +1646,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode as predicate (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-16.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1669,7 +1669,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRIs with long Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-uri-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1687,7 +1687,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Prefix must not start with dot (error in triple, not prefix directive like trig-syntax-bad-ns-dot-end)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-missing-ns-dot-start.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1710,7 +1710,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG2 with 2 squotes """a""b"""
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_2_squotes.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1728,7 +1728,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // comment following PNAME_NS
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/comment_following_PNAME_NS.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1746,7 +1746,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // A graph may not be named with a collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-11.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1769,7 +1769,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // percent-escaped local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/percent_escaped_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1787,7 +1787,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // squote long string literal with embedded single- and double-quotes
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1805,7 +1805,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Variations on decimal canonicalization
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-26.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1823,7 +1823,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localname with COLON
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localname_with_COLON.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1841,7 +1841,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // negative decimal literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1859,7 +1859,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // BASE inside graph (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-base-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1882,7 +1882,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG1 '''x'''
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG1.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1900,7 +1900,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // '~' must be escaped in pname (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-pname-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1923,7 +1923,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @keywords is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1946,7 +1946,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix without URI (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1969,7 +1969,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // decimal integer canonicalization
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-11.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -1987,7 +1987,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // boolean literal (output.toString == nq.toString
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-kw-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2005,7 +2005,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bareword double
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/bareword_double.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2023,7 +2023,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // floating point number
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-17.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2041,7 +2041,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // integer literal with decimal lexical confusion
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2059,7 +2059,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // trailing ';' no '.'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2077,7 +2077,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Dot delimeter may not appear in anonymous nodes
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-number-dot-in-anon.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2100,7 +2100,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Long literal with extra squote (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2123,7 +2123,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'true' cannot be used as object (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-kw-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2146,7 +2146,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // integer literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2164,7 +2164,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle is not NQuads (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2187,7 +2187,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // old-style prefix
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/old_style_prefix.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2205,7 +2205,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // A graph may not be named with a collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-collection-graph-bad-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2228,7 +2228,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG is not N-Quads
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-bad-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2251,7 +2251,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // repeating a @prefix changes pname definition
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-25.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2269,7 +2269,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // positive numeric
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/positive_numeric.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2287,7 +2287,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-num-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2310,7 +2310,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-num-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2333,7 +2333,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // PREFIX inside graph (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2356,7 +2356,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG2_ascii_boundaries '\x00\x21\x23...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2_ascii_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2374,7 +2374,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with_non_leading_extras (_:a·̀ͯ‿.⁀)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_non_leading_extras.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2392,7 +2392,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // nested collection (())
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/nested_collection.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2410,7 +2410,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     //
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2428,7 +2428,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Use of empty prefix inside named graph
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2446,7 +2446,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL1_all_controls '\x00\x01\x02\x03\x04...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL1_all_controls.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2464,7 +2464,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG1 with 1 squote '''a'b'''
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_1_squote.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2482,7 +2482,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @forSome is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-11.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2505,7 +2505,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-esc-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2528,7 +2528,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // BASE
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-base-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2546,7 +2546,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Legal IRIs
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-uri-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2564,7 +2564,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langString with bad lang (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-lang-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2587,7 +2587,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langtagged non-LONG "x"@en
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/langtagged_non_LONG.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2605,7 +2605,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // PreFIX
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2623,7 +2623,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // {} fomulae not in Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2646,7 +2646,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bareword a predicate
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/bareword_a_predicate.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2664,7 +2664,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode property list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2682,7 +2682,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG1_with_UTF8_boundaries '\x80\x7ff\x800\xfff...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_UTF8_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2700,7 +2700,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node graph
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_graph.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2718,7 +2718,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graph may be named with BNode []
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2736,7 +2736,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graph with PNAME and empty graph
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2754,7 +2754,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH may not include a GRAPH
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2777,7 +2777,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // double literal no fraction
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-11.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2795,7 +2795,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Free-standing list of zero elements : bad syntax
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-list-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2818,7 +2818,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with nfc-normalize PN CHARS BASE character boundaries (p:AZazÀÖØöø...)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2836,7 +2836,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG1 with 2 squotes '''a''b'''
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG1_with_2_squotes.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2854,7 +2854,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @base in wrong case (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-base-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2877,7 +2877,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // alternating graphs with IRI names
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/alternating_iri_graphs.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2895,7 +2895,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // long string literal with embedded newline
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2913,7 +2913,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Free-standing list inside {} : bad syntax
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-list-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2936,7 +2936,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle (blankNodePropertyList subject)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2954,7 +2954,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // boolean literal (false)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-kw-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2972,7 +2972,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Empty file
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-file-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -2990,7 +2990,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal true
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_true.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3008,7 +3008,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Free-standing list outside {} : bad syntax
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-list-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3031,7 +3031,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Empty @prefix with % escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3049,7 +3049,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // extra '.' (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3072,7 +3072,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // comment following localName
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/comment_following_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3090,7 +3090,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-num-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3113,7 +3113,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // squote string literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3131,7 +3131,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // extra '.' (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3154,7 +3154,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // simple long literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-15.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3172,7 +3172,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with escaped CARRIAGE RETURN
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_escaped_CARRIAGE_RETURN.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3190,7 +3190,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled bnode subject and object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3208,7 +3208,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mixed bnode property list and triple
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3226,7 +3226,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graph may be named with BNode _:a
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3244,7 +3244,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : hex 3E is  (negative evaluation test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-bad-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3267,7 +3267,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // , operator
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3285,7 +3285,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : character escapes not allowed (2) (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-uri-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3308,7 +3308,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad number format (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-num-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3331,7 +3331,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node with_leading_digit (_:0)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_with_leading_digit.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3349,7 +3349,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bare bnode property list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3367,7 +3367,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Only IRIs
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-uri-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3385,7 +3385,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3403,7 +3403,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefix reassigned and used
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefix_reassigned_and_used.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3421,7 +3421,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefix with_non_leading_extras (_:a·̀ͯ‿.⁀)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefix_with_non_leading_extras.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3439,7 +3439,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle (repeated PREFIX)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3457,7 +3457,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @base with relative IRIs
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-base-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3475,7 +3475,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'a' cannot be used as subject (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-kw-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3498,7 +3498,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRI with eight digit numeric escape (\U)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/IRI_with_eight_digit_numeric_escape.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3516,7 +3516,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Repeating @base changes base for relative IRI lookup
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-27.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3534,7 +3534,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // double lower case e
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/double_lower_case_e.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3552,7 +3552,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_subject.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3570,7 +3570,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // objectList with two objects … <o1> ,<o2>
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/objectList_with_two_objects.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3588,7 +3588,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : bad escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-uri-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3611,7 +3611,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // pname with back-slash escapes (3)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-pname-esc-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3629,7 +3629,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal false
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_false.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3647,7 +3647,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // positive decimal literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3665,7 +3665,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // predicateObjectList with two objectLists … <o1> ,<o2>
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/predicateObjectList_with_two_objectLists.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3683,7 +3683,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @base without URI (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-base-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3706,7 +3706,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with leading underscore (p:_)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_leading_underscore.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3724,7 +3724,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // nested blankNodePropertyLists [ <p1> [ <p2> <o2> ] ; <p3> <o3> ]
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/nested_blankNodePropertyLists.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3742,7 +3742,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH - Must close {}
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3766,7 +3766,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad %-sequence in pname (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-pname-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3789,7 +3789,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with REVERSE SOLIDUS
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_REVERSE_SOLIDUS.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3807,7 +3807,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_object.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3825,7 +3825,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // default namespace IRI (:ln)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/default_namespace_IRI.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3843,7 +3843,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // underscore is a legal pname character
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3861,7 +3861,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // decimal literal (no leading digits)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3879,7 +3879,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node with_leading_underscore (_:_)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_with_leading_underscore.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3897,7 +3897,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // dash is a legal pname character
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3915,7 +3915,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // decimal literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3933,7 +3933,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // BASE without URI (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-base-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3956,7 +3956,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // repeated semis at end <s> <p> <o> ;; <p2> <o2> .
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/repeated_semis_at_end.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3974,7 +3974,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // HYPHEN-MINUS in local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/HYPHEN_MINUS_in_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -3992,7 +3992,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode property list subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4010,7 +4010,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Free-standing list of zero-elements outside {} : bad syntax
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-list-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4033,7 +4033,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix without ':' (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4056,7 +4056,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // old-style base
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/old_style_base.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4074,7 +4074,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // empty literals, normal and long variant
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-18.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4092,7 +4092,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : character escapes not allowed (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-uri-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4115,7 +4115,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bareword integer
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/bareword_integer.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4133,7 +4133,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL2_ascii_boundaries '\x00\x09\x0b\x0c\x0e\x21\x23...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL2_ascii_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4151,7 +4151,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node with PN_CHARS_BASE character boundaries (_:AZazÀÖØöø...)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_with_PN_CHARS_BASE_character_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4169,7 +4169,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // anonymous blank node graph
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/anonymous_blank_node_graph.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4187,7 +4187,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : hex 3C is < (negative evaluation test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-bad-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4210,7 +4210,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // squote langString literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4228,7 +4228,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix and qnames
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4246,7 +4246,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // predicate list with object list and dangling ';'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4264,7 +4264,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Trailing dot required in Turtle block
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-bad-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4287,7 +4287,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with escaped CHARACTER TABULATION
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_escaped_CHARACTER_TABULATION.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4305,7 +4305,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle is not N3 (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4328,7 +4328,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL1_all_punctuation '!"#$%&()...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL1_all_punctuation.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4346,7 +4346,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // lantag with subtag "x"@en-us
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/lantag_with_subtag.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4364,7 +4364,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRIs with Unicode escape
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-uri-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4382,7 +4382,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefixed IRI predicate
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefixed_IRI_predicate.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4400,7 +4400,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Dots in pname local names
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-ln-dots.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4418,7 +4418,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // lists of lists
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-lists-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4436,7 +4436,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Prefix must not end in dot
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-ns-dot-end.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4459,7 +4459,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // isomorphic list as subject and object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-lists-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4477,7 +4477,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // number sign following PNAME_NS
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/number_sign_following_PNAME_NS.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4495,7 +4495,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // long literal ending in double quote
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-21.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4513,7 +4513,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // string literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4531,7 +4531,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // blankNodePropertyList as subject [ … ] <p> <o> .
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/blankNodePropertyList_as_subject.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4549,7 +4549,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode property list object (2)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4567,7 +4567,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefixed IRI object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefixed_IRI_object.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4585,7 +4585,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @graph is not a keyword
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4608,7 +4608,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // non-empty [] as subject and object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4626,7 +4626,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // predicate list with multiple ;;
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4644,7 +4644,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // empty [] as subject and object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4662,7 +4662,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // triple with IRIs and embedded whitespace
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-eval-struct-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4680,7 +4680,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // N3 paths not in Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4703,7 +4703,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Dots in namespace names
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-ns-dots.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4721,7 +4721,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // anonymous blank node object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/anonymous_blank_node_object.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4739,7 +4739,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mismatching string literal open/close (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4762,7 +4762,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRI subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/IRI_subject.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4780,7 +4780,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @keywords is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-13.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4803,7 +4803,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with FORM FEED
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_FORM_FEED.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4821,7 +4821,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'a' cannot be used as object (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-kw-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4844,7 +4844,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // underscore in local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/underscore_in_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4862,7 +4862,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix inside graph (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4885,7 +4885,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG2 """x"""
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4903,7 +4903,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle (blankNodePropertyList subject)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4921,7 +4921,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langString literal with region
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4939,7 +4939,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // simple collection
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4957,7 +4957,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // N3 paths not in Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4980,7 +4980,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // SPARQL-style base
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/SPARQL_style_base.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -4998,7 +4998,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graph may be empty
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5016,7 +5016,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // => is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5039,7 +5039,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'a' as keyword
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-kw-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5057,7 +5057,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @keywords is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-08.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5080,7 +5080,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with BACKSPACE
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_BACKSPACE.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5098,7 +5098,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : bad long escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-uri-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5121,7 +5121,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // long literals with escapes
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-16.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5139,7 +5139,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Turtle does not allow literals-as-predicates (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5162,7 +5162,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // colon is a legal pname character
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5180,7 +5180,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5198,7 +5198,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // subject, predicate, no object (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-12.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5221,7 +5221,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL1_ascii_boundaries '\x00\x09\x0b\x0c\x0e\x26\x28...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL1_ascii_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5239,7 +5239,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // SPARQL-style prefix
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/SPARQL_style_prefix.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5257,7 +5257,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad string escape (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-esc-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5280,7 +5280,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // TriG can parse Turtle (collection subject and object)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-turtle-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5298,7 +5298,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // two LITERAL_LONG2s testing quote delimiter overrun
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/two_LITERAL_LONG2s.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5316,7 +5316,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Long literal with extra quote (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5339,7 +5339,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // A graph may not be named with a blankNodePropertyList
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-bnodeplist-graph-bad-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5362,7 +5362,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // IRI with all punctuation
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/IRI_with_all_punctuation.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5380,7 +5380,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // predicate list with object list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5398,7 +5398,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled blank node with_non_leading_extras (_:a·̀ͯ‿.⁀)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/labeled_blank_node_with_non_leading_extras.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5416,7 +5416,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG1_ascii_boundaries '\x00\x26\x28...'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG1_ascii_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5434,7 +5434,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad hex escape at start of local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-ln-escape-start.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5457,7 +5457,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // comments
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-23.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5475,7 +5475,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH needs {}
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5498,7 +5498,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // string literal with escaped newline
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-str-esc-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5516,7 +5516,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'a' as predicate
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-07.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5534,7 +5534,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bnode property list object
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bnode-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5552,7 +5552,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with numeric escape8 \U
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_numeric_escape8.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5570,7 +5570,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH and a name, not several
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5593,7 +5593,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with leading digit (p:_)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_leading_digit.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5611,7 +5611,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // negative double literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5629,7 +5629,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad unicode escape in pname (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-pname-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5652,7 +5652,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Bad IRI : space (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-uri-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5675,7 +5675,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL_LONG2 with 1 squote """a"b"""
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_1_squote.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5693,7 +5693,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Blank node label must not end in dot
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-blank-label-dot-end.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5716,7 +5716,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // xsd:byte literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-datatypes-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5734,7 +5734,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // langtagged LONG with subtag """Cheers"""@en-UK
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/langtagged_LONG_with_subtag.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5752,7 +5752,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // blankNodePropertyList containing collection [ <p1> ( … ) ]
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/blankNodePropertyList_containing_collection.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5770,7 +5770,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // ; operator
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5788,7 +5788,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // blankNodePropertyList with multiple triples [ <s> <p> ; <s2> <p2> ]
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/blankNodePropertyList_with_multiple_triples.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5806,7 +5806,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // <= is not Turtle (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-n3-extras-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5829,7 +5829,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // squote langString literal with region
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-06.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5847,7 +5847,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Long literal with missing end (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-05.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5870,7 +5870,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // mismatching long string literal open/close (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-string-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5893,7 +5893,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // positive integer literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-number-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5911,7 +5911,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Characters allowed in blank node labels
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-blank-label.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5929,7 +5929,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with LINE FEED
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_LINE_FEED.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5947,7 +5947,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // integer datatyped literal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-10.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5965,7 +5965,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // empty collection ()
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/empty_collection.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -5983,7 +5983,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // object list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6001,7 +6001,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // squote long langString literal with embedded newline
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-string-11.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6019,7 +6019,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Trailing . not necessary inside {}
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-02.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6037,7 +6037,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // One comment, one empty line
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-file-03.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6055,7 +6055,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix without prefix name (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6078,7 +6078,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // empty list
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-lists-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6096,7 +6096,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // alternating graphs with BNode names
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/alternating_bnode_graphs.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6114,7 +6114,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // percents in pnames
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6132,7 +6132,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // No prefix (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-prefix-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6155,7 +6155,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with escaped BACKSPACE
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_escaped_BACKSPACE.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6173,7 +6173,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // bareword decimal
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/bareword_decimal.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6191,7 +6191,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // prefixed name datatype ""^^p:t
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/prefixed_name_datatype.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6209,7 +6209,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // anonymous blank node subject
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/anonymous_blank_node_subject.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6227,7 +6227,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with escaped FORM FEED
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_escaped_FORM_FEED.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6245,7 +6245,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // reserved-escaped local name
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/reserved_escaped_localName.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6263,7 +6263,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // localName with assigned, NFC-normalized PN CHARS BASE character boundaries (p:AZazÀÖØöø...)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6281,7 +6281,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // LITERAL1 'x'
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL1.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6299,7 +6299,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Directives not allowed inside GRAPH
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-09.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6322,7 +6322,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // no final mewline
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-24.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6340,7 +6340,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // numeric with leading 0
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/numeric_with_leading_0.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6358,7 +6358,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // Named graphs can be proceeded by GRAPH
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-kw-graph-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6376,7 +6376,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // subject, predicate, no object (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-13.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6399,7 +6399,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // negative integer, decimal and doubles
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-20.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6417,7 +6417,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // @prefix
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-prefix-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6435,7 +6435,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // GRAPH but no name - GRAPH is not used with the default graph
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-graph-bad-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6458,7 +6458,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // repeated semis not at end <s> <p> <o> ;;.
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/repeated_semis_not_at_end.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6476,7 +6476,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // 'A' is not a keyword (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-kw-01.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6499,7 +6499,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // tests for rdf:_<numbers> and other qnames starting with _
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-subm-13.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6517,7 +6517,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // labeled bnode as predicate (negative test)
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-bad-struct-17.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6540,7 +6540,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // literal with numeric escape4
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/literal_with_numeric_escape4.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6558,7 +6558,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // predicate list with multiple ;;
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/trig-syntax-struct-04.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 
@@ -6576,7 +6576,7 @@ class TriGEARLSpec extends FlatSpec with RDFTriGOutput {
     // REVERSE SOLIDUS at end of LITERAL_LONG2
     lazy val input: ParserInput = io.Source.fromFile("./TrigTests/LITERAL_LONG2_with_REVERSE_SOLIDUS.trig").mkString
 
-    val output = new StringWriter(); val evalTriG = new EvalTriG(tupleWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
+    val output = new StringWriter(); val evalTriG = new EvalTriG(trigWriter(output) _, "http://www.w3.org/2013/TrigTests", "")
 
     val parser = TriGParser(input, evalTriG.renderStatement, false, "http://www.w3.org/2013/TrigTests", "")
 

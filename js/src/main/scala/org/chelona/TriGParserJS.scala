@@ -18,7 +18,6 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.TriGReturnValue.TriGTuple
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
@@ -43,18 +42,18 @@ object TriGParserJS {
 
     def triGHTMLWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TriGBitValue.isIRIREF(`type`))
+        if (TriGTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
       }
 
       triple.map {
-        case TriGTuple(s, p, o, g) ⇒ {
-          val subject = formatter(s.text, s.tokenType)
-          val predicate = formatter(p.text, p.tokenType)
-          val `object` = formatter(o.text, o.tokenType)
-          val graph = formatter(g.text, g.tokenType)
+        case Quad(s, p, o, g) ⇒ {
+          val subject = formatter(s.value, s.termType)
+          val predicate = formatter(p.value, p.termType)
+          val `object` = formatter(o.value, o.termType)
+          val graph = formatter(g.value, g.termType)
 
           bo.write(subject + " " + predicate + " " + `object` + (if (graph.length > 0) " " + graph + " .\n" else " .\n"))
         }

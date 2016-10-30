@@ -18,7 +18,6 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.TurtleReturnValue.TurtleTriple
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport
@@ -43,14 +42,14 @@ object TurtleParserJS {
 
     def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TurtleBitValue.isIRIREF(`type`))
+        if (TurtleTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
       }
 
       triple.map {
-        case TurtleTriple(TurtleElement(s, type1), TurtleElement(p, type2), TurtleElement(o, type3)) ⇒ {
+        case TurtleTriple(Term(s, type1), Term(p, type2), Term(o, type3)) ⇒ {
           val subject = formatter(s, type1)
           val predicate = formatter(p, type2)
           val `object` = formatter(o, type3)

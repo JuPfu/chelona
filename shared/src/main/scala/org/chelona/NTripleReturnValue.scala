@@ -18,11 +18,11 @@ package org.chelona
 
 trait NTripleReturnValue extends RDFReturnType {
 
-  case class NTString(n: NTripleElement) extends NTripleReturnValue
+  case class NTString(n: Term) extends NTripleReturnValue
 
-  case class NTTriple(s: NTripleElement, p: NTripleElement, o: NTripleElement) extends NTripleReturnValue
+  case class NTTriple(s: Term, p: Term, o: Term) extends NTripleReturnValue
 
-  case class NTComment(value: NTripleElement) extends NTripleReturnValue
+  case class NTComment(value: Term) extends NTripleReturnValue
 }
 
 object NTripleReturnValue extends NTripleReturnValue

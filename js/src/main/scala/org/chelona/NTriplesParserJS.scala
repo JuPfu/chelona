@@ -44,17 +44,17 @@ object NTriplesParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def ntWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+    def ntWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (NTripleBitValue.isIRIREF(`type`))
+        if (NTripleTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
       }
 
-      val subject = formatter(s.text, s.tokenType)
-      val predicate = formatter(p.text, p.tokenType)
-      val `object` = formatter(o.text, o.tokenType)
+      val subject = formatter(s.value, s.termType)
+      val predicate = formatter(p.value, p.termType)
+      val `object` = formatter(o.value, o.termType)
 
       bo.write(subject + " " + predicate + " " + `object` + " .\n")
       1

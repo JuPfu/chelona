@@ -18,13 +18,11 @@ package org.chelona
 
 trait TriGReturnValue extends RDFReturnType {
 
-  case class TriGString(s: TriGElement) extends TriGReturnValue
+  case class TriGString(s: Term) extends TriGReturnValue
 
-  case class TriGTuple(s: TriGElement, p: TriGElement, o: TriGElement, g: TriGElement) extends TriGReturnValue
+  case class TriGTuples(values: List[Quad]) extends TriGReturnValue
 
-  case class TriGTuples(values: List[TriGTuple]) extends TriGReturnValue
-
-  case class TriGComment(value: TriGElement) extends TriGReturnValue
+  case class TriGComment(value: Term) extends TriGReturnValue
 
   case class TriGNone() extends TriGReturnValue
 

@@ -41,18 +41,18 @@ object NQuadParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def nquadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
+    def nquadWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (NQuadBitValue.isIRIREF(`type`))
+        if (NQuadTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
       }
 
-      val subject = formatter(s.text, s.tokenType)
-      val predicate = formatter(p.text, p.tokenType)
-      val `object` = formatter(o.text, o.tokenType)
-      val graph = formatter(g.text, g.tokenType)
+      val subject = formatter(s.value, s.termType)
+      val predicate = formatter(p.value, p.termType)
+      val `object` = formatter(o.value, o.termType)
+      val graph = formatter(g.value, g.termType)
 
       bo.write(subject + " " + predicate + " " + `object` + " .\n")
       1

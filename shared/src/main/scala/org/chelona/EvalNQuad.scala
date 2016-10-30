@@ -19,12 +19,12 @@ package org.chelona
 import org.chelona.EvalNQuad._
 
 object EvalNQuad {
-  def apply(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
+  def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
 
   sealed trait NQReturnValue extends NQuadReturnValue
 }
 
-class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
+class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
 
   import org.chelona.NQuadAST._
 
@@ -54,7 +54,7 @@ class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, NQuadElement("", NQuadBitValue.STRING_LITERAL))
+              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, Term("", NQuadTokenTypes.STRING_LITERAL))
             }
         }
       case ASTGraphLabel(rule)    ⇒ evalStatement(rule)
@@ -64,25 +64,25 @@ class EvalNQuad(output: (NQuadElement, NQuadElement, NQuadElement, NQuadElement)
       case ASTObject(rule)        ⇒ evalStatement(rule)
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case NQuadString(s) ⇒ s.text
+          case NQuadString(s) ⇒ s.value
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ NQuadString(NQuadElement(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s.text
-            }), NQuadBitValue.STRING_LITERAL | NQuadBitValue.IRIREF))
-            case ASTLangTag(v) ⇒ NQuadString(NQuadElement(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s.text
-            }), NQuadBitValue.STRING_LITERAL | NQuadBitValue.LANGTAG))
+            case ASTIriRef(v) ⇒ NQuadString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s.value
+            }), NQuadTokenTypes.STRING_LITERAL | NQuadTokenTypes.IRIREF))
+            case ASTLangTag(v) ⇒ NQuadString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case NQuadString(s) ⇒ s.value
+            }), NQuadTokenTypes.STRING_LITERAL | NQuadTokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NQuadString(NQuadElement(token, NQuadBitValue.LANGTAG))
-      case ASTIriRef(token)             ⇒ NQuadString(NQuadElement("<" + token + ">", NQuadBitValue.IRIREF))
-      case ASTStringLiteralQuote(token) ⇒ NQuadString(NQuadElement("\"" + token + "\"", NQuadBitValue.STRING_LITERAL))
-      case ASTBlankNodeLabel(token)     ⇒ NQuadString(NQuadElement(setBlankNodeName("_:" + token), NQuadBitValue.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NQuadComment(NQuadElement(token, NQuadBitValue.COMMENT))
-      case ASTBlankLine(token)          ⇒ NQuadComment(NQuadElement(token, NQuadBitValue.BLANK_LINE))
+      case ASTLangTag(token)            ⇒ NQuadString(Term(token, NQuadTokenTypes.LANGTAG))
+      case ASTIriRef(token)             ⇒ NQuadString(Term("<" + token + ">", NQuadTokenTypes.IRIREF))
+      case ASTStringLiteralQuote(token) ⇒ NQuadString(Term("\"" + token + "\"", NQuadTokenTypes.STRING_LITERAL))
+      case ASTBlankNodeLabel(token)     ⇒ NQuadString(Term(setBlankNodeName("_:" + token), NQuadTokenTypes.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NQuadComment(Term(token, NQuadTokenTypes.COMMENT))
+      case ASTBlankLine(token)          ⇒ NQuadComment(Term(token, NQuadTokenTypes.BLANK_LINE))
     }
   }
 

@@ -24,7 +24,7 @@ import org.chelona.GetCmdLineArgs._
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NTMain extends App with JSONLDOutput {
+object NTMain extends App with JSONLDFlatOutput {
 
   /* get command line arguments */
   val cmdLineArgs = argsParser.parse(args, Config())
@@ -62,10 +62,10 @@ object NTMain extends App with JSONLDOutput {
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   /* initialize output */
-  jsonWriterInit(output)()
+  jsonldFlatWriterInit(output)()
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalNT = new EvalNT(jsonWriter(output)_, base, label)
+  val evalNT = new EvalNT(jsonLDFlatWriter(output)_, base, label)
 
   /* Looping in steps of n lines through the input file.
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
@@ -74,7 +74,7 @@ object NTMain extends App with JSONLDOutput {
   NTriplesParser.parseAll(file.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
 
   /* finalize output */
-  jsonWriterTrailer(output)()
+  jsonldFlatWriterTrailer(output)()
 
   output.close()
 }

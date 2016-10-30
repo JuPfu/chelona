@@ -19,7 +19,6 @@ import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
 import java.nio.charset.StandardCharsets
 
 import org.chelona.GetCmdLineArgs._
-import org.chelona.TriGReturnValue.TriGTuple
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
 import scala.io.BufferedSource
@@ -46,6 +45,8 @@ object TriGMain extends App with RDFTriGOutput {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file)
     System.err.flush()
   }
+
+  val fmt = cmdLineArgs.get.fmt
 
   val ms: Double = System.currentTimeMillis
 

@@ -49,7 +49,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -66,7 +66,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -91,7 +91,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -116,7 +116,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -136,7 +136,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -161,7 +161,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -186,7 +186,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -206,7 +206,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -226,7 +226,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -243,7 +243,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -268,7 +268,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -293,7 +293,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -313,7 +313,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -333,7 +333,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -358,7 +358,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -378,7 +378,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -398,7 +398,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -423,7 +423,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -443,7 +443,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -463,7 +463,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -483,7 +483,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -503,7 +503,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -528,7 +528,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -553,7 +553,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -573,7 +573,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -593,7 +593,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -618,7 +618,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -643,7 +643,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -663,7 +663,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -688,7 +688,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -713,7 +713,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -733,7 +733,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -753,7 +753,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -773,7 +773,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -798,7 +798,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -818,7 +818,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -843,7 +843,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -863,7 +863,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -883,7 +883,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -903,7 +903,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -928,7 +928,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -948,7 +948,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -973,7 +973,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -993,7 +993,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1013,7 +1013,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1038,7 +1038,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1058,7 +1058,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1078,7 +1078,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1098,7 +1098,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1123,7 +1123,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1143,7 +1143,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1163,7 +1163,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1188,7 +1188,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1208,7 +1208,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1233,7 +1233,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1253,7 +1253,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1273,7 +1273,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1298,7 +1298,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1318,7 +1318,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1343,7 +1343,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1363,7 +1363,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1383,7 +1383,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1403,7 +1403,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1428,7 +1428,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1448,7 +1448,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1468,7 +1468,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1488,7 +1488,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 
@@ -1513,7 +1513,7 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
     val output = new StringWriter()
 
-    val evalNT = new EvalNT(ntWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
+    val evalNT = new EvalNT(ntripleWriter(output)_, "http://www.w3.org/2013/NTriplesTests", "")
 
     val parser = NTriplesParser(input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "")
 

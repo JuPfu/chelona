@@ -18,11 +18,11 @@ package org.chelona
 
 trait NQuadReturnValue extends RDFReturnType {
 
-  case class NQuadString(s: NQuadElement) extends NQuadReturnValue
+  case class NQuadString(s: Term) extends NQuadReturnValue
 
-  case class NQuadQuad(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement) extends NQuadReturnValue
+  case class NQuadQuad(s: Term, p: Term, o: Term, g: Term) extends NQuadReturnValue
 
-  case class NQuadComment(value: NQuadElement) extends NQuadReturnValue
+  case class NQuadComment(value: Term) extends NQuadReturnValue
 }
 
 object NQuadReturnValue extends NQuadReturnValue

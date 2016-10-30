@@ -18,49 +18,60 @@ package org.chelona
 
 import java.io.Writer
 
-import org.chelona.TurtleReturnValue.TurtleTriple
-import org.chelona.TriGReturnValue.TriGTuple
-
 trait RDFTurtleOutput extends RDFReturnType {
   def turtleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    triple.map { case TurtleTriple(s, p, o) ⇒ { bo.write(s.text + " " + p.text + " " + o.text + " .\n") } }.length
+    triple.map {
+      case RDFReturnType.Triple(s, p, o) ⇒ {
+        bo.write(s.value + " " + p.value + " " + o.value + " .\n")
+      }
+    }.length
   }
 }
 
 trait RDFTriGOutput extends RDFReturnType {
   def trigWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
     tuple.map {
-      case TriGTuple(s, p, o, g) ⇒ {
-        bo.write(s.text + " " + p.text + " " + o.text + (if (g.text.length > 0) " " + g.text + " .\n" else " .\n"))
+      case RDFReturnType.Quad(s, p, o, g) ⇒ {
+        bo.write(s.value + " " + p.value + " " + o.value + (if (g.value.length > 0) " " + g.value + " .\n" else " .\n"))
       }
     }.length
   }
 }
 
 trait RDFNTOutput extends RDFReturnType {
-  def ntripleWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
-    bo.write(s"${s.text} ${p.text} ${o.text} .\n"); 1
+  def ntripleWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
+    bo.write(s"${s.value} ${p.value} ${o.value} .\n"); 1
   }
 }
 
 trait RDFQuadOutput extends RDFReturnType {
-  def quadWriter(bo: Writer)(s: NQuadElement, p: NQuadElement, o: NQuadElement, g: NQuadElement): Int = {
-    bo.write(s"${s.text} ${p.text} ${o.text}" + (if (g.text.isEmpty) " .\n" else s" ${g.text} .\n")); 1
+  def quadWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term): Int = {
+    bo.write(s"${s.value} ${p.value} ${o.value}" + (if (g.value.isEmpty) " .\n" else s" ${g.value} .\n")); 1
   }
 }
 
-trait JSONLDOutput extends RDFReturnType {
+trait JSONLDFlatOutput extends RDFReturnType {
   /* Simple JSON output for NTriples */
   val sb: StringBuilder = new StringBuilder()
 
-  def jsonWriterInit(bo: Writer)(s: String = "[\n"): Unit = {
+  def jsonldFlatWriterInit(bo: Writer)(s: String = "[\n"): Unit = {
     bo.write(s)
-    if ( sb.nonEmpty) {
-      sb.clear()
-    }
+    if ( sb.nonEmpty) sb.clear()
+
   }
 
-  def jsonWriter(bo: Writer)(s: NTripleElement, p: NTripleElement, o: NTripleElement): Int = {
+  def jsonLDFlatWriter1(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    val writer = jsonLDFlatWriter(bo)_ //(_: NTripleElement, _: NTripleElement, _: NTripleElement)
+    //val writer = Function.uncurried(jsonLDFlatWriter /*(_: Writer)( _: NTripleElement, _: NTripleElement, _: NTripleElement)*/)
+    triple.map {
+      case Triple(s, p, o) ⇒ {
+        //jsonLDFlatWriter(bo)(s, p, o)
+        //writer(s, p, o)
+      }
+    }.length
+  }
+
+  def jsonLDFlatWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
 
     if ( sb.nonEmpty) {
       sb.append(",\n")
@@ -69,44 +80,44 @@ trait JSONLDOutput extends RDFReturnType {
     }
 
     //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
-    if ( NTripleBitValue.isIRIREF(s.tokenType) ) {
-      sb.append("  {\n" + """  "@id": """" + s.text.substring(1, s.text.length-1) + """"""" + ",\n")
+    if ( NTripleTokenTypes.isIRIREF(s.termType) ) {
+      sb.append("  {\n" + """  "@id": """" + s.value.substring(1, s.value.length-1) + """"""" + ",\n")
     }
-    else if ( NTripleBitValue.isBLANK_NODE_LABEL(s.tokenType)) {
-      sb.append("  {\n" + """  "@id": """" + s.text + """"""" + ",\n")
+    else if ( NTripleTokenTypes.isBLANK_NODE_LABEL(s.termType)) {
+      sb.append("  {\n" + """  "@id": """" + s.value + """"""" + ",\n")
     }
 
     //[4]	predicate	::=	IRIREF
-    if( NTripleBitValue.isIRIREF(p.tokenType) ) {
-      sb.append("""  """" + p.text.substring(1, p.text.length-1) + """"""" + ":\n")
+    if( NTripleTokenTypes.isIRIREF(p.termType) ) {
+      sb.append("""  """" + p.value.substring(1, p.value.length-1) + """"""" + ":\n")
     }
 
     //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
-    if ( NTripleBitValue.isIRIREF(o.tokenType) && !NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType)) {
-      sb.append("""    { "@id": """" + o.text.substring(1, o.text.length-1) + """"""" + "}\n  }")
+    if ( NTripleTokenTypes.isIRIREF(o.termType) && !NTripleTokenTypes.isSTRING_LITERAL_QUOTE(o.termType)) {
+      sb.append("""    { "@id": """" + o.value.substring(1, o.value.length-1) + """"""" + "}\n  }")
     }
-    else if ( NTripleBitValue.isBLANK_NODE_LABEL(o.tokenType)) {
-      sb.append("""    { "@id": """" + o.text + """"""" + " }\n  }")
+    else if ( NTripleTokenTypes.isBLANK_NODE_LABEL(o.termType)) {
+      sb.append("""    { "@id": """" + o.value + """"""" + " }\n  }")
     }
-    else if ( NTripleBitValue.isSTRING_LITERAL_QUOTE(o.tokenType) ) {
-       if ( NTripleBitValue.isLANGTAG(o.tokenType)) {
-         val parts = o.text.split("@")
+    else if ( NTripleTokenTypes.isSTRING_LITERAL_QUOTE(o.termType) ) {
+       if ( NTripleTokenTypes.isLANGTAG(o.termType)) {
+         val parts = o.value.split("@")
          sb.append("    {\n    " + """"@type": """" + parts(1) + """"""" + ",\n")
          sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")
-       } else if ( NTripleBitValue.isLITERALTAG(o.tokenType)) {
-         val parts = o.text.split("\\^\\^")
+       } else if ( NTripleTokenTypes.isLITERALTAG(o.termType)) {
+         val parts = o.value.split("\\^\\^")
          sb.append("    {\n    " + """"@type": """" + parts(1).substring(1, parts(1).length-1) + """"""" + ",\n")
          sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")
        }
        else {
-         sb.append("""    { "@value": """ + o.text + " }\n  }")
+         sb.append("""    { "@value": """ + o.value + " }\n  }")
        }
     }
 
     1
   }
 
-  def jsonWriterTrailer(bo: Writer)(s: String="\n]"): Unit = {
+  def jsonldFlatWriterTrailer(bo: Writer)(s: String="\n]"): Unit = {
     if ( sb.nonEmpty) {
       bo.write(sb.toString())
       sb.clear()

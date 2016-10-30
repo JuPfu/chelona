@@ -28,7 +28,7 @@ object GetCmdLineArgs {
     verbose: Boolean = false,
     uid: Boolean = false,
     base: String = "http://chelona.org",
-    out: String = "N3",
+    fmt: String = "n3",
     version: Boolean = false,
     trace: Boolean = false)
 
@@ -41,7 +41,8 @@ object GetCmdLineArgs {
     opt[Unit]('t', "trace") action { (_, c) ⇒ c.copy(trace = true) } text "display error trace"
     opt[Unit]('u', "uid") action { (_, c) ⇒ c.copy(uid = true) } text "use UID for blank nodes"
     opt[String]('b', "base") optional () action { (x, c) ⇒ c.copy(base = x) } text "base URI"
-    opt[String]('f', "fmt") optional () action { (x, c) ⇒ c.copy(out = x.toLowerCase) } text "output format"
+    opt[String]('f', "fmt").valueName("n3,json-ld") action { (x, c) ⇒ c.copy(fmt = x.toLowerCase()) } text "output format"
+
     arg[File]("<file>") minOccurs (1) maxOccurs (1) valueName ("<file>") action { (x, c) ⇒ c.copy(file = c.file :+ x) } text "input ttl-file"
   }
 }

@@ -18,13 +18,11 @@ package org.chelona
 
 trait TurtleReturnValue extends RDFReturnType {
 
-  case class TurtleString(s: TurtleElement) extends TurtleReturnValue
+  case class TurtleString(s: Term) extends TurtleReturnValue
 
-  case class TurtleTriple(s: TurtleElement, p: TurtleElement, o: TurtleElement) extends TurtleReturnValue
+  case class TurtleTriples(values: List[Triple]) extends TurtleReturnValue
 
-  case class TurtleTriples(values: List[TurtleTriple]) extends TurtleReturnValue
-
-  case class TurtleComment(value: TurtleElement) extends TurtleReturnValue
+  case class TurtleComment(value: Term) extends TurtleReturnValue
 
 }
 
