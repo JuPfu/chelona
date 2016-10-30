@@ -16,16 +16,11 @@
 
 package org.chelona
 
-trait TriGReturnValue extends RDFReturnType {
+trait NTripleReturnType extends RDFReturnType {
 
-  case class TriGString(s: Term) extends TriGReturnValue
+  case class NTString(n: Term) extends NTripleReturnType
 
-  case class TriGTuples(values: List[Quad]) extends TriGReturnValue
-
-  case class TriGComment(value: Term) extends TriGReturnValue
-
-  case class TriGNone() extends TriGReturnValue
-
+  case class NTComment(value: Term) extends NTripleReturnType
 }
 
-object TriGReturnValue extends TriGReturnValue
+object NTripleReturnType extends NTripleReturnType

@@ -16,13 +16,16 @@
 
 package org.chelona
 
-trait NQuadReturnValue extends RDFReturnType {
+trait TriGReturnType extends RDFReturnType {
 
-  case class NQuadString(s: Term) extends NQuadReturnValue
+  case class TriGString(s: Term) extends TriGReturnType
 
-  case class NQuadQuad(s: Term, p: Term, o: Term, g: Term) extends NQuadReturnValue
+  case class TriGTuples(values: List[Quad]) extends TriGReturnType
 
-  case class NQuadComment(value: Term) extends NQuadReturnValue
+  case class TriGComment(value: Term) extends TriGReturnType
+
+  case class TriGNone() extends TriGReturnType
+
 }
 
-object NQuadReturnValue extends NQuadReturnValue
+object TriGReturnType extends TriGReturnType

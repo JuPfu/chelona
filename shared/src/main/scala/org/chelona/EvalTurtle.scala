@@ -23,10 +23,10 @@ import scala.annotation.tailrec
 object EvalTurtle {
   def apply(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) = new EvalTurtle(output, basePath, label)
 
-  sealed trait ChelonaReturnValue extends TurtleReturnValue
+  sealed trait ReturnType extends TurtleReturnType
 }
 
-class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) extends ChelonaReturnValue {
+class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) extends ReturnType {
 
   import org.chelona.ChelonaParser._
 

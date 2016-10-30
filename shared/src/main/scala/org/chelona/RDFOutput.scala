@@ -39,7 +39,7 @@ trait RDFTriGOutput extends RDFReturnType {
 }
 
 trait RDFNTOutput extends RDFReturnType {
-  def ntripleWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
+  def ntripleWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term = defaultGraph): Int = {
     bo.write(s"${s.value} ${p.value} ${o.value} .\n"); 1
   }
 }
@@ -60,18 +60,25 @@ trait JSONLDFlatOutput extends RDFReturnType {
 
   }
 
-  def jsonLDFlatWriter1(bo: Writer)(triple: List[RDFReturnType]): Int = {
-    val writer = jsonLDFlatWriter(bo)_ //(_: NTripleElement, _: NTripleElement, _: NTripleElement)
-    //val writer = Function.uncurried(jsonLDFlatWriter /*(_: Writer)( _: NTripleElement, _: NTripleElement, _: NTripleElement)*/)
+  def jsonLDFlatWriterTriple(bo: Writer)(triple: List[RDFReturnType]): Int = {
+    val writer = jsonLDFlatWriter(bo)_
     triple.map {
       case Triple(s, p, o) ⇒ {
-        //jsonLDFlatWriter(bo)(s, p, o)
-        //writer(s, p, o)
+        writer(s, p, o, defaultGraph)
       }
     }.length
   }
 
-  def jsonLDFlatWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
+  def jsonLDFlatWriterQuad(bo: Writer)(quad: List[RDFReturnType]): Int = {
+    val writer = jsonLDFlatWriter(bo)_
+    quad.map {
+      case Quad(s, p, o, g) ⇒ {
+        writer(s, p, o, g)
+      }
+    }.length
+  }
+
+  def jsonLDFlatWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term = defaultGraph): Int = {
 
     if ( sb.nonEmpty) {
       sb.append(",\n")
@@ -113,7 +120,6 @@ trait JSONLDFlatOutput extends RDFReturnType {
          sb.append("""    { "@value": """ + o.value + " }\n  }")
        }
     }
-
     1
   }
 

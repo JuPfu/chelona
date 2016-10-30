@@ -21,10 +21,10 @@ import org.chelona.EvalNQuad._
 object EvalNQuad {
   def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
 
-  sealed trait NQReturnValue extends NQuadReturnValue
+  sealed trait ReturnType extends NQuadReturnType
 }
 
-class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends NQReturnValue {
+class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
 
   import org.chelona.NQuadAST._
 
@@ -34,13 +34,12 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
 
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case NQuadQuad(s, p, o, g) ⇒ output(s, p, o, g)
-      case NQuadString(s)        ⇒ 0
-      case NQuadComment(c)       ⇒ 0
+      case Quad(s, p, o, g) ⇒ output(s, p, o, g)
+      case _ => 0
     }
   }
 
-  def evalStatement(expr: NTripleType): NQuadReturnValue = {
+  def evalStatement(expr: NTripleType): RDFReturnType = {
     expr match {
       case ASTStatement(subject, predicate, obj, graph, comment) ⇒
         comment match {
@@ -50,11 +49,11 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
         graph match {
           case Some(g) ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj), evalStatement(g)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o), NQuadString(g)) ⇒ NQuadQuad(s, p, o, g)
+              case (NQuadString(s), NQuadString(p), NQuadString(o), NQuadString(g)) ⇒ Quad(s, p, o, g)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ NQuadQuad(s, p, o, Term("", NQuadTokenTypes.STRING_LITERAL))
+              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ Quad(s, p, o, defaultGraph)
             }
         }
       case ASTGraphLabel(rule)    ⇒ evalStatement(rule)

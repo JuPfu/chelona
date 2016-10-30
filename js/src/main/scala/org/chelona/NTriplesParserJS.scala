@@ -44,7 +44,7 @@ object NTriplesParserJS {
 
     lazy val input: ParserInput = rdf_input
 
-    def ntWriter(bo: Writer)(s: Term, p: Term, o: Term): Int = {
+    def ntWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term = defaultGraph): Int = {
       def formatter(token: String, `type`: Int) = {
         if (NTripleTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"

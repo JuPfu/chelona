@@ -23,10 +23,10 @@ import scala.annotation.tailrec
 object EvalTriG {
   def apply(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) = new EvalTriG(output, basePath, label)
 
-  sealed trait TGReturnValue extends TriGReturnValue
+  sealed trait ReturnType extends TriGReturnType
 }
 
-class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) extends TGReturnValue {
+class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) extends ReturnType {
 
   import org.chelona.TriGParser._
 

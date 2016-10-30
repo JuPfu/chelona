@@ -16,14 +16,11 @@
 
 package org.chelona
 
-trait TurtleReturnValue extends RDFReturnType {
+trait NQuadReturnType extends RDFReturnType {
 
-  case class TurtleString(s: Term) extends TurtleReturnValue
+  case class NQuadString(s: Term) extends NQuadReturnType
 
-  case class TurtleTriples(values: List[Triple]) extends TurtleReturnValue
-
-  case class TurtleComment(value: Term) extends TurtleReturnValue
-
+  case class NQuadComment(value: Term) extends NQuadReturnType
 }
 
-object TurtleReturnValue extends TurtleReturnValue
+object NQuadReturnType extends NQuadReturnType

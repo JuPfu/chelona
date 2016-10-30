@@ -19,12 +19,12 @@ package org.chelona
 import org.chelona.EvalNT._
 
 object EvalNT {
-  def apply(output: (Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNT(output, basePath, label)
+  def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNT(output, basePath, label)
 
-  sealed trait NTReturnValue extends NTripleReturnValue
+  sealed trait ReturnType extends NTripleReturnType
 }
 
-class EvalNT(output: (Term, Term, Term) ⇒ Int, basePath: String, label: String) extends NTReturnValue {
+class EvalNT(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
 
   import org.chelona.NTriplesParser._
 
@@ -34,17 +34,17 @@ class EvalNT(output: (Term, Term, Term) ⇒ Int, basePath: String, label: String
 
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case NTTriple(s, p, o) ⇒ output(s, p, o)
+      case Triple(s, p, o) ⇒ output(s, p, o, defaultGraph)
       case _                 ⇒ 0
     }
   }
 
-  def evalStatement(expr: NTripleType): NTripleReturnValue = {
+  def evalStatement(expr: NTripleType): RDFReturnType = {
     expr match {
       case ASTTriple(subject, predicate, obj, comment) ⇒
         comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
         ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-          case (NTString(s), NTString(p), NTString(o)) ⇒ NTTriple(s, p, o)
+          case (NTString(s), NTString(p), NTString(o)) ⇒ Triple(s, p, o)
         }
       case ASTSubject(rule)   ⇒ evalStatement(rule)
       case ASTPredicate(rule) ⇒ evalStatement(rule)
