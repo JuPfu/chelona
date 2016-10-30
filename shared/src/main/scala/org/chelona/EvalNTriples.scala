@@ -16,15 +16,15 @@
 
 package org.chelona
 
-import org.chelona.EvalNT._
+import org.chelona.EvalNTriples._
 
-object EvalNT {
-  def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNT(output, basePath, label)
+object EvalNTriples {
+  def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNTriples(output, basePath, label)
 
   sealed trait ReturnType extends NTripleReturnType
 }
 
-class EvalNT(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
+class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
 
   import org.chelona.NTriplesParser._
 
