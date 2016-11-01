@@ -14,9 +14,7 @@
 * limitations under the License.
 */
 
-package org
+package org.chelona
 
-package object chelona extends RDFASTType with RDFReturnType {
+case class Term(value: String, termType: Int)
 
-  val chelona_version = "Cheló̱n version 1.2"
-}

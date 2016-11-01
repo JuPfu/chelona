@@ -14,9 +14,10 @@
 * limitations under the License.
 */
 
-package org
+package org.chelona
 
-package object chelona extends RDFASTType with RDFReturnType {
-
-  val chelona_version = "Cheló̱n version 1.2"
+trait RDFTokenTypes {
+  type RDFTokenType = Int
 }
+
+object RDFTokenTypes extends RDFTokenTypes

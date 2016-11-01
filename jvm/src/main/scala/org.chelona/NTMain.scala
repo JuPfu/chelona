@@ -30,20 +30,20 @@ object NTMain extends App with JSONLDFlatOutput {
   val cmdLineArgs = argsParser.parse(args, Config())
 
   if (cmdLineArgs.isEmpty) {
-    sys.exit(1)
+    sys.exit(1) // no arguments specified
   }
 
   if (cmdLineArgs.get.version) {
-    System.err.println(chelona_version)
+    System.err.println(chelona_version) // show version and exit
     sys.exit(2)
   }
 
-  val file = cmdLineArgs.get.file.head
+  val file = cmdLineArgs.get.file.head.getCanonicalPath()
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
 
   if (verbose) {
-    System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
+    System.err.println((if (!validate) "Convert: " else "Validate: ") + file)
   }
 
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
@@ -65,13 +65,13 @@ object NTMain extends App with JSONLDFlatOutput {
   jsonldFlatWriterInit(output)()
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalNT = new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
+  val evalNTriples = new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
 
   /* Looping in steps of n lines through the input file.
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
      for n chosen to be about 100000 lines.
   */
-  NTriplesParser.parseAll(file.getCanonicalPath, inputfile.get, evalNT.renderStatement, validate, base, label, verbose, trace, 250000)
+  NTriplesParser.parseAll(file, inputfile.get, evalNTriples.renderStatement, validate, base, label, verbose, trace, 250000)
 
   /* finalize output */
   jsonldFlatWriterTrailer(output)()
