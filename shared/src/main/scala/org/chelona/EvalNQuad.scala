@@ -69,19 +69,19 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIriRef(v) ⇒ NQuadString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case NQuadString(s) ⇒ s.value
-            }), NQuadTokenTypes.STRING_LITERAL | NQuadTokenTypes.IRIREF))
+            }), TokenTypes.STRING_LITERAL | TokenTypes.IRIREF))
             case ASTLangTag(v) ⇒ NQuadString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case NQuadString(s) ⇒ s.value
-            }), NQuadTokenTypes.STRING_LITERAL | NQuadTokenTypes.LANGTAG))
+            }), TokenTypes.STRING_LITERAL | TokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NQuadString(Term(token, NQuadTokenTypes.LANGTAG))
-      case ASTIriRef(token)             ⇒ NQuadString(Term("<" + token + ">", NQuadTokenTypes.IRIREF))
-      case ASTStringLiteralQuote(token) ⇒ NQuadString(Term("\"" + token + "\"", NQuadTokenTypes.STRING_LITERAL))
-      case ASTBlankNodeLabel(token)     ⇒ NQuadString(Term(setBlankNodeName("_:" + token), NQuadTokenTypes.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NQuadComment(Term(token, NQuadTokenTypes.COMMENT))
-      case ASTBlankLine(token)          ⇒ NQuadComment(Term(token, NQuadTokenTypes.BLANK_LINE))
+      case ASTLangTag(token)            ⇒ NQuadString(Term(token, TokenTypes.LANGTAG))
+      case ASTIriRef(token)             ⇒ NQuadString(Term("<" + token + ">", TokenTypes.IRIREF))
+      case ASTStringLiteralQuote(token) ⇒ NQuadString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL))
+      case ASTBlankNodeLabel(token)     ⇒ NQuadString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NQuadComment(Term(token, TokenTypes.COMMENT))
+      case ASTBlankLine(token)          ⇒ NQuadComment(Term(token, TokenTypes.BLANK_LINE))
     }
   }
 

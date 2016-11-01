@@ -87,31 +87,31 @@ trait JSONLDFlatOutput extends RDFReturnType {
     }
 
     //[3]	subject	::=	IRIREF | BLANK_NODE_LABEL
-    if ( NTripleTokenTypes.isIRIREF(s.termType) ) {
+    if ( TokenTypes.isIRIREF(s.termType) ) {
       sb.append("  {\n" + """  "@id": """" + s.value.substring(1, s.value.length-1) + """"""" + ",\n")
     }
-    else if ( NTripleTokenTypes.isBLANK_NODE_LABEL(s.termType)) {
+    else if ( TokenTypes.isBLANK_NODE_LABEL(s.termType)) {
       sb.append("  {\n" + """  "@id": """" + s.value + """"""" + ",\n")
     }
 
     //[4]	predicate	::=	IRIREF
-    if( NTripleTokenTypes.isIRIREF(p.termType) ) {
+    if( TokenTypes.isIRIREF(p.termType) ) {
       sb.append("""  """" + p.value.substring(1, p.value.length-1) + """"""" + ":\n")
     }
 
     //[5]	object	::=	IRIREF | BLANK_NODE_LABEL | STRING_LITERAL_QUOTE ('^^' IRIREF | LANGTAG)?
-    if ( NTripleTokenTypes.isIRIREF(o.termType) && !NTripleTokenTypes.isSTRING_LITERAL_QUOTE(o.termType)) {
+    if ( TokenTypes.isIRIREF(o.termType) && !TokenTypes.isSTRING_LITERAL_QUOTE(o.termType)) {
       sb.append("""    { "@id": """" + o.value.substring(1, o.value.length-1) + """"""" + "}\n  }")
     }
-    else if ( NTripleTokenTypes.isBLANK_NODE_LABEL(o.termType)) {
+    else if ( TokenTypes.isBLANK_NODE_LABEL(o.termType)) {
       sb.append("""    { "@id": """" + o.value + """"""" + " }\n  }")
     }
-    else if ( NTripleTokenTypes.isSTRING_LITERAL_QUOTE(o.termType) ) {
-       if ( NTripleTokenTypes.isLANGTAG(o.termType)) {
+    else if ( TokenTypes.isSTRING_LITERAL_QUOTE(o.termType) ) {
+       if ( TokenTypes.isLANGTAG(o.termType)) {
          val parts = o.value.split("@")
          sb.append("    {\n    " + """"@type": """" + parts(1) + """"""" + ",\n")
          sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")
-       } else if ( NTripleTokenTypes.isLITERALTAG(o.termType)) {
+       } else if ( TokenTypes.isLITERALTAG(o.termType)) {
          val parts = o.value.split("\\^\\^")
          sb.append("    {\n    " + """"@type": """" + parts(1).substring(1, parts(1).length-1) + """"""" + ",\n")
          sb.append("""    "@value": """ + parts(0) + "\n    }\n  }")

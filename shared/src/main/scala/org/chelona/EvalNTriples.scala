@@ -49,7 +49,7 @@ class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, l
       case ASTSubject(rule)   ⇒ evalStatement(rule)
       case ASTPredicate(rule) ⇒ evalStatement(rule)
       case ASTObject(rule)    ⇒ evalStatement(rule)
-      case ASTIriRef(token)   ⇒ NTString(Term("<" + token + ">", NTripleTokenTypes.IRIREF))
+      case ASTIriRef(token)   ⇒ NTString(Term("<" + token + ">", TokenTypes.IRIREF))
       case ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case NTString(element) ⇒ element.value
@@ -58,19 +58,19 @@ class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, l
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case ASTIriRef(v) ⇒ NTString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.value
-            }), NTripleTokenTypes.STRING_LITERAL_QUOTE | NTripleTokenTypes.IRIREF))
+            }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.IRIREF))
             case ASTLangTag(v) ⇒ NTString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case NTString(element) ⇒ element.value
-            }), NTripleTokenTypes.STRING_LITERAL_QUOTE | NTripleTokenTypes.LANGTAG))
+            }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTStringLiteralQuote(token) ⇒ NTString(Term("\"" + token + "\"", NTripleTokenTypes.STRING_LITERAL_QUOTE))
-      case ASTLangTag(token)            ⇒ NTString(Term(token, NTripleTokenTypes.LANGTAG))
-      case ASTBlankNodeLabel(token)     ⇒ NTString(Term(setBlankNodeName("_:" + token), NTripleTokenTypes.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NTComment(Term(token, NTripleTokenTypes.COMMENT))
+      case ASTStringLiteralQuote(token) ⇒ NTString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL_QUOTE))
+      case ASTLangTag(token)            ⇒ NTString(Term(token, TokenTypes.LANGTAG))
+      case ASTBlankNodeLabel(token)     ⇒ NTString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
+      case ASTComment(token)            ⇒ NTComment(Term(token, TokenTypes.COMMENT))
       case ASTTripleComment(rule)       ⇒ evalStatement(rule)
-      case ASTBlankLine(token)          ⇒ NTComment(Term(token, NTripleTokenTypes.BLANK_LINE))
+      case ASTBlankLine(token)          ⇒ NTComment(Term(token, TokenTypes.BLANK_LINE))
     }
   }
 

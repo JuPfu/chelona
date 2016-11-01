@@ -18,7 +18,7 @@ package org.chelona
 
 trait RDFReturnType {
 
-  val defaultGraph: Term = Term("", TurtleTokenTypes.DEFAULT_GRAPH)
+  val defaultGraph: Term = Term("", TokenTypes.DEFAULT_GRAPH)
 
   case class Triple(s: Term, p: Term, o: Term/*, g: Term = defaultGraph*/) extends RDFReturnType
   case class Quad(s: Term, p: Term, o: Term, g: Term) extends RDFReturnType

@@ -24,7 +24,7 @@ import org.chelona.GetCmdLineArgs._
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NTMain extends App with JSONLDFlatOutput {
+object NTripleMain extends App with JSONLDFlatOutput {
 
   /* get command line arguments */
   val cmdLineArgs = argsParser.parse(args, Config())

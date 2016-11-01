@@ -42,7 +42,7 @@ object TurtleParserJS {
 
     def tripleWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TurtleTokenTypes.isIRIREF(`type`))
+        if (TokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token
