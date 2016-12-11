@@ -23,14 +23,15 @@ import scopt._
 object GetCmdLineArgs {
 
   case class Config(
-    validate: Boolean = false,
-    file: Seq[File] = Seq(),
-    verbose: Boolean = false,
-    uid: Boolean = false,
-    base: String = "http://chelona.org",
-    fmt: String = "n3",
-    version: Boolean = false,
-    trace: Boolean = false)
+    validate: Boolean   = false,
+    file:     Seq[File] = Seq(),
+    verbose:  Boolean   = false,
+    uid:      Boolean   = false,
+    base:     String    = "http://chelona.org",
+    fmt:      String    = "n3",
+    version:  Boolean   = false,
+    trace:    Boolean   = false
+  )
 
   val argsParser = new OptionParser[Config]("Cheló̱na") {
     head("cheló̱na", "version 1.0")

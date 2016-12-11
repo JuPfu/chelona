@@ -16,13 +16,9 @@
 
 package org.chelona
 
-import org.chelona.NTriplesParser.NTAST
 import org.parboiled2._
 
-import scala.collection.mutable
-import scala.io.BufferedSource
 import scala.scalajs.js.annotation.JSExport
-import scala.util.{ Failure, Success }
 
 @JSExport
 object NTriplesParser extends NTripleAST {
@@ -30,14 +26,14 @@ object NTriplesParser extends NTripleAST {
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NTriplesParser(input, renderStatement, validate, basePath, label)
   }
-
-  sealed trait NTAST extends NTripleAST
 }
 
-class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding with NTAST {
+class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
+
+  import NTripleAST._
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 

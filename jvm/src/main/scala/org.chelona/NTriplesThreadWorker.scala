@@ -19,11 +19,11 @@ package org.chelona
 import org.parboiled2._
 
 import scala.collection.mutable
-import scala.util.{Failure, Success}
+import scala.util.{ Failure, Success }
 
 final class NTriplesThreadWorker(parserQueue: mutable.Queue[_ <: NTriplesParser], filename: String, validate: Boolean, verbose: Boolean, trace: Boolean) extends Thread {
 
-  var terminated = false
+  @volatile var terminated = false
 
   var tripleCount = 0L
 

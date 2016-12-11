@@ -16,17 +16,13 @@
 
 package org.chelona
 
-import org.chelona.EvalNTriples._
-
 object EvalNTriples {
   def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNTriples(output, basePath, label)
-
-  sealed trait ReturnType extends NTripleReturnType
 }
 
-class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
+class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) {
 
-  import org.chelona.NTriplesParser._
+  import NTripleAST._
 
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
 
@@ -34,43 +30,43 @@ class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, l
 
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case Triple(s, p, o) ⇒ output(s, p, o, defaultGraph)
-      case _                 ⇒ 0
+      case RDFTriple(s, p, o) ⇒ output(s, p, o, defaultGraph)
+      case _                  ⇒ 0
     }
   }
 
   def evalStatement(expr: NTripleType): RDFReturnType = {
     expr match {
-      case ASTTriple(subject, predicate, obj, comment) ⇒
+      case NTripleAST.ASTTriple(subject, predicate, obj, comment) ⇒
         comment match { case Some(c) ⇒ evalStatement(c); case None ⇒ }
         ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-          case (NTString(s), NTString(p), NTString(o)) ⇒ Triple(s, p, o)
+          case (RDFString(s), RDFString(p), RDFString(o)) ⇒ RDFTriple(s, p, o)
         }
-      case ASTSubject(rule)   ⇒ evalStatement(rule)
-      case ASTPredicate(rule) ⇒ evalStatement(rule)
-      case ASTObject(rule)    ⇒ evalStatement(rule)
-      case ASTIriRef(token)   ⇒ NTString(Term("<" + token + ">", TokenTypes.IRIREF))
-      case ASTLiteral(string, optionalPostfix) ⇒
+      case NTripleAST.ASTSubject(rule)   ⇒ evalStatement(rule)
+      case NTripleAST.ASTPredicate(rule) ⇒ evalStatement(rule)
+      case NTripleAST.ASTObject(rule)    ⇒ evalStatement(rule)
+      case NTripleAST.ASTIriRef(token)   ⇒ RDFString(Term("<" + token + ">", TokenTypes.IRIREF))
+      case NTripleAST.ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case NTString(element) ⇒ element.value
+          case RDFString(element) ⇒ element.value
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ NTString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case NTString(element) ⇒ element.value
+            case NTripleAST.ASTIriRef(v) ⇒ RDFString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(element) ⇒ element.value
             }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.IRIREF))
-            case ASTLangTag(v) ⇒ NTString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case NTString(element) ⇒ element.value
+            case NTripleAST.ASTLangTag(v) ⇒ RDFString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(element) ⇒ element.value
             }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTStringLiteralQuote(token) ⇒ NTString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL_QUOTE))
-      case ASTLangTag(token)            ⇒ NTString(Term(token, TokenTypes.LANGTAG))
-      case ASTBlankNodeLabel(token)     ⇒ NTString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NTComment(Term(token, TokenTypes.COMMENT))
-      case ASTTripleComment(rule)       ⇒ evalStatement(rule)
-      case ASTBlankLine(token)          ⇒ NTComment(Term(token, TokenTypes.BLANK_LINE))
+      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL_QUOTE))
+      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, TokenTypes.LANGTAG))
+      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
+      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, TokenTypes.COMMENT))
+      case NTripleAST.ASTTripleComment(rule)       ⇒ evalStatement(rule)
+      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, TokenTypes.BLANK_LINE))
     }
   }
 

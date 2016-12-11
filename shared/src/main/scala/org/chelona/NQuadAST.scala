@@ -16,12 +16,12 @@
 
 package org.chelona
 
-trait NQuadAST extends NTripleAST with RDFASTType {
+trait NQuadAST extends NTripleAST {
 
-  type NQuadType = NQuadAST
+  type NQuadType = NTripleType
 
-  case class ASTStatement(subject: NTripleType, predicate: NTripleType, `object`: NTripleType, graph: Option[NTripleType], comment: Option[NTripleType]) extends NQuadAST
-  case class ASTGraphLabel(rule: NTripleType) extends NQuadAST
+  case class ASTStatement(subject: NQuadType, predicate: NQuadType, `object`: NQuadType, graph: Option[NQuadType], comment: Option[NQuadType]) extends NQuadType
+  case class ASTGraphLabel(rule: NQuadType) extends NQuadType
 }
 
 object NQuadAST extends NQuadAST

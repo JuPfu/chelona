@@ -16,7 +16,6 @@
 
 package org.chelona
 
-import org.chelona.TriGParser.QuadAST
 import org.parboiled2._
 
 import scala.language.implicitConversions
@@ -28,11 +27,11 @@ object TriGParser extends TriGAST {
   def apply(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new TriGParser(input, renderStatement, validate, basePath, label)
   }
-
-  sealed trait QuadAST extends TriGAST
 }
 
-class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, renderStatement, validate, basePath, label) with QuadAST {
+class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, renderStatement, validate, basePath, label) {
+
+  import TriGAST._
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {

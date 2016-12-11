@@ -16,17 +16,13 @@
 
 package org.chelona
 
-import org.chelona.EvalNQuad._
-
 object EvalNQuad {
   def apply(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) = new EvalNQuad(output, basePath, label)
-
-  sealed trait ReturnType extends NQuadReturnType
 }
 
-class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) extends ReturnType {
+class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, label: String) {
 
-  import org.chelona.NQuadAST._
+  import NQuadAST._
 
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
 
@@ -34,14 +30,15 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
 
   def renderStatement(ast: NTripleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case Quad(s, p, o, g) ⇒ output(s, p, o, g)
-      case _ => 0
+      case RDFQuad(s, p, o, g) ⇒ output(s, p, o, g)
+      case _                   ⇒ 0
     }
   }
 
   def evalStatement(expr: NTripleType): RDFReturnType = {
+
     expr match {
-      case ASTStatement(subject, predicate, obj, graph, comment) ⇒
+      case NQuadAST.ASTStatement(subject, predicate, obj, graph, comment) ⇒
         comment match {
           case Some(c) ⇒ evalStatement(c);
           case None    ⇒
@@ -49,39 +46,39 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
         graph match {
           case Some(g) ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj), evalStatement(g)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o), NQuadString(g)) ⇒ Quad(s, p, o, g)
+              case (RDFString(s), RDFString(p), RDFString(o), RDFString(g)) ⇒ RDFQuad(s, p, o, g)
             }
           case None ⇒
             ((evalStatement(subject), evalStatement(predicate), evalStatement(obj)): @unchecked) match {
-              case (NQuadString(s), NQuadString(p), NQuadString(o)) ⇒ Quad(s, p, o, defaultGraph)
+              case (RDFString(s), RDFString(p), RDFString(o)) ⇒ RDFQuad(s, p, o, defaultGraph)
             }
         }
-      case ASTGraphLabel(rule)    ⇒ evalStatement(rule)
-      case ASTTripleComment(rule) ⇒ evalStatement(rule)
-      case ASTSubject(rule)       ⇒ evalStatement(rule)
-      case ASTPredicate(rule)     ⇒ evalStatement(rule)
-      case ASTObject(rule)        ⇒ evalStatement(rule)
-      case ASTLiteral(string, optionalPostfix) ⇒
+      case NQuadAST.ASTGraphLabel(rule)    ⇒ evalStatement(rule)
+      case NQuadAST.ASTTripleComment(rule) ⇒ evalStatement(rule)
+      case NTripleAST.ASTSubject(rule)     ⇒ evalStatement(rule)
+      case NTripleAST.ASTPredicate(rule)   ⇒ evalStatement(rule)
+      case NTripleAST.ASTObject(rule)      ⇒ evalStatement(rule)
+      case NTripleAST.ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case NQuadString(s) ⇒ s.value
+          case RDFString(s) ⇒ s.value
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIriRef(v) ⇒ NQuadString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s.value
+            case NTripleAST.ASTIriRef(v) ⇒ RDFString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(s) ⇒ s.value
             }), TokenTypes.STRING_LITERAL | TokenTypes.IRIREF))
-            case ASTLangTag(v) ⇒ NQuadString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
-              case NQuadString(s) ⇒ s.value
+            case NTripleAST.ASTLangTag(v) ⇒ RDFString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(s) ⇒ s.value
             }), TokenTypes.STRING_LITERAL | TokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)            ⇒ NQuadString(Term(token, TokenTypes.LANGTAG))
-      case ASTIriRef(token)             ⇒ NQuadString(Term("<" + token + ">", TokenTypes.IRIREF))
-      case ASTStringLiteralQuote(token) ⇒ NQuadString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL))
-      case ASTBlankNodeLabel(token)     ⇒ NQuadString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
-      case ASTComment(token)            ⇒ NQuadComment(Term(token, TokenTypes.COMMENT))
-      case ASTBlankLine(token)          ⇒ NQuadComment(Term(token, TokenTypes.BLANK_LINE))
+      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, TokenTypes.LANGTAG))
+      case NTripleAST.ASTIriRef(token)             ⇒ RDFString(Term("<" + token + ">", TokenTypes.IRIREF))
+      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL))
+      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
+      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, TokenTypes.COMMENT))
+      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, TokenTypes.BLANK_LINE))
     }
   }
 

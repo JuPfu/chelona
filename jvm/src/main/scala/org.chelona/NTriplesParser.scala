@@ -16,20 +16,17 @@
 
 package org.chelona
 
-import org.chelona.NTriplesParser.NTAST
 import org.parboiled2._
 
 import scala.collection.mutable
 import scala.io.BufferedSource
 import scala.util.{ Failure, Success }
 
-object NTriplesParser extends NTripleAST {
+object NTriplesParser {
 
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
     new NTriplesParser(input, renderStatement, validate, basePath, label, verbose, trace)
   }
-
-  sealed trait NTAST extends NTripleAST
 
   def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
 
@@ -84,10 +81,12 @@ object NTriplesParser extends NTripleAST {
   }
 }
 
-class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding with NTAST {
+class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
+
+  import NTripleAST._
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
 
@@ -123,7 +122,8 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
   val worker = new ASTThreadWorker(astQueue)
 
   if (!validate) {
-    worker.setName("NTripleASTWorker")
+    import scala.util._
+    worker.setName("NTripleASTWorker" + Random.nextInt())
     worker.start()
   }
 
@@ -132,7 +132,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
    */
   def asynchronous(ast: (NTripleType ⇒ Int, NTripleType)) = astQueue.synchronized {
     astQueue.enqueue(ast)
-    if (astQueue.length > 20) astQueue.notify()
+    /*if (astQueue.length > 0)*/ astQueue.notify()
   }
 
   def ws = rule {
@@ -146,7 +146,26 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
 
   //[1]	ntriplesDoc	::=	triple? (EOL triple)* EOL?
   def ntriplesDoc: Rule1[Long] = rule {
-    (triple ~> ((ast: NTripleAST) ⇒
+    (ntriples).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
+      if (!validate) {
+        worker.shutdown()
+        worker.join()
+
+        while (astQueue.nonEmpty) {
+          val (renderStatement, ast) = astQueue.dequeue()
+          worker.sum += renderStatement(ast)
+        }
+      }
+
+      worker.quit()
+
+      if (validate) v.sum
+      else worker.sum
+    })
+  }
+
+  def ntriples = rule {
+    (triple ~> ((ast: NTripleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
           asynchronous((renderStatement, ast)); 1
@@ -168,26 +187,11 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
           }
         }
         0
-      })).*(EOL) ~ EOL.? ~ EOI ~> ((v: Seq[Int]) ⇒ {
-      if (!validate) {
-        worker.shutdown()
-        worker.join()
-
-        while (astQueue.nonEmpty) {
-          val (renderStatement, ast) = astQueue.dequeue()
-          worker.sum += renderStatement(ast)
-        }
-      }
-
-      worker.quit()
-
-      if (validate) v.sum
-      else worker.sum
-    })
+      }))
   }
 
   //[2] triple	::=	subject predicate object '.'
-  def triple: Rule1[NTripleAST] = rule {
+  def triple: Rule1[NTripleType] = rule {
     ws ~ (subject ~ predicate ~ `object` ~ '.' ~ ws ~ comment.? ~> ASTTriple | comment ~> ASTTripleComment) | quiet(anyOf(" \t").+) ~ push("") ~> ASTBlankLine
   }
 

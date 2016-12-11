@@ -1,9 +1,10 @@
-import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 import scalariform.formatter.preferences._
+import com.typesafe.sbt.SbtScalariform
+import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 val commonSettings = Seq(
-  version := "1.2.0",
-  scalaVersion := "2.11.8",
+  version := "1.3.0",
+  scalaVersion := "2.12.1",
   name := "chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
@@ -24,7 +25,8 @@ val commonSettings = Seq(
     "-unchecked",
     "-deprecation",
     "-Xlint",
-    "-Yopt:_",
+    "-Ypartial-unification",
+    "-opt:l:method",
     "-language:_",
     "-target:jvm-1.8"))
 
@@ -48,7 +50,7 @@ resolvers += Resolver.typesafeRepo("releases")
 
 parallelExecution in Test := true
 
-scalariformSettings
+SbtScalariform.scalariformSettings
 
 ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(RewriteArrowSymbols, true)
@@ -65,8 +67,8 @@ lazy val chelona = crossProject.in(file("."))
   .settings(libraryDependencies ++=
     Seq(
       "org.parboiled" %%% "parboiled" % "2.1.3",
-      "com.chuusai" %%% "shapeless" % "2.3.0",
-      "org.scalatest" %%% "scalatest" % "3.0.0" % Test)
+      "com.chuusai" %%% "shapeless" % "2.3.2",
+      "org.scalatest" %%% "scalatest" % "3.0.1" % Test)
     )
   .jvmSettings(libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0")
   .jsSettings( )
@@ -81,7 +83,7 @@ lazy val root = project.in(file("."))
     mainClass in Compile := (mainClass in chelonaJVM in Compile).value
   )
 
-
+/*
 scalatex.SbtPlugin.projectSettings
 
 lazy val readme = scalatex.ScalatexReadme(
@@ -89,7 +91,7 @@ lazy val readme = scalatex.ScalatexReadme(
   wd = file(""),
   url = "https://github.com/lihaoyi/scalatex/tree/master",
   source = "Readme"
-)
+)*/
 /////////////////////// PUBLISH /////////////////////////
 
 lazy val publishingSettings = Seq(

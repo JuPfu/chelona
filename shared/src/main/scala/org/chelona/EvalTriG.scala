@@ -16,19 +16,15 @@
 
 package org.chelona
 
-import org.chelona.EvalTriG._
-
 import scala.annotation.tailrec
 
 object EvalTriG {
   def apply(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) = new EvalTriG(output, basePath, label)
-
-  sealed trait ReturnType extends TriGReturnType
 }
 
-class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) extends ReturnType {
+class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: String) {
 
-  import org.chelona.TriGParser._
+  import TriGAST._
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
   val blankNodeMap = scala.collection.mutable.Map.empty[String, String]
@@ -45,35 +41,36 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
 
   def renderStatement(ast: TurtleType): Int = {
     (evalStatement(ast): @unchecked) match {
-      case TriGTuples(t)  ⇒ output(t)
-      case TriGString(s)  ⇒ 0
-      case TriGComment(c) ⇒ 0
-      case _ => 0
+      case RDFTuples(t)  ⇒ output(t)
+      case RDFString(s)  ⇒ 0
+      case RDFComment(c) ⇒ 0
+      case _             ⇒ 0
     }
   }
 
   def evalStatement(expr: TurtleType): RDFReturnType = {
     expr match {
-      case ASTTrigDoc(rule) ⇒ evalStatement(rule)
-      case ASTStatement(rule) ⇒
+      // evalStatement is called for each statement seperatedly
+      // case TriGAST.ASTTrigDoc(rule) ⇒ evalStatement(rule)
+      case TriGAST.ASTStatement(rule) ⇒
         /* some clean up at the beginning of a new trig statement */
         subjectStack.clear
         predicateStack.clear
         /* evaluate a trig statement */
         evalStatement(rule)
-      case ASTBlock(rule) ⇒
+      case TriGAST.ASTBlock(rule) ⇒
         rule match {
-          case ASTWrappedGraph(tb) ⇒ curGraph = Term("", TriGTokenTypes.STRING_LITERAL)
-          case _                   ⇒
+          case TriGAST.ASTWrappedGraph(tb) ⇒ curGraph = Term("", TriGTokenTypes.STRING_LITERAL)
+          case _                           ⇒
         }
         evalStatement(rule)
-      case ASTLabelOrSubjectBlock(l, s) ⇒
+      case TriGAST.ASTLabelOrSubjectBlock(l, s) ⇒
         evalStatement(l); evalStatement(s)
-      case ASTTriplesOrGraph(l, rule) ⇒
+      case TriGAST.ASTTriplesOrGraph(l, rule) ⇒
         evalStatement(l)
-        rule match { case ASTPredicateObjectList(po) ⇒ curGraph = Term("", TriGTokenTypes.STRING_LITERAL); case _ ⇒ }
+        rule match { case TurtleAST.ASTPredicateObjectList(po) ⇒ curGraph = Term("", TriGTokenTypes.STRING_LITERAL); case _ ⇒ }
         evalStatement(rule)
-      case ASTTriple2BlankNodePropertyList(b, p) ⇒
+      case TriGAST.ASTTriple2BlankNodePropertyList(b, p) ⇒
         curGraph = Term("", TriGTokenTypes.STRING_LITERAL)
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
@@ -82,69 +79,69 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
         val sub = evalStatement(b)
         val retval = p match {
           case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
-            case (TriGTuples(ts), TriGTuples(ps)) ⇒ TriGTuples(ts ::: ps)
+            case (RDFTuples(ts), RDFTuples(ps)) ⇒ RDFTuples(ts ::: ps)
           }
           case None ⇒ sub
         }
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         retval
-      case ASTTriple2Collection(c, p) ⇒
+      case TriGAST.ASTTriple2Collection(c, p) ⇒
         curGraph = Term("", TriGTokenTypes.STRING_LITERAL)
         cCount += 1
         ((evalStatement(c), evalStatement(p)): @unchecked) match {
-          case (TriGTuples(cs), TriGTuples(ps)) ⇒ TriGTuples(cs ::: ps)
+          case (RDFTuples(cs), RDFTuples(ps)) ⇒ RDFTuples(cs ::: ps)
         }
-      case ASTWrappedGraph(t) ⇒ t match {
+      case TriGAST.ASTWrappedGraph(t) ⇒ t match {
         case Some(g) ⇒ evalStatement(g)
-        case None    ⇒ TriGNone()
+        case None    ⇒ RDFNone()
       }
-      case ASTTriplesBlock(t) ⇒ TriGTuples(traverseTriples(t, Nil))
-      case ASTLabelOrSubject(ls) ⇒
+      case TriGAST.ASTTriplesBlock(t) ⇒ RDFTuples(traverseTriples(t, Nil))
+      case TriGAST.ASTLabelOrSubject(ls) ⇒
         val l = evalStatement(ls)
-        (l: @unchecked) match { case TriGString(label) ⇒ curGraph = label; curSubject = label }
+        (l: @unchecked) match { case RDFString(label) ⇒ curGraph = label; curSubject = label }
         l
-      case ASTIri(rule) ⇒ (rule: @unchecked) match {
-        case ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case TriGString(Term(s, t)) ⇒ TriGString(Term("<" + addIriPrefix(s) + ">", t | TriGTokenTypes.IRIREF))
+      case TurtleAST.ASTIri(rule) ⇒ (rule: @unchecked) match {
+        case TurtleAST.ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
+          case RDFString(Term(s, t)) ⇒ RDFString(Term("<" + addIriPrefix(s) + ">", t | TriGTokenTypes.IRIREF))
         }
-        case ASTPrefixedName(n) ⇒ evalStatement(rule)
+        case TurtleAST.ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      case ASTIriRef(token) ⇒ TriGString(Term(token, TriGTokenTypes.IRIREF))
-      case ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
-        case ASTPNameNS(p) ⇒
+      case TurtleAST.ASTIriRef(token) ⇒ RDFString(Term(token, TriGTokenTypes.IRIREF))
+      case TurtleAST.ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
+        case TurtleAST.ASTPNameNS(p) ⇒
           (evalStatement(rule): @unchecked) match {
-            case TriGString(Term(s, t)) ⇒ TriGString(Term("<" + addPrefix(s, "") + ">", t | TriGTokenTypes.PNAMENS))
+            case RDFString(Term(s, t)) ⇒ RDFString(Term("<" + addPrefix(s, "") + ">", t | TriGTokenTypes.PNAMENS))
           }
-        case ASTPNameLN(p, l) ⇒ evalStatement(rule)
+        case TurtleAST.ASTPNameLN(p, l) ⇒ evalStatement(rule)
       }
-      case ASTDirective(rule) ⇒ evalStatement(rule)
-      case ASTPrefixID(p, i) ⇒
+      case TurtleAST.ASTDirective(rule) ⇒ evalStatement(rule)
+      case TurtleAST.ASTPrefixID(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (TriGString(ps), TriGString(is)) ⇒ definePrefix(ps.value, is.value)
+          case (RDFString(ps), RDFString(is)) ⇒ definePrefix(ps.value, is.value)
         }
-        TriGNone()
-      case ASTBase(rule) ⇒
+        RDFNone()
+      case TurtleAST.ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case TriGString(bs) ⇒ addBasePrefix(bs.value)
+          case RDFString(bs) ⇒ addBasePrefix(bs.value)
         }
-        TriGNone()
-      case ASTSparqlBase(rule) ⇒
+        RDFNone()
+      case TurtleAST.ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
-          case TriGString(bs) ⇒ addBasePrefix(bs.value)
+          case RDFString(bs) ⇒ addBasePrefix(bs.value)
         }
-        TriGNone()
-      case ASTSparqlPrefix(p, i) ⇒
+        RDFNone()
+      case TurtleAST.ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
-          case (TriGString(ps), TriGString(is)) ⇒ definePrefix(ps.value, is.value)
+          case (RDFString(ps), RDFString(is)) ⇒ definePrefix(ps.value, is.value)
         }
-        TriGNone()
-      case ASTTriples(s, p) ⇒
+        RDFNone()
+      case TurtleAST.ASTTriples(s, p) ⇒
         ((evalStatement(s), evalStatement(p)): @unchecked) match {
-          case (TriGTuples(ts), TriGTuples(ps))      ⇒ TriGTuples(ts ::: ps)
-          case (TriGString(subject), TriGTuples(ps)) ⇒ TriGTuples(ps)
+          case (RDFTuples(ts), RDFTuples(ps))      ⇒ RDFTuples(ts ::: ps)
+          case (RDFString(subject), RDFTuples(ps)) ⇒ RDFTuples(ps)
         }
-      case ASTBlankNodeTriples(s, p) ⇒
+      case TurtleAST.ASTBlankNodeTriples(s, p) ⇒
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
         bCount += 1
@@ -152,56 +149,56 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
         val sub = evalStatement(s)
         val retval = p match {
           case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
-            case (TriGTuples(ts), TriGTuples(ps)) ⇒ TriGTuples(ts ::: ps)
+            case (RDFTuples(ts), RDFTuples(ps)) ⇒ RDFTuples(ts ::: ps)
           }
           case None ⇒ sub
         }
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         retval
-      case ASTPredicateObjectList(predicateObjectlist) ⇒
+      case TurtleAST.ASTPredicateObjectList(predicateObjectlist) ⇒
         predicateObjectlist match {
-          case po ⇒ TriGTuples(traversePredicateObjectList(po, Nil))
+          case po ⇒ RDFTuples(traversePredicateObjectList(po, Nil))
         }
-      case ASTPo(verb, obj) ⇒
+      case TurtleAST.ASTPo(verb, obj) ⇒
         (evalStatement(verb): @unchecked) match {
-          case TriGString(token) ⇒ curPredicate = token
+          case RDFString(token) ⇒ curPredicate = token
         }
         evalStatement(obj)
-      case ASTObjectList(rule) ⇒ TriGTuples(traverseTriples(rule, Nil))
-      case ASTVerb(rule)       ⇒ evalStatement(rule)
-      case ASTIsA(token)       ⇒ TriGString(Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", TriGTokenTypes.ISA))
-      case ASTSubject(rule) ⇒ (rule: @unchecked) match {
-        case ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case TriGString(Term(s, t)) ⇒ curSubject = Term(s, t | TriGTokenTypes.IRIREF); TriGString(curSubject)
+      case TurtleAST.ASTObjectList(rule) ⇒ RDFTuples(traverseTriples(rule, Nil))
+      case TurtleAST.ASTVerb(rule)       ⇒ evalStatement(rule)
+      case TurtleAST.ASTIsA(token)       ⇒ RDFString(Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", TriGTokenTypes.ISA))
+      case TurtleAST.ASTSubject(rule) ⇒ (rule: @unchecked) match {
+        case TurtleAST.ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
+          case RDFString(Term(s, t)) ⇒ curSubject = Term(s, t | TriGTokenTypes.IRIREF); RDFString(curSubject)
         }
-        case ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
-          case TriGString(Term(s, t)) ⇒ curSubject = Term(s, t | TriGTokenTypes.BLANK_NODE_LABEL); TriGString(curSubject)
+        case TurtleAST.ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
+          case RDFString(Term(s, t)) ⇒ curSubject = Term(s, t | TriGTokenTypes.BLANK_NODE_LABEL); RDFString(curSubject)
         }
-        case ASTCollection(c) ⇒ cCount += 1; evalStatement(rule)
+        case TurtleAST.ASTCollection(c) ⇒ cCount += 1; evalStatement(rule)
       }
-      case ASTPredicate(rule) ⇒
+      case TurtleAST.ASTPredicate(rule) ⇒
         val predicate = evalStatement(rule)
         (predicate: @unchecked) match {
-          case TriGString(s) ⇒ curPredicate = s
+          case RDFString(s) ⇒ curPredicate = s
         }
         predicate
-      case ASTObject(l) ⇒ (l: @unchecked) match {
-        case ASTIri(v) ⇒ (evalStatement(l): @unchecked) match {
-          case TriGString(o) ⇒ Quad(curSubject, curPredicate, o, curGraph);
+      case TurtleAST.ASTObject(l) ⇒ (l: @unchecked) match {
+        case TurtleAST.ASTIri(v) ⇒ (evalStatement(l): @unchecked) match {
+          case RDFString(o) ⇒ RDFQuad(curSubject, curPredicate, o, curGraph);
         }
-        case ASTBlankNode(v) ⇒ (evalStatement(l): @unchecked) match {
-          case TriGString(o) ⇒ Quad(curSubject, curPredicate, o, curGraph);
+        case TurtleAST.ASTBlankNode(v) ⇒ (evalStatement(l): @unchecked) match {
+          case RDFString(o) ⇒ RDFQuad(curSubject, curPredicate, o, curGraph);
         }
-        case ASTLiteral(literal) ⇒
+        case TurtleAST.ASTLiteral(literal) ⇒
           (evalStatement(l): @unchecked) match {
-            case TriGString(o) ⇒ Quad(curSubject, curPredicate, o, curGraph);
+            case RDFString(o) ⇒ RDFQuad(curSubject, curPredicate, o, curGraph);
           }
-        case ASTCollection(v) ⇒
+        case TurtleAST.ASTCollection(v) ⇒
           l match {
-            case ASTCollection(Vector()) ⇒
+            case TurtleAST.ASTCollection(Vector()) ⇒
               // empty collection
-              TriGTuples(Quad(curSubject, curPredicate, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TriGTokenTypes.IRIREF), curGraph) :: Nil)
+              RDFTuples(RDFQuad(curSubject, curPredicate, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TriGTokenTypes.IRIREF), curGraph) :: Nil)
             case _ ⇒
               subjectStack.push(curSubject)
               cCount += 1
@@ -209,120 +206,120 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
               predicateStack.push(curPredicate)
               curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF)
               (evalStatement(l): @unchecked) match {
-                case TriGTuples(t) ⇒
+                case RDFTuples(t) ⇒
                   val oldSubject = curSubject
                   curSubject = subjectStack.pop
                   curPredicate = predicateStack.pop
-                  TriGTuples(Quad(curSubject, curPredicate, oldSubject, curGraph) :: t)
+                  RDFTuples(RDFQuad(curSubject, curPredicate, oldSubject, curGraph) :: t)
               }
           }
-        case ASTBlankNodePropertyList(v) ⇒
+        case TurtleAST.ASTBlankNodePropertyList(v) ⇒
           subjectStack.push(curSubject)
           predicateStack.push(curPredicate)
           bCount += 1
           curSubject = Term("_:b" + bCount, TriGTokenTypes.BLANK_NODE_LABEL)
           val bnode = curSubject
           (evalStatement(l): @unchecked) match {
-            case TriGTuples(t) ⇒
+            case RDFTuples(t) ⇒
               curSubject = subjectStack.pop
               curPredicate = predicateStack.pop
-              TriGTuples(Quad(curSubject, curPredicate, bnode, curGraph) :: t)
+              RDFTuples(RDFQuad(curSubject, curPredicate, bnode, curGraph) :: t)
           }
       }
-      case ASTLiteral(rule)               ⇒ evalStatement(rule)
-      case ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
-      case ASTCollection(rule) ⇒
+      case TurtleAST.ASTLiteral(rule)               ⇒ evalStatement(rule)
+      case TurtleAST.ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
+      case TurtleAST.ASTCollection(rule) ⇒
         curSubject = Term(getCollectionName, TriGTokenTypes.BLANK_NODE_LABEL)
         subjectStack.push(curSubject)
         curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF)
         predicateStack.push(curPredicate)
-        val res = TriGTuples(traverseCollection(rule, Nil))
+        val res = RDFTuples(traverseCollection(rule, Nil))
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         res
-      case ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case ASTInteger(token)       ⇒ TriGString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>", TriGTokenTypes.INTEGER))
-      case ASTDecimal(token)       ⇒ TriGString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>", TriGTokenTypes.DECIMAL))
-      case ASTDouble(token)        ⇒ TriGString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>", TriGTokenTypes.DOUBLE))
-      case ASTRdfLiteral(string, optionalPostfix) ⇒
+      case TurtleAST.ASTNumericLiteral(rule) ⇒ evalStatement(rule)
+      case TurtleAST.ASTInteger(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>", TriGTokenTypes.INTEGER))
+      case TurtleAST.ASTDecimal(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>", TriGTokenTypes.DECIMAL))
+      case TurtleAST.ASTDouble(token)        ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>", TriGTokenTypes.DOUBLE))
+      case TurtleAST.ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
-          case TriGString(s) ⇒ s
+          case RDFString(s) ⇒ s
         }
         (optionalPostfix: @unchecked) match {
           case Some(postfix) ⇒ (postfix: @unchecked) match {
-            case ASTIri(v) ⇒ TriGString(Term(literal.value + "^^" + ((evalStatement(postfix): @unchecked) match {
-              case TriGString(Term(s, t)) ⇒ s
+            case TurtleAST.ASTIri(v) ⇒ RDFString(Term(literal.value + "^^" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(Term(s, t)) ⇒ s
             }), TriGTokenTypes.IRIREF))
-            case ASTLangTag(v) ⇒ TriGString(Term(literal.value + "@" + ((evalStatement(postfix): @unchecked) match {
-              case TriGString(Term(s, t)) ⇒ s
+            case TurtleAST.ASTLangTag(v) ⇒ RDFString(Term(literal.value + "@" + ((evalStatement(postfix): @unchecked) match {
+              case RDFString(Term(s, t)) ⇒ s
             }), TriGTokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case ASTLangTag(token)                      ⇒ TriGString(Term(token, TriGTokenTypes.LANGTAG))
-      case ASTBooleanLiteral(token)               ⇒ TriGString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", TriGTokenTypes.BOOLEAN_LITERAL))
-      case ASTString(rule)                        ⇒ evalStatement(rule)
-      case ASTStringLiteralQuote(token)           ⇒ TriGString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_QUOTE))
-      case ASTStringLiteralSingleQuote(token)     ⇒ TriGString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_SINGLE_QUOTE))
-      case ASTStringLiteralLongSingleQuote(token) ⇒ TriGString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_LONG_SINGLE_QUOTE))
-      case ASTStringLiteralLongQuote(token)       ⇒ TriGString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_LONG_QUOTE))
-      case ASTPNameNS(prefix) ⇒
+      case TurtleAST.ASTLangTag(token)                      ⇒ RDFString(Term(token, TriGTokenTypes.LANGTAG))
+      case TurtleAST.ASTBooleanLiteral(token)               ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", TriGTokenTypes.BOOLEAN_LITERAL))
+      case TurtleAST.ASTString(rule)                        ⇒ evalStatement(rule)
+      case TurtleAST.ASTStringLiteralQuote(token)           ⇒ RDFString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_QUOTE))
+      case TurtleAST.ASTStringLiteralSingleQuote(token)     ⇒ RDFString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_SINGLE_QUOTE))
+      case TurtleAST.ASTStringLiteralLongSingleQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_LONG_SINGLE_QUOTE))
+      case TurtleAST.ASTStringLiteralLongQuote(token)       ⇒ RDFString(Term("\"" + token + "\"", TriGTokenTypes.STRING_LITERAL_LONG_QUOTE))
+      case TurtleAST.ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
-          case None            ⇒ TriGString(Term("", TriGTokenTypes.PNAMENS))
+          case None            ⇒ RDFString(Term("", TriGTokenTypes.PNAMENS))
         }
-      case ASTPNameLN(namespace, local) ⇒
+      case TurtleAST.ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (TriGString(pname_ns), TriGString(pn_local)) ⇒ TriGString(Term("<" + addPrefix(pname_ns.value, pn_local.value) + ">", TriGTokenTypes.PNAMELN))
+          case (RDFString(pname_ns), RDFString(pn_local)) ⇒ RDFString(Term("<" + addPrefix(pname_ns.value, pn_local.value) + ">", TriGTokenTypes.PNAMELN))
         }
-      case ASTPNPrefix(token)       ⇒ TriGString(Term(token, TriGTokenTypes.PNPREFIX))
-      case ASTPNLocal(token)        ⇒ TriGString(Term(token, TriGTokenTypes.PNLOCAL))
-      case ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case ASTBlankNodeLabel(token) ⇒ TriGString(Term(setBlankNodeName("_:" + token),TriGTokenTypes.BLANK_NODE_LABEL))
-      case ASTAnon(token) ⇒
-        aCount += 1; TriGString(Term("_:a" + label + aCount, TriGTokenTypes.ANON))
-      case ASTComment(token) ⇒ TriGComment(Term(token, TriGTokenTypes.COMMENT))
+      case TurtleAST.ASTPNPrefix(token)       ⇒ RDFString(Term(token, TriGTokenTypes.PNPREFIX))
+      case TurtleAST.ASTPNLocal(token)        ⇒ RDFString(Term(token, TriGTokenTypes.PNLOCAL))
+      case TurtleAST.ASTBlankNode(rule)       ⇒ evalStatement(rule)
+      case TurtleAST.ASTBlankNodeLabel(token) ⇒ RDFString(Term(setBlankNodeName("_:" + token), TriGTokenTypes.BLANK_NODE_LABEL))
+      case TurtleAST.ASTAnon(token) ⇒
+        aCount += 1; RDFString(Term("_:a" + label + aCount, TriGTokenTypes.ANON))
+      case TurtleAST.ASTComment(token) ⇒ RDFComment(Term(token, TriGTokenTypes.COMMENT))
     }
   }
 
   @tailrec
-  private def traversePredicateObjectList(l: Seq[TurtleAST], triples: List[Quad]): List[Quad] = l match {
+  private def traversePredicateObjectList(l: Seq[TurtleAST], triples: List[RDFQuad]): List[RDFQuad] = l match {
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case TriGTuples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
+      case RDFTuples(tl) ⇒ traversePredicateObjectList(xs, triples ::: tl)
     }
     case Nil ⇒ triples
   }
 
   @tailrec
-  private def traverseTriples(l: Seq[TurtleAST], triples: List[Quad]): List[Quad] = l match {
+  private def traverseTriples(l: Seq[TurtleAST], triples: List[RDFQuad]): List[RDFQuad] = l match {
     case x +: xs ⇒ (evalStatement(x): @unchecked) match {
-      case Quad(s, p, o, g) ⇒ traverseTriples(xs, triples :+ Quad(s, p, o, g))
-      case TriGTuples(t)         ⇒ traverseTriples(xs, triples ::: t)
+      case RDFQuad(s, p, o, g) ⇒ traverseTriples(xs, triples :+ RDFQuad(s, p, o, g))
+      case RDFTuples(t)        ⇒ traverseTriples(xs, triples ::: t)
     }
     case Nil ⇒ triples
   }
 
   @tailrec
-  private def traverseCollection(l: Seq[TurtleAST], triples: List[Quad]): List[Quad] = l match {
+  private def traverseCollection(l: Seq[TurtleAST], triples: List[RDFQuad]): List[RDFQuad] = l match {
     case x +: xs ⇒
       val oldSubject = curSubject
       (evalStatement(x): @unchecked) match {
-        case Quad(s, p, o, g) ⇒ traverseCollection(xs, if (xs != Nil) {
+        case RDFQuad(s, p, o, g) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
           curSubject = Term(getCollectionName, TriGTokenTypes.BLANK_NODE_LABEL)
-          triples ::: (Quad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF), o, g) :: (Quad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), curSubject, g) :: Nil))
+          triples ::: (RDFQuad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF), o, g) :: (RDFQuad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), curSubject, g) :: Nil))
         } else {
-          triples :+ Quad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF), o, g)
+          triples :+ RDFQuad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TriGTokenTypes.IRIREF), o, g)
         })
-        case TriGTuples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
+        case RDFTuples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
           curSubject = Term(getCollectionName, TriGTokenTypes.BLANK_NODE_LABEL)
-          triples ::: (t :+ Quad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), curSubject, curGraph))
+          triples ::: (t :+ RDFQuad(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), curSubject, curGraph))
         } else {
           triples ::: t
         })
       }
-    case Nil ⇒ triples ::: Quad(curSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TriGTokenTypes.IRIREF), curGraph) :: Nil
+    case Nil ⇒ triples ::: RDFQuad(curSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TriGTokenTypes.IRIREF), Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TriGTokenTypes.IRIREF), curGraph) :: Nil
   }
 
   private def definePrefix(key: String, value: String) = {

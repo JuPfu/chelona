@@ -16,7 +16,6 @@
 
 package org.chelona
 
-import org.chelona.NQuadParser.NQAST
 import org.parboiled2._
 
 import scala.collection.mutable
@@ -28,8 +27,6 @@ object NQuadParser {
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NQuadParser(input, renderStatement, validate, basePath, label)
   }
-
-  sealed trait NQAST extends NQuadAST
 
   def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
 
@@ -83,7 +80,9 @@ object NQuadParser {
   }
 }
 
-class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) with NQAST {
+class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement, validate, basePath, label) {
+
+  import NQuadAST._
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {

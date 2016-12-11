@@ -49,7 +49,7 @@ object TurtleParserJS {
       }
 
       triple.map {
-        case Triple(Term(s, type1), Term(p, type2), Term(o, type3)) ⇒ {
+        case RDFTriple(Term(s, type1), Term(p, type2), Term(o, type3)) ⇒ {
           val subject = formatter(s, type1)
           val predicate = formatter(p, type2)
           val `object` = formatter(o, type3)

@@ -16,35 +16,35 @@
 
 package org.chelona
 
-trait NTripleAST extends RDFASTType {
+trait NTripleAST extends RDFAST {
 
   type NTripleType = NTripleAST
 
-  case class ASTBlankLine(token: String) extends NTripleAST
+  case class ASTBlankLine(token: String) extends NTripleType
 
-  case class ASTComment(token: String) extends NTripleAST
+  case class ASTComment(token: String) extends NTripleType
 
-  case class ASTNTriplesDoc(triple: Option[NTripleType], triples: Seq[NTripleType]) extends NTripleAST
+  case class ASTNTriplesDoc(triple: Option[NTripleType], triples: Seq[NTripleType]) extends NTripleType
 
-  case class ASTTriple(subject: NTripleType, predicate: NTripleType, `object`: NTripleType, comment: Option[ASTComment]) extends NTripleAST
+  case class ASTTriple(subject: NTripleType, predicate: NTripleType, `object`: NTripleType, comment: Option[ASTComment]) extends NTripleType
 
-  case class ASTTripleComment(rule: NTripleType) extends NTripleAST
+  case class ASTTripleComment(rule: NTripleType) extends NTripleType
 
-  case class ASTSubject(rule: NTripleType) extends NTripleAST
+  case class ASTSubject(rule: NTripleType) extends NTripleType
 
-  case class ASTPredicate(rule: NTripleType) extends NTripleAST
+  case class ASTPredicate(rule: NTripleType) extends NTripleType
 
-  case class ASTObject(rule: NTripleType) extends NTripleAST
+  case class ASTObject(rule: NTripleType) extends NTripleType
 
-  case class ASTLangTag(token: String) extends NTripleAST
+  case class ASTLangTag(token: String) extends NTripleType
 
-  case class ASTIriRef(token: String) extends NTripleAST
+  case class ASTIriRef(token: String) extends NTripleType
 
-  case class ASTLiteral(token: NTripleType, postfix: Option[NTripleType]) extends NTripleAST
+  case class ASTLiteral(token: NTripleType, postfix: Option[NTripleType]) extends NTripleType
 
-  case class ASTStringLiteralQuote(token: String) extends NTripleAST
+  case class ASTStringLiteralQuote(token: String) extends NTripleType
 
-  case class ASTBlankNodeLabel(token: String) extends NTripleAST
+  case class ASTBlankNodeLabel(token: String) extends NTripleType
 }
 
 object NTripleAST extends NTripleAST

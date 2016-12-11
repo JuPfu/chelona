@@ -49,7 +49,7 @@ object TriGParserJS {
       }
 
       triple.map {
-        case Quad(s, p, o, g) ⇒ {
+        case RDFQuad(s, p, o, g) ⇒ {
           val subject = formatter(s.value, s.termType)
           val predicate = formatter(p.value, p.termType)
           val `object` = formatter(o.value, o.termType)

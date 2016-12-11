@@ -50,37 +50,37 @@ trait TriGTokenTypes extends RDFTokenTypes {
   final val NUMBER = INTEGER | DECIMAL | DOUBLE
 
   @inline
-  def isBLANK_NODE_LABEL (`type`: TriGToken) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
+  def isBLANK_NODE_LABEL(`type`: TriGToken) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
 
   @inline
-  def isISA (`type`: TriGToken) = (`type` & ISA) == ISA
+  def isISA(`type`: TriGToken) = (`type` & ISA) == ISA
 
   @inline
-  def isIRIREF (`type`: TriGToken) = (`type` & IRIREF) == IRIREF
+  def isIRIREF(`type`: TriGToken) = (`type` & IRIREF) == IRIREF
 
   @inline
-  def isPREFIXID (`type`: TriGToken) = (`type` & PREFIXID) == PREFIXID
+  def isPREFIXID(`type`: TriGToken) = (`type` & PREFIXID) == PREFIXID
 
   @inline
-  def isBASE (`type`: TriGToken) = (`type` & BASE) == BASE
+  def isBASE(`type`: TriGToken) = (`type` & BASE) == BASE
 
   @inline
-  def isINTEGER (`type`: TriGToken) = (`type` & INTEGER) == INTEGER
+  def isINTEGER(`type`: TriGToken) = (`type` & INTEGER) == INTEGER
 
   @inline
-  def isDECIMAL (`type`: TriGToken) = (`type` & DECIMAL) == DECIMAL
+  def isDECIMAL(`type`: TriGToken) = (`type` & DECIMAL) == DECIMAL
 
   @inline
-  def isDOUBLE (`type`: TriGToken) = (`type` & DOUBLE) == DOUBLE
+  def isDOUBLE(`type`: TriGToken) = (`type` & DOUBLE) == DOUBLE
 
   @inline
-  def isNUMBER (`type`: TriGToken) =  (`type` & NUMBER ) > 0
+  def isNUMBER(`type`: TriGToken) = (`type` & NUMBER) > 0
 
   @inline
-  def isANON (`type`: TriGToken) = (`type` & ANON) == ANON
+  def isANON(`type`: TriGToken) = (`type` & ANON) == ANON
 
   @inline
-  def isBOOLEAN_LITERAL (`type`: TriGToken) = (`type` & BOOLEAN_LITERAL) == BOOLEAN_LITERAL
+  def isBOOLEAN_LITERAL(`type`: TriGToken) = (`type` & BOOLEAN_LITERAL) == BOOLEAN_LITERAL
 }
 
 object TriGTokenTypes extends TriGTokenTypes

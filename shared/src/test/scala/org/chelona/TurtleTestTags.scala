@@ -17,27 +17,27 @@ package org.chelona
 */
 import org.scalatest.Tag
 
-object TurtleAtomic extends Tag("org.chelona.tags.TurtleAtomic")
-object TurtleSyntax extends Tag("org.chelona.tags.TurtleSyntax")
-object TurtleSyntaxBad extends Tag("org.chelona.tags.TurtleSyntaxBad")
+object TurtleAtomic extends Tag( "org.chelona.tags.TurtleAtomic" )
+object TurtleSyntax extends Tag( "org.chelona.tags.TurtleSyntax" )
+object TurtleSyntaxBad extends Tag( "org.chelona.tags.TurtleSyntaxBad" )
 
-object TurtleEvalBad extends Tag("org.chelona.tags.TurtleEvalBad")
-object JeremyCarroll extends Tag("org.chelona.tags.JeremyCarroll")
-object DaveBeckett extends Tag("org.chelona.tags.DaveBeckett")
-object DavidRobillard extends Tag("org.chelona.tags.DavidRobillard")
+object TurtleEvalBad extends Tag( "org.chelona.tags.TurtleEvalBad" )
+object JeremyCarroll extends Tag( "org.chelona.tags.JeremyCarroll" )
+object DaveBeckett extends Tag( "org.chelona.tags.DaveBeckett" )
+object DavidRobillard extends Tag( "org.chelona.tags.DavidRobillard" )
 
-object TestTurtleEval extends Tag("org.chelona.tags.TurtleEval")
-object TestTurtleNegativeEval extends Tag("org.chelona.tags.TurtleNegativeEval")
-object TestTurtlePositiveSyntax extends Tag("org.chelona.tags.TestTurtlePositiveSyntax")
-object TestTurtleNegativeSyntax extends Tag("org.chelona.tags.TestTurtleNegativeSyntax")
+object TestTurtleEval extends Tag( "org.chelona.tags.TurtleEval" )
+object TestTurtleNegativeEval extends Tag( "org.chelona.tags.TurtleNegativeEval" )
+object TestTurtlePositiveSyntax extends Tag( "org.chelona.tags.TestTurtlePositiveSyntax" )
+object TestTurtleNegativeSyntax extends Tag( "org.chelona.tags.TestTurtleNegativeSyntax" )
 
-object TestTrigPositiveSyntax extends Tag("org.chelona.tags.TestTrigPositiveSyntax")
-object TestTrigNegativeSyntax extends Tag("org.chelona.tags.TestTrigNegativeSyntax")
-object TestTrigEval extends Tag("org.chelona.tags.TestTrigEval")
-object TestTrigNegativeEval extends Tag("org.chelona.tags.TestTrigNegativeEval")
+object TestTrigPositiveSyntax extends Tag( "org.chelona.tags.TestTrigPositiveSyntax" )
+object TestTrigNegativeSyntax extends Tag( "org.chelona.tags.TestTrigNegativeSyntax" )
+object TestTrigEval extends Tag( "org.chelona.tags.TestTrigEval" )
+object TestTrigNegativeEval extends Tag( "org.chelona.tags.TestTrigNegativeEval" )
 
-object TestNTriplesPositiveSyntax extends Tag("org.chelona.tags.TestNTriplesPositiveSyntax")
-object TestNTriplesNegativeSyntax extends Tag("org.chelona.tags.TestNTriplesNegativeSyntax")
+object TestNTriplesPositiveSyntax extends Tag( "org.chelona.tags.TestNTriplesPositiveSyntax" )
+object TestNTriplesNegativeSyntax extends Tag( "org.chelona.tags.TestNTriplesNegativeSyntax" )
 
-object TestNQuadsPositiveSyntax extends Tag("org.chelona.tags.TestNQuadsPositiveSyntax")
-object TestNQuadsNegativeSyntax extends Tag("org.chelona.tags.TestNQuadsNegativeSyntax")
+object TestNQuadsPositiveSyntax extends Tag( "org.chelona.tags.TestNQuadsPositiveSyntax" )
+object TestNQuadsNegativeSyntax extends Tag( "org.chelona.tags.TestNQuadsNegativeSyntax" )

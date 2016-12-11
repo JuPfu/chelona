@@ -18,7 +18,6 @@ package org.chelona
 
 import java.io.{ StringWriter, Writer }
 
-import org.chelona.NQuadReturnType._
 import org.parboiled2.{ ParseError, ParserInput }
 
 import scala.scalajs.js.annotation.JSExport

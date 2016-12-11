@@ -16,13 +16,9 @@
 
 package org.chelona
 
-import org.chelona.NQuadParser.NQAST
 import org.parboiled2._
 
-import scala.collection.mutable
-import scala.io.BufferedSource
 import scala.scalajs.js.annotation.JSExport
-import scala.util.{ Failure, Success }
 
 @JSExport
 object NQuadParser {
@@ -30,11 +26,11 @@ object NQuadParser {
   def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
     new NQuadParser(input, renderStatement, validate, basePath, label)
   }
-
-  sealed trait NQAST extends NQuadAST
 }
 
-class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) with NQAST {
+class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) {
+
+  import NQuadAST._
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
