@@ -24,7 +24,7 @@ import org.chelona.GetCmdLineArgs._
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NTripleMain extends App with JSONLDFlatOutput {
+object NTripleMain extends App with RDFNTOutput with JSONLDFlatOutput {
 
   /* get command line arguments */
   val cmdLineArgs = argsParser.parse(args, Config())
@@ -41,6 +41,7 @@ object NTripleMain extends App with JSONLDFlatOutput {
   val file = cmdLineArgs.get.file.head.getCanonicalPath()
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
+  val fmt = cmdLineArgs.get.fmt
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file)
@@ -61,20 +62,31 @@ object NTripleMain extends App with JSONLDFlatOutput {
   /* open output stream */
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  /* initialize output */
-  jsonldFlatWriterInit(output)()
+  val eval =
+    if (fmt.equals("n3")) {
+      new EvalNTriples(ntripleWriter(output)_, base, label)
+    } else {
+      new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
+    }
+
+  if (fmt.equals("json-ld")) {
+    /* initialize output */
+    jsonldFlatWriterInit(output)()
+  }
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalNTriples = new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
+  //val evalNTriples = new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
 
   /* Looping in steps of n lines through the input file.
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
      for n chosen to be about 100000 lines.
   */
-  NTriplesParser.parseAll(file, inputfile.get, evalNTriples.renderStatement, validate, base, label, verbose, trace, 250000)
+  NTriplesParser.parseAll(file, inputfile.get, eval.renderStatement, validate, base, label, verbose, trace, 250000)
 
-  /* finalize output */
-  jsonldFlatWriterTrailer(output)()
+  if (fmt.equals("json-ld")) {
+    /* finalize output */
+    jsonldFlatWriterTrailer(output)()
+  }
 
   output.close()
 }
