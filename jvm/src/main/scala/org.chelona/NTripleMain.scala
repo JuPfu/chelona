@@ -16,10 +16,10 @@
 
 package org.chelona
 
-import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
-
 import org.chelona.GetCmdLineArgs._
+
+import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.nio.charset.StandardCharsets
 
 import scala.io.BufferedSource
 import scala.util.Try
@@ -62,20 +62,17 @@ object NTripleMain extends App with RDFNTOutput with JSONLDFlatOutput {
   /* open output stream */
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val eval =
-    if (fmt.equals("n3")) {
-      new EvalNTriples(ntripleWriter(output)_, base, label)
-    } else {
-      new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
-    }
-
-  if (fmt.equals("json-ld")) {
-    /* initialize output */
-    jsonldFlatWriterInit(output)()
+  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
+  val eval = if (fmt.equals("n3")) {
+    EvalNTriples(ntripleWriter(output)_, base, label)
+  } else {
+    EvalNTriples(jsonLDFlatWriter(output)_, base, label)
   }
 
-  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  //val evalNTriples = new EvalNTriples(jsonLDFlatWriter(output)_, base, label)
+  if (fmt.equals("json-ld")) {
+    /* initialize json-ld output */
+    jsonldFlatWriterInit(output)()
+  }
 
   /* Looping in steps of n lines through the input file.
      Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
@@ -84,7 +81,7 @@ object NTripleMain extends App with RDFNTOutput with JSONLDFlatOutput {
   NTriplesParser.parseAll(file, inputfile.get, eval.renderStatement, validate, base, label, verbose, trace, 250000)
 
   if (fmt.equals("json-ld")) {
-    /* finalize output */
+    /* finalize json-ld output */
     jsonldFlatWriterTrailer(output)()
   }
 

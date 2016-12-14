@@ -15,16 +15,17 @@
 */
 package org.chelona
 
-import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
-
 import org.chelona.GetCmdLineArgs._
+
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
+
+import java.io.{ OutputStreamWriter, BufferedWriter }
+import java.nio.charset.StandardCharsets
 
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
 
-object TurtleMain extends App with RDFTurtleOutput {
+object TurtleMain extends App with RDFTurtleOutput with JSONLDFlatOutput {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -40,6 +41,7 @@ object TurtleMain extends App with RDFTurtleOutput {
   val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
+  val fmt = cmdLineArgs.get.fmt
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
@@ -64,11 +66,25 @@ object TurtleMain extends App with RDFTurtleOutput {
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   /* tripleWriter is defined in trait RDFTurtleOutput */
-  val evalTurtle = new EvalTurtle(turtleWriter(output) _, base, label)
+  val eval = if (fmt.equals("n3")) {
+    EvalTurtle(turtleWriter(output) _, base, label)
+  } else {
+    EvalTurtle(jsonLDFlatWriterTriple(output)_, base, label)
+  }
 
-  val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
+  if (fmt.equals("json-ld")) {
+    /* initialize json-ld output */
+    jsonldFlatWriterInit(output)()
+  }
+
+  val parser = ChelonaParser(input, eval.renderStatement, validate, base, label)
 
   val res = parser.turtleDoc.run()
+
+  if (fmt.equals("json-ld")) {
+    /* finalize json-ld output */
+    jsonldFlatWriterTrailer(output)()
+  }
 
   output.close()
 

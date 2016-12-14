@@ -24,7 +24,7 @@ import org.chelona.GetCmdLineArgs._
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NQuadMain extends App with RDFQuadOutput {
+object NQuadMain extends App with RDFQuadOutput with JSONLDFlatOutput {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -40,6 +40,7 @@ object NQuadMain extends App with RDFQuadOutput {
   val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
+  val fmt = cmdLineArgs.get.fmt
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
@@ -59,9 +60,23 @@ object NQuadMain extends App with RDFQuadOutput {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
-  val evalQuad = new EvalNQuad(quadWriter(output)_, base, label)
+  val eval = if (fmt.equals("n3")) {
+    EvalNQuad(quadWriter(output) _, base, label)
+  } else {
+    EvalNQuad(jsonLDFlatWriter(output)_, base, label)
+  }
 
-  NQuadParser.parseAll(file.getCanonicalPath, inputfile.get, evalQuad.renderStatement, validate, base, label, verbose, trace, 250000)
+  if (fmt.equals("json-ld")) {
+    /* initialize json-ld output */
+    jsonldFlatWriterInit(output)()
+  }
+
+  NQuadParser.parseAll(file.getCanonicalPath, inputfile.get, eval.renderStatement, validate, base, label, verbose, trace, 250000)
+
+  if (fmt.equals("json-ld")) {
+    /* finalize json-ld output */
+    jsonldFlatWriterTrailer(output)()
+  }
 
   output.close()
 }

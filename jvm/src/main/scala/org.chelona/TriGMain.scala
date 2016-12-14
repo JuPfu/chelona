@@ -15,16 +15,17 @@
 */
 package org.chelona
 
-import java.io.{ Writer, OutputStreamWriter, BufferedWriter }
-import java.nio.charset.StandardCharsets
-
 import org.chelona.GetCmdLineArgs._
+
 import org.parboiled2.{ ErrorFormatter, ParseError, ParserInput }
 
-import scala.io.BufferedSource
-import scala.util.{ Try, Success, Failure }
+import java.io.{ BufferedWriter, OutputStreamWriter }
+import java.nio.charset.StandardCharsets
 
-object TriGMain extends App with RDFTriGOutput {
+import scala.io.BufferedSource
+import scala.util.{ Failure, Success, Try }
+
+object TriGMain extends App with RDFTriGOutput with JSONLDFlatOutput {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -40,13 +41,12 @@ object TriGMain extends App with RDFTriGOutput {
   val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
+  val fmt = cmdLineArgs.get.fmt
 
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file)
     System.err.flush()
   }
-
-  val fmt = cmdLineArgs.get.fmt
 
   val ms: Double = System.currentTimeMillis
 
@@ -65,11 +65,25 @@ object TriGMain extends App with RDFTriGOutput {
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val evalTriG = new EvalTriG(trigWriter(output) _, base, label)
+  val eval = if (fmt.equals("n3")) {
+    EvalTriG(trigWriter(output) _, base, label)
+  } else {
+    EvalTriG(jsonLDFlatWriterQuad(output)_, base, label)
+  }
 
-  val parser = TriGParser(input, evalTriG.renderStatement, validate, base, label)
+  if (fmt.equals("json-ld")) {
+    /* initialize json-ld output */
+    jsonldFlatWriterInit(output)()
+  }
+
+  val parser = TriGParser(input, eval.renderStatement, validate, base, label)
 
   val res = parser.trigDoc.run()
+
+  if (fmt.equals("json-ld")) {
+    /* finalize json-ld output */
+    jsonldFlatWriterTrailer(output)()
+  }
 
   output.close()
 
