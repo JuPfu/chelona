@@ -27,6 +27,8 @@ trait RDFTurtleOutput {
   }
 }
 
+object RDFTurtleOutput extends RDFTurtleOutput
+
 trait RDFTriGOutput {
   def trigWriter(bo: Writer)(tuple: List[RDFReturnType]): Int = {
     tuple.map {
@@ -37,17 +39,23 @@ trait RDFTriGOutput {
   }
 }
 
+object RDFTriGOutput extends RDFTriGOutput
+
 trait RDFNTOutput {
   def ntripleWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term = defaultGraph): Int = {
     bo.write(s"${s.value} ${p.value} ${o.value} .\n"); 1
   }
 }
 
+object RDFNTOutput extends RDFNTOutput
+
 trait RDFQuadOutput {
   def quadWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term): Int = {
     bo.write(s"${s.value} ${p.value} ${o.value}" + (if (g.value.isEmpty) " .\n" else s" ${g.value} .\n")); 1
   }
 }
+
+object RDFQuadOutput extends RDFQuadOutput
 
 trait JSONLDFlatOutput {
   /* Simple JSON output */
@@ -126,3 +134,5 @@ trait JSONLDFlatOutput {
     bo.write(s)
   }
 }
+
+object JSONLDFlatOutput extends JSONLDFlatOutput

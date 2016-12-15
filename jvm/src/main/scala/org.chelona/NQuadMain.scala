@@ -24,7 +24,7 @@ import org.chelona.GetCmdLineArgs._
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NQuadMain extends App with RDFQuadOutput with JSONLDFlatOutput {
+object NQuadMain extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -59,6 +59,9 @@ object NQuadMain extends App with RDFQuadOutput with JSONLDFlatOutput {
   val trace = cmdLineArgs.get.trace
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+
+  import RDFQuadOutput._
+  import JSONLDFlatOutput._
 
   val eval = if (fmt.equals("n3")) {
     EvalNQuad(quadWriter(output) _, base, label)

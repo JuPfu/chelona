@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.BufferedSource
 import scala.util.{ Failure, Success, Try }
 
-object TriGMain extends App with RDFTriGOutput with JSONLDFlatOutput {
+object TriGMain extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -63,6 +63,9 @@ object TriGMain extends App with RDFTriGOutput with JSONLDFlatOutput {
   lazy val input: ParserInput = inputfile.get.mkString
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+
+  import RDFTriGOutput._
+  import JSONLDFlatOutput._
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val eval = if (fmt.equals("n3")) {

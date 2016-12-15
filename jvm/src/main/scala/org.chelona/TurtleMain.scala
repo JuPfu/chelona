@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.BufferedSource
 import scala.util.{ Try, Success, Failure }
 
-object TurtleMain extends App with RDFTurtleOutput with JSONLDFlatOutput {
+object TurtleMain extends App {
 
   val cmdLineArgs = argsParser.parse(args, Config())
 
@@ -64,41 +64,43 @@ object TurtleMain extends App with RDFTurtleOutput with JSONLDFlatOutput {
 
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
+  import RDFTurtleOutput._
+  import JSONLDFlatOutput._
+
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  /* tripleWriter is defined in trait RDFTurtleOutput */
   val eval = if (fmt.equals("n3")) {
     EvalTurtle(turtleWriter(output) _, base, label)
   } else {
     EvalTurtle(jsonLDFlatWriterTriple(output)_, base, label)
   }
 
-  if (fmt.equals("json-ld")) {
-    /* initialize json-ld output */
-    jsonldFlatWriterInit(output)()
+if (fmt.equals("json-ld")) {
+/* initialize json-ld output */
+jsonldFlatWriterInit(output)()
+}
+
+val parser = ChelonaParser(input, eval.renderStatement, validate, base, label)
+
+val res = parser.turtleDoc.run()
+
+if (fmt.equals("json-ld")) {
+/* finalize json-ld output */
+jsonldFlatWriterTrailer(output)()
+}
+
+output.close()
+
+res match {
+case Success(tripleCount) ⇒
+  val me: Double = System.currentTimeMillis - ms
+  if (verbose) {
+    if (!validate) {
+      System.err.println("Input file '" + file.getCanonicalPath + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+    } else {
+      System.err.println("Input file '" + file.getCanonicalPath + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
+    }
   }
-
-  val parser = ChelonaParser(input, eval.renderStatement, validate, base, label)
-
-  val res = parser.turtleDoc.run()
-
-  if (fmt.equals("json-ld")) {
-    /* finalize json-ld output */
-    jsonldFlatWriterTrailer(output)()
-  }
-
-  output.close()
-
-  res match {
-    case Success(tripleCount) ⇒
-      val me: Double = System.currentTimeMillis - ms
-      if (verbose) {
-        if (!validate) {
-          System.err.println("Input file '" + file.getCanonicalPath + "' converted in " + (me / 1000.0) + "sec " + tripleCount + " triples (triples per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        } else {
-          System.err.println("Input file '" + file.getCanonicalPath + "' composed of " + tripleCount + " statements successfully validated in " + (me / 1000.0) + "sec (statements per second = " + ((tripleCount * 1000) / me + 0.5).toInt + ")")
-        }
-      }
-    case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e)) else System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
-    case Failure(e)             ⇒ System.err.println("File '" + file.getCanonicalPath + "': Unexpected error during parsing run: " + e)
-  }
+case Failure(e: ParseError) ⇒ if (!cmdLineArgs.get.trace) System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e)) else System.err.println("File '" + file.getCanonicalPath + "': " + parser.formatError(e, new ErrorFormatter(showTraces = true)))
+case Failure(e)             ⇒ System.err.println("File '" + file.getCanonicalPath + "': Unexpected error during parsing run: " + e)
+}
 }

@@ -24,7 +24,7 @@ import java.nio.charset.StandardCharsets
 import scala.io.BufferedSource
 import scala.util.Try
 
-object NTripleMain extends App with RDFNTOutput with JSONLDFlatOutput {
+object NTripleMain extends App {
 
   /* get command line arguments */
   val cmdLineArgs = argsParser.parse(args, Config())
@@ -61,6 +61,9 @@ object NTripleMain extends App with RDFNTOutput with JSONLDFlatOutput {
 
   /* open output stream */
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+
+  import RDFNTOutput._
+  import JSONLDFlatOutput._
 
   /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
   val eval = if (fmt.equals("n3")) {
