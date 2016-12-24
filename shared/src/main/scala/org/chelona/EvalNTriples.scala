@@ -45,7 +45,7 @@ class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, l
       case NTripleAST.ASTSubject(rule)   ⇒ evalStatement(rule)
       case NTripleAST.ASTPredicate(rule) ⇒ evalStatement(rule)
       case NTripleAST.ASTObject(rule)    ⇒ evalStatement(rule)
-      case NTripleAST.ASTIriRef(token)   ⇒ RDFString(Term("<" + token + ">", TokenTypes.IRIREF))
+      case NTripleAST.ASTIriRef(token)   ⇒ RDFString(Term("<" + token + ">", RDFTokenTypes.IRIREF))
       case NTripleAST.ASTLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case RDFString(element) ⇒ element.value
@@ -54,19 +54,19 @@ class EvalNTriples(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, l
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case NTripleAST.ASTIriRef(v) ⇒ RDFString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(element) ⇒ element.value
-            }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.IRIREF))
+            }), RDFTokenTypes.STRING_LITERAL_QUOTE | RDFTokenTypes.IRIREF))
             case NTripleAST.ASTLangTag(v) ⇒ RDFString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(element) ⇒ element.value
-            }), TokenTypes.STRING_LITERAL_QUOTE | TokenTypes.LANGTAG))
+            }), RDFTokenTypes.STRING_LITERAL_QUOTE | RDFTokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL_QUOTE))
-      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, TokenTypes.LANGTAG))
-      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
-      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, TokenTypes.COMMENT))
+      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL_QUOTE))
+      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, RDFTokenTypes.LANGTAG))
+      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), RDFTokenTypes.BLANK_NODE_LABEL))
+      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, RDFTokenTypes.COMMENT))
       case NTripleAST.ASTTripleComment(rule)       ⇒ evalStatement(rule)
-      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, TokenTypes.BLANK_LINE))
+      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, RDFTokenTypes.BLANK_LINE))
     }
   }
 

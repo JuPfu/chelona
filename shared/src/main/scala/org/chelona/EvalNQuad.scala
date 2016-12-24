@@ -66,19 +66,19 @@ class EvalNQuad(output: (Term, Term, Term, Term) ⇒ Int, basePath: String, labe
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case NTripleAST.ASTIriRef(v) ⇒ RDFString(Term(literal + "^^" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(s) ⇒ s.value
-            }), TokenTypes.STRING_LITERAL | TokenTypes.IRIREF))
+            }), RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.IRIREF))
             case NTripleAST.ASTLangTag(v) ⇒ RDFString(Term(literal + "@" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(s) ⇒ s.value
-            }), TokenTypes.STRING_LITERAL | TokenTypes.LANGTAG))
+            }), RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, TokenTypes.LANGTAG))
-      case NTripleAST.ASTIriRef(token)             ⇒ RDFString(Term("<" + token + ">", TokenTypes.IRIREF))
-      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL))
-      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
-      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, TokenTypes.COMMENT))
-      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, TokenTypes.BLANK_LINE))
+      case NTripleAST.ASTLangTag(token)            ⇒ RDFString(Term(token, RDFTokenTypes.LANGTAG))
+      case NTripleAST.ASTIriRef(token)             ⇒ RDFString(Term("<" + token + ">", RDFTokenTypes.IRIREF))
+      case NTripleAST.ASTStringLiteralQuote(token) ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL))
+      case NTripleAST.ASTBlankNodeLabel(token)     ⇒ RDFString(Term(setBlankNodeName("_:" + token), RDFTokenTypes.BLANK_NODE_LABEL))
+      case NTripleAST.ASTComment(token)            ⇒ RDFComment(Term(token, RDFTokenTypes.COMMENT))
+      case NTripleAST.ASTBlankLine(token)          ⇒ RDFComment(Term(token, RDFTokenTypes.BLANK_LINE))
     }
   }
 

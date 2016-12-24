@@ -29,8 +29,8 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
   val subjectStack = scala.collection.mutable.Stack.empty[Term]
   val predicateStack = scala.collection.mutable.Stack.empty[Term]
 
-  var curSubject = Term("---Not valid subject---", TokenTypes.EMPTY)
-  var curPredicate = Term("---Not valid predicate---", TokenTypes.EMPTY)
+  var curSubject = Term("---Not valid subject---", RDFTokenTypes.EMPTY)
+  var curPredicate = Term("---Not valid predicate---", RDFTokenTypes.EMPTY)
   var aCount = 0
   var bCount = 0
   var cCount = 0
@@ -58,15 +58,15 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
         evalStatement(rule)
       case TurtleAST.ASTIri(rule) ⇒ (rule: @unchecked) match {
         case TurtleAST.ASTIriRef(i) ⇒ (evalStatement(rule): @unchecked) match {
-          case RDFString(s) ⇒ RDFString(Term("<" + addIriPrefix(s.value) + ">", TokenTypes.IRIREF))
+          case RDFString(s) ⇒ RDFString(Term("<" + addIriPrefix(s.value) + ">", RDFTokenTypes.IRIREF))
         }
         case TurtleAST.ASTPrefixedName(n) ⇒ evalStatement(rule)
       }
-      case TurtleAST.ASTIriRef(token) ⇒ RDFString(Term(token, TokenTypes.IRIREF))
+      case TurtleAST.ASTIriRef(token) ⇒ RDFString(Term(token, RDFTokenTypes.IRIREF))
       case TurtleAST.ASTPrefixedName(rule) ⇒ (rule: @unchecked) match {
         case TurtleAST.ASTPNameNS(p) ⇒
           (evalStatement(rule): @unchecked) match {
-            case RDFString(s) ⇒ RDFString(Term("<" + addPrefix(s.value, "") + ">", TokenTypes.PNAMENS))
+            case RDFString(s) ⇒ RDFString(Term("<" + addPrefix(s.value, "") + ">", RDFTokenTypes.PNAMENS))
           }
         case TurtleAST.ASTPNameLN(p, l) ⇒ evalStatement(rule)
       }
@@ -75,22 +75,22 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
           case (RDFString(ps), RDFString(is)) ⇒ definePrefix(ps.value, is.value)
         }
-        RDFString(Term("", TokenTypes.PREFIXID))
+        RDFString(Term("", RDFTokenTypes.PREFIXID))
       case TurtleAST.ASTBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
           case RDFString(bs) ⇒ addBasePrefix(bs.value)
         }
-        RDFString(Term("", TokenTypes.BASE))
+        RDFString(Term("", RDFTokenTypes.BASE))
       case TurtleAST.ASTSparqlBase(rule) ⇒
         (evalStatement(rule): @unchecked) match {
           case RDFString(bs) ⇒ addBasePrefix(bs.value)
         }
-        RDFString(Term("", TokenTypes.SPARQLBASE))
+        RDFString(Term("", RDFTokenTypes.SPARQLBASE))
       case TurtleAST.ASTSparqlPrefix(p, i) ⇒
         ((evalStatement(p), evalStatement(i)): @unchecked) match {
           case (RDFString(ps), RDFString(is)) ⇒ definePrefix(ps.value, is.value)
         }
-        RDFString(Term("", TokenTypes.SPARQLPREFIX))
+        RDFString(Term("", RDFTokenTypes.SPARQLPREFIX))
       case TurtleAST.ASTTriples(s, p) ⇒
         ((evalStatement(s), evalStatement(p)): @unchecked) match {
           case (RDFTriples(ts), RDFTriples(ps))     ⇒ RDFTriples(ts ::: ps)
@@ -100,7 +100,7 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
         bCount += 1
-        curSubject = Term("_:b" + bCount, TokenTypes.BLANK_NODE_LABEL)
+        curSubject = Term("_:b" + bCount, RDFTokenTypes.BLANK_NODE_LABEL)
         val sub = evalStatement(s)
         val retval = p match {
           case Some(po) ⇒ ((sub, evalStatement(po)): @unchecked) match {
@@ -122,13 +122,13 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
         evalStatement(obj)
       case TurtleAST.ASTObjectList(rule) ⇒ RDFTriples(traverseTriples(rule, Nil))
       case TurtleAST.ASTVerb(rule)       ⇒ evalStatement(rule)
-      case TurtleAST.ASTIsA(token)       ⇒ RDFString(Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", TokenTypes.IRIREF | TokenTypes.ISA))
+      case TurtleAST.ASTIsA(token)       ⇒ RDFString(Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>", RDFTokenTypes.IRIREF | RDFTokenTypes.ISA))
       case TurtleAST.ASTSubject(rule) ⇒ (rule: @unchecked) match {
         case TurtleAST.ASTIri(i) ⇒ (evalStatement(rule): @unchecked) match {
           case RDFString(s) ⇒ curSubject = s; RDFString(curSubject)
         }
         case TurtleAST.ASTBlankNode(b) ⇒ (evalStatement(rule): @unchecked) match {
-          case RDFString(Term(s, t)) ⇒ curSubject = Term(s, t | TokenTypes.BLANK_NODE_LABEL); RDFString(curSubject)
+          case RDFString(Term(s, t)) ⇒ curSubject = Term(s, t | RDFTokenTypes.BLANK_NODE_LABEL); RDFString(curSubject)
         }
         case TurtleAST.ASTCollection(c) ⇒ cCount += 1; evalStatement(rule)
       }
@@ -152,13 +152,13 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
           l match {
             case TurtleAST.ASTCollection(Vector()) ⇒
               // empty collection
-              RDFTriples(RDFTriple(curSubject, curPredicate, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TokenTypes.IRIREF)) :: Nil)
+              RDFTriples(RDFTriple(curSubject, curPredicate, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", RDFTokenTypes.IRIREF)) :: Nil)
             case _ ⇒
               subjectStack.push(curSubject)
               cCount += 1
-              curSubject = Term(getCollectionName, TokenTypes.BLANK_NODE_LABEL)
+              curSubject = Term(getCollectionName, RDFTokenTypes.BLANK_NODE_LABEL)
               predicateStack.push(curPredicate)
-              curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TokenTypes.IRIREF)
+              curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", RDFTokenTypes.IRIREF)
               (evalStatement(l): @unchecked) match {
                 case RDFTriples(t) ⇒
                   val oldSubject = curSubject
@@ -171,7 +171,7 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
           subjectStack.push(curSubject)
           predicateStack.push(curPredicate)
           bCount += 1
-          curSubject = Term("_:b" + bCount, TokenTypes.BLANK_NODE_LABEL)
+          curSubject = Term("_:b" + bCount, RDFTokenTypes.BLANK_NODE_LABEL)
           val bnode = curSubject
           (evalStatement(l): @unchecked) match {
             case RDFTriples(t) ⇒
@@ -183,18 +183,18 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
       case TurtleAST.ASTLiteral(rule)               ⇒ evalStatement(rule)
       case TurtleAST.ASTBlankNodePropertyList(rule) ⇒ evalStatement(rule)
       case TurtleAST.ASTCollection(rule) ⇒
-        curSubject = Term(getCollectionName, TokenTypes.BLANK_NODE_LABEL)
+        curSubject = Term(getCollectionName, RDFTokenTypes.BLANK_NODE_LABEL)
         subjectStack.push(curSubject)
-        curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TokenTypes.IRIREF)
+        curPredicate = Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", RDFTokenTypes.IRIREF)
         predicateStack.push(curPredicate)
         val res = RDFTriples(traverseCollection(rule, Nil))
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         res
       case TurtleAST.ASTNumericLiteral(rule) ⇒ evalStatement(rule)
-      case TurtleAST.ASTInteger(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>", TokenTypes.INTEGER))
-      case TurtleAST.ASTDecimal(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>", TokenTypes.DECIMAL))
-      case TurtleAST.ASTDouble(token)        ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>", TokenTypes.DOUBLE))
+      case TurtleAST.ASTInteger(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#integer>", RDFTokenTypes.INTEGER))
+      case TurtleAST.ASTDecimal(token)       ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#decimal>", RDFTokenTypes.DECIMAL))
+      case TurtleAST.ASTDouble(token)        ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#double>", RDFTokenTypes.DOUBLE))
       case TurtleAST.ASTRdfLiteral(string, optionalPostfix) ⇒
         val literal = (evalStatement(string): @unchecked) match {
           case RDFString(s) ⇒ s
@@ -203,37 +203,37 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
           case Some(postfix) ⇒ (postfix: @unchecked) match {
             case TurtleAST.ASTIri(v) ⇒ RDFString(Term(literal.value + "^^" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(s) ⇒ s.value
-            }), TokenTypes.STRING_LITERAL | TokenTypes.IRIREF))
+            }), RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.IRIREF))
             case TurtleAST.ASTLangTag(v) ⇒ RDFString(Term(literal.value + "@" + ((evalStatement(postfix): @unchecked) match {
               case RDFString(s) ⇒ s.value
-            }), TokenTypes.STRING_LITERAL | TokenTypes.LANGTAG))
+            }), RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.LANGTAG))
           }
           case None ⇒ evalStatement(string)
         }
-      case TurtleAST.ASTLangTag(token)                      ⇒ RDFString(Term(token, TokenTypes.LANGTAG))
-      case TurtleAST.ASTBooleanLiteral(token)               ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", TokenTypes.BOOLEAN_LITERAL))
+      case TurtleAST.ASTLangTag(token)                      ⇒ RDFString(Term(token, RDFTokenTypes.LANGTAG))
+      case TurtleAST.ASTBooleanLiteral(token)               ⇒ RDFString(Term("\"" + token + "\"^^<http://www.w3.org/2001/XMLSchema#boolean>", RDFTokenTypes.BOOLEAN_LITERAL))
       case TurtleAST.ASTString(rule)                        ⇒ evalStatement(rule)
-      case TurtleAST.ASTStringLiteralQuote(token)           ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL | TokenTypes.STRING_LITERAL_QUOTE))
-      case TurtleAST.ASTStringLiteralSingleQuote(token)     ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL | TokenTypes.STRING_LITERAL_SINGLE_QUOTE))
-      case TurtleAST.ASTStringLiteralLongSingleQuote(token) ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL | TokenTypes.STRING_LITERAL_LONG_SINGLE_QUOTE))
-      case TurtleAST.ASTStringLiteralLongQuote(token)       ⇒ RDFString(Term("\"" + token + "\"", TokenTypes.STRING_LITERAL | TokenTypes.STRING_LITERAL_LONG_QUOTE))
+      case TurtleAST.ASTStringLiteralQuote(token)           ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.STRING_LITERAL_QUOTE))
+      case TurtleAST.ASTStringLiteralSingleQuote(token)     ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.STRING_LITERAL_SINGLE_QUOTE))
+      case TurtleAST.ASTStringLiteralLongSingleQuote(token) ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.STRING_LITERAL_LONG_SINGLE_QUOTE))
+      case TurtleAST.ASTStringLiteralLongQuote(token)       ⇒ RDFString(Term("\"" + token + "\"", RDFTokenTypes.STRING_LITERAL | RDFTokenTypes.STRING_LITERAL_LONG_QUOTE))
       case TurtleAST.ASTPNameNS(prefix) ⇒
         prefix match {
           case Some(pn_prefix) ⇒ evalStatement(pn_prefix)
-          case None            ⇒ RDFString(Term("", TokenTypes.PNAMENS))
+          case None            ⇒ RDFString(Term("", RDFTokenTypes.PNAMENS))
         }
       case TurtleAST.ASTPNameLN(namespace, local) ⇒
         ((evalStatement(namespace), evalStatement(local)): @unchecked) match {
-          case (RDFString(pname_ns), RDFString(pn_local)) ⇒ RDFString(Term("<" + addPrefix(pname_ns.value, pn_local.value) + ">", TokenTypes.PNAMELN))
+          case (RDFString(pname_ns), RDFString(pn_local)) ⇒ RDFString(Term("<" + addPrefix(pname_ns.value, pn_local.value) + ">", RDFTokenTypes.PNAMELN))
         }
-      case TurtleAST.ASTPNPrefix(token)       ⇒ RDFString(Term(token, TokenTypes.PNPREFIX))
-      case TurtleAST.ASTPNLocal(token)        ⇒ RDFString(Term(token, TokenTypes.PNLOCAL))
+      case TurtleAST.ASTPNPrefix(token)       ⇒ RDFString(Term(token, RDFTokenTypes.PNPREFIX))
+      case TurtleAST.ASTPNLocal(token)        ⇒ RDFString(Term(token, RDFTokenTypes.PNLOCAL))
       case TurtleAST.ASTBlankNode(rule)       ⇒ evalStatement(rule)
-      case TurtleAST.ASTBlankNodeLabel(token) ⇒ RDFString(Term(setBlankNodeName("_:" + token), TokenTypes.BLANK_NODE_LABEL))
+      case TurtleAST.ASTBlankNodeLabel(token) ⇒ RDFString(Term(setBlankNodeName("_:" + token), RDFTokenTypes.BLANK_NODE_LABEL))
       case TurtleAST.ASTAnon(token) ⇒
         aCount += 1
-        RDFString(Term("_:a" + label + aCount, TokenTypes.ANON))
-      case TurtleAST.ASTComment(token) ⇒ RDFComment(Term(token, TokenTypes.COMMENT))
+        RDFString(Term("_:a" + label + aCount, RDFTokenTypes.ANON))
+      case TurtleAST.ASTComment(token) ⇒ RDFComment(Term(token, RDFTokenTypes.COMMENT))
     }
   }
 
@@ -261,20 +261,20 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
       (evalStatement(x): @unchecked) match {
         case RDFTriple(s, p, o) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = Term(getCollectionName, TokenTypes.BLANK_NODE_LABEL)
-          triples ::: (RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TokenTypes.IRIREF), o) :: (RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TokenTypes.IRIREF), curSubject) :: Nil))
+          curSubject = Term(getCollectionName, RDFTokenTypes.BLANK_NODE_LABEL)
+          triples ::: (RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", RDFTokenTypes.IRIREF), o) :: (RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", RDFTokenTypes.IRIREF), curSubject) :: Nil))
         } else {
-          triples :+ RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", TokenTypes.IRIREF), o)
+          triples :+ RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#first>", RDFTokenTypes.IRIREF), o)
         })
         case RDFTriples(t) ⇒ traverseCollection(xs, if (xs != Nil) {
           cCount += 1
-          curSubject = Term(getCollectionName, TokenTypes.BLANK_NODE_LABEL)
-          triples ::: (t :+ RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TokenTypes.IRIREF), curSubject))
+          curSubject = Term(getCollectionName, RDFTokenTypes.BLANK_NODE_LABEL)
+          triples ::: (t :+ RDFTriple(oldSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", RDFTokenTypes.IRIREF), curSubject))
         } else {
           triples ::: t
         })
       }
-    case Nil ⇒ triples ::: RDFTriple(curSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", TokenTypes.IRIREF), Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", TokenTypes.IRIREF)) :: Nil
+    case Nil ⇒ triples ::: RDFTriple(curSubject, Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest>", RDFTokenTypes.IRIREF), Term("<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil>", RDFTokenTypes.IRIREF)) :: Nil
   }
 
   private def definePrefix(key: String, value: String) = {

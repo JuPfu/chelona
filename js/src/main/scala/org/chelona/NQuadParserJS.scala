@@ -42,7 +42,7 @@ object NQuadParserJS {
 
     def nquadWriter(bo: Writer)(s: Term, p: Term, o: Term, g: Term): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TokenTypes.isIRIREF(`type`))
+        if (RDFTokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token

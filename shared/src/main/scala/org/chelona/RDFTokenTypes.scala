@@ -15,7 +15,7 @@
 */
 package org.chelona
 
-trait TokenTypes {
+trait RDFTokenTypes {
   final val EMPTY = 0
 
   final val BLANK_NODE_LABEL = 1
@@ -43,7 +43,7 @@ trait TokenTypes {
   final val COMMENT = BLANK_LINE << 1
   final val DEFAULT_GRAPH = COMMENT << 1
 
-  type TokenType = Int
+  type RDFTokenType = Int
 
   // synthetic
   final val NUMBER = INTEGER | DECIMAL | DOUBLE
@@ -52,58 +52,58 @@ trait TokenTypes {
   final val STRING_LITERAL = STRING_LITERAL_QUOTE | STRING_LITERAL_SINGLE_QUOTE | STRING_LITERAL_LONG_SINGLE_QUOTE | STRING_LITERAL_LONG_QUOTE
 
   @inline
-  def isBLANK_NODE_LABEL(`type`: TokenType) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
+  def isBLANK_NODE_LABEL(`type`: RDFTokenType) = (`type` & BLANK_NODE_LABEL) == BLANK_NODE_LABEL
 
   @inline
-  def isISA(`type`: TokenType) = (`type` & ISA) == ISA
+  def isISA(`type`: RDFTokenType) = (`type` & ISA) == ISA
 
   @inline
-  def isIRIREF(`type`: TokenType) = (`type` & IRIREF) == IRIREF
+  def isIRIREF(`type`: RDFTokenType) = (`type` & IRIREF) == IRIREF
 
   @inline
-  def isPREFIXID(`type`: TokenType) = (`type` & PREFIXID) == PREFIXID
+  def isPREFIXID(`type`: RDFTokenType) = (`type` & PREFIXID) == PREFIXID
 
   @inline
-  def isBASE(`type`: TokenType) = (`type` & BASE) == BASE
+  def isBASE(`type`: RDFTokenType) = (`type` & BASE) == BASE
 
   @inline
-  def isINTEGER(`type`: TokenType) = (`type` & INTEGER) == INTEGER
+  def isINTEGER(`type`: RDFTokenType) = (`type` & INTEGER) == INTEGER
 
   @inline
-  def isDECIMAL(`type`: TokenType) = (`type` & DECIMAL) == DECIMAL
+  def isDECIMAL(`type`: RDFTokenType) = (`type` & DECIMAL) == DECIMAL
 
   @inline
-  def isDOUBLE(`type`: TokenType) = (`type` & DOUBLE) == DOUBLE
+  def isDOUBLE(`type`: RDFTokenType) = (`type` & DOUBLE) == DOUBLE
 
   @inline
-  def isNUMBER(`type`: TokenType) = (`type` & NUMBER) > 0
+  def isNUMBER(`type`: RDFTokenType) = (`type` & NUMBER) > 0
 
   @inline
-  def isANON(`type`: TokenType) = (`type` & ANON) == ANON
+  def isANON(`type`: RDFTokenType) = (`type` & ANON) == ANON
 
   @inline
-  def isBOOLEAN_LITERAL(`type`: TokenType) = (`type` & BOOLEAN_LITERAL) == BOOLEAN_LITERAL
+  def isBOOLEAN_LITERAL(`type`: RDFTokenType) = (`type` & BOOLEAN_LITERAL) == BOOLEAN_LITERAL
 
   @inline
-  def isSTRING_LITERAL(`type`: TokenType) = (`type` & STRING_LITERAL) > 0
+  def isSTRING_LITERAL(`type`: RDFTokenType) = (`type` & STRING_LITERAL) > 0
 
   @inline
-  def isSTRING_LITERAL_QUOTE(`type`: TokenType) = (`type` & STRING_LITERAL_QUOTE) == STRING_LITERAL_QUOTE
+  def isSTRING_LITERAL_QUOTE(`type`: RDFTokenType) = (`type` & STRING_LITERAL_QUOTE) == STRING_LITERAL_QUOTE
 
   @inline
-  def isSTRING_LITERAL_SINGLE_QUOTE(`type`: TokenType) = (`type` & STRING_LITERAL_SINGLE_QUOTE) == STRING_LITERAL_SINGLE_QUOTE
+  def isSTRING_LITERAL_SINGLE_QUOTE(`type`: RDFTokenType) = (`type` & STRING_LITERAL_SINGLE_QUOTE) == STRING_LITERAL_SINGLE_QUOTE
 
   @inline
-  def isSTRING_STRING_LITERAL_LONG_SINGLE_QUOTE(`type`: TokenType) = (`type` & STRING_LITERAL_LONG_SINGLE_QUOTE) == STRING_LITERAL_LONG_SINGLE_QUOTE
+  def isSTRING_STRING_LITERAL_LONG_SINGLE_QUOTE(`type`: RDFTokenType) = (`type` & STRING_LITERAL_LONG_SINGLE_QUOTE) == STRING_LITERAL_LONG_SINGLE_QUOTE
 
   @inline
-  def isSTRING_STRING_LITERAL_LONG_QUOTE(`type`: TokenType) = (`type` & STRING_LITERAL_LONG_QUOTE) == STRING_LITERAL_LONG_QUOTE
+  def isSTRING_STRING_LITERAL_LONG_QUOTE(`type`: RDFTokenType) = (`type` & STRING_LITERAL_LONG_QUOTE) == STRING_LITERAL_LONG_QUOTE
 
   @inline
-  def isLANGTAG(`type`: TokenType) = (`type` & LANGTAG) == LANGTAG
+  def isLANGTAG(`type`: RDFTokenType) = (`type` & LANGTAG) == LANGTAG
 
   @inline
-  def isLITERALTAG(`type`: TokenType) = (`type` & STRING_LITERAL) > 0 && (`type` & IRIREF) > 0
+  def isLITERALTAG(`type`: RDFTokenType) = (`type` & STRING_LITERAL) > 0 && (`type` & IRIREF) > 0
 }
 
-object TokenTypes extends TokenTypes
+object RDFTokenTypes extends RDFTokenTypes
