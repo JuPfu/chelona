@@ -42,7 +42,7 @@ object TriGParserJS {
 
     def triGHTMLWriter(bo: Writer)(triple: List[RDFReturnType]): Int = {
       def formatter(token: String, `type`: Int) = {
-        if (TriGTokenTypes.isIRIREF(`type`))
+        if (TokenTypes.isIRIREF(`type`))
           "&lt;" + token.substring(1, token.length - 1) + "&gt;"
         else
           token

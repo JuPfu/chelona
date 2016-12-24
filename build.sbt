@@ -1,3 +1,5 @@
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import scalariform.formatter.preferences._
 import com.typesafe.sbt.SbtScalariform
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
@@ -35,8 +37,7 @@ val formattingSettings = scalariformSettings ++ Seq(
     .setPreference(RewriteArrowSymbols, true)
     .setPreference(AlignParameters, true)
     .setPreference(AlignSingleLineCaseStatements, true)
-    .setPreference(DoubleIndentClassDeclaration, true)
-    .setPreference(PreserveDanglingCloseParenthesis, true))
+    .setPreference(DoubleIndentClassDeclaration, true))
 
 /////////////////////// PROJECTS /////////////////////////
 
@@ -57,18 +58,19 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(AlignParameters, true)
   .setPreference(AlignSingleLineCaseStatements, true)
   .setPreference(DoubleIndentClassDeclaration, true)
-  .setPreference(PreserveDanglingCloseParenthesis, true)
 
 lazy val chelona = crossProject.in(file("."))
   .settings(commonSettings: _*)
   .settings(scalariformSettings: _*)
   .settings(formattingSettings: _*)
   .settings(publishingSettings: _*)
-  .settings(libraryDependencies ++=
+  .settings(
+    libraryDependencies ++=
     Seq(
       "org.parboiled" %%% "parboiled" % "2.1.3",
       "com.chuusai" %%% "shapeless" % "2.3.2",
-      "org.scalatest" %%% "scalatest" % "3.0.1" % Test)
+      "org.scalatest" %%% "scalatest" % "3.0.1" % Test
+      )
     )
   .jvmSettings(libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0")
   .jsSettings( )
@@ -77,6 +79,8 @@ lazy val chelonaJVM = chelona.jvm
 lazy val chelonaJS = chelona.js
 
 lazy val root = project.in(file("."))
+  .aggregate(chelonaJVM, chelonaJS)
+  .enablePlugins(ScalaJSPlugin)
   .settings(commonSettings:_*)
   .settings(
     mainClass in assembly := Some("org.chelona.TurtleMain"),
@@ -100,11 +104,13 @@ lazy val publishingSettings = Seq(
   useGpg := false,
   useGpgAgent := false,
   sonatypeProfileName := "JuPfu",
-  publishTo <<= version { v: String =>
+  publishTo := {
     val nexus = "https://oss.sonatype.org/"
-    if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-    else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-                        },
+    if (version.value.trim.endsWith("SNAPSHOT"))
+      Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+      Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+  },
   pomIncludeRepository := { _ => false },
   pomExtra :=
     <scm>

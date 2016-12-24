@@ -132,7 +132,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) â
    */
   def asynchronous(ast: (NTripleType â‡’ Int, NTripleType)) = astQueue.synchronized {
     astQueue.enqueue(ast)
-    /*if (astQueue.length > 0)*/ astQueue.notify()
+    if (astQueue.nonEmpty) astQueue.notify()
   }
 
   def ws = rule {
