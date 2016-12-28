@@ -24,11 +24,11 @@ import scala.util.{ Failure, Success }
 
 object NTriplesParser {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
-    new NTriplesParser(input, renderStatement, validate, basePath, label, verbose, trace)
+  def apply(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "", verbose: Boolean = true, trace: Boolean = false) = {
+    new NTriplesParser(input, output, validate, basePath, label, verbose, trace)
   }
 
-  def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
+  def parseAll(filename: String, inputBuffer: BufferedSource, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
 
     val ms: Double = System.currentTimeMillis
 
@@ -46,7 +46,7 @@ object NTriplesParser {
 
     while (iterator.hasNext) {
       if (parserQueue.length > 1024) Thread.sleep(100) // a more sophisticated throtteling should be supplied
-      asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
+      asynchronous(NTriplesParser(iterator.take(lines).mkString("\n"), output, validate, base, label))
     }
 
     worker.shutdown()
@@ -81,7 +81,7 @@ object NTriplesParser {
   }
 }
 
-class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding {
+class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "", val verbose: Boolean = true, val trace: Boolean = false) extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
@@ -93,7 +93,7 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
   /*
  Parsing of the turtle data is done in the main thread.
  Evaluation of the abstract syntax tree for each turtle statement is passed to a separate thread "TurtleASTWorker".
- The ast evaluation procedure renderStatement and the ast for a statement are placed in a queue.
+ The ast evaluation procedure eval and the ast for a statement are placed in a queue.
  The abstract syntax trees of the Turtle statements are evaluated in sequence!
  Parsing continues immmediatly.
  ---P--- denotes the time for parsing a Turtle statement
@@ -134,6 +134,8 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
     astQueue.enqueue(ast)
     if (astQueue.nonEmpty) astQueue.notify()
   }
+
+  val renderStatement = EvalNTriples(output, basePath, label).renderStatement _
 
   def ws = rule {
     quiet(anyOf(" \t").*)

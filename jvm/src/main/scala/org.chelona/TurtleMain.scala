@@ -27,62 +27,74 @@ import scala.util.{ Try, Success, Failure }
 
 object TurtleMain extends App {
 
+  // parse command line arguments
   val cmdLineArgs = argsParser.parse(args, Config())
 
+  // exit program if no command line arguments had been found
   if (cmdLineArgs.isEmpty) {
     sys.exit(1)
   }
 
+  // display chelona version if requested and exit program
   if (cmdLineArgs.get.version) {
     System.err.println(chelona_version)
     sys.exit(2)
   }
 
+  // fetch command line arguments from command line parser
   val file = cmdLineArgs.get.file.head
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
   val fmt = cmdLineArgs.get.fmt
 
+  // if verbose mode had been requested, write some information to standard error
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file.getCanonicalPath)
     System.err.flush()
   }
 
+  // start timer
   val ms: Double = System.currentTimeMillis
 
+  // try to open input file using UTF_8 charset
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
 
+  // if input file could not be opened, write error message to standard error and exit program
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
     sys.exit(3)
   }
 
+  // fetch base definition from command line parser
   val base = cmdLineArgs.get.base
+  // if uid had been requested from the command line, build unique random label
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString("") else ""
 
+  // prepare input data for Turtle parser
   lazy val input: ParserInput = inputfile.get.mkString
 
+  // output is written to standard out
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
+  // import dependencies for selected output format
   import RDFTurtleOutput._
   import JSONLDFlatOutput._
 
-  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val eval = if (fmt.equals("n3")) {
-    EvalTurtle(turtleWriter(output) _, base, label)
-  } else {
-    EvalTurtle(jsonLDFlatWriterTriple(output)_, base, label)
-  }
+  // select output format requested from command line
+  val writer = if (fmt.equals("n3")) turtleWriter(output) _ else jsonLDFlatWriterTriple(output)_
 
   if (fmt.equals("json-ld")) {
     /* initialize json-ld output */
     jsonldFlatWriterInit(output)()
   }
 
-  val parser = ChelonaParser(input, eval.renderStatement, validate, base, label)
+  // create parser for Turtle data
+  val parser = ChelonaParser(input, writer, validate, base, label)
 
+  // run parser
   val res = parser.turtleDoc.run()
 
+  // write termination sequence
   if (fmt.equals("json-ld")) {
     /* finalize json-ld output */
     jsonldFlatWriterTrailer(output)()
@@ -90,6 +102,7 @@ object TurtleMain extends App {
 
   output.close()
 
+  // depending on outcome of parsing the Turtle data, write some information to standard error
   res match {
     case Success(tripleCount) ⇒
       val me: Double = System.currentTimeMillis - ms

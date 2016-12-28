@@ -20,7 +20,7 @@ trait TurtleAST extends RDFAST {
 
   type TurtleType = TurtleAST
 
-  case class ASTTurtleDoc(rule: TurtleType) extends TurtleType
+  //case class ASTTurtleDoc(rule: TurtleType) extends TurtleType
 
   case class ASTStatement(rule: TurtleType) extends TurtleType
 

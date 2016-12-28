@@ -49,9 +49,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 0 ), "Number of triples generated should have been 0" )
 
@@ -66,9 +66,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -91,9 +91,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -116,9 +116,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -136,9 +136,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -161,9 +161,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -186,9 +186,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -206,9 +206,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -226,9 +226,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 0 ), "Number of triples generated should have been 0" )
 
@@ -243,9 +243,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -268,9 +268,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -293,9 +293,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -313,9 +313,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -333,9 +333,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -358,9 +358,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -378,9 +378,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -398,9 +398,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -423,9 +423,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -443,9 +443,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -463,9 +463,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -483,9 +483,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -503,9 +503,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -528,9 +528,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -553,9 +553,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -573,9 +573,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -593,9 +593,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -618,9 +618,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -643,9 +643,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -663,9 +663,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -688,9 +688,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -713,9 +713,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -733,9 +733,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -753,9 +753,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -773,9 +773,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -798,9 +798,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -818,9 +818,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -843,9 +843,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 5 ), "Number of triples generated should have been 5" )
 
@@ -863,9 +863,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -883,9 +883,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -903,9 +903,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -928,9 +928,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -948,9 +948,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -973,9 +973,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -993,9 +993,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 0 ), "Number of triples generated should have been 0" )
 
@@ -1013,9 +1013,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1038,9 +1038,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1058,9 +1058,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1078,9 +1078,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1098,9 +1098,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1123,9 +1123,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1143,9 +1143,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1163,9 +1163,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1188,9 +1188,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 6 ), "Number of triples generated should have been 6" )
 
@@ -1208,9 +1208,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1233,9 +1233,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 30 ), "Number of triples generated should have been 30" )
 
@@ -1253,9 +1253,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1273,9 +1273,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1298,9 +1298,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1318,9 +1318,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1343,9 +1343,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1363,9 +1363,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1383,9 +1383,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1403,9 +1403,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1428,9 +1428,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1448,9 +1448,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1468,9 +1468,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         assert( parser.ntriplesDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1488,9 +1488,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1513,9 +1513,9 @@ class NTriplesEARLSpec extends FlatSpec with RDFNTOutput {
 
         val output = new StringWriter()
 
-        val evalNT = new EvalNTriples( ntripleWriter( output )_, "http://www.w3.org/2013/NTriplesTests", "" )
+        val writer = ntripleWriter( output )_
 
-        val parser = NTriplesParser( input, evalNT.renderStatement, false, "http://www.w3.org/2013/NTriplesTests", "" )
+        val parser = NTriplesParser( input, writer, false, "http://www.w3.org/2013/NTriplesTests", "" )
 
         val res = parser.ntriplesDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒

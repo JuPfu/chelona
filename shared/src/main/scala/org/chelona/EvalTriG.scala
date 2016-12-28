@@ -49,28 +49,29 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
   }
 
   def evalStatement(expr: TurtleType): RDFReturnType = {
+
     expr match {
       // evalStatement is called for each statement seperatedly
-      // case TriGAST.ASTTrigDoc(rule) ⇒ evalStatement(rule)
-      case TriGAST.ASTStatement(rule) ⇒
+      // case ASTTrigDoc(rule) ⇒ evalStatement(rule)
+      case ASTStatement(rule) ⇒
         /* some clean up at the beginning of a new trig statement */
         subjectStack.clear
         predicateStack.clear
         /* evaluate a trig statement */
         evalStatement(rule)
-      case TriGAST.ASTBlock(rule) ⇒
+      case ASTBlock(rule) ⇒
         rule match {
-          case TriGAST.ASTWrappedGraph(tb) ⇒ curGraph = Term("", RDFTokenTypes.STRING_LITERAL)
-          case _                           ⇒
+          case ASTWrappedGraph(tb) ⇒ curGraph = Term("", RDFTokenTypes.STRING_LITERAL)
+          case _                   ⇒
         }
         evalStatement(rule)
-      case TriGAST.ASTLabelOrSubjectBlock(l, s) ⇒
+      case ASTLabelOrSubjectBlock(l, s) ⇒
         evalStatement(l); evalStatement(s)
-      case TriGAST.ASTTriplesOrGraph(l, rule) ⇒
+      case ASTTriplesOrGraph(l, rule) ⇒
         evalStatement(l)
         rule match { case TurtleAST.ASTPredicateObjectList(po) ⇒ curGraph = Term("", RDFTokenTypes.STRING_LITERAL); case _ ⇒ }
         evalStatement(rule)
-      case TriGAST.ASTTriple2BlankNodePropertyList(b, p) ⇒
+      case ASTTriple2BlankNodePropertyList(b, p) ⇒
         curGraph = Term("", RDFTokenTypes.STRING_LITERAL)
         subjectStack.push(curSubject)
         predicateStack.push(curPredicate)
@@ -86,18 +87,18 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
         curSubject = subjectStack.pop
         curPredicate = predicateStack.pop
         retval
-      case TriGAST.ASTTriple2Collection(c, p) ⇒
+      case ASTTriple2Collection(c, p) ⇒
         curGraph = Term("", RDFTokenTypes.STRING_LITERAL)
         cCount += 1
         ((evalStatement(c), evalStatement(p)): @unchecked) match {
           case (RDFTuples(cs), RDFTuples(ps)) ⇒ RDFTuples(cs ::: ps)
         }
-      case TriGAST.ASTWrappedGraph(t) ⇒ t match {
+      case ASTWrappedGraph(t) ⇒ t match {
         case Some(g) ⇒ evalStatement(g)
         case None    ⇒ RDFNone()
       }
-      case TriGAST.ASTTriplesBlock(t) ⇒ RDFTuples(traverseTriples(t, Nil))
-      case TriGAST.ASTLabelOrSubject(ls) ⇒
+      case ASTTriplesBlock(t) ⇒ RDFTuples(traverseTriples(t, Nil))
+      case ASTLabelOrSubject(ls) ⇒
         val l = evalStatement(ls)
         (l: @unchecked) match { case RDFString(label) ⇒ curGraph = label; curSubject = label }
         l

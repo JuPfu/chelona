@@ -20,7 +20,7 @@ trait TriGAST extends TurtleAST {
 
   type TriGType = TurtleType
 
-  case class ASTTrigDoc(rule: TriGType) extends TriGType
+  //case class ASTTrigDoc(rule: TriGType) extends TriGType
 
   case class ASTBlock(rule: TriGType) extends TriGType
 

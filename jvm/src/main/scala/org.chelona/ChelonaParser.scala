@@ -20,12 +20,12 @@ import org.parboiled2._
 
 object ChelonaParser {
 
-  def apply(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new ChelonaParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new ChelonaParser(input, output, validate, basePath, label)
   }
 }
 
-class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
+class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
 
   import scala.collection.mutable
 
@@ -93,6 +93,8 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
     if (astQueue.length > 20) astQueue.notify()
   }
 
+  val renderStatement = EvalTurtle(output, basePath, label).renderStatement _
+
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
     quiet(str(s)) ~ ws
@@ -102,7 +104,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
-    anyOf(" \n\r\t").* ~ (statement ~> ((ast: TurtleAST) ⇒
+    anyOf(" \n\r\t").* ~ (statement ~> ((ast: TurtleType) ⇒
       if (!__inErrorAnalysis) {
         if (!validate) {
           asynchronous((renderStatement, ast)); 1
@@ -143,7 +145,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
   }
 
   //[2] statement 	::= 	directive | triples '.'
-  def statement: Rule1[TurtleAST] = rule {
+  def statement: Rule1[TurtleType] = rule {
     (directive | triples ~ "." | comment) ~> ASTStatement
   }
 
@@ -178,7 +180,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
   }
 
   //[6] triples 	::= 	subject predicateObjectList | blankNodePropertyList predicateObjectList?
-  def triples: Rule1[TurtleAST] = rule {
+  def triples: Rule1[TurtleType] = rule {
     subject ~ predicateObjectList ~> ASTTriples | blankNodePropertyList ~ predicateObjectList.? ~> ASTBlankNodeTriples
   }
 
@@ -216,7 +218,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
   }
 
   //[12] object 	::= 	iri | BlankNode | collection | blankNodePropertyList | literal
-  def `object`: Rule1[TurtleAST] = rule {
+  def `object`: Rule1[TurtleType] = rule {
     (iri | blankNode | collection | blankNodePropertyList | literal) ~> ASTObject
   }
 
@@ -314,7 +316,7 @@ class ChelonaParser(val input: ParserInput, val renderStatement: (TurtleAST) ⇒
   }
 
   //[135s] iri 	::= 	IRIREF | PrefixedName
-  def iri: Rule1[TurtleAST] = rule {
+  def iri: Rule1[TurtleType] = rule {
     (IRIREF | prefixedName) ~> ASTIri ~ ws
   }
 

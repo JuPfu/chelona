@@ -24,11 +24,11 @@ import scala.util.{ Failure, Success }
 
 object NQuadParser {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new NQuadParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new NQuadParser(input, output, validate, basePath, label)
   }
 
-  def parseAll(filename: String, inputBuffer: BufferedSource, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
+  def parseAll(filename: String, inputBuffer: BufferedSource, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean, base: String, label: String, verbose: Boolean, trace: Boolean, n: Int): Unit = {
 
     val ms: Double = System.currentTimeMillis
 
@@ -46,7 +46,7 @@ object NQuadParser {
 
     while (iterator.hasNext) {
       if (parseQueue.length > 1024) Thread.sleep(100) // a more sophiticated throtteling should be supplied
-      asynchronous(NQuadParser(iterator.take(lines).mkString("\n"), renderStatement, validate, base, label))
+      asynchronous(NQuadParser(iterator.take(lines).mkString("\n"), output, validate, base, label))
     }
 
     worker.shutdown()
@@ -80,9 +80,11 @@ object NQuadParser {
   }
 }
 
-class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement, validate, basePath, label) {
+class NQuadParser(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, output, validate, basePath, label) {
 
   import NQuadAST._
+
+  override val renderStatement = EvalNQuad(output, basePath, label).renderStatement _
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {

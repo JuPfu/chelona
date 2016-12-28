@@ -48,9 +48,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -73,9 +73,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -98,9 +98,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 0 ), "Number of quads generated should have been 0" )
 
@@ -118,9 +118,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -143,9 +143,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -168,9 +168,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -188,9 +188,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 6 ), "Number of quads generated should have been 6" )
 
@@ -208,9 +208,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -233,9 +233,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -253,9 +253,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -273,9 +273,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -293,9 +293,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -318,9 +318,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -343,9 +343,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -363,9 +363,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -383,9 +383,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -403,9 +403,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -423,9 +423,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -448,9 +448,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -473,9 +473,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -498,9 +498,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -518,9 +518,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -543,9 +543,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -568,9 +568,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 2 ), "Number of quads generated should have been 2" )
 
@@ -588,9 +588,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -608,9 +608,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -628,9 +628,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 30 ), "Number of quads generated should have been 30" )
 
@@ -648,9 +648,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -668,9 +668,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -688,9 +688,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -708,9 +708,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -728,9 +728,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -753,9 +753,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -773,9 +773,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -798,9 +798,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -818,9 +818,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -843,9 +843,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -863,9 +863,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -888,9 +888,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -908,9 +908,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -933,9 +933,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -953,9 +953,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -978,9 +978,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -998,9 +998,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1023,9 +1023,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1048,9 +1048,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1073,9 +1073,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1098,9 +1098,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1118,9 +1118,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1138,9 +1138,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 2 ), "Number of quads generated should have been 2" )
 
@@ -1158,9 +1158,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1178,9 +1178,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1203,9 +1203,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 0 ), "Number of quads generated should have been 0" )
 
@@ -1223,9 +1223,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1248,9 +1248,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1268,9 +1268,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1288,9 +1288,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1308,9 +1308,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1333,9 +1333,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1353,9 +1353,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1378,9 +1378,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1398,9 +1398,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1423,9 +1423,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1443,9 +1443,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1463,9 +1463,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1483,9 +1483,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1503,9 +1503,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1523,9 +1523,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1548,9 +1548,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1568,9 +1568,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1588,9 +1588,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1608,9 +1608,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1628,9 +1628,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1653,9 +1653,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1678,9 +1678,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 5 ), "Number of quads generated should have been 5" )
 
@@ -1698,9 +1698,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1718,9 +1718,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 0 ), "Number of quads generated should have been 0" )
 
@@ -1738,9 +1738,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1763,9 +1763,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1783,9 +1783,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1803,9 +1803,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1823,9 +1823,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         val res = parser.nquadsDoc.run() match {
             case scala.util.Success( tripleCount ) ⇒
@@ -1848,9 +1848,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1868,9 +1868,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 
@@ -1888,9 +1888,9 @@ class NQuadEARLSpec extends FlatSpec with RDFQuadOutput {
 
         val output = new StringWriter()
 
-        val quad = new EvalNQuad( quadWriter( output )_, "http://www.w3.org/2013/NQuadTests", "" )
+        val writer = quadWriter( output )_
 
-        val parser = NQuadParser( input, quad.renderStatement, false, "http://www.w3.org/2013/NQuadTests", "" )
+        val parser = NQuadParser( input, writer, false, "http://www.w3.org/2013/NQuadTests", "" )
 
         assert( parser.nquadsDoc.run() == scala.util.Success( 1 ), "Number of quads generated should have been 1" )
 

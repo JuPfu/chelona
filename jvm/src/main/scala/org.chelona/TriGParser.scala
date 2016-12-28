@@ -22,14 +22,16 @@ import scala.language.implicitConversions
 
 object TriGParser {
 
-  def apply(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new TriGParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new TriGParser(input, output, validate, basePath, label)
   }
 }
 
-class TriGParser(input: ParserInput, renderStatement: (TurtleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, renderStatement, validate, basePath, label) {
+class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends ChelonaParser(input: ParserInput, output, validate, basePath, label) {
 
   import TriGAST._
+
+  override val renderStatement = EvalTriG(output, basePath, label).renderStatement _
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {

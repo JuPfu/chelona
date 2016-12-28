@@ -26,9 +26,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/HYPHEN_MINUS_in_localName.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -43,9 +43,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/IRIREF_datatype.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -60,9 +60,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/IRI_subject.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -77,9 +77,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/IRI_with_all_punctuation.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -94,9 +94,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL1.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -111,9 +111,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL1_all_controls.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -128,9 +128,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL1_all_punctuation.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -145,9 +145,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL1_ascii_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -162,9 +162,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL2_ascii_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -179,9 +179,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG1_ascii_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -196,9 +196,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG1_with_1_squote.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -213,9 +213,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG1_with_2_squotes.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -230,9 +230,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG2_ascii_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -247,9 +247,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG2_with_1_squote.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -264,9 +264,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG2_with_2_squotes.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -281,9 +281,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG2_with_REVERSE_SOLIDUS.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -298,9 +298,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/LITERAL_LONG1_with_UTF8_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -315,9 +315,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/bareword_a_predicate.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -332,9 +332,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/bareword_decimal.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -349,9 +349,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/bareword_double.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -366,9 +366,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/blankNodePropertyList_as_object.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -383,9 +383,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/blankNodePropertyList_as_subject.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -400,9 +400,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/blankNodePropertyList_containing_collection.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -417,9 +417,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/blankNodePropertyList_with_multiple_triples.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -434,9 +434,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/collection_object.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -451,9 +451,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/collection_subject.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -468,9 +468,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/comment_following_PNAME_NS.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -485,9 +485,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/double_lower_case_e.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -502,9 +502,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/empty_collection.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -519,9 +519,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/first.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 7 ), "Number of triples generated should have been 7" )
 
@@ -536,9 +536,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/labeled_blank_node_object.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -553,9 +553,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/labeled_blank_node_subject.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -570,9 +570,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/langtagged_LONG_with_subtag.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -587,9 +587,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/langtagged_non_LONG.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -604,9 +604,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/lantag_with_subtag.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -621,9 +621,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/last.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 7 ), "Number of triples generated should have been 7" )
 
@@ -638,9 +638,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_false.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -655,9 +655,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_true.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -672,9 +672,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_BACKSPACE.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -689,9 +689,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_CARRIAGE_RETURN.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -706,9 +706,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_CHARACTER_TABULATION.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -723,9 +723,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_FORM_FEED.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -740,9 +740,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_LINE_FEED.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -757,9 +757,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_REVERSE_SOLIDUS.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -774,9 +774,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/literal_with_numeric_escape4.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -791,9 +791,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_assigned_nfc_PN_CHARS_BASE_character_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -808,9 +808,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_assigned_nfc_bmp_PN_CHARS_BASE_character_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -825,9 +825,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_leading_digit.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -842,9 +842,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_leading_underscore.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -859,9 +859,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_nfc_PN_CHARS_BASE_character_boundaries.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -876,9 +876,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localName_with_non_leading_extras.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -893,9 +893,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/localname_with_COLON.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -910,9 +910,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/negative_numeric.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -927,9 +927,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/nested_blankNodePropertyLists.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -944,9 +944,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/nested_collection.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 5 ), "Number of triples generated should have been 5" )
 
@@ -961,9 +961,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/number_sign_following_PNAME_NS.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -978,9 +978,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/number_sign_following_localName.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -995,9 +995,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/numeric_with_leading_0.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1012,9 +1012,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/objectList_with_two_objects.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1029,9 +1029,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/percent_escaped_localName.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1046,9 +1046,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/positive_numeric.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1063,9 +1063,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/predicateObjectList_with_two_objectLists.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1080,9 +1080,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/prefix_reassigned_and_used.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1097,9 +1097,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/repeated_semis_not_at_end.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1114,9 +1114,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/reserved_escaped_localName.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1131,9 +1131,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-eval-struct-01.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1148,9 +1148,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-eval-struct-02.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1165,9 +1165,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-01.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1182,9 +1182,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-02.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -1199,9 +1199,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-03.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -1216,9 +1216,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-04.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -1233,9 +1233,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-05.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1250,9 +1250,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-06.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 4 ), "Number of triples generated should have been 4" )
 
@@ -1267,9 +1267,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-07.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1284,9 +1284,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-08.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 5 ), "Number of triples generated should have been 5" )
 
@@ -1301,9 +1301,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-09.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1318,9 +1318,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-10.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 4 ), "Number of triples generated should have been 4" )
 
@@ -1335,9 +1335,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-11.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 5 ), "Number of triples generated should have been 5" )
 
@@ -1352,9 +1352,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-12.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 4 ), "Number of triples generated should have been 4" )
 
@@ -1369,9 +1369,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-13.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 4 ), "Number of triples generated should have been 4" )
 
@@ -1386,9 +1386,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-14.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1403,9 +1403,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-15.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1419,9 +1419,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-16.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1436,9 +1436,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-17.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1453,9 +1453,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-18.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1470,9 +1470,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-19.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -1487,9 +1487,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-20.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 3 ), "Number of triples generated should have been 3" )
 
@@ -1504,9 +1504,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-21.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1521,9 +1521,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-22.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1538,9 +1538,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-23.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 7 ), "Number of triples generated should have been 7" )
 
@@ -1555,9 +1555,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-24.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1572,9 +1572,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-25.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 
@@ -1589,9 +1589,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-26.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 22 ), "Number of triples generated should have been 22" )
 
@@ -1606,9 +1606,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/turtle-subm-27.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 5 ), "Number of triples generated should have been 5" )
 
@@ -1623,9 +1623,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/two_LITERAL_LONG2s.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 2 ), "Number of triples generated should have been 2" )
 
@@ -1640,9 +1640,9 @@ class ChelonaConversionSpec extends FlatSpec with RDFTurtleOutput {
 
         lazy val input: ParserInput = io.Source.fromFile( "./TurtleTests/underscore_in_localName.ttl" ).mkString
 
-        val output = new StringWriter(); val evalTurtle = new EvalTurtle( turtleWriter( output ) _, "http://www.w3.org/2013/TurtleTests", "" )
+        val output = new StringWriter(); val writer = turtleWriter( output ) _
 
-        val parser = ChelonaParser( input, evalTurtle.renderStatement, false, "http://www.w3.org/2013/TurtleTests", "" )
+        val parser = ChelonaParser( input, writer, false, "http://www.w3.org/2013/TurtleTests", "" )
 
         assert( parser.turtleDoc.run() == scala.util.Success( 1 ), "Number of triples generated should have been 1" )
 

@@ -26,51 +26,57 @@ import scala.util.Try
 
 object NTripleMain extends App {
 
-  /* get command line arguments */
+  // parse command line arguments
   val cmdLineArgs = argsParser.parse(args, Config())
 
+  // exit program if no command line arguments had been found
   if (cmdLineArgs.isEmpty) {
     sys.exit(1) // no arguments specified
   }
 
+  // display chelona version if requested and exit program
   if (cmdLineArgs.get.version) {
     System.err.println(chelona_version) // show version and exit
     sys.exit(2)
   }
 
+  // fetch command line arguments from command line parser
   val file = cmdLineArgs.get.file.head.getCanonicalPath()
   val validate = cmdLineArgs.get.validate
   val verbose = cmdLineArgs.get.verbose
   val fmt = cmdLineArgs.get.fmt
 
+  // if verbose mode had been requested, write some information to standard error
   if (verbose) {
     System.err.println((if (!validate) "Convert: " else "Validate: ") + file)
   }
 
+  // try to open input file using UTF_8 charset
   val inputfile: Try[BufferedSource] = Try { io.Source.fromFile(file)(StandardCharsets.UTF_8) }
 
+  // if input file could not be opened, write error message to standard error and exit program
   if (inputfile.isFailure) {
     System.err.println("Error: " + inputfile.failed.get)
     sys.exit(3)
   }
 
+  // fetch base definition from command line parser
   val base = cmdLineArgs.get.base
+  // if uid had been requested from the command line, build unique random label
   val label = if (cmdLineArgs.get.uid) java.util.UUID.randomUUID.toString.filter((c: Char) ⇒ c != '-').mkString else ""
 
+  // pass on some more detailed information from parboiled in case of error
   val trace = cmdLineArgs.get.trace
 
-  /* open output stream */
+  // output is written to standard out
   val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
+  // import dependencies for selected output format
   import RDFNTOutput._
   import JSONLDFlatOutput._
 
-  /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-  val eval = if (fmt.equals("n3")) {
-    EvalNTriples(ntripleWriter(output)_, base, label)
-  } else {
-    EvalNTriples(jsonLDFlatWriter(output)_, base, label)
-  }
+  // select output format requested from command line
+  val writer = if (fmt.equals("n3")) ntripleWriter(output)_ else jsonLDFlatWriter(output)_
 
   if (fmt.equals("json-ld")) {
     /* initialize json-ld output */
@@ -78,11 +84,12 @@ object NTripleMain extends App {
   }
 
   /* Looping in steps of n lines through the input file.
-     Gigabyte or Terrabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
+     Gigabyte sized files can be converted, while heap size needed should be a maximum of about 1 GB
      for n chosen to be about 100000 lines.
   */
-  NTriplesParser.parseAll(file, inputfile.get, eval.renderStatement, validate, base, label, verbose, trace, 250000)
+  NTriplesParser.parseAll(file, inputfile.get, writer, validate, base, label, verbose, trace, 250000)
 
+  // write termination sequence
   if (fmt.equals("json-ld")) {
     /* finalize json-ld output */
     jsonldFlatWriterTrailer(output)()
