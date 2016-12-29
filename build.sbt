@@ -10,7 +10,7 @@ val commonSettings = Seq(
   name := "chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
-  description := "W3C RDF 1.1 Turtle Parser",
+  description := "W3C RDF 1.1 Turtle-, TriG-, Quad- and NTriples-Parser",
   startYear := Some(2014),
   licenses := Seq("Apache 2" -> new URL("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   test in assembly := {},
@@ -60,10 +60,6 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(DoubleIndentClassDeclaration, true)
 
 lazy val chelona = crossProject.in(file("."))
-  .settings(commonSettings: _*)
-  .settings(scalariformSettings: _*)
-  .settings(formattingSettings: _*)
-  .settings(publishingSettings: _*)
   .settings(
     libraryDependencies ++=
     Seq(
@@ -72,8 +68,17 @@ lazy val chelona = crossProject.in(file("."))
       "org.scalatest" %%% "scalatest" % "3.0.1" % Test
       )
     )
-  .jvmSettings(libraryDependencies += "com.github.scopt" %% "scopt" % "3.5.0")
-  .jsSettings( )
+  .jvmSettings(
+    libraryDependencies ++=
+    Seq(
+      "com.github.scopt" %% "scopt" % "3.5.0"
+    )
+  )
+  .jsSettings()
+  .settings(commonSettings: _*)
+  .settings(scalariformSettings: _*)
+  .settings(formattingSettings: _*)
+  .settings(publishingSettings: _*)
 
 lazy val chelonaJVM = chelona.jvm
 lazy val chelonaJS = chelona.js
@@ -82,10 +87,10 @@ lazy val root = project.in(file("."))
   .aggregate(chelonaJVM, chelonaJS)
   .enablePlugins(ScalaJSPlugin)
   .settings(commonSettings:_*)
-  .settings(
-    mainClass in assembly := Some("org.chelona.TurtleMain"),
-    mainClass in Compile := (mainClass in chelonaJVM in Compile).value
-  )
+  //.settings(
+  //  mainClass in assembly := Some("org.chelona.TurtleMain"),
+  //  mainClass in Compile := (mainClass in chelonaJVM in Compile).value
+  //)
 
 /*
 scalatex.SbtPlugin.projectSettings

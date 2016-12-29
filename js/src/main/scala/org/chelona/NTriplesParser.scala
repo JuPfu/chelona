@@ -23,12 +23,12 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport
 object NTriplesParser extends NTripleAST {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new NTriplesParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new NTriplesParser(input, output, validate, basePath, label)
   }
 }
 
-class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
+class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
@@ -36,6 +36,8 @@ class NTriplesParser(val input: ParserInput, val renderStatement: (NTripleAST) �
   import NTripleAST._
 
   private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
+
+  val renderStatement = EvalNTriples(output, basePath, label).renderStatement _
 
   def ws = rule {
     quiet(anyOf(" \t").*)

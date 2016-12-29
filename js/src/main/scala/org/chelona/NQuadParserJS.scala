@@ -59,10 +59,7 @@ object NQuadParserJS {
 
     val output = new StringWriter()
 
-    /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalNQuad = new EvalNQuad(nquadWriter(output) _, base, label)
-
-    val parser = NQuadParser(input, evalNQuad.renderStatement, validate, base, label)
+    val parser = NQuadParser(input, nquadWriter(output) _, validate, base, label)
 
     val res = parser.nquadsDoc.run()
 

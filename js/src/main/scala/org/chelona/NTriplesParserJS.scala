@@ -62,10 +62,7 @@ object NTriplesParserJS {
 
     val output = new StringWriter()
 
-    /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalNT = new EvalNTriples(ntWriter(output) _, base, label)
-
-    val parser = NTriplesParser(input, evalNT.renderStatement, validate, base, label)
+    val parser = NTriplesParser(input, ntWriter(output) _, validate, base, label)
 
     val res = parser.ntriplesDoc.run()
 

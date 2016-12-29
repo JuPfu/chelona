@@ -23,14 +23,16 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport
 object NQuadParser {
 
-  def apply(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new NQuadParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new NQuadParser(input, output, validate, basePath, label)
   }
 }
 
-class NQuadParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input: ParserInput, renderStatement: (NTripleAST) ⇒ Int, validate, basePath, label) {
+class NQuadParser(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") extends NTriplesParser(input, output, validate, basePath, label) {
 
   import NQuadAST._
+
+  override val renderStatement = EvalNQuad(output, basePath, label).renderStatement _
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
