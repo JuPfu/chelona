@@ -62,10 +62,7 @@ object TriGParserJS {
 
     val output = new StringWriter()
 
-    /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalTriG = new EvalTriG(triGHTMLWriter(output) _, base, label)
-
-    val parser = TriGParser(input, evalTriG.renderStatement, validate, base, label)
+    val parser = TriGParser(input, triGHTMLWriter(output) _, validate, base, label)
 
     val res = parser.trigDoc.run()
 

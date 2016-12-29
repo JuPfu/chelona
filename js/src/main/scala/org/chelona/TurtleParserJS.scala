@@ -61,10 +61,7 @@ object TurtleParserJS {
 
     val output = new StringWriter()
 
-    /* AST evaluation procedure. Here is the point to provide your own flavour, if you like. */
-    val evalTurtle = new EvalTurtle(tripleWriter(output) _, base, label)
-
-    val parser = ChelonaParser(input, evalTurtle.renderStatement, validate, base, label)
+    val parser = ChelonaParser(input, tripleWriter(output) _, validate, base, label)
 
     val res = parser.turtleDoc.run()
 

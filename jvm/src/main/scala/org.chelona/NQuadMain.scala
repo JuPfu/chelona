@@ -78,7 +78,6 @@ object NQuadMain extends App {
   // select output format requested from command line
   val writer = if (fmt.equals("n3")) quadWriter(output) _ else jsonLDFlatWriter(output)_
 
-
   if (fmt.equals("json-ld")) {
     /* initialize json-ld output */
     jsonldFlatWriterInit(output)()

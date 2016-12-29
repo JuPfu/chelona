@@ -24,14 +24,12 @@ import scala.scalajs.js.annotation.JSExport
 @JSExport
 object ChelonaParser {
 
-  def apply(input: ParserInput, renderStatement: TurtleAST ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
-    new ChelonaParser(input, renderStatement, validate, basePath, label)
+  def apply(input: ParserInput, output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, basePath: String = "http://chelona.org", label: String = "") = {
+    new ChelonaParser(input, output, validate, basePath, label)
   }
 }
 
-class ChelonaParser(val input: ParserInput, val renderStatement: TurtleAST ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
-
-  import scala.collection.mutable
+class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ Int, validate: Boolean = false, val basePath: String = "http://chelona.org", val label: String = "") extends Parser with StringBuilding {
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
@@ -46,6 +44,8 @@ class ChelonaParser(val input: ParserInput, val renderStatement: TurtleAST ⇒ I
   implicit def wspStr(s: String): Rule0 = rule {
     quiet(str(s)) ~ ws
   }
+
+  val renderStatement = EvalTurtle(output, basePath, label).renderStatement _
 
   def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n\r").*).*) }
 
