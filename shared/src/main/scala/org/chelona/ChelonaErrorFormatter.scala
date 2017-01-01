@@ -15,9 +15,21 @@
 */
 package org.chelona
 
-import org.parboiled2.{ ParseError, ParserInput, ErrorFormatter }
-
+import org.parboiled2._
 import java.lang.{ StringBuilder ⇒ JStringBuilder }
+
+object ChelonaErrorFormatter {
+  def apply(
+    block:                Long    = 0L,
+    showExpected:         Boolean = true,
+    showPosition:         Boolean = true,
+    showLine:             Boolean = true,
+    showTraces:           Boolean = false,
+    showFrameStartOffset: Boolean = true,
+    expandTabs:           Int     = -1,
+    traceCutOff:          Int     = 120
+  ) = new ChelonaErrorFormatter()
+}
 
 class ChelonaErrorFormatter(
     block:                Long    = 0L,
@@ -36,10 +48,25 @@ class ChelonaErrorFormatter(
    */
   override def format(sb: JStringBuilder, error: ParseError, input: ParserInput): JStringBuilder = {
     formatProblem(sb, error, input)
+
     import error._
+
     if (showExpected) formatExpected(sb, error)
     if (showPosition) sb.append(" (line ").append((block + position.line)).append(", column ").append(position.column).append(')')
     if (showLine) formatErrorLine(sb.append(':').append('\n'), error, input)
     if (showTraces) sb.append('\n').append('\n').append(formatTraces(error)) else sb
+  }
+
+  def WarningMessage(s: String, t: String, e: String, cursor: Int, input: ParserInput) = {
+    import java.lang.{ StringBuilder ⇒ JStringBuilder }
+
+    val sb = new JStringBuilder(s + " - \"" + t + "\"\n")
+    val ps = Position(cursor, input)
+    val pe = new ParseError(ps, ps, RuleTrace(Nil, RuleTrace.Fail("")) :: Nil)
+    sb.append(e)
+    sb.append(" (line ").append((block + ps.line)).append(", column ").append(ps.column).append(')')
+    formatErrorLine(sb.append(':').append('\n'), pe, input)
+
+    System.err.println("Warning: " + sb)
   }
 }

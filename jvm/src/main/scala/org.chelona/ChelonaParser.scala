@@ -348,7 +348,17 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
 
   //[140s] PNAME_LN 	::= 	PNAME_NS PN_LOCAL
   def PNAME_LN = rule {
-    PNAME_NS ~ PN_LOCAL ~> ((ns: ASTPNameNS, local: ASTPNLocal) ⇒ (test(addPrefix(ns, local)) | fail("name space - PNAME_NS=\"" + ns + "\" might be undefined")) ~ push(ns) ~ push(local)) ~> ASTPNameLN
+    PNAME_NS ~ PN_LOCAL ~> ((ns: ASTPNameNS, local: ASTPNLocal) ⇒ (test(addPrefix(ns, local)) |
+      run(ChelonaErrorFormatter().WarningMessage(
+        "name space might be undefined",
+        ((ns: @unchecked) match {
+          case ASTPNameNS(rule) ⇒ (rule: @unchecked) match {
+            case Some(ASTPNPrefix(token)) ⇒ token
+            case None                     ⇒ ""
+          }
+        }), "Expected preceding @prefix definition before usage", cursor, input
+      ))) ~
+      push(ns) ~ push(local)) ~> ASTPNameLN
   }
 
   //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
