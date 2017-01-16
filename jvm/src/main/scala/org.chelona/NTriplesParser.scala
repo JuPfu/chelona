@@ -135,7 +135,7 @@ class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term
     if (astQueue.nonEmpty) astQueue.notify()
   }
 
-  val renderStatement = EvalNTriples(output, basePath, label).renderStatement _
+  lazy val renderStatement = EvalNTriples(output, basePath, label).renderStatement _
 
   def ws = rule {
     quiet(anyOf(" \t").*)

@@ -93,7 +93,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
     if (astQueue.length > 20) astQueue.notify()
   }
 
-  val renderStatement = EvalTurtle(output, basePath, label).renderStatement _
+  lazy val renderStatement = EvalTurtle(output, basePath, label).renderStatement _
 
   //[161s]
   implicit def wspStr(s: String): Rule0 = rule {
@@ -475,7 +475,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
   }
 
   private def maskEsc(s: String) = {
-    var c = s.charAt(0)
+    val c = s.charAt(0)
     if (c < ' ') {
       if (c == '\n') appendSB("\\n")
       else if (c == '\r') appendSB("\\r")

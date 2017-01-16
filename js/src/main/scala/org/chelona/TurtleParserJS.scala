@@ -26,6 +26,7 @@ import scala.util.{ Failure, Success }
 @JSExport
 object TurtleParserJS {
 
+  @JSExport("TurtleParserJS.ParseReport")
   object ParseReport { var information: String = "No information available." }
 
   @JSExport

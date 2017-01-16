@@ -31,7 +31,7 @@ class TriGParser(input: ParserInput, output: List[RDFReturnType] ⇒ Int, valida
 
   import TriGAST._
 
-  override val renderStatement = EvalTriG(output, basePath, label).renderStatement _
+  override lazy val renderStatement = EvalTriG(output, basePath, label).renderStatement _
 
   //[1] trigDoc 	::= 	statement*
   def trigDoc = rule {

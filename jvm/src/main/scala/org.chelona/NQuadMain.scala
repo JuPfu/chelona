@@ -69,7 +69,7 @@ object NQuadMain extends App {
   val trace = cmdLineArgs.get.trace
 
   // output is written to standard out
-  val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
+  lazy val output = new BufferedWriter(new OutputStreamWriter(System.out, StandardCharsets.UTF_8))
 
   // import dependencies for selected output format
   import RDFQuadOutput._

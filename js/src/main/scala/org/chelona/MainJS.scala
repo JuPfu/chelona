@@ -15,14 +15,11 @@
 */
 package org.chelona
 
-import org.chelona.TurtleParserJS.ParseReport
-
 import scala.scalajs.js.JSApp
-import scala.scalajs.js.annotation.JSExport
+import scala.scalajs.js.annotation.JSExportTopLevel
 
-@JSExport
 object MainJS extends JSApp {
-  @JSExport
+  @JSExportTopLevel("main")
   def main(): Unit = {
     val input = """<http://chelona.org/AHM-vocs> <http://purl.org/dc/terms/title> <http://chelona.org/Dataset> .
                   <http://chelona.org/AHM-vocs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://chelona.org/Dataset> .

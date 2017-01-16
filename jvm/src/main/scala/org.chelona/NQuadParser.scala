@@ -84,7 +84,7 @@ class NQuadParser(input: ParserInput, output: (Term, Term, Term, Term) ⇒ Int, 
 
   import NQuadAST._
 
-  override val renderStatement = EvalNQuad(output, basePath, label).renderStatement _
+  override lazy val renderStatement = EvalNQuad(output, basePath, label).renderStatement _
 
   //[1]	nquadsDoc	::=	statement? (EOL statement)* EOL?
   def nquadsDoc = rule {
