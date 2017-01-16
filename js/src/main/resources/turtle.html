@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+<head style="margin-left:20px;">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="stylesheet.css" rel="stylesheet">
     <title>Cheló̱na - Scala.js example</title>
 </head>
+
 <body>
+<div>
+    <table style="width: 100%; height: 100%">
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle;">
+                <h1 style="margin-left:20px;"><a href="https://github.com/JuPfu/chelona">Cheló̱na</a> a Parboiled2 based RDF-Turtle parser - Scala.js example</h1>
 
-<h1><a href="https://github.com/JuPfu/chelona">Cheló̱na</a> a Parboiled2 based RDF-Turtle parser - Scala.js example</h1>
-
-<p>Paste your RDF-TriG, RDF-Turtle or RDF-NTriple data into the upper text area and press the parse button to let Cheló̱na
+                <p style="margin-left:20px;">Paste your RDF-TriG, RDF-Turtle or RDF-NTriple data into the upper text area and press the parse button to let Cheló̱na
     convert your input into the RDF-NTriple format.</p>
-
-<script type="text/javascript" src="../../../target/scala-2.11/chelona-opt.js"></script>
+            </td>
+        </tr>
+<script type="text/javascript" src="../../../target/scala-2.12/chelona-opt.js"></script>
 
 <script type="text/javascript">
     function parse() {
@@ -22,10 +28,11 @@
         document.getElementById('report_data').innerHTML = org.chelona.TriGParserJS().getInformation();
     }
 </script>
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle;">
+                <div id="res" style="margin-left:20px;">Input:</div>
 
-<div id="res">Input:</div>
-
-<textarea id="input_data" rows="20" cols="120">
+                <textarea id="input_data" style="margin-left:20px;" rows="20" cols="120">
 #Example from https://en.wikipedia.org/wiki/FOAF_(ontology)
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -46,20 +53,34 @@
 
 <http://www.wikimedia.org>
     rdfs:label "Wikimedia" .
-</textarea>
+                </textarea>
+            </td>
+        </tr>
 
-<input type="button" value="parse" onclick='parse()'/>
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle;">
+                <input type="button" class="myButton" style="display: block;margin-left:auto; margin-right:auto;" value="Convert input" onclick='parse()'/>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle;">
+                <div id="res" style="margin-left:20px;">Information:</div>
 
-<div id="res">Information:</div>
-
-<textarea id="report_data" rows="5" cols="120">
+                <textarea id="report_data" style="margin-left:20px;" rows="5" cols="120">
 No report available.
-</textarea>
+                </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 100%; height: 100%; vertical-align: middle;">
+                <div id="res" style="margin-left:20px;">Result:</div>
 
-<div id="res">Result:</div>
+                <textarea id="output_data" style="margin-left:20px;" rows="20" cols="120">
+                </textarea>
 
-<textarea id="output_data" rows="20" cols="120">
-</textarea>
-
+            </td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
