@@ -8,7 +8,7 @@ addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.6.0")
 
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.1.10")
 
-addSbtPlugin("com.lihaoyi" % "scalatex-sbt-plugin" % "0.3.6")
+addSbtPlugin("com.lihaoyi" % "scalatex-sbt-plugin" % "0.3.7")
 
 addSbtPlugin("com.gilt" % "sbt-dependency-graph-sugar" % "0.8.2") // to see the dependency tree
 

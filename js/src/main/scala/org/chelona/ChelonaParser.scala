@@ -33,10 +33,11 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, Digit, HexDigit }
+  import org.parboiled2.CharUtils.hexValue
 
   import TurtleAST._
 
-  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
+  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (hexValue(cc(0)) << 12 | hexValue(cc(1)) << 8 | hexValue(cc(2)) << 4 | hexValue(cc(3))).toChar).filter(_ != '\u0000').mkString("")
 
   val prefixMap = scala.collection.mutable.Map.empty[String, String]
 
@@ -282,7 +283,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
       push(ns) ~ push(local)) ~> ASTPNameLN
   }
 
-  //[167s] N_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
+  //[167s] PN_PREFIX 	::= 	PN_CHARS_BASE ((PN_CHARS | '.')* PN_CHARS)?
   /* A prefix name may not start or end with a '.' (DOT), but is allowed to have any number of '.' in between.
 	 The predicate "&(ch('.').+ ~ PN_CHARS)", looks ahead and checks if the rule in braces will be fullfilled.
 	 It does so without interfering with the parsing process.

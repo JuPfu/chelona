@@ -32,10 +32,11 @@ class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term
 
   import org.chelona.CharPredicates._
   import org.parboiled2.CharPredicate.{ Alpha, AlphaNum, HexDigit }
+  import org.parboiled2.CharUtils.hexValue
 
   import NTripleAST._
 
-  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (Character.digit(cc(0), 16) << 12 | Character.digit(cc(1), 16) << 8 | Character.digit(cc(2), 16) << 4 | Character.digit(cc(3), 16)).toChar).filter(_ != '\u0000').mkString("")
+  private def hexStringToCharString(s: String) = s.grouped(4).map(cc ⇒ (hexValue(cc(0)) << 12 | hexValue(cc(1)) << 8 | hexValue(cc(2)) << 4 | hexValue(cc(3))).toChar).filter(_ != '\u0000').mkString("")
 
   val renderStatement = EvalNTriples(output, basePath, label).renderStatement _
 
