@@ -41,9 +41,10 @@ val formattingSettings = scalariformSettings ++ Seq(
 
 /////////////////////// PROJECTS /////////////////////////
 
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+
+resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 resolvers += Resolver.sonatypeRepo("public")
 
@@ -63,7 +64,7 @@ lazy val chelona = crossProject.in(file("."))
   .settings(
     libraryDependencies ++=
     Seq(
-      "org.parboiled" %%% "parboiled" % "2.1.3",
+      "org.parboiled" %%% "parboiled" % "2.1.4",
       "com.chuusai" %%% "shapeless" % "2.3.2",
       "org.scalatest" %%% "scalatest" % "3.0.1" % Test
       )
@@ -71,10 +72,15 @@ lazy val chelona = crossProject.in(file("."))
   .jvmSettings(
     libraryDependencies ++=
     Seq(
-      "com.github.scopt" %% "scopt" % "3.5.0"
+     // "org.parboiled" % "parboiled_2.12" % "2.1.3",
+      "com.github.scopt" % "scopt_2.12" % "3.5.0"
     )
   )
-  .jsSettings()
+  .jsSettings(
+    libraryDependencies ++=
+      Seq(
+      )
+  )
   .settings(commonSettings: _*)
   .settings(scalariformSettings: _*)
   .settings(formattingSettings: _*)
@@ -84,13 +90,9 @@ lazy val chelonaJVM = chelona.jvm
 lazy val chelonaJS = chelona.js
 
 lazy val root = project.in(file("."))
-  .aggregate(chelonaJVM, chelonaJS)
   .enablePlugins(ScalaJSPlugin)
+  .aggregate(chelonaJVM, chelonaJS)
   .settings(commonSettings:_*)
-  //.settings(
-  //  mainClass in assembly := Some("org.chelona.TurtleMain"),
-  //  mainClass in Compile := (mainClass in chelonaJVM in Compile).value
-  //)
 
 /*
 scalatex.SbtPlugin.projectSettings
