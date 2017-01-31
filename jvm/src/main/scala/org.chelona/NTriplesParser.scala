@@ -32,7 +32,7 @@ object NTriplesParser {
 
     val ms: Double = System.currentTimeMillis
 
-    var parserQueue = mutable.Queue[NTriplesParser]()
+    val parserQueue = mutable.Queue[NTriplesParser]()
     val worker = new NTriplesThreadWorker(parserQueue, filename, validate, verbose, trace)
 
     worker.setName("NTriplesParser")
@@ -119,7 +119,7 @@ class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term
  predicate object-lists, collections, etc.
  */
 
-  var astQueue = mutable.Queue[(NTripleType ⇒ Int, NTripleType)]()
+  val astQueue = mutable.Queue[(NTripleType ⇒ Int, NTripleType)]()
   val worker = new ASTThreadWorker(astQueue)
 
   if (!validate) {
@@ -284,7 +284,7 @@ class NTriplesParser(val input: ParserInput, val output: (Term, Term, Term, Term
     iriRef.startsWith("//") || hasScheme(iriRef)
   }
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri)
+  private def hasScheme(iri: String) = new SchemeIdentifier(iri).scheme
 
   private def maskQuotes(flag: Boolean, s: String) = {
     val c = hexStringToCharString(s)

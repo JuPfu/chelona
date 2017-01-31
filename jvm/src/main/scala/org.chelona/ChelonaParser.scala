@@ -78,7 +78,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
    predicate object-lists, collections, etc.
    */
 
-  var astQueue = mutable.Queue[(TurtleType ⇒ Int, TurtleType)]()
+  val astQueue = mutable.Queue[(TurtleType ⇒ Int, TurtleType)]()
   val worker = new ASTThreadWorker(astQueue)
 
   if (!validate) {
@@ -461,7 +461,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
     prefixMap.contains(ns)
   }
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri)
+  private def hasScheme(iri: String) = new SchemeIdentifier(iri).scheme
 
   private def maskQuotes(flag: Boolean, s: String) = {
     val c = hexStringToCharString(s)

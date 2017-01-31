@@ -407,5 +407,5 @@ class EvalTriG(output: List[RDFReturnType] ⇒ Int, basePath: String, label: Str
 
   private def getCollectionName = "_:c" + label + cCount
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri)
+  private def hasScheme(iri: String) = new SchemeIdentifier(iri).scheme
 }

@@ -361,5 +361,5 @@ class EvalTurtle(output: List[RDFReturnType] ⇒ Int, basePath: String, label: S
 
   private def getCollectionName = "_:c" + label + cCount
 
-  private def hasScheme(iri: String) = SchemeIdentifier(iri)
+  private def hasScheme(iri: String) = new SchemeIdentifier(iri).scheme
 }

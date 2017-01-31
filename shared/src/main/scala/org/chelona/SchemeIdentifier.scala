@@ -15,27 +15,12 @@
 */
 package org.chelona
 
-import org.parboiled2._
-import org.parboiled2.CharPredicate.{ Alpha, AlphaNum }
+class SchemeIdentifier(val input: String) {
 
-import scala.util.Success
+  private final val schemeChar = """[a-zA-Z][a-zA-Z0-9+-.]*:""".r
 
-object SchemeIdentifier {
-
-  val SchemeChar = AlphaNum ++ '+' ++ '-' ++ '.'
-
-  def apply(input: ParserInput): Boolean = {
-    new SchemeIdentifier(input).scheme.run() match {
-      case Success(s) ⇒ true
-      case _          ⇒ false
-    }
+  def scheme = schemeChar.findPrefixMatchOf(input) match {
+    case Some(x) ⇒ true
+    case None    ⇒ false
   }
-}
-
-class SchemeIdentifier(val input: ParserInput) extends Parser {
-
-  import SchemeIdentifier._
-
-  // scheme ::= ALPHA ( ALPHA / DIGIT / "+" / "-" / "." )*
-  def scheme = rule { capture(Alpha ~ SchemeChar.*) ~ ':' }
 }

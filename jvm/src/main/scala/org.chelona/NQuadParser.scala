@@ -32,7 +32,7 @@ object NQuadParser {
 
     val ms: Double = System.currentTimeMillis
 
-    var parseQueue = mutable.Queue[NQuadParser]()
+    val parseQueue = mutable.Queue[NQuadParser]()
     val worker = new NQuadsThreadWorker(parseQueue, filename, validate, verbose, trace)
 
     worker.setName("NQuadParser")
