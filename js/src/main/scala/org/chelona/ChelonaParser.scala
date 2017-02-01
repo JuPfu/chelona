@@ -16,7 +16,6 @@
 
 package org.chelona
 
-import org.chelona.ChelonaParser._
 import org.parboiled2._
 
 import scala.scalajs.js.annotation.JSExport
