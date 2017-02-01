@@ -48,7 +48,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
 
   val renderStatement = EvalTurtle(output, basePath, label).renderStatement _
 
-  def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n\r").*).*) }
+  def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n").*).*) }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {

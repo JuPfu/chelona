@@ -101,7 +101,7 @@ class ChelonaParser(val input: ParserInput, val output: List[RDFReturnType] ⇒ 
     quiet(str(s)) ~ ws
   }
 
-  def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n\r").*).*) }
+  def ws = rule { quiet((anyOf(" \n\r\t").+ | anyOf(" \t").* ~ '#' ~ noneOf("\n").*).*) }
 
   //[1] turtleDoc 	::= 	statement*
   def turtleDoc = rule {
