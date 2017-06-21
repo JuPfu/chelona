@@ -6,7 +6,7 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 val commonSettings = Seq(
   version := "1.3.0",
-  scalaVersion := "2.12.1",
+  scalaVersion := "2.12.2",
   name := "chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
@@ -72,7 +72,6 @@ lazy val chelona = crossProject.in(file("."))
   .jvmSettings(
     libraryDependencies ++=
     Seq(
-     // "org.parboiled" % "parboiled_2.12" % "2.1.3",
       "com.github.scopt" % "scopt_2.12" % "3.5.0"
     )
   )
