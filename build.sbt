@@ -6,7 +6,7 @@ import com.typesafe.sbt.SbtScalariform.ScalariformKeys
 
 val commonSettings = Seq(
   version := "1.3.0",
-  scalaVersion := "2.12.2",
+  scalaVersion := "2.12.3",
   name := "chelona",
   organization := "com.github.jupfu",
   homepage := Some(new URL("http://github.com/JuPfu/chelona")),
@@ -50,7 +50,7 @@ resolvers += Resolver.sonatypeRepo("public")
 
 resolvers += Resolver.typesafeRepo("releases")
 
-parallelExecution in Test := true
+parallelExecution in Test := false
 
 SbtScalariform.scalariformSettings
 
@@ -72,7 +72,7 @@ lazy val chelona = crossProject.in(file("."))
   .jvmSettings(
     libraryDependencies ++=
     Seq(
-      "com.github.scopt" % "scopt_2.12" % "3.5.0"
+      "com.github.scopt" % "scopt_2.12" % "3.6.0"
     )
   )
   .jsSettings(
